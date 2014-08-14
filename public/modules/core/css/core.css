@@ -1,15 +1,115 @@
+/* core css stylesheet */
+/* TODO: Not sure if html and body style should go here.*/
+html{
+    height: 100%;
+    min-height: 100%;
+}
+
+body {
+    padding-top: 60px;
+    height: 100%;
+    min-height: 100%;
+}
+
 .content {
-	margin-top: 50px;
+    margin-top: 50px;
 }
 .undecorated-link:hover {
-	text-decoration: none;
+    text-decoration: none;
 }
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-	display: none !important;
+    display: none !important;
 }
 .ng-invalid.ng-dirty{
     border-color:#FA787E;
 }
 .ng-valid.ng-dirty{
     border-color:#78FA89;
+}
+
+.menu {
+    list-style: none;
+    border-bottom: 0.1em solid black;
+    margin-bottom: 2em;
+    padding: 0 0 0.5em;
+}
+
+.menu:before {
+    content: "[";
+}
+
+.menu:after {
+    content: "]";
+}
+
+.menu > li {
+    display: inline;
+}
+
+.menu > li:before {
+    content: "|";
+    padding-right: 0.3em;
+}
+
+.menu > li:nth-child(1):before {
+    content: "";
+    padding: 0;
+}
+
+
+.footer {
+    padding: 70px 0;
+    margin-top: 70px;
+    border-top: 1px solid #E5E5E5;
+    background-color: whiteSmoke;
+}
+
+.navbar-fixed-top {
+    padding: 25px 0;
+    -webkit-transition: padding .3s;
+    -o-transition: padding .3s;
+    -moz-transition: padding .3s;
+    transition: padding .3s;
+}
+
+.navbar-fixed-top .navbar-brand {
+    font-size: 2em;
+    -webkit-transition: all .3s;
+    -o-transition: all .3s;
+    -moz-transition: all .3s;
+    transition: all .3s;
+    color: #fcd116;
+}
+
+.navbar-fixed-top .navbar-link {
+    color: #fcd116;
+    text-decoration: underline
+}
+
+.navbar-fixed-top.navbar-shrink {
+    padding: 10px 0;
+}
+
+.navbar-fixed-top.navbar-shrink .navbar-brand {
+    font-size: 1.5em;
+}
+
+.navbar {
+    font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    background: #005b99;
+}
+
+.navbar .navbar-nav {
+    letter-spacing: 1px;
+}
+
+.navbar-default, .navbar-inverse {
+    border: 0;
+}
+
+.full-screen {
+    height: 100%;
+    min-height: 100%;
 }
