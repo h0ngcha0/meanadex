@@ -1,94 +1,148 @@
-<section data-ng-controller="HomeController">
-	<div class="jumbotron text-center">
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
-				<img alt="MEAN.JS" class="img-responsive text-center" src="modules/core/img/brand/logo.png" />
-			</div>
-		</div>
-		<br>
-		<div class="row">
-			<p class="lead">
-				Open-Source Full-Stack Solution For MEAN Applications
-			</p>
-		</div>
-		<div class="row">
-			<p>
-				<a class="btn btn-primary btn-lg" href="http://meanjs.org" target="_blank">Learn more</a>
-			</p>
-		</div>
-	</div>
-	<div>
-		<h2>Congrats! You've configured and run the sample application.</h2>
-		<p>MEAN.JS is a web application boilerplate, which means you should start changing everything :-)</p>
-		<p>This sample application tracks users and articles.</p>
-		<ul>
-			<li>
-				Click
-				<em>Signup</em>
-				to get started.
-			</li>
-			<li>
-				Configure your app to work with your social accounts, by editing the
-				<em>/config/env/*.js</em>
-				files.
-			</li>
-			<li>
-				Edit your users module.
-			</li>
-			<li>
-				Add new CRUD modules.
-			</li>
-			<li>
-				Have fun...
-			</li>
-		</ul>
-	</div>
-	<div class="row">
-		<div class="col-md-3">
-			<h2>
-				<strong>M</strong>ongoDB
-			</h2>
-			<p><a target="_blank" href="http://mongodb.org/">MongoDB</a> is a database. MongoDB's <a target="_blank" href="http://docs.mongodb.org/manual/">great manual</a> is the place to get started with NoSQL and MongoDB.</p>
-		</div>
-		<div class="col-md-3">
-			<h2>
-				<strong>E</strong>xpress
-			</h2>
-			<p><a target="_blank" href="http://expressjs.com/"> Express</a> is an app server. Check out <a target="_blank" href="http://expressjs.com/guide.html">The Express Guide</a> or <a target="_blank" href="http://stackoverflow.com/questions/8144214/learning-express-for-node-js">StackOverflow</a> for more info.</p>
-		</div>
-		<div class="col-md-3">
-			<h2>
-				<strong>A</strong>ngularJS
-			</h2>
-			<p>AngularJS is web app framework. <a target="_blank" href="http://angularjs.org/">Angular's website</a> offers a lot. The <a target="_blank" href="http://www.thinkster.io/">Thinkster Popular Guide</a> and <a target="_blank" href="https://egghead.io/">Egghead Videos</a> are great resources.</p>
-		</div>
-		<div class="col-md-3">
-			<h2>
-				<strong>N</strong>ode.js
-			</h2>
-			<p><a target="_blank" href="http://nodejs.org/">Node.js</a> is a web server. Node's website and this <a target="_blank" href="http://stackoverflow.com/questions/2353818/how-do-i-get-started-with-node-js">stackOverflow thread</a> offer excellent starting points to get to grasps with node.</p>
-		</div>
-	</div>
-	<div class="well">
-		<h2>MEAN.JS Documentation</h2>
-		<p>
-			Once you're familiar with the foundation technology, check out the MEAN.JS Documentation:
-			<ul>
-				<li><a target="_blank" href="http://meanjs.org/docs.html">MEAN.JS Documentation</a>
-				</li>
-				<li><a target="_blank" href="http://meanjs.org/generator.html">Yeoman Generator</a>
-				</li>
-				<li><a target="_blank" href="http://meanjs.org/modules.html">Modules</a>
-				</li>
-				<li><a target="_blank" href="http://meanjs.org/changelog.html">Changelog</a>
-				</li>
-				<li><a target="_blank" href="http://meanjs.org/community.html">Community</a>
-				</li>
-				<li><a target="_blank" href="http://blog.meanjs.org">Blog</a>
-				</li>
-			</ul>
-		</p>
-	</div>
-	<br>Enjoy &amp; Keep Us Updated,
-	<br>The MEAN.JS Team.
-</section>
+<span data-ng-controller="HomeController">
+  <header class="full-screen">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <img class="img-responsive" src="modules/core/img/moose.jpg" alt="">
+          <div class="intro-text">
+            <span class="name">Design Your Own T-Shirts</span>
+            <hr class="star-light">
+            <span class="skills">And Sale To The Rest Of The World</span>
+          </div>
+          <br/>
+          <a href="#designer" type="button" class="btn btn-lg btn-success">
+            Get Started
+            <i class="glyphicon glyphicon-white"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="featured-campaigns">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2>Featured Campaigns</h2>
+          <hr class="star-primary">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 featured-campaign-item">
+          <a href="#featured-campaign-1" class="featured-campaign-link"
+             data-toggle="modal">
+            <div class="caption">
+              <div class="caption-content">
+                <i class="fa fa-search-plus fa-3x"></i>
+              </div>
+            </div>
+            <img src="modules/core/img/tshirt1.jpg" class="img-responsive" alt="" />
+          </a>
+        </div>
+        <div class="col-sm-4 featured-campaign-item">
+          <a href="#featured-campaign-2" class="featured-campaign-link"
+             data-toggle="modal">
+            <div class="caption">
+              <div class="caption-content">
+                <i class="fa fa-search-plus fa-3x"></i>
+              </div>
+            </div>
+            <img src="modules/core/img/tshirt2.png" class="img-responsive" alt="" />
+          </a>
+        </div>
+        <div class="col-sm-4 featured-campaign-item">
+          <a href="#featured-campaign-3" class="featured-campaign-link"
+             data-toggle="modal">
+            <div class="caption">
+              <div class="caption-content">
+                <i class="fa fa-search-plus fa-3x"></i>
+              </div>
+            </div>
+            <img src="modules/core/img/tshirt3.jpg" class="img-responsive" alt="" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="success" id="about">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2>Ready to launch your tee? <a href="#designer">Get started now!<a></h2>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2>Contact Us</h2>
+          <hr class="star-primary">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+          <p>Here Goes Our Awesome Contact Information.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <footer class="text-center">
+    <div class="footer-above">
+      <div class="container">
+        <div class="row">
+          <div class="footer-col col-md-4">
+            <h3>Location</h3>
+            <p>7 Ekmansgatan
+              <br>Gothenborg 41256, Sweden</p>
+          </div>
+          <div class="footer-col col-md-4">
+            <h3>Around the Web</h3>
+            <ul class="list-inline">
+              <li>
+                <a href="#" class="btn-social btn-outline">
+                  <i class="fa fa-fw fa-facebook"></i>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="btn-social btn-outline">
+                  <i class="fa fa-fw fa-google-plus"></i></a>
+              </li>
+              <li>
+                <a href="#" class="btn-social btn-outline">
+                  <i class="fa fa-fw fa-twitter"></i>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="btn-social btn-outline">
+                  <i class="fa fa-fw fa-wechat"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="footer-col col-md-4">
+            <h3>About Monadex.io</h3>
+            <p>
+              Monadex.io is an organization that's dedicated in
+              helping making more apparels with personalities.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-below">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            Copyright &copy; 2014 - Monadex.io
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</span>
