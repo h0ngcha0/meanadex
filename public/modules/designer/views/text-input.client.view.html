@@ -1,0 +1,37 @@
+<b>Enter text below</b>
+<br>
+<div class="input-group">
+  <input autocomplete="off" id="text-string" class="form-control"
+         type="text" placeholder="Add your text here">
+</div>
+<br>
+
+<b>Choose a font</b>
+<br>
+<!-- TODO: set the style of the list -->
+<select class="font-family-picker form-control"
+        ng-init="currentFont=fonts[0]"
+        ng-model="currentFont"
+        ng-options="font.name for font in fonts">
+</select>
+<br>
+
+<b>Text color</b>
+<br>
+<p class="btn btn-default" href="#" data-placement="top" data-original-title="Font Color">
+  <input type="hidden" id="text-fontcolor" class="color-picker" size="7" value="#000000">
+</p>
+<br><br>
+
+<b>Text Style</b>
+<br>
+<button id="text-bold" class="btn btn-default" data-original-title="Bold">
+  <img src="modules/designer/img/font_bold.png">
+</button>
+<button id="text-italic" class="btn btn-default" data-original-title="Italic">
+  <img src="modules/designer/img/font_italic.png">
+</button>
+<button id="text-underline" class="btn btn-default" title="Underline" style="">
+  <img src="modules/designer/img/font_underline.png">
+</button>
+<br>

@@ -18,6 +18,7 @@ module.exports = function(grunt) {
       serverViews: {
         files: watchFiles.serverViews,
         options: {
+          spawn: false,
           livereload: true
         }
       },
@@ -25,19 +26,22 @@ module.exports = function(grunt) {
         files: watchFiles.serverJS,
         tasks: ['jshint'],
         options: {
+          spawn: false,
           livereload: true
         }
       },
       clientViews: {
         files: watchFiles.clientViews,
         options: {
-          livereload: true,
+          spawn: false,
+          livereload: true
         }
       },
       clientJS: {
         files: watchFiles.clientJS,
         tasks: ['jshint'],
         options: {
+          spawn: false,
           livereload: true
         }
       },
@@ -45,6 +49,7 @@ module.exports = function(grunt) {
         files: watchFiles.clientCSS,
         tasks: ['csslint'],
         options: {
+          spawn: false,
           livereload: true
         }
       }
