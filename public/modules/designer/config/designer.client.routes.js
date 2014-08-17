@@ -8,7 +8,8 @@ angular.module('designer').config([
     $stateProvider.
       state('designer', {
         url: '/designer',
-        templateUrl: 'modules/designer/views/designer.client.view.html'
+        templateUrl: 'modules/designer/views/designer.client.view.html',
+        controller: 'DesignerController'
       });
   }
 ]);
