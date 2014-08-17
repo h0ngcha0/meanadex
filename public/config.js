@@ -13,7 +13,9 @@ var ApplicationConfiguration = (
         , 'ngSanitize'
         , 'ui.router'
         , 'ui.bootstrap'
-        , 'ui.utils'];
+        , 'ui.utils'
+        , 'textAngular'
+        ];
 
     // Add a new vertical module
     var registerModule = function(moduleName, dependencies) {
