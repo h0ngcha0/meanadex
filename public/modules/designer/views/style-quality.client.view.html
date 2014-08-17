@@ -1,0 +1,62 @@
+<div class="well">
+  <h3>Style & quality</h3>
+  <!--Select types of the T-Shirts-->
+  <select id="tshirt-type-selector"
+          ng-init="currentTshirtType=tshirtTypes[0]"
+          ng-model="currentTshirtType"
+          ng-options="tshirtType.name for tshirtType in tshirtTypes"
+          class="form-control">
+  </select>
+
+  <br>
+
+  <ul class="list-group">
+    <li class="list-group-item tshirt-variant"
+        ng-repeat="variant in currentTshirtType.variants" tabindex="-1"
+        colors="{{variant.colors}}"
+        basecost="{{variant.baseCost}}"
+        unit="{{variant.unit}}"
+        name="{{variant.name}}">
+      {{variant.name}}
+      <br>
+      <small>{{variant.description}}</small>
+    </li>
+  </ul>
+
+  <md-bg-color-picker colors="colors"></md-bg-color-picker>
+
+  <h5>Base cost @ 50 shirts</h5>
+  <h3 id="baseCostLabel">{{ baseCost }} {{ unit }}</h3>
+  <a href="#sales_goal"
+     type="button"
+     class="btn btn-lg btn-block btn-success"
+     name="designNextStep"
+     id="designNextStep">
+    Next step
+    <i class="glyphicon glyphicon-chevron-right glyphicon-white"></i>
+  </a>
+
+  <div class="modal fade" id="emptyCanvasModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+          </button>
+          <h4 class="modal-title center text-center">Your need to create a design.</h4>
+        </div>
+        <div class="modal-body text-center">
+          <small>Unfortunately, you can't sell a blank item. You need
+            to add text or art before you can continue.</small>
+        </div>
+        <div class="modal-footer">
+          <button type="button"
+                  class="btn btn-primary center-block"
+                  data-dismiss="modal">
+            Go back to designer
+          </button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+</div>
