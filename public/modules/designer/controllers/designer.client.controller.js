@@ -121,11 +121,11 @@ angular.module('designer').controller('DesignerController', [
       }
     ];
 
-    $scope.images = [ {src: 'img/avatar/avatar-1.jpeg'}
-                    , {src: 'img/avatar/avatar-2.png'}
-                    , {src: 'img/avatar/avatar-3.png'}
-                    , {src: 'img/avatar/avatar-4.png'}
-                    , {src: 'img/avatar/avatar-5.png'}
+    $scope.images = [ {src: 'modules/designer/img/avatar/avatar-1.jpeg'}
+                    , {src: 'modules/designer/img/avatar/avatar-2.png'}
+                    , {src: 'modules/designer/img/avatar/avatar-3.png'}
+                    , {src: 'modules/designer/img/avatar/avatar-4.png'}
+                    , {src: 'modules/designer/img/avatar/avatar-5.png'}
                     ];
 
     $scope.currentFont = { name: 'Arial'
