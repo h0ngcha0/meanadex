@@ -163,19 +163,19 @@ angular.module('designer').service('mdCanvasService', [
           isVML || this.transparentCorners || ctx.clearRect(left, top, sizeX, sizeY);
           switch(control) {
             case 'br':
-            img.src = 'img/tool/scale.png';
+            img.src = 'modules/designer/img/tool/scale.png';
             ctx.drawImage(img, left, top, sizeX, sizeY);
             break;
             case 'bl':
-            img.src = 'img/tool/delete.png';
+            img.src = 'modules/designer/img/tool/delete.png';
             ctx.drawImage(img, left, top, sizeX, sizeY);
             break;
             case 'tl':
-            img.src = 'img/tool/drag.png';
+            img.src = 'modules/designer/img/tool/drag.png';
             ctx.drawImage(img, left, top, sizeX, sizeY);
             break;
             case 'tr':
-            img.src = 'img/tool/rotate.png';
+            img.src = 'modules/designer/img/tool/rotate.png';
             ctx.drawImage(img, left, top, sizeX, sizeY);
             break;
             default:
@@ -271,7 +271,7 @@ angular.module('designer').service('mdCanvasService', [
 
     this.restoreCanvas = function() {
       // restore the canvas if possible
-      var frontImg = 'img/crew_front.png';
+      var frontImg = 'modules/designer/img/canvas/crew_front.png';
       this.renderCanvas(frontImg, this.frontCanvas);
       this.currentSide = 'front';
 
@@ -388,14 +388,14 @@ angular.module('designer').service('mdCanvasService', [
     };
 
     this.flipBack = function() {
-      var backImg = 'img/crew_back.png';
+      var backImg = 'modules/designer/img/canvas/crew_back.png';
       this.frontCanvas = JSON.stringify(canvas);
       this.renderCanvas(backImg, this.backCanvas);
       this.currentSide = 'back';
     };
 
     this.flipFront = function() {
-      var frontImg = 'img/crew_front.png';
+      var frontImg = 'modules/designer/img/canvas/crew_front.png';
       this.backCanvas = JSON.stringify(canvas);
       this.renderCanvas(frontImg, this.frontCanvas);
       this.currentSide = 'front';

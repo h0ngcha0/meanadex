@@ -12,11 +12,11 @@ angular.module('designer').controller('DesignerController', [
       , variants:
         [ { name: 'Hanes Tagless Tee'
           , description: 'Budget friendly'
-          , colors: [ {title:'White', style:'background-color:#ffffff;'},
-                      {title:'Dark Heather', style:'background-color:#616161;'},
-                      {title:'Gray', style:'background-color:#f0f0f0;'},
-                      {title:'Salmon', style:'background-color:#eead91;'},
-                      {title:'Kiwi', style:'background-color:#8aa140;'}
+          , colors: [ {title:'White', style:'background-color:#ffffff;'}
+                    , {title:'Dark Heather', style:'background-color:#616161;'}
+                    , {title:'Gray', style:'background-color:#f0f0f0;'}
+                    , {title:'Salmon', style:'background-color:#eead91;'}
+                    , {title:'Kiwi', style:'background-color:#8aa140;'}
                     ]
           , baseCost: 50
           ,  unit: 'SEK'
@@ -75,8 +75,8 @@ angular.module('designer').controller('DesignerController', [
                     ]
           , baseCost: 80
           , unit: 'SEK'
-          },
-          { name: 'Canvas Poly-Cotton Hoodie'
+          }
+        , { name: 'Canvas Poly-Cotton Hoodie'
           , description: 'Premium blend hoodie'
           , colors: [ {title:'Heather Orange', style:'background-color:#fc8d74;'}
                     , {title:'Heather Dark Chocolate', style:'background-color:#432d26;'}
@@ -98,8 +98,8 @@ angular.module('designer').controller('DesignerController', [
                     ]
           , baseCost: 102
           , unit: 'SEK'
-          },
-          { name: 'Canvas Ringspun Tank'
+          }
+        , { name: 'Canvas Ringspun Tank'
           , description: 'Premium material'
           , colors: [ {title:'Heather Orange', style:'background-color:#fc8d74;'}
                     , {title:'Heather Dark Chocolate', style:'background-color:#432d26;'}
@@ -107,8 +107,8 @@ angular.module('designer').controller('DesignerController', [
                     ]
           , baseCost: 98
           , unit: 'SEK'
-          },
-          { name: 'American Apparel Tank'
+          }
+        , { name: 'American Apparel Tank'
           , description: 'Top of the line'
           , colors: [ {title:'Avocado', style:'background-color:#aeba5e;'}
                     , {title:'Kiwi', style:'background-color:#8aa140;'}
