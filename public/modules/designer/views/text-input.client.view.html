@@ -1,8 +1,11 @@
 <b>Enter text below</b>
 <br>
 <div class="input-group">
-  <input autocomplete="off" id="text-string" class="form-control"
-         type="text" placeholder="Add your text here">
+  <input autocomplete="off"
+         id="text-string"
+         class="form-control"
+         type="text"
+         placeholder="Add your text here">
 </div>
 <br>
 
@@ -12,6 +15,7 @@
 <select class="font-family-picker form-control"
         ng-init="currentFont=fonts[0]"
         ng-model="currentFont"
+        ng-change="changeFontFamily()"
         ng-options="font.name for font in fonts">
 </select>
 <br>

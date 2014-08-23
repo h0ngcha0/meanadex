@@ -159,5 +159,9 @@ angular.module('designer').controller('DesignerController', [
     $scope.changeToUnderlineText = function() {
       mdCanvasService.toggleActiveTextUnderline();
     };
+
+    $scope.changeFontFamily = function() {
+      mdCanvasService.changeTextFontFamily($scope.currentFont.name);
+    }
   }
 ]);

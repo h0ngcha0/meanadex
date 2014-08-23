@@ -14,17 +14,6 @@ angular.module('designer').directive('mdTextInput', [
             }
           });
 
-          element.find('.font-family-picker').change(
-            function(event) {
-              var sclass = '.font-family-picker option:selected',
-                  selected = element.find(sclass)[0],
-                  font = $(selected).text();
-
-              mdCanvasService.changeTextFontFamily(font);
-              event.preventDefault();
-            }
-          );
-
           element.find('#text-string').keyup(function(e){
             var text = $(this)[0].value;
 
