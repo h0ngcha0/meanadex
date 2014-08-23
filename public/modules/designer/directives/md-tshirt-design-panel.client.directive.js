@@ -5,11 +5,6 @@ angular.module('designer').directive('mdTshirtDesignPanel', [
   function($timeout) {
     return {
       restrict: 'E',
-      scope: {
-        colors: '=',
-        images: '=',
-        fonts: '='
-      },
       templateUrl: 'modules/designer/views/design-panel.client.view.html',
       link: function(scope, element) {
       }

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('designer').controller('DesignerController', [
-  '$scope',
-  function($scope) {
+  '$scope', 'mdCanvasService',
+  function($scope, mdCanvasService) {
     $scope.currentTshirtType = null;
     $scope.currentVariant = null;
 
@@ -147,5 +147,17 @@ angular.module('designer').controller('DesignerController', [
                    , {name: 'Plaster', class: 'Plaster'}
                    , {name: 'Engagement', class: 'Engagement'}
                    ];
+
+    $scope.changeToBoldText = function() {
+      mdCanvasService.toggleActiveTextBold();
+    };
+
+    $scope.changeToItalicText = function() {
+      mdCanvasService.toggleActiveTextItalic();
+    };
+
+    $scope.changeToUnderlineText = function() {
+      mdCanvasService.toggleActiveTextUnderline();
+    };
   }
 ]);

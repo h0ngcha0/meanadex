@@ -5,11 +5,6 @@ angular.module('designer').directive('mdTshirtStyleQualityPanel', [
   function($timeout, $compile, mdCanvasService, mdCampaignInfoAccumulatorService) {
     return {
       restrict: 'E',
-      scope: {
-        tshirtTypes: '=',
-        baseCost: '=',
-        colors: '='
-      },
       templateUrl: 'modules/designer/views/style-quality.client.view.html',
       link: function(scope, element, attrs) {
         $timeout(function() {

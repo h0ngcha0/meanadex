@@ -490,12 +490,6 @@ angular.module('designer').service('mdCanvasService', [
       });
     };
 
-    this.setActiveTextAlignment = function(position) {
-      applyToActiveTextFun(function(activeObject) {
-        activeObject.setTextAlign(position);
-      });
-    };
-
     this.setAvailableBgColors = function(colors) {
       $rootScope.$broadcast('mdeBgAvailableColorsChanged', {
         colors: colors

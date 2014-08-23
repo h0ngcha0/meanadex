@@ -5,9 +5,6 @@ angular.module('designer').directive('mdTextInput', [
   function($timeout, mdCanvasService){
     return {
       restrict: 'E',
-      scope: {
-        fonts: '='
-      },
       templateUrl: 'modules/designer/views/text-input.client.view.html',
       link: function(scope, element, attrs) {
         $timeout(function() {
@@ -15,30 +12,6 @@ angular.module('designer').directive('mdTextInput', [
             change: function(hex) {
               mdCanvasService.renderActiveTextFontColor(hex);
             }
-          });
-
-          element.find('#text-bold').click(
-            mdCanvasService.toggleActiveTextBold
-          );
-
-          element.find('#text-italic').click(
-            mdCanvasService.toggleActiveTextItalic
-          );
-
-          element.find('#text-underline').click(
-            mdCanvasService.toggleActiveTextUnderline
-          );
-
-          element.find('#text-left').click(function() {
-            mdCanvasService.setActiveTextAlignment('left');
-          });
-
-          element.find('#text-center').click(function() {
-            mdCanvasService.setActiveTextAlignment('center');
-          });
-
-          element.find('#text-right').click(function() {
-            mdCanvasService.setActiveTextAlignment('right');
           });
 
           element.find('.font-family-picker').change(
