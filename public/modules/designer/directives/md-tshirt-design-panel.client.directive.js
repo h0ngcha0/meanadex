@@ -12,11 +12,6 @@ angular.module('designer').directive('mdTshirtDesignPanel', [
       },
       templateUrl: 'modules/designer/views/design-panel.client.view.html',
       link: function(scope, element) {
-        $timeout(function() {
-          element.find('.tab-link').click(function(event) {
-            event.preventDefault();
-          });
-        }, 0);
       }
     };
   }
