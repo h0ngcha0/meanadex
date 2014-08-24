@@ -15,13 +15,13 @@ module.exports = {
       css: [
         'public/lib/bootstrap/dist/css/bootstrap.css',
         'public/lib/bootstrap/dist/css/bootstrap-theme.css',
-        'public/lib/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css',
         'public/lib/font-awesome/css/font-awesome.css',
-        'public/lib/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css',
-        'public/lib/angular-bootstrap-colorpicker/css/colorpicker.css'
+        'public/lib/angular-bootstrap-colorpicker/css/colorpicker.css',
+        'public/lib/jquery-ui/themes/smoothness/jquery-ui.css'
       ],
       js: [
         'public/lib/jquery/jquery.js',
+        'public/lib/jquery-ui/ui/jquery-ui.js',
         'public/lib/angular/angular.js',
         'public/lib/angular-resource/angular-resource.js',
         'public/lib/angular-cookies/angular-cookies.js',
@@ -33,11 +33,11 @@ module.exports = {
         'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
         'public/lib/fabric/dist/fabric.js',
         'public/lib/bootstrap/dist/js/bootstrap.js',
-        'public/lib/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js',
         'public/lib/textAngular/dist/textAngular-sanitize.min.js',
         'public/lib/textAngular/dist/textAngular.min.js',
         'public/lib/datejs/build/date.js',
-        'public/lib/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js'
+        'public/lib/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js',
+        'public/lib/angular-ui-slider/src/slider.js'
       ]
     },
     css: [

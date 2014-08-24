@@ -1,17 +1,15 @@
 <!--Select types of the T-Shirts-->
 <div class="well">
   <h4>Sales goal</h4>
-  <b>{{tshirtsSalesGoalMin}}</b>
-  <input id="numOfTshirtSlider"
-         data-slider-id='numOfTshirtSlider'
-         type="text"
-         data-slider-min="10"
-         data-slider-max="400"
-         data-slider-step="1"
-         data-slider-value="50"/>
-  <b>{{tshirtsSalesGoalMax}}</b>
+  <div ui-slider="slider.options"
+       min="{{tshirtsSalesGoalMin}}"
+       max="{{tshirtsSalesGoalMax}}"
+       type="text"
+       id="numOfTshirtSlider"
+       ng-model="tshirtsSalesGoal">
+  </div>
 
-  <br/><br/>
+  <br/>
 
   <input id="numOfTshirtInput" ng-model="tshirtsSalesGoal"/>
   Shirts

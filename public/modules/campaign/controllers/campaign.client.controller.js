@@ -35,8 +35,14 @@ angular.module('campaign').controller('CampaignController', [
     };
 
     $scope.setSalesGoal = function() {
-      mdCampaignInfoAccumulatorService.setSalesGoal(scope.tshirtsSalesGoal);
-      mdCampaignInfoAccumulatorService.setPrice(scope.tshirtPrice);
+      mdCampaignInfoAccumulatorService.setSalesGoal($scope.tshirtsSalesGoal);
+      mdCampaignInfoAccumulatorService.setPrice($scope.tshirtPrice);
+    };
+
+    $scope.slider = {
+      'options': {
+        animate: true
+      }
     };
   }
 ]);

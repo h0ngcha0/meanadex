@@ -16,6 +16,7 @@ var ApplicationConfiguration = (
         , 'ui.utils'
         , 'textAngular'
         , 'colorpicker.module'
+        , 'ui.slider'
         ];
 
     // Add a new vertical module
