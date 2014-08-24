@@ -11,7 +11,7 @@ angular.module('designer').directive('mdTextInput', [
           // FIXME: need to figure out a way to communicate the set the
           // currentFont, fontColor and inputText from here
           scope.$on('mdeTextObjectSelected', function(event, props) {
-            element.find('#text-string').val(props.text);
+            //element.find('#text-string').val(props.text);
 
             //element.find('#text-fontcolor').minicolors(
             //  'value', props.fontColor

@@ -2,26 +2,39 @@
 <div class="well">
   <h4>Sales goal</h4>
   <b>{{tshirtsSalesGoalMin}}</b>
-  <input id="numOfTshirtSlider" data-slider-id='numOfTshirtSlider' type="text"
-         data-slider-min="10" data-slider-max="400" data-slider-step="1"
+  <input id="numOfTshirtSlider"
+         data-slider-id='numOfTshirtSlider'
+         type="text"
+         data-slider-min="10"
+         data-slider-max="400"
+         data-slider-step="1"
          data-slider-value="50"/>
   <b>{{tshirtsSalesGoalMax}}</b>
 
   <br/><br/>
 
-  <input id="numOfTshirtInput" ng-model="tshirtsSalesGoal"> Shirts
+  <input id="numOfTshirtInput" ng-model="tshirtsSalesGoal"/>
+  Shirts
 
   <hr/>
 
   <h4>Estimated Profit</h4>
-  <h3><span class="priceTag"><span id="estimatedProfitTag"></span> SEK</span></h3>
+  <h3>
+    <span class="priceTag">
+      <span id="estimatedProfitTag"> {{ estimatedProfitFun() }}</span>
+      SEK
+    </span>
+  </h3>
 
   <hr/>
 
   <h4>Set price</h4>
   <p>
     Set the selling price of your shirt to determine your profit.
-    Current base cost is <span id="baseCostTag" class="priceTag"><span>
+    Current base cost is
+    <span id="baseCostTag" class="priceTag">
+      {{ baseCost }}
+    </span>
   </p>
   SEK <input id="priceOfTshirtInput" ng-model="tshirtPrice">
   <span class="priceTag"><span id="profitPerTshirt"> </span> SEK profit/sale</span>
@@ -32,7 +45,8 @@
      href="#!campaign_details"
      type="button"
      class="btn btn-lg btn-block btn-success"
-     name="salesGoalNextStep">
+     name="salesGoalNextStep"
+     data-ng-click="setSalesGoal()">
     Next step
     <i class="glyphicon glyphicon-chevron-right glyphicon-white"></i>
   </a>
