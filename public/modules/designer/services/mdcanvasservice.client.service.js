@@ -387,11 +387,20 @@ angular.module('designer').service('mdCanvasService', [
       }
     };
 
+    this.flip = function() {
+      if (this.currentSide === 'front') {
+        return this.flipBack();
+      } else {
+        return this.flipFront();
+      }
+    }
+
     this.flipBack = function() {
       var backImg = 'modules/designer/img/canvas/crew_back.png';
       this.frontCanvas = JSON.stringify(canvas);
       this.renderCanvas(backImg, this.backCanvas);
       this.currentSide = 'back';
+      return this.currentSide;
     };
 
     this.flipFront = function() {
@@ -399,6 +408,7 @@ angular.module('designer').service('mdCanvasService', [
       this.backCanvas = JSON.stringify(canvas);
       this.renderCanvas(frontImg, this.frontCanvas);
       this.currentSide = 'front';
+      return this.currentSide;
     };
 
     this.getFrontCanvas = function() {

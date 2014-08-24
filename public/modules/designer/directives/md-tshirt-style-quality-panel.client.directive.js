@@ -91,10 +91,7 @@ angular.module('designer').directive('mdTshirtStyleQualityPanel', [
               // when leaving the designer save the canvas
               // TODO: set it to read only as well. setting
               // canvas.selection = false doesn't seem to work.
-              mdCampaignInfoAccumulatorService.setTshirtType(
-                scope.currentTshirtType
-              );
-
+              mdCampaignInfoAccumulatorService.setTshirtType(scope.currentTshirtType);
               mdCanvasService.disableEdit();
             }
           });

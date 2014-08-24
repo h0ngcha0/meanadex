@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('designer').directive('mdTshirtCanvas', [
-  'mdCanvasService',
-  function(mdCanvasService) {
+  '$timeout', 'mdCanvasService',
+  function($timeout, mdCanvasService) {
     var canvas;
     return {
       restrict: 'E',
@@ -10,6 +10,18 @@ angular.module('designer').directive('mdTshirtCanvas', [
       link: function(scope, element, attrs) {
         // initialize the mdCanvasService
         mdCanvasService.init('tcanvas', '#tshirtFacing', '#shirtDiv');
+        $timeout(function() {
+          element.find('#flip').click(function() {
+            var flipTextElem = element.find('#flip-text');
+            var currentSide = mdCanvasService.flip();
+            if (currentSide === 'front') {
+              flipTextElem.text("Show Back View");
+            } else {
+              flipTextElem.text("Show Front View");
+            }
+
+          });
+        }, 0);
       }
     };
   }

@@ -190,18 +190,6 @@ angular.module('designer').controller('DesignerController', [
       mdCanvasService.removeCanvasBorder();
     };
 
-    $scope.flipText = "Show Back View";
-
-    $scope.flipTshirt = function() {
-      if ($scope.flipText === 'Show Back View') {
-        $scope.flipText = 'Show Front View';
-        mdCanvasService.flipBack();
-      } else {
-        $scope.flipText = 'Show Back View';
-        mdCanvasService.flipFront();
-      }
-    };
-
     $scope.addImage = function(imgSrc) {
       mdCanvasService.addImage(imgSrc);
     }
