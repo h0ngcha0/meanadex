@@ -8,6 +8,8 @@ angular.module('designer').directive('mdTextInput', [
       templateUrl: 'modules/designer/views/text-input.client.view.html',
       link: function(scope, element, attrs) {
         $timeout(function() {
+          // FIXME: need to figure out a way to communicate the set the
+          // currentFont, fontColor and inputText from here
           scope.$on('mdeTextObjectSelected', function(event, props) {
             element.find('#text-string').val(props.text);
 
@@ -31,7 +33,7 @@ angular.module('designer').directive('mdTextInput', [
             //  'value', '#000000'
             //);
 
-            element.find('.font-family-picker').val(0);
+            //element.find('.font-family-picker').val(0);
           });
         }, 0);
       }

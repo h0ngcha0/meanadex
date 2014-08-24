@@ -33,3 +33,32 @@
 .HoeflerText{font-family:"Hoefler Text";}
 .Plaster{font-family:"Plaster";}
 .Engagement{font-family:"Engagement";}
+
+.tshirtDiv {
+    width: 530px;
+    height: 630px;
+    position: relative;
+    background-color: rgb(255, 255, 255);
+}
+
+.tshirtDrawingArea {
+    position: absolute;
+    top: 100px;
+    left: 160px;
+    z-index: 10;
+    width: 200px;
+    height: 400px;
+}
+
+.tshirtCanvas {
+    -webkit-user-select: none;
+}
+
+.flipButtonDiv {
+    position: absolute;
+    top: 580px;
+    left: 180px;
+    z-index: 10;
+    width: 50px;
+    height: 50px;
+}

@@ -1,12 +1,14 @@
-<div id="shirtDiv" class="page" style="width: 530px; height: 630px; position: relative; background-color: rgb(255, 255, 255);">
+<div id="shirtDiv" class="page tshirtDiv">
   <img id="tshirtFacing" src="modules/designer/img/canvas/crew_front.png"></img>
-  <div id="drawingArea" style="position: absolute;top: 100px;left: 160px;z-index: 10;width: 200px;height: 400px;">
-    <canvas id="tcanvas" width="200" height="400" class="hover" style="-webkit-user-select: none;"></canvas>
+  <div id="drawingArea" class="tshirtDrawingArea">
+    <canvas id="tcanvas" width="200" height="400" class="hover tshirtCanvas"></canvas>
   </div>
 
-  <div id="drawingArea" style="position: absolute;top: 580px;left: 180px;z-index: 10;width: 50px;height: 50px;">
+  <div class="flipButtonDiv">
     <button id="flip" type="button" class="btn btn-default">
-      <span class="glyphicon glyphicon-retweet"></span> <strong id="flip-text">Show Back View</strong>
+      <span class="glyphicon glyphicon-retweet">
+      </span>
+      <strong id="flip-text">Show Back View</strong>
     </button>
-  <div>
+  </div>
 </div>
