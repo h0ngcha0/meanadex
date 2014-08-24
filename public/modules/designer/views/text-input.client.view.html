@@ -5,6 +5,8 @@
          id="text-string"
          class="form-control"
          type="text"
+         ng-model="inputText"
+         ng-keyup="addOrEditText()"
          placeholder="Add your text here">
 </div>
 <br>
@@ -22,8 +24,13 @@
 
 <b>Text color</b>
 <br>
-<p class="btn btn-default" href="#" data-placement="top" data-original-title="Font Color">
-  <input type="hidden" id="text-fontcolor" class="color-picker" size="7" value="#000000">
+<p class="btn btn-default" href="#" data-placement="top"
+   data-original-title="Font Color">
+  <input colorpicker
+         colorpicker-position="top"
+         data-ng-change="changeColorText()"
+         data-ng-model="fontColor">
+  </input>
 </p>
 <br><br>
 

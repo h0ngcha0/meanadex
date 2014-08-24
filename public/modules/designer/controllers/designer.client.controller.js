@@ -128,10 +128,6 @@ angular.module('designer').controller('DesignerController', [
                     , {src: 'modules/designer/img/avatar/avatar-5.png'}
                     ];
 
-    $scope.currentFont = { name: 'Arial'
-                         , class: 'Arial'
-                         };
-
     $scope.fonts = [ {name: 'Arial', class: 'Arial'}
                    , {name: 'Helvetica', class: 'Helvetica'}
                    , {name: 'Myriad Pro', class: 'MyriadPro'}
@@ -148,6 +144,13 @@ angular.module('designer').controller('DesignerController', [
                    , {name: 'Engagement', class: 'Engagement'}
                    ];
 
+    $scope.currentFont = { name: 'Arial'
+                         , class: 'Arial'
+                         };
+
+    $scope.fontColor = "#000000";
+    $scope.inputText = "";
+
     $scope.changeToBoldText = function() {
       mdCanvasService.toggleActiveTextBold();
     };
@@ -162,6 +165,22 @@ angular.module('designer').controller('DesignerController', [
 
     $scope.changeFontFamily = function() {
       mdCanvasService.changeTextFontFamily($scope.currentFont.name);
+    };
+
+    $scope.changeColorText = function() {
+      mdCanvasService.renderActiveTextFontColor($scope.fontColor);
     }
+
+    $scope.addOrEditText = function() {
+      if(mdCanvasService.activeTextP()) {
+        mdCanvasService.renderActiveTextContent($scope.inputText);
+      } else if ($scope.inputText !== '') {
+        mdCanvasService.addTextWhenNoActiveText( $scope.inputText
+                                               , $scope.fontColor
+                                               , $scope.currentFont.name);
+        mdCanvasService.setTheLastObjActive();
+      }
+    };
+
   }
 ]);

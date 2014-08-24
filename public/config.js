@@ -15,6 +15,7 @@ var ApplicationConfiguration = (
         , 'ui.bootstrap'
         , 'ui.utils'
         , 'textAngular'
+        , 'colorpicker.module'
         ];
 
     // Add a new vertical module

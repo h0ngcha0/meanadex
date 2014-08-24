@@ -18,11 +18,10 @@ module.exports = {
         'public/lib/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css',
         'public/lib/font-awesome/css/font-awesome.css',
         'public/lib/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css',
-        'public/lib/jquery-minicolors/jquery.minicolors.css'
+        'public/lib/angular-bootstrap-colorpicker/css/colorpicker.css'
       ],
       js: [
         'public/lib/jquery/jquery.js',
-        'public/lib/jquery-minicolors/jquery.minicolors.js',
         'public/lib/angular/angular.js',
         'public/lib/angular-resource/angular-resource.js',
         'public/lib/angular-cookies/angular-cookies.js',
@@ -37,7 +36,8 @@ module.exports = {
         'public/lib/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js',
         'public/lib/textAngular/dist/textAngular-sanitize.min.js',
         'public/lib/textAngular/dist/textAngular.min.js',
-        'public/lib/datejs/build/date.js'
+        'public/lib/datejs/build/date.js',
+        'public/lib/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js'
       ]
     },
     css: [
