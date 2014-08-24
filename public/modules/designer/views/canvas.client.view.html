@@ -1,14 +1,20 @@
 <div id="shirtDiv" class="page tshirtDiv">
   <img id="tshirtFacing" src="modules/designer/img/canvas/crew_front.png"></img>
-  <div id="drawingArea" class="tshirtDrawingArea">
+  <div id="drawingArea"
+       class="tshirtDrawingArea"
+       data-ng-mouseenter="addCanvasBorder()"
+       data-ng-mouseleave="removeCanvasBorder()">
     <canvas id="tcanvas" width="200" height="400" class="hover tshirtCanvas"></canvas>
   </div>
 
   <div class="flipButtonDiv">
-    <button id="flip" type="button" class="btn btn-default">
+    <button id="flip"
+            type="button"
+            data-ng-click="flipTshirt()"
+            class="btn btn-default">
       <span class="glyphicon glyphicon-retweet">
       </span>
-      <strong id="flip-text">Show Back View</strong>
+      <strong id="flip-text">{{ flipText }}</strong>
     </button>
   </div>
 </div>
