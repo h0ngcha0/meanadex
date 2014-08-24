@@ -201,5 +201,9 @@ angular.module('designer').controller('DesignerController', [
         mdCanvasService.flipFront();
       }
     };
+
+    $scope.addImage = function(imgSrc) {
+      mdCanvasService.addImage(imgSrc);
+    }
   }
 ]);
