@@ -28,9 +28,7 @@ angular.module('campaign').directive('mdCampaignSummaryPanel', [
             scope.campaignUrl = cs.getUrl();
             scope.currentCampaignLength = cs.getLength();
             scope.tshirtVariant = cs.getTshirtVariant();
-            scope.tshirtType =
-              cs.getTshirtType() === null ?
-              null : cs.getTshirtType().id;
+            scope.tshirtType = cs.getTshirtType() === null ? null : cs.getTshirtType().id;
             scope.tshirtBaseCost = cs.getBaseCost();
             scope.tshirtPrice = cs.getPrice();
           });
