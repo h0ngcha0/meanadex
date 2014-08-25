@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('campaign').directive('mdCampaignDetailsPanel', [
+angular.module('campaigns').directive('mdCampaignDetailsPanel', [
   '$timeout', 'mdCampaignInfoAccumulatorService',
   function($timeout, mdCampaignInfoAccumulatorService){
     return {
@@ -8,7 +8,7 @@ angular.module('campaign').directive('mdCampaignDetailsPanel', [
       scope: {
         campaignLengths: '='
       },
-      templateUrl: 'modules/campaign/views/campaign-details-panel.client.view.html',
+      templateUrl: 'modules/campaigns/views/campaign-details-panel.client.view.html',
       link: function(scope, element, attrs) {
         $timeout(function() {
           element.find('#campaignDetailNextStep').click(function(e) {

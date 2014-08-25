@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('campaign').service('mdCampaignInfoAccumulatorService', [
+angular.module('campaigns').service('mdCampaignInfoAccumulatorService', [
   function() {
     this.type = null;
     this.variantName = null;

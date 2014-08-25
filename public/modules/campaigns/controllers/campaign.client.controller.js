@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('campaign').controller('CampaignController', [
+angular.module('campaigns').controller('CampaignController', [
   '$scope', 'mdCampaignInfoAccumulatorService',
   function($scope, mdCampaignInfoAccumulatorService) {
     $scope.tshirtsSalesGoalMin = 10;

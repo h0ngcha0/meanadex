@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('campaign').directive('mdCampaignSummaryPanel', [
+angular.module('campaigns').directive('mdCampaignSummaryPanel', [
   '$timeout', 'mdCampaignInfoAccumulatorService',
   function($timeout, mdCampaignInfoAccumulatorService){
     return {
@@ -16,7 +16,7 @@ angular.module('campaign').directive('mdCampaignSummaryPanel', [
         tshirtBaseCost: '=',
         tshirtPrice: '='
       },
-      templateUrl: 'modules/campaign/views/campaign-summary-panel.client.view.html',
+      templateUrl: 'modules/campaigns/views/campaign-summary-panel.client.view.html',
       link: function(scope, element, attrs) {
         $timeout(function() {
           scope.$apply(function() {
