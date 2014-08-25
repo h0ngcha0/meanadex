@@ -9,17 +9,17 @@ angular.module('campaigns').config([
       state('campaignSalesGoal', {
         url: '/campaign_sales_goal',
         templateUrl: 'modules/campaigns/views/campaign-sales-goal.client.view.html',
-        controller: 'CampaignController'
+        controller: 'CampaignsController'
       }).
       state('campaignDetails', {
         url: '/campaign_details',
         templateUrl: 'modules/campaigns/views/campaign-details.client.view.html',
-        controller: 'CampaignController'
+        controller: 'CampaignsController'
       }).
       state('campaignSummary', {
         url: '/campaign_summary',
         templateUrl: 'modules/campaigns/views/campaign-summary.client.view.html',
-        controller: 'CampaignController'
+        controller: 'CampaignsController'
       }).
       state('listCampaigns', {
         url: '/campaigns',
