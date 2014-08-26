@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('designer').controller('DesignerController', [
-  '$scope', 'mdCanvasService',
-  function($scope, mdCanvasService) {
+  '$scope', 'mdCanvasService', 'localStorageService',
+  function($scope, mdCanvasService, localStorageService) {
     $scope.currentTshirtType = null;
     $scope.currentVariant = null;
 

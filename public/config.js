@@ -17,6 +17,7 @@ var ApplicationConfiguration = (
         , 'textAngular'
         , 'colorpicker.module'
         , 'ui.slider'
+        , 'LocalStorageModule'
         ];
 
     // Add a new vertical module

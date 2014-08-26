@@ -2,18 +2,55 @@
   <section id="typography">
     <div class="span12">
       <div class="col-lg-4">
-        <md-campaign-summary-panel
-           campaign-title="campaignTitle"
-           campaign-description="campaignDescription"
-           campaign-sales-goal="campaignSalesGoal"
-           campaign-url="campaignUrl"
-           current-campaign-length="currentCampaignLength"
-           campaign-lengths="campaignLengths"
-           tshirt-type="tshirtType"
-           tshirt-variant="tshirtVariant"
-           tshirt-base-cost="tshirtBaseCost"
-           tshirt-price="tshirtPrice">
-        </md-campaign-summary-panel>
+
+        <!--Select types of the T-Shirts-->
+        <div class="well">
+          <h4>{{campaignTitle}}</h4>
+
+          <p ng-bind-html="campaignDescription"></p>
+
+          <hr/>
+
+          <table class="table">
+            <tr class="">
+              <td class="">Campaign sales goal</td>
+              <td class="">{{tshirtsSalesGoal}}</td>
+            </tr>
+            <tr class="">
+              <td class="">Campaign URL</td>
+              <td class="">{{campaignUrl}}</td>
+            </tr>
+            <tr class="">
+              <td class="">Campaign length</td>
+              <td class="">{{currentCampaignLength}}</td>
+            </tr>
+            <tr class="">
+              <td class="">Tshirt type</td>
+              <td class="">{{tshirtType}}</td>
+            </tr>
+            <tr class="">
+              <td class="">Tshirt variant</td>
+              <td class="">{{tshirtVariant}}</td>
+            </tr>
+            <tr class="">
+              <td class="">Tshirt basecost</td>
+              <td class="">{{tshirtBaseCost}}</td>
+            </tr>
+            <tr class="">
+              <td class="">Tshirt price</td>
+              <td class="">{{tshirtPrice}}</td>
+            </tr>
+          </table>
+
+          <a id="purchase"
+             href="#"
+             type="button"
+             class="btn btn-lg btn-block btn-success"
+             name="purchase">
+            Purchase
+            <i class="glyphicon glyphicon-thumbs-up glyphicon-white"></i>
+          </a>
+        </div>
       </div>
       <div class="col-lg-8">
         <md-tshirt-canvas></md-tshirt-canvas>

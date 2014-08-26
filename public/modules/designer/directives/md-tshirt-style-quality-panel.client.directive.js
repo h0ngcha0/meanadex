@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('designer').directive('mdTshirtStyleQualityPanel', [
-  '$timeout', '$compile', 'mdCanvasService', 'mdCampaignInfoAccumulatorService',
-  function($timeout, $compile, mdCanvasService, mdCampaignInfoAccumulatorService) {
+  '$timeout', '$compile', 'mdCanvasService', 'localStorageService',
+  function($timeout, $compile, mdCanvasService, localStorageService) {
     return {
       restrict: 'E',
       templateUrl: 'modules/designer/views/style-quality.client.view.html',
@@ -19,7 +19,7 @@ angular.module('designer').directive('mdTshirtStyleQualityPanel', [
                 baseCost = [baseCostNum, unit].join(' ');
 
             element.find('#baseCostLabel').text(baseCost);
-            mdCampaignInfoAccumulatorService.setBaseCost(baseCost);
+            localStorageService.set('baseCost', baseCost);
           };
 
           var setAvailableColorsFun = function() {
@@ -37,19 +37,19 @@ angular.module('designer').directive('mdTshirtStyleQualityPanel', [
                   baseCost = [baseCostNum, unit].join(' ');
 
               element.find('#baseCostLabel').text(baseCost);
-              mdCampaignInfoAccumulatorService.setBaseCost(baseCost);
+              localStorageService.set('baseCost', baseCost);
             });
           };
 
           var setInitTshirtVariant = function() {
             var name = element.find('.tshirt-variant').attr('name');
-            mdCampaignInfoAccumulatorService.setTshirtVariant(name);
+            localStorageService.set('tshirtVariant', name);
           };
 
           var setTshirtVariantFun = function() {
             element.find('.tshirt-variant').click(function() {
               var name = $(this).attr('name');
-              mdCampaignInfoAccumulatorService.setTshirtVariant(name);
+              localStorageService.set('tshirtVariant', name);
             });
           };
 
@@ -91,7 +91,7 @@ angular.module('designer').directive('mdTshirtStyleQualityPanel', [
               // when leaving the designer save the canvas
               // TODO: set it to read only as well. setting
               // canvas.selection = false doesn't seem to work.
-              mdCampaignInfoAccumulatorService.setTshirtType(scope.currentTshirtType);
+              localStorageService.set('tshirtType', scope.currentTshirtType);
               mdCanvasService.disableEdit();
             }
           });

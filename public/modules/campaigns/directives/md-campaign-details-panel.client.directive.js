@@ -1,13 +1,10 @@
 'use strict';
 
 angular.module('campaigns').directive('mdCampaignDetailsPanel', [
-  '$timeout', 'mdCampaignInfoAccumulatorService',
-  function($timeout, mdCampaignInfoAccumulatorService){
+  '$timeout',
+  function($timeout){
     return {
       restrict: 'E',
-      scope: {
-        campaignLengths: '='
-      },
       templateUrl: 'modules/campaigns/views/campaign-details-panel.client.view.html',
       link: function(scope, element, attrs) {
         $timeout(function() {
@@ -41,11 +38,6 @@ angular.module('campaigns').directive('mdCampaignDetailsPanel', [
 
             if(status === 'not_ok') {
               e.preventDefault();
-            } else {
-              mdCampaignInfoAccumulatorService.setTitle(scope.campaignTitle);
-              mdCampaignInfoAccumulatorService.setDescription(scope.campaignDescription);
-              mdCampaignInfoAccumulatorService.setUrl(scope.campaignUrl);
-              mdCampaignInfoAccumulatorService.setLength(scope.currentCampaignLength);
             }
           });
         }, 0);

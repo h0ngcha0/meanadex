@@ -37,7 +37,8 @@ module.exports = {
         'public/lib/textAngular/dist/textAngular.min.js',
         'public/lib/datejs/build/date.js',
         'public/lib/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js',
-        'public/lib/angular-ui-slider/src/slider.js'
+        'public/lib/angular-ui-slider/src/slider.js',
+        'public/lib/angular-local-storage/angular-local-storage.js'
       ]
     },
     css: [

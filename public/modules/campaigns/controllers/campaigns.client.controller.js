@@ -3,8 +3,9 @@
 // Campaigns controller
 angular.module('campaigns').controller('CampaignsController', [
   '$scope', '$stateParams', '$location', 'Authentication',
-  'Campaigns', 'mdCampaignInfoAccumulatorService',
-  function($scope, $stateParams, $location, Authentication, Campaigns ) {
+  'Campaigns', '$cookies', 'localStorageService',
+  function( $scope, $stateParams, $location, Authentication, Campaigns
+          , $cookies, localStorageService ) {
     $scope.authentication = Authentication;
 
     // Create new Campaign
@@ -69,24 +70,46 @@ angular.module('campaigns').controller('CampaignsController', [
         campaignId: $stateParams.campaignId
       });
     };
+  }
+]);
 
-    // experiment..
-    $scope.tshirtsSalesGoalMin = 10;
+angular.module('campaigns').controller('CampaignsSalesGoalController', [
+  '$scope', 'localStorageService',
+  function($scope, localStorageService ) {
+    // variables
+    $scope.tshirtsSalesGoalMin = 20;
     $scope.tshirtsSalesGoalMax = 400;
-    $scope.tshirtsSalesGoal = 50;
 
-    $scope.tshirtPrice = 70;
-    $scope.baseCost = 0;
 
-    $scope.campaignTitle = null;
-    $scope.campaignDescription = null;
-    $scope.campaignUrl = null;
+    $scope.tshirtsSalesGoal = localStorageService.get('tshirtsSalesGoal') || 50;
+    localStorageService.bind($scope, 'tshirtsSalesGoal', $scope.tshirtsSalesGoal);
 
+    $scope.tshirtPrice = localStorageService.get('tshirtPrice') || 70;
+    localStorageService.bind($scope, 'tshirtPrice', $scope.tshirtPrice);
+  }
+]);
+
+angular.module('campaigns').controller('CampaignsSalesDetailsController', [
+  '$scope', 'localStorageService',
+  function($scope, localStorageService) {
+    $scope.baseCost = localStorageService.get('baseCost') || 0;
+    localStorageService.bind($scope, 'baseCost', $scope.baseCost);
+
+    $scope.campaignTitle = localStorageService.get('campaignTitle') || "";
+    localStorageService.bind($scope, 'campaignTitle', $scope.campaignTitle);
+
+    $scope.campaignDescription = localStorageService.get('campaignDescription') || "";
+    localStorageService.bind($scope, 'campaignDescription', $scope.campaignDescription);
+
+    $scope.campaignUrl = localStorageService.get('campaignUrl') || "";
+    localStorageService.bind($scope, 'campaignUrl', $scope.campaignUrl);
+
+    $scope.currentCampaignLength = localStorageService.get('currentCampaignLength') || 7;
+    localStorageService.bind($scope, 'currentCampaignLength', $scope.currentCampaignLength);
     var dateAfterDaysFromNow = function(days) {
       return Date.today().addDays(days).toString().split(' ').slice(0, 3).join(' ');
     };
 
-    $scope.currentCampaignLength = 7;
     $scope.campaignLengths = [3, 5, 7, 10, 14, 21].map(
       function(days) {
         return days.toString() + ' days ' + '(Ending ' + dateAfterDaysFromNow(days) + ')';
@@ -95,6 +118,7 @@ angular.module('campaigns').controller('CampaignsController', [
 
     $scope.estimatedProfitFun = function(price, goal) {
       var profit = $scope.tshirtPrice - parseInt($scope.baseCost);
+      console.log("profit is" + profit);
       if (profit > 0) {
         return $scope.tshirtsSalesGoal * profit;
       } else {
@@ -102,15 +126,24 @@ angular.module('campaigns').controller('CampaignsController', [
       }
     };
 
-    $scope.setSalesGoal = function() {
-      mdCampaignInfoAccumulatorService.setSalesGoal($scope.tshirtsSalesGoal);
-      mdCampaignInfoAccumulatorService.setPrice($scope.tshirtPrice);
-    };
-
     $scope.slider = {
       'options': {
         animate: true
       }
     };
+  }
+]);
+
+angular.module('campaigns').controller('CampaignsSummaryController', [
+  '$scope', 'localStorageService',
+  function($scope, localStorageService) {
+    $scope.campaignTitle = localStorageService.get('campaignTitle');
+    $scope.campaignDescription = localStorageService.get('campaignDescription');
+    $scope.campaignUrl = localStorageService.get('campaignUrl');
+    $scope.currentCampaignLength = localStorageService.get('currentCampaignLength');
+    $scope.tshirtsSalesGoal = localStorageService.get('tshirtsSalesGoal');
+    $scope.tshirtPrice = localStorageService.get('tshirtPrice');
+    $scope.baseCost = localStorageService.get('baseCost');
+    $scope.tshirtVariant = localStorageService.get('tshirtVariant');
   }
 ]);
