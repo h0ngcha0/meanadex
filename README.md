@@ -29,7 +29,14 @@ quickest. Sometimes, taking a free ride is not a bad idea either.
   * [AngularJs](https://angularjs.org/)
   * [MeanJs](http://meanjs.org/)
   * [SpreeCommerce](http://spreecommerce.com/)
+  * [FabricJs](http://fabricjs.com/)
 
 There are a great deal of stuff that we can borrow from the Spree
 project, from business to architectural design to API design. See
 their [documentation](http://guides.spreecommerce.com/api/)
+
+Fabric provides higher level APIs for HTML5 canvas. There is a nice
+series of tutorial from the original author:
+[Introduction to Fabric.js](http://fabricjs.com/fabric-intro-part-1/)
+
+
