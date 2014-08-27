@@ -19,7 +19,16 @@
     </li>
   </ul>
 
-  <md-bg-color-picker colors="currentVariant.colors"></md-bg-color-picker>
+  <div class="clearfix">
+    <div class="btn-group inline pull-left">
+      <a class="color-preview btn"
+         title="{{color.title}}"
+         style="background-color:{{color.style}};"
+         data-ng-click="setCanvasBgColor(color.style)"
+         data-ng-repeat="color in currentVariant.colors">
+      </a>
+    </div>
+  </div>
 
   <h5>Base cost @ 50 shirts</h5>
   <h3 id="baseCostLabel">{{ currentVariant.baseCost }} {{ currentVariant.unit }}</h3>

@@ -77,8 +77,6 @@ angular.module('campaigns').controller('CampaignsSalesGoalController', [
   '$scope', 'localStorageService',
   function($scope, localStorageService ) {
     $scope.currentVariant = localStorageService.get('currentVariant');
-    console.log($scope.currentVariant);
-
     // variables
     $scope.tshirtsSalesGoalMin = 20;
     $scope.tshirtsSalesGoalMax = 400;
