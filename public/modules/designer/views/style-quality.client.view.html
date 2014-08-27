@@ -3,8 +3,9 @@
   <!--Select types of the T-Shirts-->
   <select id="tshirt-type-selector"
           ng-model="currentTshirtType"
-          ng-options="tshirtType.name for tshirtType in tshirtTypes"
+          ng-options="tshirtType.name for tshirtType in tshirt.types"
           class="form-control">
+    <option value=""> -- Choose your tshirt -- </option>
   </select>
 
   <br>
