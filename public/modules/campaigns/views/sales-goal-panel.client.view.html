@@ -19,7 +19,9 @@
   <h4>Estimated Profit</h4>
   <h3>
     <span class="priceTag">
-      <span id="estimatedProfitTag"> {{ estimatedProfitFun() }}</span>
+      <span id="estimatedProfitTag">
+        {{ estimatedProfitFun() }} 
+      </span>
       SEK
     </span>
   </h3>
@@ -31,7 +33,7 @@
     Set the selling price of your shirt to determine your profit.
     Current base cost is
     <span id="baseCostTag" class="priceTag">
-      {{ baseCost }}
+      {{ currentVariant.baseCost }}
     </span>
   </p>
   SEK <input id="priceOfTshirtInput" ng-model="tshirtPrice">

@@ -3,9 +3,6 @@
 angular.module('designer').controller('DesignerController', [
   '$scope', 'mdCanvasService', 'localStorageService',
   function($scope, mdCanvasService, localStorageService) {
-    $scope.currentTshirtType = null;
-    $scope.currentVariant = null;
-
     $scope.tshirtTypes = [
       { id: 1
       , name: 'Short Sleeve Shirts'
@@ -120,6 +117,18 @@ angular.module('designer').controller('DesignerController', [
         ]
       }
     ];
+
+
+    $scope.currentTshirtType =
+      localStorageService.get('currentTshirtType') || $scope.tshirtTypes[0];
+    localStorageService.bind($scope, 'currentTshirtType', $scope.currentTshirtType);
+
+    $scope.currentVariant = $scope.currentTshirtType.variants[0];
+    localStorageService.bind($scope, 'currentVariant', $scope.currentVariant);
+
+    $scope.setVariant = function(variant) {
+      $scope.currentVariant = variant;
+    }
 
     $scope.images = [ {src: 'modules/designer/img/avatar/avatar-1.jpeg'}
                     , {src: 'modules/designer/img/avatar/avatar-2.png'}

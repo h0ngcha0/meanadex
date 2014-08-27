@@ -76,25 +76,29 @@ angular.module('campaigns').controller('CampaignsController', [
 angular.module('campaigns').controller('CampaignsSalesGoalController', [
   '$scope', 'localStorageService',
   function($scope, localStorageService ) {
+    $scope.currentVariant = localStorageService.get('currentVariant');
+    console.log($scope.currentVariant);
+
     // variables
     $scope.tshirtsSalesGoalMin = 20;
     $scope.tshirtsSalesGoalMax = 400;
-
 
     $scope.tshirtsSalesGoal = localStorageService.get('tshirtsSalesGoal') || 50;
     localStorageService.bind($scope, 'tshirtsSalesGoal', $scope.tshirtsSalesGoal);
 
     $scope.tshirtPrice = localStorageService.get('tshirtPrice') || 70;
     localStorageService.bind($scope, 'tshirtPrice', $scope.tshirtPrice);
+
+    $scope.estimatedProfitFun = function() {
+      var profit = ($scope.tshirtPrice - $scope.currentVariant.baseCost) * $scope.tshirtsSalesGoal;
+      return profit > 0 ? profit : 0;
+    };
   }
 ]);
 
 angular.module('campaigns').controller('CampaignsSalesDetailsController', [
   '$scope', 'localStorageService',
   function($scope, localStorageService) {
-    $scope.baseCost = localStorageService.get('baseCost') || 0;
-    localStorageService.bind($scope, 'baseCost', $scope.baseCost);
-
     $scope.campaignTitle = localStorageService.get('campaignTitle') || "";
     localStorageService.bind($scope, 'campaignTitle', $scope.campaignTitle);
 
@@ -116,16 +120,6 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
       }
     );
 
-    $scope.estimatedProfitFun = function(price, goal) {
-      var profit = $scope.tshirtPrice - parseInt($scope.baseCost);
-      console.log("profit is" + profit);
-      if (profit > 0) {
-        return $scope.tshirtsSalesGoal * profit;
-      } else {
-        return 0;
-      }
-    };
-
     $scope.slider = {
       'options': {
         animate: true
@@ -143,7 +137,14 @@ angular.module('campaigns').controller('CampaignsSummaryController', [
     $scope.currentCampaignLength = localStorageService.get('currentCampaignLength');
     $scope.tshirtsSalesGoal = localStorageService.get('tshirtsSalesGoal');
     $scope.tshirtPrice = localStorageService.get('tshirtPrice');
-    $scope.baseCost = localStorageService.get('baseCost');
-    $scope.tshirtVariant = localStorageService.get('tshirtVariant');
+
+    $scope.tshirtType = localStorageService.get('currentTshirtType');
+    $scope.tshirtTypeName = $scope.tshirtType.name;
+
+    $scope.currentVariant = localStorageService.get('currentVariant');
+
+    $scope.tshirtVariantName = $scope.currentVariant.name;
+    $scope.baseCost = $scope.currentVariant.baseCost;
+
   }
 ]);

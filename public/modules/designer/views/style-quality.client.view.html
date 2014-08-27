@@ -2,7 +2,6 @@
   <h3>Style & quality</h3>
   <!--Select types of the T-Shirts-->
   <select id="tshirt-type-selector"
-          ng-init="currentTshirtType=tshirtTypes[0]"
           ng-model="currentTshirtType"
           ng-options="tshirtType.name for tshirtType in tshirtTypes"
           class="form-control">
@@ -12,21 +11,18 @@
 
   <ul class="list-group">
     <li class="list-group-item tshirt-variant"
-        ng-repeat="variant in currentTshirtType.variants" tabindex="-1"
-        colors="{{variant.colors}}"
-        basecost="{{variant.baseCost}}"
-        unit="{{variant.unit}}"
-        name="{{variant.name}}">
+        ng-click="setVariant(variant)"
+        ng-repeat="variant in currentTshirtType.variants" tabindex="-1">
       {{variant.name}}
       <br>
       <small>{{variant.description}}</small>
     </li>
   </ul>
 
-  <md-bg-color-picker colors="colors"></md-bg-color-picker>
+  <md-bg-color-picker colors="currentVariant.colors"></md-bg-color-picker>
 
   <h5>Base cost @ 50 shirts</h5>
-  <h3 id="baseCostLabel">{{ baseCost }} {{ unit }}</h3>
+  <h3 id="baseCostLabel">{{ currentVariant.baseCost }} {{ currentVariant.unit }}</h3>
   <a href="#!/campaign_sales_goal"
      type="button"
      class="btn btn-lg btn-block btn-success"
