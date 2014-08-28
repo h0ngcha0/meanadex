@@ -18,6 +18,7 @@ var ApplicationConfiguration = (
         , 'colorpicker.module'
         , 'ui.slider'
         , 'LocalStorageModule'
+        , 'ngGrid'
         ];
 
     // Add a new vertical module

@@ -21,6 +21,7 @@
     "datejs": "~1.0.0",
     "angular-bootstrap-colorpicker": "~3.0.8",
     "angular-ui-slider": "~0.0.2",
-    "angular-local-storage": "~0.0.7"
+    "angular-local-storage": "~0.0.7",
+    "ng-grid": "~2.0.12"
   }
 }

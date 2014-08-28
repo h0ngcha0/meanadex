@@ -70,6 +70,22 @@ angular.module('campaigns').controller('CampaignsController', [
         campaignId: $stateParams.campaignId
       });
     };
+
+    $scope.gridOptions = {
+      data: 'campaigns',
+      enableCellSelection: true,
+      enableRowSelection: false,
+      enableCellEditOnFocus: true,
+      rowHeight: 200,
+      columnDefs: [ {field: 'name', displayName: 'Name', enableCellEdit: true}
+                  , {field: 'user.displayName', displayName: 'User', enableCellEdit: false}
+                  , {field: 'created', displayName: 'Created at', enableCellEdit: false}
+                  , { displayName: 'Options'
+                    , cellTemplate: 'modules/campaigns/views/campaign-cell.html'
+                    , enableCellEdit: false
+                    }
+                  ]
+    }
   }
 ]);
 
