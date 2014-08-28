@@ -12,7 +12,17 @@ angular.module('campaigns').controller('CampaignsController', [
     $scope.create = function() {
       // Create new Campaign object
       var campaign = new Campaigns ({
-        name: this.name
+        name: this.name,
+        created_at: Date.today(),
+        ended_at: Date.today().addDays(this.length),
+        description: this.description,
+        length: this.length,
+        url: this.url,
+        goal: this.goal,
+        sold: this.sold,
+        cost: this.cost,
+        price: this.price,
+        design: this.design
       });
 
       // Redirect after save
@@ -78,8 +88,14 @@ angular.module('campaigns').controller('CampaignsController', [
       enableCellEditOnFocus: true,
       rowHeight: 200,
       columnDefs: [ {field: 'name', displayName: 'Name', enableCellEdit: true}
-                  , {field: 'user.displayName', displayName: 'User', enableCellEdit: false}
-                  , {field: 'created', displayName: 'Created at', enableCellEdit: false}
+                  , {field: 'description', displayName: 'Description', enableCellEdit: true}
+                  , {field: 'cost', displayName: 'Cost', enableCellEdit: true}
+                  , {field: 'price', displayName: 'Price', enableCellEdit: true}
+                  , {field: 'goal', displayName: 'Goal', enableCellEdit: true}
+                  , {field: 'sold', displayName: 'Sold', enableCellEdit: true}
+                  , {field: 'length', displayName: 'Length', enableCellEdit: false}
+                  , {field: 'url', displayName: 'Url', enableCellEdit: false}
+                  , {field: 'created_at', displayName: 'Created at', enableCellEdit: false}
                   , { displayName: 'Options'
                     , cellTemplate: 'modules/campaigns/views/campaign-cell.html'
                     , enableCellEdit: false
