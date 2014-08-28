@@ -15,9 +15,9 @@ angular.module('designer').directive('mdTshirtCanvas', [
             var flipTextElem = element.find('#flip-text');
             var currentSide = mdCanvasService.flip();
             if (currentSide === 'front') {
-              flipTextElem.text("Show Back View");
+              flipTextElem.text('Show Back View');
             } else {
-              flipTextElem.text("Show Front View");
+              flipTextElem.text('Show Front View');
             }
 
           });

@@ -21,7 +21,7 @@ module.exports = function() {
       function(err, user) {
         done(err, user);
       }
-    )
+    );
   });
 
   // Initialize strategies

@@ -125,7 +125,7 @@ angular.module('designer').controller('DesignerController', [
       var storedTshirtType = localStorageService.get('currentTshirtType');
       if (storedTshirtType) {
         var result = $scope.tshirt.types.filter(function(type) {
-                       return type.name == storedTshirtType.name;
+                       return type.name === storedTshirtType.name;
                      });
 
         if(result.length === 0) {
@@ -136,8 +136,7 @@ angular.module('designer').controller('DesignerController', [
       } else {
         return $scope.tshirt.types[0];
       }
-
-    }
+    };
 
     $scope.currentTshirtType = getCurrentTshirtType();
     localStorageService.bind($scope, 'currentTshirtType', $scope.currentTshirtType);
@@ -147,7 +146,7 @@ angular.module('designer').controller('DesignerController', [
 
     $scope.setVariant = function(variant) {
       $scope.currentVariant = variant;
-    }
+    };
 
     $scope.images = [ {src: 'modules/designer/img/avatar/avatar-1.jpeg'}
                     , {src: 'modules/designer/img/avatar/avatar-2.png'}
@@ -176,8 +175,8 @@ angular.module('designer').controller('DesignerController', [
                          , class: 'Arial'
                          };
 
-    $scope.fontColor = "#000000";
-    $scope.inputText = "";
+    $scope.fontColor = '#000000';
+    $scope.inputText = '';
 
     $scope.changeToBoldText = function() {
       mdCanvasService.toggleActiveTextBold();
@@ -197,7 +196,7 @@ angular.module('designer').controller('DesignerController', [
 
     $scope.changeColorText = function() {
       mdCanvasService.renderActiveTextFontColor($scope.fontColor);
-    }
+    };
 
     $scope.addOrEditText = function() {
       if(mdCanvasService.activeTextP()) {

@@ -97,13 +97,13 @@ angular.module('campaigns').controller('CampaignsSalesGoalController', [
 angular.module('campaigns').controller('CampaignsSalesDetailsController', [
   '$scope', 'localStorageService',
   function($scope, localStorageService) {
-    $scope.campaignTitle = localStorageService.get('campaignTitle') || "";
+    $scope.campaignTitle = localStorageService.get('campaignTitle') || '';
     localStorageService.bind($scope, 'campaignTitle', $scope.campaignTitle);
 
-    $scope.campaignDescription = localStorageService.get('campaignDescription') || "";
+    $scope.campaignDescription = localStorageService.get('campaignDescription') || '';
     localStorageService.bind($scope, 'campaignDescription', $scope.campaignDescription);
 
-    $scope.campaignUrl = localStorageService.get('campaignUrl') || "";
+    $scope.campaignUrl = localStorageService.get('campaignUrl') || '';
     localStorageService.bind($scope, 'campaignUrl', $scope.campaignUrl);
 
     $scope.currentCampaignLength = localStorageService.get('currentCampaignLength') || 7;

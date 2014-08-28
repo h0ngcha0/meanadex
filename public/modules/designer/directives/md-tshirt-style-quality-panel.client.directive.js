@@ -11,12 +11,13 @@ angular.module('designer').directive('mdTshirtStyleQualityPanel', [
           element.find('#designNextStep').click(function(e) {
             mdCanvasService.saveCanvas();
             if(mdCanvasService.isEmptyCanvas()) {
-              console.log("empty");
+              console.log('empty');
               element.find('#emptyCanvasModal').modal('show');
               e.preventDefault();
             }
-          })}, 0);
+          });
+        }, 0);
       }
-    }
-}
+    };
+  }
 ]);

@@ -393,7 +393,7 @@ angular.module('designer').service('mdCanvasService', [
       } else {
         return this.flipFront();
       }
-    }
+    };
 
     this.flipBack = function() {
       var backImg = 'modules/designer/img/canvas/crew_back.png';
@@ -438,10 +438,10 @@ angular.module('designer').service('mdCanvasService', [
       canvas.renderAll();
     };
 
-    var applyToActiveTextFun = function(Fun) {
+    var applyToActiveTextFun = function(fun) {
       var activeObject = canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
-        Fun(activeObject);
+        fun(activeObject);
         canvas.renderAll();
       }
     };
