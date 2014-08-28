@@ -160,7 +160,9 @@ angular.module('designer').service('mdCanvasService', [
             img   = new Image();
 
         if (this.isControlVisible(control)) {
+          /*jshint expr:true */
           isVML || this.transparentCorners || ctx.clearRect(left, top, sizeX, sizeY);
+
           switch(control) {
             case 'br':
             img.src = 'modules/designer/img/tool/scale.png';
