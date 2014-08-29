@@ -101,7 +101,7 @@ angular.module('campaigns').controller('CampaignsController', [
                     , enableCellEdit: false
                     }
                   ]
-    }
+    };
   }
 ]);
 

@@ -22,6 +22,7 @@
     "angular-bootstrap-colorpicker": "~3.0.8",
     "angular-ui-slider": "~0.0.2",
     "angular-local-storage": "~0.0.7",
-    "ng-grid": "~2.0.12"
+    "ng-grid": "~2.0.12",
+    "ng-table": "~0.3.3"
   }
 }

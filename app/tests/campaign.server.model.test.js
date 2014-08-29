@@ -31,17 +31,17 @@ describe('Campaign Model Unit Tests:', function() {
       campaign = new Campaign({
         name: 'Campaign Name',
         user: user,
-        created_at: "2014-04-14T02:15:15Z",
-        ended_at: "2014-08-02T02:15:15Z",
-        description: "nice campaign",
+        created_at: '2014-04-14T02:15:15Z',
+        ended_at: '2014-08-02T02:15:15Z',
+        description: 'nice campaign',
         length: 7,
-        url: "campaign_url",
+        url: 'campaign_url',
         goal: 100,
         sold: 20,
         cost: 50,
         price: 80,
-        design: "nice design",
-        orders: ["order1", "order2"]
+        design: 'nice design',
+        orders: ['order1', 'order2']
       });
 
       done();
