@@ -3,9 +3,9 @@
 // Campaigns controller
 angular.module('campaigns').controller('CampaignsController', [
   '$scope', '$stateParams', '$location', 'Authentication',
-  'Campaigns', '$cookies', 'localStorageService',
+  'Campaigns', '$cookies', 'localStorageService', '$filter', 'ngTableParams', '$timeout',
   function( $scope, $stateParams, $location, Authentication, Campaigns
-          , $cookies, localStorageService ) {
+          , $cookies, localStorageService, $filter, ngTableParams, $timeout) {
     $scope.authentication = Authentication;
 
     // Create new Campaign
@@ -80,6 +80,27 @@ angular.module('campaigns').controller('CampaignsController', [
         campaignId: $stateParams.campaignId
       });
     };
+
+    $scope.tableParams = new ngTableParams(
+      { page: 1
+      , count: 10
+      },
+      { total: 0
+      , getData: function($defer, params) {
+          $timeout(function() {
+            console.log("length");
+            var orderedData = params.filter() ?
+              $filter('filter')($scope.campaigns, params.filter()) :
+              $scope.campaigns;
+
+            $scope.presented_campaigns = orderedData;
+
+            params.total($scope.presented_campaigns.length);
+            $defer.resolve($scope.presented_campaigns);
+          }, 500);
+        }
+      }
+    );
 
     $scope.gridOptions = {
       data: 'campaigns',

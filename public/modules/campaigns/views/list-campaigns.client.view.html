@@ -4,11 +4,54 @@
       <h3>My campaigns</h3>
     </div>
     <div class="col-lg-12">
-      <div class="gridStyle"
-           data-ng-grid="gridOptions"
-           data-ng-hide="campaigns.$resolved && campaigns.length<=0">
-      </div>
-
+      <table ng-table="tableParams" show-filter="true" class="table"
+             data-ng-show="campaigns.length > 0">
+        <tr ng-repeat="campaign in $data">
+          <td data-title="'Name'" filter="{ 'name': 'text' }">
+            <span>{{campaign.name}}</span>
+          </td>
+          <td data-title="'Description'" filter="{ 'description': 'text' }">
+            <span ng-if="!campaign.$edit">{{campaign.description}}</span>
+            <div ng-if="campaign.$edit">
+              <input class="form-control" type="text"
+              ng-model="campaign.description" /></div>
+          </td>
+          <td data-title="'Length'">
+            <span>{{campaign.length}}</span>
+          </td>
+          <td data-title="'Created at'">
+            <span>{{campaign.created_at}}</span>
+          </td>
+          <td data-title="'End at'">
+            <span>{{campaign.created_at}}</span>
+          </td>
+          <td data-title="'URL'">
+            <span>{{campaign.url}}</span>
+          </td>
+          <td data-title="'Goal'">
+            <span>{{campaign.goal}}</span>
+          </td>
+          <td data-title="'Sold'">
+            <span>{{campaign.sold}}</span>
+          </td>
+          <td data-title="'Price'">
+            <span>{{campaign.price}}</span>
+          </td>
+          <td data-title="'Actions'" width="100">
+            <a ng-if="!campaign.$edit" href=""
+               class="btn btn-primary"
+               ng-click="campaign.$edit = true">
+              <i class="glyphicon glyphicon-edit"></i>
+            </a>
+            <a ng-if="campaign.$edit" href=""
+               class="btn btn-primary btn-xs"
+               ng-click="campaign.$edit = false">Save</a>
+            <a class="btn btn-primary" data-ng-click="remove(campaign);">
+              <i class="glyphicon glyphicon-trash"></i>
+            </a>
+          </td>
+        </tr>
+      </table>
       <div class="alert alert-warning text-center" data-ng-hide="!campaigns.$resolved || campaigns.length">
         No Campaigns yet, why don't you <a href="/#!/campaigns/create">create one</a>?
       </div>

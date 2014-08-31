@@ -18,7 +18,7 @@ var ApplicationConfiguration = (
         , 'colorpicker.module'
         , 'ui.slider'
         , 'LocalStorageModule'
-        , 'ngGrid'
+        , 'ngTable'
         ];
 
     // Add a new vertical module
