@@ -88,7 +88,6 @@ angular.module('campaigns').controller('CampaignsController', [
       { total: 0
       , getData: function($defer, params) {
           $timeout(function() {
-            console.log("length");
             var orderedData = params.filter() ?
               $filter('filter')($scope.campaigns, params.filter()) :
               $scope.campaigns;
@@ -102,26 +101,9 @@ angular.module('campaigns').controller('CampaignsController', [
       }
     );
 
-    $scope.gridOptions = {
-      data: 'campaigns',
-      enableCellSelection: true,
-      enableRowSelection: false,
-      enableCellEditOnFocus: true,
-      rowHeight: 200,
-      columnDefs: [ {field: 'name', displayName: 'Name', enableCellEdit: true}
-                  , {field: 'description', displayName: 'Description', enableCellEdit: true}
-                  , {field: 'cost', displayName: 'Cost', enableCellEdit: true}
-                  , {field: 'price', displayName: 'Price', enableCellEdit: true}
-                  , {field: 'goal', displayName: 'Goal', enableCellEdit: true}
-                  , {field: 'sold', displayName: 'Sold', enableCellEdit: true}
-                  , {field: 'length', displayName: 'Length', enableCellEdit: false}
-                  , {field: 'url', displayName: 'Url', enableCellEdit: false}
-                  , {field: 'created_at', displayName: 'Created at', enableCellEdit: false}
-                  , { displayName: 'Options'
-                    , cellTemplate: 'modules/campaigns/views/campaign-cell.html'
-                    , enableCellEdit: false
-                    }
-                  ]
+    $scope.removeAndReload = function(campaign) {
+      $scope.remove(campaign);
+      $scope.tableParams.reload();
     };
   }
 ]);
