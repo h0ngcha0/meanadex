@@ -1,13 +1,15 @@
 <!--Select types of the T-Shirts-->
 <div class="well">
   <h4>Sales goal</h4>
-  <div ui-slider="slider.options"
+  <ui-slider class="ui-slider-default">
+    <ui-slider-thumb
        min="{{tshirtsSalesGoalMin}}"
        max="{{tshirtsSalesGoalMax}}"
        type="text"
        id="numOfTshirtSlider"
        ng-model="tshirtsSalesGoal">
-  </div>
+    </ui-slider-thumb>
+  </ui-slider>
 
   <br/>
 

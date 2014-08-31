@@ -20,7 +20,7 @@
     "textAngular": "1.2.2",
     "datejs": "~1.0.0",
     "angular-bootstrap-colorpicker": "~3.0.8",
-    "angular-ui-slider": "~0.0.2",
+    "angular-ui-slider": "git://github.com/angular-ui/ui-slider.git#no-jqui-here",
     "angular-local-storage": "~0.0.7",
     "ng-grid": "~2.0.12",
     "ng-table": "~0.3.3"

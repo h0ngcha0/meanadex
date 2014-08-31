@@ -17,6 +17,7 @@ module.exports = {
         'public/lib/bootstrap/dist/css/bootstrap-theme.css',
         'public/lib/font-awesome/css/font-awesome.css',
         'public/lib/angular-bootstrap-colorpicker/css/colorpicker.css',
+        'public/lib/angular-ui-slider/src/ui-slider.css',
         'public/lib/jquery-ui/themes/smoothness/jquery-ui.css',
         'public/lib/ng-table/ng-table.css'
       ],
@@ -38,7 +39,7 @@ module.exports = {
         'public/lib/textAngular/dist/textAngular.min.js',
         'public/lib/datejs/build/date.js',
         'public/lib/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js',
-        'public/lib/angular-ui-slider/src/slider.js',
+        'public/lib/angular-ui-slider/src/ui-slider.js',
         'public/lib/angular-local-storage/angular-local-storage.js',
         'public/lib/ng-table/ng-table.js'
       ]
