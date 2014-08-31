@@ -112,9 +112,6 @@ angular.module('campaigns').controller('CampaignsSalesGoalController', [
   '$scope', 'localStorageService',
   function($scope, localStorageService ) {
     $scope.currentVariant = localStorageService.get('currentVariant');
-    // variables
-    $scope.tshirtsSalesGoalMin = 20;
-    $scope.tshirtsSalesGoalMax = 400;
 
     $scope.tshirtsSalesGoal = localStorageService.get('tshirtsSalesGoal') || 50;
     localStorageService.bind($scope, 'tshirtsSalesGoal', $scope.tshirtsSalesGoal);
@@ -152,12 +149,6 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
         return days.toString() + ' days ' + '(Ending ' + dateAfterDaysFromNow(days) + ')';
       }
     );
-
-    $scope.slider = {
-      'options': {
-        animate: true
-      }
-    };
   }
 ]);
 

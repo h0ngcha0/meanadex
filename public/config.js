@@ -16,7 +16,7 @@ var ApplicationConfiguration = (
         , 'ui.utils'
         , 'textAngular'
         , 'colorpicker.module'
-        , 'ui.slider'
+        , 'uiSlider'
         , 'LocalStorageModule'
         , 'ngTable'
         ];

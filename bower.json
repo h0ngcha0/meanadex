@@ -22,7 +22,7 @@
     "angular-bootstrap-colorpicker": "~3.0.8",
     "angular-ui-slider": "git://github.com/angular-ui/ui-slider.git#no-jqui-here",
     "angular-local-storage": "~0.0.7",
-    "ng-grid": "~2.0.12",
-    "ng-table": "~0.3.3"
+    "ng-table": "~0.3.3",
+    "angular-slider-royale": "~0.1.16"
   }
 }
