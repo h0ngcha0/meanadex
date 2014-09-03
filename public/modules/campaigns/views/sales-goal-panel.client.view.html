@@ -2,18 +2,7 @@
 <div class="well">
   <h4>Sales goal</h4>
 
-  <slider data-ng-model="tshirtsSalesGoal"
-          floor="20"
-          ceiling="400"
-          step="1"
-          type="text"
-          id="numOfTshirtSlider">
-  </slider>
-
-  <br/>
-
-  <input id="numOfTshirtInput" data-ng-model="tshirtsSalesGoal"/>
-  Shirts
+  <div range-slider min="20" max="400" model-max="tshirtsSalesGoal" pin-handle="min"></div>
 
   <hr/>
 
