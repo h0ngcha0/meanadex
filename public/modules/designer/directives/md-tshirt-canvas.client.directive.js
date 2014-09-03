@@ -10,6 +10,13 @@ angular.module('designer').directive('mdTshirtCanvas', [
       link: function(scope, element, attrs) {
         // initialize the mdCanvasService
         mdCanvasService.init('tcanvas', '#tshirtFacing', '#shirtDiv');
+
+        if(scope.enableEdit) {
+          mdCanvasService.enableEdit();
+        } else {
+          mdCanvasService.disableEdit();
+        }
+
         $timeout(function() {
           element.find('#flip').click(function() {
             var flipTextElem = element.find('#flip-text');

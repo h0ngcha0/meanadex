@@ -3,6 +3,8 @@
 angular.module('designer').controller('DesignerController', [
   '$scope', 'mdCanvasService', 'localStorageService',
   function($scope, mdCanvasService, localStorageService) {
+    $scope.enableEdit = true;
+
     $scope.tshirt = {
       types: [
         { id: 1

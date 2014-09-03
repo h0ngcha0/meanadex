@@ -288,11 +288,19 @@ angular.module('designer').service('mdCanvasService', [
     };
 
     this.disableEdit = function() {
-      enableEdit = false;
+      if(canvas) {
+        canvas.getObjects().forEach(function(obj) {
+          obj.set('selectable', false);
+        });
+      }
     };
 
     this.enableEdit = function() {
-      enableEdit = true;
+      if(canvas) {
+        canvas.getObjects().forEach(function(obj) {
+          obj.set('selectable', true);
+        });
+      }
     };
 
     var addText = function(text, fontColor, fontFamily) {

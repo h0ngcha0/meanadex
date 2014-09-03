@@ -119,7 +119,7 @@ angular.module('campaigns').controller('CampaignsController', [
 
 angular.module('campaigns').controller('CampaignsSalesGoalController', [
   '$scope', 'localStorageService',
-  function($scope, localStorageService ) {
+  function($scope, localStorageService) {
     $scope.currentVariant = localStorageService.get('currentVariant');
 
     $scope.tshirtsSalesGoal = localStorageService.get('tshirtsSalesGoal') || 50;
@@ -178,6 +178,5 @@ angular.module('campaigns').controller('CampaignsSummaryController', [
 
     $scope.tshirtVariantName = $scope.currentVariant.name;
     $scope.baseCost = $scope.currentVariant.baseCost;
-
   }
 ]);
