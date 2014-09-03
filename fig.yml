@@ -7,6 +7,9 @@ web:
   environment: 
    NODE_ENV: development
    MONGOLAB_URI: 'mongodb://192.168.59.103/meanadex-dev'
+  volumes:
+   - /Users/chen/meanadex/public:/home/mean/public
+   - /Users/chen/meanadex/app:/home/mean/app
 db:
   image: mongo
   ports: 
