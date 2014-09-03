@@ -3,9 +3,6 @@
     <h1 data-ng-bind="campaign.name"></h1>
   </div>
   <div class="pull-right" data-ng-show="authentication.user._id == campaign.user._id">
-    <a class="btn btn-primary" href="/#!/campaigns/{{campaign._id}}/edit">
-      <i class="glyphicon glyphicon-edit"></i>
-    </a>
     <a class="btn btn-primary" data-ng-click="remove();">
       <i class="glyphicon glyphicon-trash"></i>
     </a>

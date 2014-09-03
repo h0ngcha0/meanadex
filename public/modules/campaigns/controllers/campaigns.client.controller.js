@@ -57,12 +57,12 @@ angular.module('campaigns').controller('CampaignsController', [
     };
 
     // Update existing Campaign
-    $scope.update = function() {
-      var campaign = $scope.campaign ;
+    $scope.update = function(campaign0) {
+      var campaign = campaign0 || $scope.campaign;
 
       campaign.$update(
         function() {
-          $location.path('campaigns/' + campaign._id);
+          // perhaps show successfully updated message
         },
         function(errorResponse) {
           $scope.error = errorResponse.data.message;
@@ -101,10 +101,19 @@ angular.module('campaigns').controller('CampaignsController', [
       }
     );
 
-    $scope.removeAndReload = function(campaign) {
+    $scope.onRemove = function(campaign) {
       $scope.remove(campaign);
       $scope.tableParams.reload();
     };
+
+    $scope.onSave = function(campaign) {
+      campaign.$edit = false;
+      $scope.update(campaign);
+    };
+
+    $scope.onEdit = function(campaign) {
+      campaign.$edit = true;
+    }
   }
 ]);
 

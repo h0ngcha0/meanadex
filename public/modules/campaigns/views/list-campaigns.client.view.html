@@ -7,13 +7,20 @@
       <table ng-table="tableParams" show-filter="true" class="table">
         <tr ng-repeat="campaign in $data">
           <td data-title="'Name'" filter="{ 'name': 'text' }">
-            <span>{{campaign.name}}</span>
+            <span ng-if="!campaign.$edit">{{campaign.name}}</span>
+            <div ng-if="campaign.$edit">
+              <input class="form-control"
+                     type="text"
+                     ng-model="campaign.name" />
+            </div>
           </td>
           <td data-title="'Description'" filter="{ 'description': 'text' }">
             <span ng-if="!campaign.$edit">{{campaign.description}}</span>
             <div ng-if="campaign.$edit">
-              <input class="form-control" type="text"
-              ng-model="campaign.description" /></div>
+              <input class="form-control"
+                     type="text"
+                     ng-model="campaign.description" />
+            </div>
           </td>
           <td data-title="'Length'">
             <span>{{campaign.length}}</span>
@@ -37,15 +44,15 @@
             <span>{{campaign.price}}</span>
           </td>
           <td data-title="'Actions'" width="100">
-            <a ng-if="!campaign.$edit" href=""
+            <a data-ng-if="!campaign.$edit" href=""
                class="btn btn-primary"
-               ng-click="campaign.$edit = true">
+               data-ng-click="onEdit(campaign)">
               <i class="glyphicon glyphicon-edit"></i>
             </a>
             <a ng-if="campaign.$edit" href=""
                class="btn btn-primary btn-xs"
-               ng-click="campaign.$edit = false">Save</a>
-            <a class="btn btn-primary" data-ng-click="removeAndReload(campaign);">
+               data-ng-click="onSave(campaign)">Save</a>
+            <a class="btn btn-primary" data-ng-click="onRemove(campaign);">
               <i class="glyphicon glyphicon-trash"></i>
             </a>
           </td>

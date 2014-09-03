@@ -35,11 +35,6 @@ angular.module('campaigns').config([
         url: '/campaigns/:campaignId',
         templateUrl: 'modules/campaigns/views/view-campaign.client.view.html',
         controller: 'CampaignsController'
-      }).
-      state('editCampaign', {
-        url: '/campaigns/:campaignId/edit',
-        templateUrl: 'modules/campaigns/views/edit-campaign.client.view.html',
-        controller: 'CampaignsController'
       });
   }
 ]);
