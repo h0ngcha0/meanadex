@@ -4,7 +4,7 @@ web:
     - db
   ports:
     - "3000:3000"
-  environment: 
+  environment:
     NODE_ENV: development
     MONGOLAB_URI: 'mongodb://192.168.59.103/meanadex-dev'
   volumes:
@@ -12,5 +12,5 @@ web:
     - /Users/chen/meanadex/app:/home/mean/app
 db:
   image: mongo
-  ports: 
+  ports:
     - "27017:27017"

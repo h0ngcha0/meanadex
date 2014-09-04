@@ -38,5 +38,3 @@ their [documentation](http://guides.spreecommerce.com/api/)
 Fabric provides higher level APIs for HTML5 canvas. There is a nice
 series of tutorial from the original author:
 [Introduction to Fabric.js](http://fabricjs.com/fabric-intro-part-1/)
-
-
