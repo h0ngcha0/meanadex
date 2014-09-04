@@ -29,11 +29,10 @@ module.exports = function() {
           , username: profile.username
           , provider: 'github'
           , providerIdentifierField: 'id'
-          , providerData: providerData
-          };
+          , providerData: providerData};
 
-          // Save the user OAuth profile
-          users.saveOAuthUserProfile(req, providerUserProfile, done);
-        }
-      ));
-    };
+      // Save the user OAuth profile
+      users.saveOAuthUserProfile(req, providerUserProfile, done);
+    })
+  );
+};
