@@ -1,278 +1,278 @@
 /* core css stylesheet */
 /* TODO: Not sure if html and body style should go here.*/
 html{
-    height: 100%;
-    min-height: 100%;
+  height: 100%;
+  min-height: 100%;
 }
 
 body {
-    padding-top: 60px;
-    height: 100%;
-    min-height: 100%;
+  padding-top: 60px;
+  height: 100%;
+  min-height: 100%;
 }
 
 .content {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 .undecorated-link:hover {
-    text-decoration: none;
+  text-decoration: none;
 }
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-    display: none !important;
+  display: none !important;
 }
 .ng-invalid.ng-dirty{
-    border-color:#FA787E;
+  border-color:#FA787E;
 }
 .ng-valid.ng-dirty{
-    border-color:#78FA89;
+  border-color:#78FA89;
 }
 
 .menu {
-    list-style: none;
-    border-bottom: 0.1em solid black;
-    margin-bottom: 2em;
-    padding: 0 0 0.5em;
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
 }
 
 .menu:before {
-    content: "[";
+  content: "[";
 }
 
 .menu:after {
-    content: "]";
+  content: "]";
 }
 
 .menu > li {
-    display: inline;
+  display: inline;
 }
 
 .menu > li:before {
-    content: "|";
-    padding-right: 0.3em;
+  content: "|";
+  padding-right: 0.3em;
 }
 
 .menu > li:nth-child(1):before {
-    content: "";
-    padding: 0;
+  content: "";
+  padding: 0;
 }
 
 
 .footer {
-    padding: 70px 0;
-    margin-top: 70px;
-    border-top: 1px solid #E5E5E5;
-    background-color: whiteSmoke;
+  padding: 70px 0;
+  margin-top: 70px;
+  border-top: 1px solid #E5E5E5;
+  background-color: whiteSmoke;
 }
 
 .navbar-fixed-top {
-    padding: 25px 0;
-    -webkit-transition: padding .3s;
-    -o-transition: padding .3s;
-    -moz-transition: padding .3s;
-    transition: padding .3s;
+  padding: 25px 0;
+  -webkit-transition: padding .3s;
+  -o-transition: padding .3s;
+  -moz-transition: padding .3s;
+  transition: padding .3s;
 }
 
 .navbar-fixed-top .navbar-brand {
-    font-size: 2em;
-    -webkit-transition: all .3s;
-    -o-transition: all .3s;
-    -moz-transition: all .3s;
-    transition: all .3s;
-    color: #fcd116;
+  font-size: 2em;
+  -webkit-transition: all .3s;
+  -o-transition: all .3s;
+  -moz-transition: all .3s;
+  transition: all .3s;
+  color: #fcd116;
 }
 
 .navbar-fixed-top .navbar-link {
-    color: #fcd116;
-    text-decoration: underline
+  color: #fcd116;
+  text-decoration: underline
 }
 
 .navbar-fixed-top.navbar-shrink {
-    padding: 10px 0;
+  padding: 10px 0;
 }
 
 .navbar-fixed-top.navbar-shrink .navbar-brand {
-    font-size: 1.5em;
+  font-size: 1.5em;
 }
 
 .navbar {
-    font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    text-transform: uppercase;
-    font-weight: 700;
-    background: #005b99;
+  font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  background: #005b99;
 }
 
 .navbar .navbar-nav {
-    letter-spacing: 1px;
+  letter-spacing: 1px;
 }
 
 .navbar-default, .navbar-inverse {
-    border: 0;
+  border: 0;
 }
 
 .full-screen {
-    height: 100%;
-    min-height: 100%;
+  height: 100%;
+  min-height: 100%;
 }
 
 /* landing css */
 
 header {
-    text-align: center;
-    background: #005b99; /* swedish blue */
-    color: #fcd116;
-    overflow: auto;
+  text-align: center;
+  background: #005b99; /* swedish blue */
+  color: #fcd116;
+  overflow: auto;
 }
 
 header .container {
-    padding-top: 100px;
-    padding-bottom: 50px;
+  padding-top: 100px;
+  padding-bottom: 50px;
 }
 
 header img {
-    display: block;
-    margin: 0 auto 20px;
+  display: block;
+  margin: 0 auto 20px;
 }
 
 header .intro-text .name {
-    display: block;
-    font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 2em;
+  display: block;
+  font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 2em;
 }
 header .intro-text .skills {
-    font-size: 1.25em;
-    font-weight: 300;
+  font-size: 1.25em;
+  font-weight: 300;
 }
 
 @media (min-width:768px) {
-    header .container {
-        padding: 200px 0 100px;
-    }
-    header .intro-text .name {
-        font-size: 5em;
-    }
-    header .intro-text .skills {
-        font-size: 1.75em;
-    }
+  header .container {
+    padding: 200px 0 100px;
+  }
+  header .intro-text .name {
+    font-size: 5em;
+  }
+  header .intro-text .skills {
+    font-size: 1.75em;
+  }
 }
 
 hr.star-light, hr.star-primary {
-    padding: 0;
-    border: 0;
-    border-top: solid 5px;
-    text-align: center;
-    max-width: 250px;
-    margin: 25px auto 30px;
+  padding: 0;
+  border: 0;
+  border-top: solid 5px;
+  text-align: center;
+  max-width: 250px;
+  margin: 25px auto 30px;
 }
 
 hr.star-light:after, hr.star-primary:after {
-    content: "\f005";
-    font-family: FontAwesome;
-    display: inline-block;
-    position: relative;
-    top: -.8em;
-    font-size: 2em;
-    padding: 0 .25em;
+  content: "\f005";
+  font-family: FontAwesome;
+  display: inline-block;
+  position: relative;
+  top: -.8em;
+  font-size: 2em;
+  padding: 0 .25em;
 }
 
 hr.star-light {
-    border-color: #fff;
+  border-color: #fff;
 }
 
 hr.star-light:after {
-    color: #fff;
+  color: #fff;
 }
 
 header hr.star-light:after {
-    background-color: #005b99;
+  background-color: #005b99;
 }
 
 section hr.star-light:after {
-    background-color: #18bc9c;
+  background-color: #18bc9c;
 }
 
 hr.star-primary {
-    border-color: #2c3e50;
+  border-color: #2c3e50;
 }
 
 hr.star-primary:after {
-    background-color: #fff;
-    color: #2c3e50;
+  background-color: #fff;
+  color: #2c3e50;
 }
 
 section {
-    padding: 100px 0;
+  padding: 100px 0;
 }
 
 section h2 {
-    margin: 0;
-    font-size: 3em;
+  margin: 0;
+  font-size: 3em;
 }
 
 section.success {
-    background: #005b99; /* swedish blue */
-    color: #fcd116;
+  background: #005b99; /* swedish blue */
+  color: #fcd116;
 }
 
 section.success h2 a{
-    color: #fcd116; /* swedish blue */
-    text-decoration: underline
+  color: #fcd116; /* swedish blue */
+  text-decoration: underline
 }
 
 @media (max-width:767px) {
-    section {
-        padding: 75px 0;
-    }
-    section.first {
-        padding-top: 75px;
-    }
+  section {
+    padding: 75px 0;
+  }
+  section.first {
+    padding-top: 75px;
+  }
 }
 
 .btn-social {
-    display: inline-block;
-    height: 50px;
-    width: 50px;
-    border: 2px solid #fff;
-    border-radius: 100%;
-    text-align: center;
-    font-size: 20px;
-    line-height: 45px;
+  display: inline-block;
+  height: 50px;
+  width: 50px;
+  border: 2px solid #fff;
+  border-radius: 100%;
+  text-align: center;
+  font-size: 20px;
+  line-height: 45px;
 }
 
 .btn-outline {
-    color: #fff;
-    font-size: 20px;
-    border: solid 2px #fff;
-    background: 0 0;
-    transition: all .3s ease-in-out;
-    margin-top: 15px;
+  color: #fff;
+  font-size: 20px;
+  border: solid 2px #fff;
+  background: 0 0;
+  transition: all .3s ease-in-out;
+  margin-top: 15px;
 }
 
 .btn-outline:hover, .btn-outline:focus, .btn-outline:active, .btn-outline.active {
-    color: #18bc9c;
-    background: #fff;
-    border: solid 2px #fff;
+  color: #18bc9c;
+  background: #fff;
+  border: solid 2px #fff;
 }
 
 footer {
-    background: #005b99; /* swedish blue */
-    color: #fcd116;
+  background: #005b99; /* swedish blue */
+  color: #fcd116;
 }
 footer h3 {
-    margin-bottom: 30px;
-    color: #fcd116;
+  margin-bottom: 30px;
+  color: #fcd116;
 }
 footer .footer-above {
-    padding-top: 50px;
-    background-color: #005b99;
+  padding-top: 50px;
+  background-color: #005b99;
 }
 
 footer .footer-col {
-    margin-bottom: 50px;
-    color: #fcd116;
+  margin-bottom: 50px;
+  color: #fcd116;
 }
 footer .footer-below {
-    padding: 25px 0;
-    background-color: #005b99;
+  padding: 25px 0;
+  background-color: #005b99;
 }

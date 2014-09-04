@@ -1,21 +1,21 @@
 .ui-slider .ui-slider-range {
-    border-color: black;
+  border-color: black;
 }
 
 .ui-slider .ui-slider-handle {
-    border-color: black;
+  border-color: black;
 }
 
 .gridStyle {
-    border: 1px solid rgb(212,212,212);
-    width: 100%;
-    height: 70px;
+  border: 1px solid rgb(212,212,212);
+  width: 100%;
+  height: 70px;
 }
 
 .ngrs-range-slider .ngrs-join {
-    background-color: #005b99;
-    background-image: -webkit-linear-gradient(#5bc0de, #005b99);
-    background-image: -moz-linear-gradient(#5bc0de, #005b99);
-    background-image: -o-linear-gradient(#5bc0de, #005b99);
-    background-image: linear-gradient(#5bc0de, #005b99);
+  background-color: #005b99;
+  background-image: -webkit-linear-gradient(#5bc0de, #005b99);
+  background-image: -moz-linear-gradient(#5bc0de, #005b99);
+  background-image: -o-linear-gradient(#5bc0de, #005b99);
+  background-image: linear-gradient(#5bc0de, #005b99);
 }
