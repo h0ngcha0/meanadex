@@ -4,8 +4,8 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-  Schema = mongoose.Schema,
-  crypto = require('crypto');
+    Schema = mongoose.Schema,
+    crypto = require('crypto');
 
 /**
  * A Validation function for local strategy properties
@@ -86,9 +86,9 @@ var UserSchema = new Schema({
   resetPasswordToken: {
     type: String
   },
-    resetPasswordExpires: {
-      type: Date
-    }
+  resetPasswordExpires: {
+    type: Date
+  }
 });
 
 /**

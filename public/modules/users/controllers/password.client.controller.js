@@ -39,8 +39,8 @@ angular.module('users').controller('PasswordController', [
           // And redirect to the index page
           $location.path('/password/reset/success');
         }).error(function(response) {
-        $scope.error = response.message;
-      });
-    };
-  }
-]);
+          $scope.error = response.message;
+        });
+      };
+    }
+  ]);

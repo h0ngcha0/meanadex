@@ -6,20 +6,20 @@ var ApplicationConfiguration = (
     // Init module configuration options
     var applicationModuleName = 'meanadex';
     var applicationModuleVendorDependencies =
-        [ 'ngResource'
-        , 'ngCookies'
-        , 'ngAnimate'
-        , 'ngTouch'
-        , 'ngSanitize'
-        , 'ui.router'
-        , 'ui.bootstrap'
-        , 'ui.utils'
-        , 'textAngular'
-        , 'colorpicker.module'
-        , 'ui-rangeSlider'
-        , 'LocalStorageModule'
-        , 'ngTable'
-        ];
+    [ 'ngResource'
+    , 'ngCookies'
+    , 'ngAnimate'
+    , 'ngTouch'
+    , 'ngSanitize'
+    , 'ui.router'
+    , 'ui.bootstrap'
+    , 'ui.utils'
+    , 'textAngular'
+    , 'colorpicker.module'
+    , 'ui-rangeSlider'
+    , 'LocalStorageModule'
+    , 'ngTable'
+    ];
 
     // Add a new vertical module
     var registerModule = function(moduleName, dependencies) {

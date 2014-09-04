@@ -2,9 +2,9 @@
   <h3>Style & quality</h3>
   <!--Select types of the T-Shirts-->
   <select id="tshirt-type-selector"
-          ng-model="currentTshirtType"
-          ng-options="tshirtType.name for tshirtType in tshirt.types"
-          class="form-control">
+    ng-model="currentTshirtType"
+    ng-options="tshirtType.name for tshirtType in tshirt.types"
+    class="form-control">
     <option value=""> -- Choose your tshirt -- </option>
   </select>
 
@@ -12,8 +12,8 @@
 
   <ul class="list-group">
     <li class="list-group-item tshirt-variant"
-        ng-click="setVariant(variant)"
-        ng-repeat="variant in currentTshirtType.variants" tabindex="-1">
+      ng-click="setVariant(variant)"
+      ng-repeat="variant in currentTshirtType.variants" tabindex="-1">
       {{variant.name}}
       <br>
       <small>{{variant.description}}</small>
@@ -23,10 +23,10 @@
   <div class="clearfix">
     <div class="btn-group inline pull-left">
       <a class="color-preview btn"
-         title="{{color.title}}"
-         style="background-color:{{color.style}};"
-         data-ng-click="setCanvasBgColor(color.style)"
-         data-ng-repeat="color in currentVariant.colors">
+        title="{{color.title}}"
+        style="background-color:{{color.style}};"
+        data-ng-click="setCanvasBgColor(color.style)"
+        data-ng-repeat="color in currentVariant.colors">
       </a>
     </div>
   </div>
@@ -34,10 +34,10 @@
   <h5>Base cost @ 50 shirts</h5>
   <h3 id="baseCostLabel">{{ currentVariant.baseCost }} {{ currentVariant.unit }}</h3>
   <a href="#!/campaign_sales_goal"
-     type="button"
-     class="btn btn-lg btn-block btn-success"
-     name="designNextStep"
-     id="designNextStep">
+    type="button"
+    class="btn btn-lg btn-block btn-success"
+    name="designNextStep"
+    id="designNextStep">
     Next step
     <i class="glyphicon glyphicon-chevron-right glyphicon-white"></i>
   </a>
@@ -57,8 +57,8 @@
         </div>
         <div class="modal-footer">
           <button type="button"
-                  class="btn btn-primary center-block"
-                  data-dismiss="modal">
+            class="btn btn-primary center-block"
+            data-dismiss="modal">
             Go back to designer
           </button>
         </div>

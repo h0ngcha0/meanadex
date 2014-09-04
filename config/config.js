@@ -39,14 +39,14 @@ module.exports.getGlobbedFiles = function(globPatterns, removeRoot) {
       glob(globPatterns, {
         sync: true
       }, function(err, files) {
-           if (removeRoot) {
-             files = files.map(function(file) {
-                       return file.replace(removeRoot, '');
-                     });
-           }
+        if (removeRoot) {
+          files = files.map(function(file) {
+            return file.replace(removeRoot, '');
+          });
+        }
 
-           output = _.union(output, files);
-         });
+        output = _.union(output, files);
+      });
     }
   }
 

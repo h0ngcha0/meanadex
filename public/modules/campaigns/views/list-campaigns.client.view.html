@@ -10,16 +10,16 @@
             <span ng-if="!campaign.$edit">{{campaign.name}}</span>
             <div ng-if="campaign.$edit">
               <input class="form-control"
-                     type="text"
-                     ng-model="campaign.name" />
+              type="text"
+              ng-model="campaign.name" />
             </div>
           </td>
           <td data-title="'Description'" filter="{ 'description': 'text' }">
             <span ng-if="!campaign.$edit">{{campaign.description}}</span>
             <div ng-if="campaign.$edit">
               <input class="form-control"
-                     type="text"
-                     ng-model="campaign.description" />
+              type="text"
+              ng-model="campaign.description" />
             </div>
           </td>
           <td data-title="'Length'">
@@ -45,13 +45,13 @@
           </td>
           <td data-title="'Actions'" width="100">
             <a data-ng-if="!campaign.$edit" href=""
-               class="btn btn-primary"
-               data-ng-click="onEdit(campaign)">
+              class="btn btn-primary"
+              data-ng-click="onEdit(campaign)">
               <i class="glyphicon glyphicon-edit"></i>
             </a>
             <a ng-if="campaign.$edit" href=""
-               class="btn btn-primary btn-xs"
-               data-ng-click="onSave(campaign)">Save</a>
+              class="btn btn-primary btn-xs"
+              data-ng-click="onSave(campaign)">Save</a>
             <a class="btn btn-primary" data-ng-click="onRemove(campaign);">
               <i class="glyphicon glyphicon-trash"></i>
             </a>

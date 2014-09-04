@@ -51,18 +51,18 @@ describe('Campaign Model Unit Tests:', function() {
   describe('Method Save', function() {
     it('should be able to save without problems', function(done) {
       return campaign.save(function(err) {
-               should.not.exist(err);
-               done();
-             });
+        should.not.exist(err);
+        done();
+      });
     });
 
     it('should be able to show an error when try to save without name', function(done) {
       campaign.name = '';
 
       return campaign.save(function(err) {
-               should.exist(err);
-               done();
-             });
+        should.exist(err);
+        done();
+      });
     });
   });
 

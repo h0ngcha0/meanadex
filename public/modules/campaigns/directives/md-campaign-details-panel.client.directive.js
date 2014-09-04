@@ -21,27 +21,27 @@ angular.module('campaigns').directive('mdCampaignDetailsPanel', [
             };
 
             [ { field: scope.campaignTitle
-              , warningId: '#titleWarning'
-              }
-            , { field: scope.campaignDescription
-              , warningId: '#descriptionWarning'
-              }
-            , { field: scope.campaignUrl
-              , warningId: '#urlWarning'
-              }
-            , { field: element.find('#tosCheckbox').prop('checked')
-              , warningId: '#tosWarning'
-              }
-            ].forEach(function(obj) {
-              verifyEmptyFun(obj.field, obj.warningId);
-            });
-
-            if(status === 'not_ok') {
-              e.preventDefault();
+            , warningId: '#titleWarning'
             }
+          , { field: scope.campaignDescription
+            , warningId: '#descriptionWarning'
+            }
+          , { field: scope.campaignUrl
+            , warningId: '#urlWarning'
+            }
+          , { field: element.find('#tosCheckbox').prop('checked')
+            , warningId: '#tosWarning'
+            }
+          ].forEach(function(obj) {
+            verifyEmptyFun(obj.field, obj.warningId);
           });
-        }, 0);
-      }
-    };
-  }
+
+          if(status === 'not_ok') {
+            e.preventDefault();
+          }
+        });
+      }, 0);
+    }
+  };
+}
 ]);

@@ -11,6 +11,6 @@ angular.module('campaigns').factory('Campaigns', [
       { update: {
         method: 'PUT'
       }
-      });
+    });
   }
 ]);

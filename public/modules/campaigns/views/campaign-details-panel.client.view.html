@@ -10,9 +10,9 @@
   <hr/>
   <h4>Description</h4>
   <text-angular ta-toolbar="[['bold','italics', 'underline'], ['insertLink',
-                            'insertImage'], ['html']]"
-                ng-model="campaignDescription">
-    My awesome campaign.
+  'insertImage'], ['html']]"
+  ng-model="campaignDescription">
+  My awesome campaign.
   </text-angular>
 
   <p id="descriptionWarning" class="bg-danger hide"> Description can not be empty. </p>
@@ -21,9 +21,9 @@
 
   <h4>Campaign length</h4>
   <select class="font-family-picker form-control"
-          ng-init="currentCampaignLength=campaignLengths[2]"
-          ng-model="currentCampaignLength"
-          ng-options="campaignLength for campaignLength in campaignLengths">
+    ng-init="currentCampaignLength=campaignLengths[2]"
+    ng-model="currentCampaignLength"
+    ng-options="campaignLength for campaignLength in campaignLengths">
   </select>
 
   <hr/>
@@ -56,10 +56,10 @@
   <hr/>
 
   <a id="campaignDetailNextStep"
-     href="#!campaign_summary"
-     type="button"
-     class="btn btn-lg btn-block btn-success"
-     name="campaignDetailNextStep">
+    href="#!campaign_summary"
+    type="button"
+    class="btn btn-lg btn-block btn-success"
+    name="campaignDetailNextStep">
     Launch your campaign
     <i class="glyphicon glyphicon-chevron-right glyphicon-white"></i>
   </a>

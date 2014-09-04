@@ -6,10 +6,10 @@ angular.module('designer').config([
   function($stateProvider) {
     // Designer state routing
     $stateProvider.
-      state('designer', {
-        url: '/designer',
-        templateUrl: 'modules/designer/views/designer.client.view.html',
-        controller: 'DesignerController'
-      });
+    state('designer', {
+      url: '/designer',
+      templateUrl: 'modules/designer/views/designer.client.view.html',
+      controller: 'DesignerController'
+    });
   }
 ]);

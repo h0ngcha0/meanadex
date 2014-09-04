@@ -5,7 +5,7 @@ angular.module('campaigns').controller('CampaignsController', [
   '$scope', '$stateParams', '$location', 'Authentication',
   'Campaigns', '$cookies', 'localStorageService', '$filter', 'ngTableParams', '$timeout',
   function( $scope, $stateParams, $location, Authentication, Campaigns
-          , $cookies, localStorageService, $filter, ngTableParams, $timeout) {
+  , $cookies, localStorageService, $filter, ngTableParams, $timeout) {
     $scope.authentication = Authentication;
 
     // Create new Campaign
@@ -67,116 +67,116 @@ angular.module('campaigns').controller('CampaignsController', [
         function(errorResponse) {
           $scope.error = errorResponse.data.message;
         });
-    };
+      };
 
-    // Find a list of Campaigns
-    $scope.find = function() {
-      $scope.campaigns = Campaigns.query();
-    };
+      // Find a list of Campaigns
+      $scope.find = function() {
+        $scope.campaigns = Campaigns.query();
+      };
 
-    // Find existing Campaign
-    $scope.findOne = function() {
-      $scope.campaign = Campaigns.get({
-        campaignId: $stateParams.campaignId
-      });
-    };
+      // Find existing Campaign
+      $scope.findOne = function() {
+        $scope.campaign = Campaigns.get({
+          campaignId: $stateParams.campaignId
+        });
+      };
 
-    $scope.tableParams = new ngTableParams(
-      { page: 1
-      , count: 10
-      },
-      { total: 0
-      , getData: function($defer, params) {
-          $timeout(function() {
-            var orderedData = params.filter() ?
+      $scope.tableParams = new ngTableParams(
+        { page: 1
+        , count: 10
+        },
+        { total: 0
+        , getData: function($defer, params) {
+            $timeout(function() {
+              var orderedData = params.filter() ?
               $filter('filter')($scope.campaigns, params.filter()) :
               $scope.campaigns;
 
-            $scope.presented_campaigns = orderedData;
+              $scope.presented_campaigns = orderedData;
 
-            params.total($scope.presented_campaigns.length);
-            $defer.resolve($scope.presented_campaigns);
-          }, 500);
+              params.total($scope.presented_campaigns.length);
+              $defer.resolve($scope.presented_campaigns);
+            }, 500);
+          }
         }
+      );
+
+      $scope.onRemove = function(campaign) {
+        $scope.remove(campaign);
+        $scope.tableParams.reload();
+      };
+
+      $scope.onSave = function(campaign) {
+        campaign.$edit = false;
+        $scope.update(campaign);
+      };
+
+      $scope.onEdit = function(campaign) {
+        campaign.$edit = true;
       }
-    );
-
-    $scope.onRemove = function(campaign) {
-      $scope.remove(campaign);
-      $scope.tableParams.reload();
-    };
-
-    $scope.onSave = function(campaign) {
-      campaign.$edit = false;
-      $scope.update(campaign);
-    };
-
-    $scope.onEdit = function(campaign) {
-      campaign.$edit = true;
     }
-  }
-]);
+  ]);
 
-angular.module('campaigns').controller('CampaignsSalesGoalController', [
-  '$scope', 'localStorageService',
-  function($scope, localStorageService) {
-    $scope.currentVariant = localStorageService.get('currentVariant');
+  angular.module('campaigns').controller('CampaignsSalesGoalController', [
+    '$scope', 'localStorageService',
+    function($scope, localStorageService) {
+      $scope.currentVariant = localStorageService.get('currentVariant');
 
-    $scope.tshirtsSalesGoal = localStorageService.get('tshirtsSalesGoal') || 50;
-    localStorageService.bind($scope, 'tshirtsSalesGoal', $scope.tshirtsSalesGoal);
+      $scope.tshirtsSalesGoal = localStorageService.get('tshirtsSalesGoal') || 50;
+      localStorageService.bind($scope, 'tshirtsSalesGoal', $scope.tshirtsSalesGoal);
 
-    $scope.tshirtPrice = localStorageService.get('tshirtPrice') || 70;
-    localStorageService.bind($scope, 'tshirtPrice', $scope.tshirtPrice);
+      $scope.tshirtPrice = localStorageService.get('tshirtPrice') || 70;
+      localStorageService.bind($scope, 'tshirtPrice', $scope.tshirtPrice);
 
-    $scope.estimatedProfitFun = function() {
-      var profit = ($scope.tshirtPrice - $scope.currentVariant.baseCost) * $scope.tshirtsSalesGoal;
-      return profit > 0 ? profit : 0;
-    };
-  }
-]);
+      $scope.estimatedProfitFun = function() {
+        var profit = ($scope.tshirtPrice - $scope.currentVariant.baseCost) * $scope.tshirtsSalesGoal;
+        return profit > 0 ? profit : 0;
+      };
+    }
+  ]);
 
-angular.module('campaigns').controller('CampaignsSalesDetailsController', [
-  '$scope', 'localStorageService',
-  function($scope, localStorageService) {
-    $scope.campaignTitle = localStorageService.get('campaignTitle') || '';
-    localStorageService.bind($scope, 'campaignTitle', $scope.campaignTitle);
+  angular.module('campaigns').controller('CampaignsSalesDetailsController', [
+    '$scope', 'localStorageService',
+    function($scope, localStorageService) {
+      $scope.campaignTitle = localStorageService.get('campaignTitle') || '';
+      localStorageService.bind($scope, 'campaignTitle', $scope.campaignTitle);
 
-    $scope.campaignDescription = localStorageService.get('campaignDescription') || '';
-    localStorageService.bind($scope, 'campaignDescription', $scope.campaignDescription);
+      $scope.campaignDescription = localStorageService.get('campaignDescription') || '';
+      localStorageService.bind($scope, 'campaignDescription', $scope.campaignDescription);
 
-    $scope.campaignUrl = localStorageService.get('campaignUrl') || '';
-    localStorageService.bind($scope, 'campaignUrl', $scope.campaignUrl);
+      $scope.campaignUrl = localStorageService.get('campaignUrl') || '';
+      localStorageService.bind($scope, 'campaignUrl', $scope.campaignUrl);
 
-    $scope.currentCampaignLength = localStorageService.get('currentCampaignLength') || 7;
-    localStorageService.bind($scope, 'currentCampaignLength', $scope.currentCampaignLength);
-    var dateAfterDaysFromNow = function(days) {
-      return Date.today().addDays(days).toString().split(' ').slice(0, 3).join(' ');
-    };
+      $scope.currentCampaignLength = localStorageService.get('currentCampaignLength') || 7;
+      localStorageService.bind($scope, 'currentCampaignLength', $scope.currentCampaignLength);
+      var dateAfterDaysFromNow = function(days) {
+        return Date.today().addDays(days).toString().split(' ').slice(0, 3).join(' ');
+      };
 
-    $scope.campaignLengths = [3, 5, 7, 10, 14, 21].map(
-      function(days) {
-        return days.toString() + ' days ' + '(Ending ' + dateAfterDaysFromNow(days) + ')';
-      }
-    );
-  }
-]);
+      $scope.campaignLengths = [3, 5, 7, 10, 14, 21].map(
+        function(days) {
+          return days.toString() + ' days ' + '(Ending ' + dateAfterDaysFromNow(days) + ')';
+        }
+      );
+    }
+  ]);
 
-angular.module('campaigns').controller('CampaignsSummaryController', [
-  '$scope', 'localStorageService',
-  function($scope, localStorageService) {
-    $scope.campaignTitle = localStorageService.get('campaignTitle');
-    $scope.campaignDescription = localStorageService.get('campaignDescription');
-    $scope.campaignUrl = localStorageService.get('campaignUrl');
-    $scope.currentCampaignLength = localStorageService.get('currentCampaignLength');
-    $scope.tshirtsSalesGoal = localStorageService.get('tshirtsSalesGoal');
-    $scope.tshirtPrice = localStorageService.get('tshirtPrice');
+  angular.module('campaigns').controller('CampaignsSummaryController', [
+    '$scope', 'localStorageService',
+    function($scope, localStorageService) {
+      $scope.campaignTitle = localStorageService.get('campaignTitle');
+      $scope.campaignDescription = localStorageService.get('campaignDescription');
+      $scope.campaignUrl = localStorageService.get('campaignUrl');
+      $scope.currentCampaignLength = localStorageService.get('currentCampaignLength');
+      $scope.tshirtsSalesGoal = localStorageService.get('tshirtsSalesGoal');
+      $scope.tshirtPrice = localStorageService.get('tshirtPrice');
 
-    $scope.tshirtType = localStorageService.get('currentTshirtType');
-    $scope.tshirtTypeName = $scope.tshirtType.name;
+      $scope.tshirtType = localStorageService.get('currentTshirtType');
+      $scope.tshirtTypeName = $scope.tshirtType.name;
 
-    $scope.currentVariant = localStorageService.get('currentVariant');
+      $scope.currentVariant = localStorageService.get('currentVariant');
 
-    $scope.tshirtVariantName = $scope.currentVariant.name;
-    $scope.baseCost = $scope.currentVariant.baseCost;
-  }
-]);
+      $scope.tshirtVariantName = $scope.currentVariant.name;
+      $scope.baseCost = $scope.currentVariant.baseCost;
+    }
+  ]);
