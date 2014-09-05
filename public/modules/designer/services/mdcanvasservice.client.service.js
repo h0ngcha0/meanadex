@@ -78,17 +78,17 @@ angular.module('designer').service('mdCanvasService', [
       fabric.Canvas.prototype._getActionFromCorner = function(target, corner) {
         var action = 'drag';
         if (corner) {
-          action = (corner === 'ml' || corner === 'mr')
-                 ? 'scaleX'
-                 : (corner === 'mt' || corner === 'mb')
-                 ? 'scaleY'
-                 : (corner === 'tr' || corner === 'mtr')
-                 ? 'rotate'
-                 : corner === 'bl'
-                 ? 'delete'
-                 : corner === 'tl'
-                 ? 'drag'
-                 : 'scale';
+          action = (corner === 'ml' || corner === 'mr') ?
+            'scaleX' :
+            (corner === 'mt' || corner === 'mb') ?
+            'scaleY' :
+            (corner === 'tr' || corner === 'mtr') ?
+            'rotate' :
+            corner === 'bl' ?
+            'delete' :
+            corner === 'tl' ?
+            'drag' :
+            'scale';
         }
         return action;
       };
@@ -230,7 +230,7 @@ angular.module('designer').service('mdCanvasService', [
           var selectedObject = e.target;
           selectedObject.hasRotatingPoint = true;
           if (selectedObject &&
-              selectedObject.type === 'text') {
+            selectedObject.type === 'text') {
             $rootScope.$broadcast(
               'mdeTextObjectSelected',
               {
@@ -240,7 +240,7 @@ angular.module('designer').service('mdCanvasService', [
               }
             );
           } else if (selectedObject &&
-                     selectedObject.type === 'image'){
+            selectedObject.type === 'image'){
             $rootScope.$broadcast('mdeImageObjectSelected');
           }
         },
@@ -328,7 +328,7 @@ angular.module('designer').service('mdCanvasService', [
     };
 
     this.addTextWhenNoActiveText =
-      function(text, fontColor, fontFamily) {
+    function(text, fontColor, fontFamily) {
       var activeObject = canvas.getActiveObject();
       if (!activeObject || activeObject.type !== 'text') {
         addText(text, fontColor, fontFamily);
@@ -352,8 +352,8 @@ angular.module('designer').service('mdCanvasService', [
       var angle = fabric.util.getRandomInt(-20, 40);
       var width = fabric.util.getRandomInt(30, 50);
       var opacity = (function(min, max){
-                       return Math.random() * (max - min) + min;
-                     })(0.5, 1);
+        return Math.random() * (max - min) + min;
+      })(0.5, 1);
 
       fabric.Image.fromURL(ImgSrc, function(image) {
         image.set(
