@@ -66,59 +66,59 @@ angular.module('campaigns').controller('CampaignsController', [
         },
         function(errorResponse) {
           $scope.error = errorResponse.data.message;
-        });
-      };
-
-      // Find a list of Campaigns
-      $scope.find = function() {
-        $scope.campaigns = Campaigns.query();
-      };
-
-      // Find existing Campaign
-      $scope.findOne = function() {
-        $scope.campaign = Campaigns.get({
-          campaignId: $stateParams.campaignId
-        });
-      };
-
-      $scope.tableParams = new NgTableParams(
-        {
-          page: 1,
-          count: 10
-        },
-        {
-          total: 0,
-          getData: function($defer, params) {
-            $timeout(function() {
-              var orderedData = params.filter() ?
-              $filter('filter')($scope.campaigns, params.filter()) :
-              $scope.campaigns;
-
-              $scope.presented_campaigns = orderedData;
-
-              params.total($scope.presented_campaigns.length);
-              $defer.resolve($scope.presented_campaigns);
-            }, 500);
-          }
         }
       );
+    };
 
-      $scope.onRemove = function(campaign) {
-        $scope.remove(campaign);
-        $scope.tableParams.reload();
-      };
+    // Find a list of Campaigns
+    $scope.find = function() {
+      $scope.campaigns = Campaigns.query();
+    };
 
-      $scope.onSave = function(campaign) {
-        campaign.$edit = false;
-        $scope.update(campaign);
-      };
+    // Find existing Campaign
+    $scope.findOne = function() {
+      $scope.campaign = Campaigns.get({
+        campaignId: $stateParams.campaignId
+      });
+    };
 
-      $scope.onEdit = function(campaign) {
-        campaign.$edit = true;
-      };
-    }
-  ]
-);
+    $scope.tableParams = new NgTableParams(
+      {
+        page: 1,
+        count: 10
+      },
+      {
+        total: 0,
+        getData: function($defer, params) {
+          $timeout(function() {
+            var orderedData = params.filter() ?
+            $filter('filter')($scope.campaigns, params.filter()) :
+            $scope.campaigns;
+
+            $scope.presented_campaigns = orderedData;
+
+            params.total($scope.presented_campaigns.length);
+            $defer.resolve($scope.presented_campaigns);
+          }, 500);
+        }
+      }
+    );
+
+    $scope.onRemove = function(campaign) {
+      $scope.remove(campaign);
+      $scope.tableParams.reload();
+    };
+
+    $scope.onSave = function(campaign) {
+      campaign.$edit = false;
+      $scope.update(campaign);
+    };
+
+    $scope.onEdit = function(campaign) {
+      campaign.$edit = true;
+    };
+  }
+]);
 
 angular.module('campaigns').controller('CampaignsSalesGoalController', [
   '$scope', 'localStorageService',
