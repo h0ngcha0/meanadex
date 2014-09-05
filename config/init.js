@@ -24,23 +24,23 @@ module.exports = function() {
           process.env.NODE_ENV +
           '" environment using development instead');
       } else {
-        console.error( '\x1b[31m'
-        , 'NODE_ENV is not defined! Using default development environment');
-  }
+        console.error( '\x1b[31m',
+          'NODE_ENV is not defined! Using default development environment');
+      }
 
-  process.env.NODE_ENV = 'development';
-} else {
-  console.log( '\x1b[7m'
-  , 'Application loaded using the "' + process.env.NODE_ENV +
-    '" environment configuration');
-}
-console.log('\x1b[0m');
-});
+      process.env.NODE_ENV = 'development';
+    } else {
+      console.log( '\x1b[7m',
+        'Application loaded using the "' + process.env.NODE_ENV +
+        '" environment configuration');
+    }
+    console.log('\x1b[0m');
+  });
 
-/**
- * Add our server node extensions
- */
-require.extensions['.server.controller.js'] = require.extensions['.js'];
-require.extensions['.server.model.js'] = require.extensions['.js'];
-require.extensions['.server.routes.js'] = require.extensions['.js'];
+  /**
+   * Add our server node extensions
+   */
+  require.extensions['.server.controller.js'] = require.extensions['.js'];
+  require.extensions['.server.model.js'] = require.extensions['.js'];
+  require.extensions['.server.routes.js'] = require.extensions['.js'];
 };

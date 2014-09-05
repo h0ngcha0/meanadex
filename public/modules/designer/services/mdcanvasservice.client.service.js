@@ -14,13 +14,14 @@ angular.module('designer').service('mdCanvasService', [
         DownLeftPoint   = [0, DrawAreaHeight],
         DownRightPoint  = [DrawAreaWidth, DrawAreaHeight],
         LineWidthOffset = 1,
-        lineProps = { 'stroke':'#000000'
-                    , 'strokeWidth':1
-                    , hasBorders:false
-                    , hasControls:false
-                    , hasRotatingPoint:false
-                    , selectable:false
-                    },
+        lineProps = {
+          'stroke':'#000000',
+          'strokeWidth':1,
+          hasBorders:false,
+          hasControls:false,
+          hasRotatingPoint:false,
+          selectable:false
+        },
         lineL, lineR, lineU, lineD;
 
     // Position for the newly added text

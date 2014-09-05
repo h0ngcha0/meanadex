@@ -78,8 +78,8 @@ angular.module('core').service('Menus', [
     };
 
     // Add menu item object
-    this.addMenuItem = function( menuId, menuItemTitle, menuItemURL, menuItemType
-    , menuItemUIRoute, isPublic, roles, position) {
+    this.addMenuItem = function( menuId, menuItemTitle, menuItemURL,
+      menuItemType, menuItemUIRoute, isPublic, roles, position) {
       // Validate that the menu exists
       this.validateMenuExistance(menuId);
 
@@ -104,8 +104,8 @@ angular.module('core').service('Menus', [
     };
 
     // Add submenu item object
-    this.addSubMenuItem = function( menuId, rootMenuItemURL, menuItemTitle
-    , menuItemURL, menuItemUIRoute, isPublic, roles, position) {
+    this.addSubMenuItem = function( menuId, rootMenuItemURL, menuItemTitle,
+      menuItemURL, menuItemUIRoute, isPublic, roles, position) {
       // Validate that the menu exists
       this.validateMenuExistance(menuId);
 

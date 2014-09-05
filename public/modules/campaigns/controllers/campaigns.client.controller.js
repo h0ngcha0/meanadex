@@ -4,8 +4,8 @@
 angular.module('campaigns').controller('CampaignsController', [
   '$scope', '$stateParams', '$location', 'Authentication',
   'Campaigns', '$cookies', 'localStorageService', '$filter', 'ngTableParams', '$timeout',
-  function( $scope, $stateParams, $location, Authentication, Campaigns
-  , $cookies, localStorageService, $filter, ngTableParams, $timeout) {
+  function( $scope, $stateParams, $location, Authentication, Campaigns,
+    $cookies, localStorageService, $filter, ngTableParams, $timeout) {
     $scope.authentication = Authentication;
 
     // Create new Campaign
@@ -82,11 +82,13 @@ angular.module('campaigns').controller('CampaignsController', [
       };
 
       $scope.tableParams = new ngTableParams(
-        { page: 1
-        , count: 10
+        {
+          page: 1,
+          count: 10
         },
-        { total: 0
-        , getData: function($defer, params) {
+        {
+          total: 0,
+          getData: function($defer, params) {
             $timeout(function() {
               var orderedData = params.filter() ?
               $filter('filter')($scope.campaigns, params.filter()) :
@@ -113,7 +115,7 @@ angular.module('campaigns').controller('CampaignsController', [
 
       $scope.onEdit = function(campaign) {
         campaign.$edit = true;
-      }
+      };
     }
   ]
 );

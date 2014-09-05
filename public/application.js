@@ -1,13 +1,13 @@
 'use strict';
 
 //Start by defining the main module and adding the module dependencies
-angular.module( ApplicationConfiguration.applicationModuleName
-, ApplicationConfiguration.applicationModuleVendorDependencies);
+angular.module(ApplicationConfiguration.applicationModuleName,
+  ApplicationConfiguration.applicationModuleVendorDependencies);
 
 // Setting HTML5 Location Mode
 angular.module(ApplicationConfiguration.applicationModuleName).config(
-  [ '$locationProvider'
-  , function($locationProvider) {
+  [ '$locationProvider',
+    function($locationProvider) {
       $locationProvider.hashPrefix('!');
     }
   ]
@@ -19,6 +19,6 @@ angular.element(document).ready(function() {
   if (window.location.hash === '#_=_') window.location.hash = '#!';
 
   //Then init the app
-  angular.bootstrap( document
-  , [ApplicationConfiguration.applicationModuleName]);
+  angular.bootstrap( document,
+    [ApplicationConfiguration.applicationModuleName]);
 });
