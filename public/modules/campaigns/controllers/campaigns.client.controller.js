@@ -5,7 +5,7 @@ angular.module('campaigns').controller('CampaignsController', [
   '$scope', '$stateParams', '$location', 'Authentication',
   'Campaigns', '$cookies', 'localStorageService', '$filter', 'ngTableParams', '$timeout',
   function( $scope, $stateParams, $location, Authentication, Campaigns,
-    $cookies, localStorageService, $filter, ngTableParams, $timeout) {
+    $cookies, localStorageService, $filter, NgTableParams, $timeout) {
     $scope.authentication = Authentication;
 
     // Create new Campaign
@@ -81,7 +81,7 @@ angular.module('campaigns').controller('CampaignsController', [
         });
       };
 
-      $scope.tableParams = new ngTableParams(
+      $scope.tableParams = new NgTableParams(
         {
           page: 1,
           count: 10
