@@ -44,7 +44,7 @@ angular.module('campaigns').directive('mdCampaignDetailsPanel', [
             if(status === 'not_ok') {
               e.preventDefault();
             } else {
-              scope.launchCampaign()
+              scope.launchCampaign();
             }
           });
         }, 0);

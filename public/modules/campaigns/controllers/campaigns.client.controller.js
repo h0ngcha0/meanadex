@@ -167,7 +167,6 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
     $scope.tshirtPrice = localStorageService.get('tshirtPrice');
 
     $scope.launchCampaign = function() {
-      console.log("launchcampaign..");
       // Create new Campaign object
       var campaign = new Campaigns ({
         name: $scope.campaignTitle,
@@ -200,25 +199,5 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
         }
       );
     };
-  }
-]);
-
-angular.module('campaigns').controller('CampaignsSummaryController', [
-  '$scope', 'localStorageService',
-  function($scope, localStorageService) {
-    $scope.campaignTitle = localStorageService.get('campaignTitle');
-    $scope.campaignDescription = localStorageService.get('campaignDescription');
-    $scope.campaignUrl = localStorageService.get('campaignUrl');
-    $scope.currentCampaignLength = localStorageService.get('currentCampaignLength');
-    $scope.tshirtsSalesGoal = localStorageService.get('tshirtsSalesGoal');
-    $scope.tshirtPrice = localStorageService.get('tshirtPrice');
-
-    $scope.tshirtType = localStorageService.get('currentTshirtType');
-    $scope.tshirtTypeName = $scope.tshirtType.name;
-
-    $scope.currentVariant = localStorageService.get('currentVariant');
-
-    $scope.tshirtVariantName = $scope.currentVariant.name;
-    $scope.baseCost = $scope.currentVariant.baseCost;
   }
 ]);

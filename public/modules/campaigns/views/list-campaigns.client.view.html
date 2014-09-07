@@ -26,10 +26,10 @@
             <span>{{campaign.length}}</span>
           </td>
           <td data-title="'Created at'">
-            <span>{{campaign.created_at}}</span>
+            <span>{{campaign.created_at | date:'mediumDate' }}</span>
           </td>
           <td data-title="'End at'">
-            <span>{{campaign.created_at}}</span>
+            <span>{{campaign.ended_at | date:'mediumDate'}}</span>
           </td>
           <td data-title="'URL'">
             <span>{{campaign.url}}</span>
@@ -60,7 +60,11 @@
       </table>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!campaigns.$resolved || campaigns.length">
-      No Campaigns yet, why don't you <a href="/#!/campaigns/create">create one</a>?
+      No Campaigns yet, why don't you
+      <a href="#!/designer" type="button" class="btn btn-lg btn-success">
+        Get Started
+        <i class="glyphicon glyphicon-white"></i>
+      </a>
     </div>
   </section>
 </div>
