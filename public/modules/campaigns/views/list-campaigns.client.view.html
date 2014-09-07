@@ -43,7 +43,7 @@
           <td data-title="'Price'">
             <span>{{campaign.price}}</span>
           </td>
-          <td data-title="'Actions'" width="100">
+          <td data-title="'Actions'" width="150">
             <a data-ng-if="!campaign.$edit" href=""
               class="btn btn-primary"
               data-ng-click="onEdit(campaign)">
@@ -52,6 +52,9 @@
             <a ng-if="campaign.$edit" href=""
               class="btn btn-primary btn-xs"
               data-ng-click="onSave(campaign)">Save</a>
+            <a class="btn btn-primary" data-ng-href="#!/campaigns/{{campaign._id}}">
+              <i class="glyphicon glyphicon-eye-open"></i>
+            </a>
             <a class="btn btn-primary" data-ng-click="onRemove(campaign);">
               <i class="glyphicon glyphicon-trash"></i>
             </a>
