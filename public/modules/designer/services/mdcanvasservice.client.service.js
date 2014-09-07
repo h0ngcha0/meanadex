@@ -285,7 +285,7 @@ angular.module('designer').service('mdCanvasService', [
     };
 
     var isCanvasEmpty = function(canvasIn) {
-      return (! canvasIn) || (JSON.parse(canvasIn).objects.length === 0)
+      return (! canvasIn) || (JSON.parse(canvasIn).objects.length === 0);
     };
 
     this.isEmptyCanvas = function() {
