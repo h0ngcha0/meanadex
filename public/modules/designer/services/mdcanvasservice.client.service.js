@@ -284,8 +284,12 @@ angular.module('designer').service('mdCanvasService', [
       }
     };
 
+    var isCanvasEmpty = function(canvasIn) {
+      return (! canvasIn) || (JSON.parse(canvasIn).objects.length === 0)
+    };
+
     this.isEmptyCanvas = function() {
-      return (! this.frontCanvas) && (! this.backCanvas);
+      return isCanvasEmpty(this.frontCanvas) && isCanvasEmpty(this.backCanvas);
     };
 
     this.disableEdit = function() {
