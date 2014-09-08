@@ -26,10 +26,10 @@
             <span>{{campaign.length}}</span>
           </td>
           <td data-title="'Created at'">
-            <span>{{campaign.created_at}}</span>
+            <span>{{campaign.created_at | date:'mediumDate' }}</span>
           </td>
           <td data-title="'End at'">
-            <span>{{campaign.created_at}}</span>
+            <span>{{campaign.ended_at | date:'mediumDate'}}</span>
           </td>
           <td data-title="'URL'">
             <span>{{campaign.url}}</span>
@@ -43,7 +43,7 @@
           <td data-title="'Price'">
             <span>{{campaign.price}}</span>
           </td>
-          <td data-title="'Actions'" width="100">
+          <td data-title="'Actions'" width="150">
             <a data-ng-if="!campaign.$edit" href=""
               class="btn btn-primary"
               data-ng-click="onEdit(campaign)">
@@ -52,6 +52,9 @@
             <a ng-if="campaign.$edit" href=""
               class="btn btn-primary btn-xs"
               data-ng-click="onSave(campaign)">Save</a>
+            <a class="btn btn-primary" data-ng-href="#!/campaigns/{{campaign._id}}">
+              <i class="glyphicon glyphicon-eye-open"></i>
+            </a>
             <a class="btn btn-primary" data-ng-click="onRemove(campaign);">
               <i class="glyphicon glyphicon-trash"></i>
             </a>
@@ -60,7 +63,11 @@
       </table>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!campaigns.$resolved || campaigns.length">
-      No Campaigns yet, why don't you <a href="/#!/campaigns/create">create one</a>?
+      No Campaigns yet, why don't you
+      <a href="#!/designer" type="button" class="btn btn-lg btn-success">
+        Get Started
+        <i class="glyphicon glyphicon-white"></i>
+      </a>
     </div>
   </section>
 </div>

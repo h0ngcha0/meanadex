@@ -1,18 +1,53 @@
-<section data-ng-controller="CampaignsController" data-ng-init="findOne()">
-  <div class="page-header">
-    <h1 data-ng-bind="campaign.name"></h1>
-  </div>
-  <div class="pull-right" data-ng-show="authentication.user._id == campaign.user._id">
-    <a class="btn btn-primary" data-ng-click="remove();">
-      <i class="glyphicon glyphicon-trash"></i>
-    </a>
-  </div>
-  <small>
-    <em class="text-muted">
-      Posted on
-      <span data-ng-bind="campaign.created | date:'mediumDate'"></span>
-      by
-      <span data-ng-bind="campaign.user.displayName"></span>
-    </em>
-  </small>
-</section>
+<div class="container" data-ng-init="findOne()">
+  <section id="typography">
+    <div class="span12">
+      <div class="col-lg-4">
+
+        <!--Select types of the T-Shirts-->
+        <div class="well">
+          <h4>{{campaign.title}}</h4>
+
+          <p ng-bind-html="campaign.description"></p>
+
+          <hr/>
+
+          <table class="table">
+            <tr class="">
+              <td class="">Campaign sales goal</td>
+              <td class="">{{campaign.goal}}</td>
+            </tr>
+            <tr class="">
+              <td class="">Campaign URL</td>
+              <td class="">{{campaign.url}}</td>
+            </tr>
+            <tr class="">
+              <td class="">Campaign length</td>
+              <td class="">{{campaign.length}}</td>
+            </tr>
+            <tr class="">
+              <td class="">Tshirt basecost</td>
+              <td class="">{{campaign.cost}}</td>
+            </tr>
+            <tr class="">
+              <td class="">Tshirt price</td>
+              <td class="">{{campaign.price}}</td>
+            </tr>
+          </table>
+        </div>
+        <small>
+          <em class="text-muted">
+            Posted on
+            <span data-ng-bind="campaign.created_at | date:'mediumDate'"></span>
+            by
+            <span data-ng-bind="campaign.user.displayName"></span>
+          </em>
+        </small>
+      </div>
+
+      <div class="col-lg-8">
+        <!-- use json from the current campaign instead -->
+        <md-tshirt-canvas></md-tshirt-canvas>
+      </div>
+    </div>
+  </section>
+</div>
