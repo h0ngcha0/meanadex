@@ -14,26 +14,38 @@
           <table class="table">
             <tr class="">
               <td class="">Campaign sales goal</td>
-              <td class="">{{campaign.goal}}</td>
+              <td class="" data-ng-bind="campaign.goal"></td>
             </tr>
             <tr class="">
               <td class="">Campaign URL</td>
-              <td class="">{{campaign.url}}</td>
+              <td class="" data-ng-bind="campaign.url"></td>
             </tr>
             <tr class="">
               <td class="">Campaign length</td>
-              <td class="">{{campaign.length}}</td>
+              <td class="" data-ng-bind="campaign.length"></td>
             </tr>
             <tr class="">
               <td class="">Tshirt basecost</td>
-              <td class="">{{campaign.cost}}</td>
+              <td class="" data-ng-bind="campaign.cost"></td>
             </tr>
             <tr class="">
               <td class="">Tshirt price</td>
-              <td class="">{{campaign.price}}</td>
+              <td class="" data-ng-bind="campaign.price"></td>
             </tr>
           </table>
+
+          <hr/>
+
+          <a id="purchase"
+             href="#!/purchase"
+             type="button"
+             class="btn btn-lg btn-block btn-success"
+             name="purchase">
+            Purchase
+            <i class="glyphicon glyphicon-shopping-cart glyphicon-white"></i>
+          </a>
         </div>
+
         <small>
           <em class="text-muted">
             Posted on
