@@ -9,12 +9,12 @@ angular.module('campaigns').controller('CampaignsController', [
     $scope.authentication = Authentication;
 
     // Create new Campaign
-    $scope.create = function() {
+    $scope.create = function(date) {
       // Create new Campaign object
       var campaign = new Campaigns ({
         name: this.name,
-        created_at: Date.today(),
-        ended_at: Date.today().addDays(this.length),
+        created_at: date,
+        ended_at: date.addDays(this.length), //Date.today()
         description: this.description,
         length: this.length,
         url: this.url,
@@ -189,9 +189,6 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
       campaign.$save(
         function(response) {
           $location.path('campaigns/' + response._id);
-
-          // Clear form fields
-          $scope.name = '';
         },
         function(errorResponse) {
           $scope.error = errorResponse.data.message;
