@@ -139,15 +139,27 @@ angular.module('campaigns').controller('CampaignsSalesGoalController', [
 ]);
 
 angular.module('campaigns').controller('CampaignsSalesDetailsController', [
-  '$scope', 'Campaigns', 'localStorageService', 'mdCanvasService', '$location', 'Authentication',
-  function($scope, Campaigns, localStorageService, mdCanvasService, $location, Authentication) {
+  '$scope', 'Campaigns', 'localStorageService', 'mdCanvasService', '$location',
+  '$http',
+  function($scope, Campaigns, localStorageService, mdCanvasService, $location, $http) {
     $scope.campaignTitle = localStorageService.get('campaignTitle') || '';
     localStorageService.bind($scope, 'campaignTitle', $scope.campaignTitle);
 
     $scope.campaignDescription = localStorageService.get('campaignDescription') || '';
     localStorageService.bind($scope, 'campaignDescription', $scope.campaignDescription);
 
-    $scope.campaignUrl = localStorageService.get('campaignUrl') || '';
+    var campaignUrl = localStorageService.get('campaignUrl') || '';
+    if (campaignUrl) {
+      $scope.campaignUrl = campaignUrl;
+    }
+    else {
+      $http.get('/campaign/url').success(function(response) {
+        $scope.campaignUrl = JSON.parse(response);
+
+      }).error(function(response) {
+        $scope.error = response.message;
+      });
+    }
     localStorageService.bind($scope, 'campaignUrl', $scope.campaignUrl);
 
     $scope.currentCampaignLength = localStorageService.get('currentCampaignLength') || 7;
