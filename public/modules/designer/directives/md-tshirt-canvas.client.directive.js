@@ -8,8 +8,27 @@ angular.module('designer').directive('mdTshirtCanvas', [
       restrict: 'E',
       templateUrl: 'modules/designer/views/canvas.client.view.html',
       link: function(scope, element, attrs) {
-        // initialize the mdCanvasService
-        mdCanvasService.init('tcanvas', '#tshirtFacing', '#shirtDiv');
+        if(scope.campaign) {
+          scope.campaign.$promise.then
+          (
+            // promise successful
+            function(campaign) {
+              console.log(campaign);
+              if(campaign) {
+                var design = JSON.parse(campaign.design);
+                mdCanvasService.init('tcanvas', '#tshirtFacing', '#shirtDiv', design.front, design.back);
+              } else {
+                mdCanvasService.init('tcanvas', '#tshirtFacing', '#shirtDiv');
+              }
+            },
+            // promise fail
+            function(err) {
+              mdCanvasService.init('tcanvas', '#tshirtFacing', '#shirtDiv');
+            }
+          );
+        } else {
+          mdCanvasService.init('tcanvas', '#tshirtFacing', '#shirtDiv');
+        }
 
         if(scope.enableEdit) {
           mdCanvasService.enableEdit();

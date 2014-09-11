@@ -209,10 +209,13 @@ angular.module('designer').service('mdCanvasService', [
       return canvas;
     };
 
-    this.init = function(canvasId, imageId, tshirtDivId) {
+    this.init = function(canvasId, imageId, tshirtDivId, frontJson, backJson) {
       console.log('initialize...');
       this.imageId = imageId;
       this.tshirtDivId = tshirtDivId;
+
+      if(frontJson) this.frontCanvas = frontJson;
+      if(backJson) this.backCanvas = backJson;
 
       canvas = new fabric.Canvas(canvasId, {
         selectionBorderColor:'blue',

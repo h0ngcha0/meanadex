@@ -102,17 +102,17 @@
     // TODO: skipped for now, figure out why it fails
     xit('$scope.create() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(
       function(Campaigns) {
-        var name = "New Campaign",
+        var name = 'New Campaign',
             startDate = Date.today(),
             length = 7,
             endDate = startDate.addDays(length),
-            description = "description",
-            url = "url",
+            description = 'description',
+            url = 'url',
             goal = 10,
             sold = 1,
             cost = 50,
             price = 100,
-            design = "design";
+            design = 'design';
 
         // Create a sample Campaign object
         var sampleCampaignPostData = new Campaigns({
@@ -139,7 +139,6 @@
         scope.name = name;
         scope.length = length;
         scope.description = description,
-        scope.length = length;
         scope.url = url;
         scope.goal = goal;
         scope.sold = sold;

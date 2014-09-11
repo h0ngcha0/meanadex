@@ -139,8 +139,8 @@ angular.module('campaigns').controller('CampaignsSalesGoalController', [
 ]);
 
 angular.module('campaigns').controller('CampaignsSalesDetailsController', [
-  '$scope', 'Campaigns', 'localStorageService', 'mdCanvasService', '$location',
-  function($scope, Campaigns, localStorageService, mdCanvasService, $location) {
+  '$scope', 'Campaigns', 'localStorageService', 'mdCanvasService', '$location', 'Authentication',
+  function($scope, Campaigns, localStorageService, mdCanvasService, $location, Authentication) {
     $scope.campaignTitle = localStorageService.get('campaignTitle') || '';
     localStorageService.bind($scope, 'campaignTitle', $scope.campaignTitle);
 
@@ -167,7 +167,6 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
     $scope.tshirtPrice = localStorageService.get('tshirtPrice');
 
     $scope.launchCampaign = function() {
-      // Create new Campaign object
       var campaign = new Campaigns ({
         name: $scope.campaignTitle,
         created_at: Date.today(),
@@ -192,7 +191,6 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
         },
         function(errorResponse) {
           $scope.error = errorResponse.data.message;
-          console.log(errorResponse);
         }
       );
     };
