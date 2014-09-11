@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
     errorHandler = require('./errors'),
     Campaign = mongoose.model('Campaign'),
+    shortId = require('shortid'),
     _ = require('lodash');
 
 /**
@@ -104,4 +105,30 @@ exports.hasAuthorization = function(req, res, next) {
     return res.status(403).send('User is not authorized');
   }
   next();
+};
+
+/**
+ * Campaign url shortid representation
+ */
+exports.url = function(req, res) {
+  res.json(shortId.generate());
+};
+
+/**
+ * Return Campaign from its url
+ */
+exports.fromUrl = function(req, res, next) {
+  Campaign.findOne(
+    {
+      url: req.params.url
+    },
+    function(err, campaign) {
+      if (!campaign) {
+        next();
+      }
+      else {
+        res.redirect('/#!/campaigns/' + campaign._id);
+      }
+    }
+  );
 };

@@ -14,6 +14,10 @@ module.exports = function(app) {
   .put(users.requiresLogin, campaigns.hasAuthorization, campaigns.update)
   .delete(users.requiresLogin, campaigns.hasAuthorization, campaigns.delete);
 
+  app.route('/campaign/url').get(campaigns.url);
+
+  app.route('/:url/').get(campaigns.fromUrl);
+
   // Finish by binding the Campaign middleware
   app.param('campaignId', campaigns.campaignByID);
 };
