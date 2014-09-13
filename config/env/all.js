@@ -23,6 +23,7 @@ module.exports = {
       ],
       js: [
         'public/lib/jquery/jquery.js',
+        'public/lib/underscore/underscore.js',
         'public/lib/jquery-ui/ui/jquery-ui.js',
         'public/lib/angular/angular.js',
         'public/lib/angular-resource/angular-resource.js',

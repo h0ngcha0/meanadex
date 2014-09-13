@@ -23,6 +23,7 @@
     "angular-ui-slider": "git://github.com/angular-ui/ui-slider.git#no-jqui-here",
     "angular-local-storage": "~0.0.7",
     "ng-table": "~0.3.3",
-    "angular-rangeslider": "~0.0.7"
+    "angular-rangeslider": "~0.0.7",
+    "underscore": "~1.7.0"
   }
 }

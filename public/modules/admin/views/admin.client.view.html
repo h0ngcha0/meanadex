@@ -1,3 +1,8 @@
-<section data-ng-controller="AdminController">
-	This is the Admin view
+<section data-ng-init="ensureAuthenticated()">
+  <div data-ng-if="isAuthorized()">
+    This is the Admin view
+  </div>
+  <div data-ng-if="!isAuthorized()">
+    You do not have permission
+  </div>
 </section>
