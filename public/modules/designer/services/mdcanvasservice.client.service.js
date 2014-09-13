@@ -301,6 +301,7 @@ angular.module('designer').service('mdCanvasService', [
           obj.set('selectable', false);
         });
       }
+      enableEdit = false;
     };
 
     this.enableEdit = function() {
@@ -309,6 +310,7 @@ angular.module('designer').service('mdCanvasService', [
           obj.set('selectable', true);
         });
       }
+      enableEdit = true;
     };
 
     var addText = function(text, fontColor, fontFamily) {
@@ -402,6 +404,12 @@ angular.module('designer').service('mdCanvasService', [
           tshirtCanvas,
           canvas.renderAll.bind(canvas)
         );
+      }
+
+      if(enableEdit) {
+        this.enableEdit();
+      } else {
+        this.disableEdit();
       }
     };
 

@@ -13,13 +13,14 @@ angular.module('designer').directive('mdTshirtCanvas', [
           (
             // promise successful
             function(campaign) {
-              console.log(campaign);
-              if(campaign) {
-                var design = JSON.parse(campaign.design);
-                mdCanvasService.init('tcanvas', '#tshirtFacing', '#shirtDiv', design.front, design.back);
-              } else {
-                mdCanvasService.init('tcanvas', '#tshirtFacing', '#shirtDiv');
-              }
+              var design = JSON.parse(campaign.design);
+              mdCanvasService.init(
+                'tcanvas',
+                '#tshirtFacing',
+                '#shirtDiv',
+                design.front,
+                design.back
+              );
             },
             // promise fail
             function(err) {
