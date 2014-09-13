@@ -74,7 +74,13 @@ exports.delete = function(req, res) {
  * List of Campaigns
  */
 exports.list = function(req, res) {
-  Campaign.find().sort('-created').populate('user', 'displayName').exec(function(err, campaigns) {
+  var userId = req.user._id;
+  console.log("roles");
+  console.log(req.user.roles);
+  Campaign.find({user: userId}).
+    sort('-created').
+    populate('user', 'displayName').
+    exec(function(err, campaigns) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
