@@ -103,7 +103,6 @@ UserSchema.pre('save', function(next) {
   var env = process.env.NODE_ENV;
   if(env === 'development') {
     if (this.username === 'admin') {
-      console.log(this.roles);
       this.roles = ['admin'];
     }
   }

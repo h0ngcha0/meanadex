@@ -75,8 +75,6 @@ exports.delete = function(req, res) {
  */
 exports.list = function(req, res) {
   var userId = req.user._id;
-  console.log("roles");
-  console.log(req.user.roles);
   Campaign.find({user: userId}).
     sort('-created').
     populate('user', 'displayName').
