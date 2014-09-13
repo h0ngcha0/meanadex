@@ -14,7 +14,7 @@ angular.module('admin').controller('AdminController', [
 
     // check if a user is authorized to access the admin page
     $scope.isAuthorized = function() {
-      var roles = $scope.authentication.user.roles
+      var roles = $scope.authentication.user.roles;
       return _.contains(roles, 'admin');
     };
   }

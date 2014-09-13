@@ -1,0 +1,19 @@
+<section data-ng-controller="TshirtsController" data-ng-init="find()">
+  <div class="page-header">
+    <h1>Tshirts</h1>
+  </div>
+  <div class="list-group">
+    <a data-ng-repeat="tshirt in tshirts" data-ng-href="#!/tshirts/{{tshirt._id}}" class="list-group-item">
+      <small class="list-group-item-text">
+	Posted on
+	<span data-ng-bind="tshirt.created | date:'medium'"></span>
+	by
+	<span data-ng-bind="tshirt.user.displayName"></span>
+      </small>
+      <h4 class="list-group-item-heading" data-ng-bind="tshirt.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" data-ng-hide="!tshirts.$resolved || tshirts.length">
+    No Tshirts yet, why don't you <a href="/#!/tshirts/create">create one</a>?
+  </div>
+</section>
