@@ -50,12 +50,12 @@ angular.module('tshirts').controller('TshirtsController', [
     // Update existing Tshirt
     $scope.update = function(tshirt0) {
       var tshirt = tshirt0 || $scope.tshirt;
-
-      tshirt.$update(function() {
-        $location.path('tshirts/' + tshirt._id);
-      }, function(errorResponse) {
-           $scope.error = errorResponse.data.message;
-         });
+      tshirt.$update(
+        function() {
+        },
+        function(errorResponse) {
+          $scope.error = errorResponse.data.message;
+        });
     };
 
     // Find a list of Tshirts
@@ -71,14 +71,16 @@ angular.module('tshirts').controller('TshirtsController', [
     };
 
     $scope.addTshirtVariant = function() {
-      console.log("niux");
-      $scope.variants.push({
-        name: "",
-        description: "",
+      $scope.tshirt.variants.push({
+        name: "Name",
+        description: "Description",
         baseCost: 0,
         unit: ['SEK'],
-        colors: []
+        colors: ["black"],
+        $edit: true
       });
+
+      $scope.variantsTableParams.reload();
     }
 
     $scope.tshirtsTableParams = new NgTableParams(
@@ -97,10 +99,37 @@ angular.module('tshirts').controller('TshirtsController', [
 
             params.total($scope.presentedTshirts.length);
             $defer.resolve($scope.presentedTshirts);
-          }, 500);
+          }, 800); // FIXME: this is ugly
         }
       }
     );
+
+   $scope.variantsTableParams = new NgTableParams(
+      {
+        page: 1,
+        count: 10
+      },
+      {
+        total: 0,
+        getData: function($defer, params) {
+          $timeout(function() {
+            var orderedData = params.filter() ?
+              $filter('filter')($scope.tshirt.variants, params.filter()) : $scope.tshirt.variants;
+
+            $scope.presentedVariants = orderedData;
+
+            params.total($scope.presentedVariants.length);
+            $defer.resolve($scope.presentedVariants);
+          }, 800); // FIXME: this is ugly
+        }
+      }
+    );
+
+
+    $scope.onRemove = function(tshirt) {
+      $scope.remove(tshirt);
+      $scope.tshirtsTableParams.reload();
+    };
 
     $scope.onSave = function(tshirt) {
       tshirt.$edit = false;
@@ -111,5 +140,24 @@ angular.module('tshirts').controller('TshirtsController', [
       tshirt.$edit = true;
     };
 
+    $scope.onVariantEdit = function(variant) {
+      variant.$edit = true;
+    };
+
+    $scope.onVariantSave = function(variant) {
+      variant.$edit = false;
+      $scope.update();
+    };
+
+    $scope.onVariantRemove = function(variant) {
+      var newVariants =  _.filter($scope.tshirt.variants, function(v) {
+                           return v.name != variant.name
+                         });
+
+      $scope.tshirt.variants = newVariants;
+      variant.$edit = false;
+      $scope.update();
+      $scope.variantsTableParams.reload();
+    };
   }
 ]);
