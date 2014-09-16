@@ -100,6 +100,13 @@ UserSchema.pre('save', function(next) {
     this.password = this.hashPassword(this.password);
   }
 
+  var env = process.env.NODE_ENV;
+  if(env === 'development') {
+    if (this.username === 'admin') {
+      this.roles = ['admin'];
+    }
+  }
+
   next();
 });
 

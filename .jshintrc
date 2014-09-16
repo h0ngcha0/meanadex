@@ -23,6 +23,7 @@
     "fabric": true,
     "$": true,
     "xit": true,
+    "_": true,
     "ApplicationConfiguration": true
   },
   "predef": [ // Extra globals.

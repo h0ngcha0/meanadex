@@ -1,0 +1,47 @@
+<div class="container" data-ng-controller="TshirtsController" data-ng-init="find()">
+  <section>
+    <div class="page-header">
+      <h1>Tshirts</h1>
+    </div>
+    <div class="col-lg-12" data-ng-show="tshirts.length > 0">
+      <table ng-table="tshirtsTableParams" show-filter="true" class="table">
+        <tr ng-repeat="tshirt in $data">
+          <td data-title="'Name'" filter="{ 'name': 'text' }">
+            <span ng-if="!tshirt.$edit">{{tshirt.name}}</span>
+            <div ng-if="tshirt.$edit">
+              <input class="form-control"
+              type="text"
+              ng-model="tshirt.name" />
+            </div>
+          </td>
+          <td data-title="'Created at'">
+            <span>{{tshirt.created | date:'mediumDate' }}</span>
+          </td>
+          <td data-title="'Actions'" width="150">
+            <a data-ng-if="!tshirt.$edit" href=""
+              class="btn btn-primary"
+              data-ng-click="onEdit(tshirt)">
+              <i class="glyphicon glyphicon-edit"></i>
+            </a>
+            <a ng-if="tshirt.$edit" href=""
+              class="btn btn-primary btn-xs"
+              data-ng-click="onSave(tshirt)">Save</a>
+            <a class="btn btn-primary" data-ng-href="#!/tshirts/{{tshirt._id}}">
+              <i class="glyphicon glyphicon-eye-open"></i>
+            </a>
+            <a class="btn btn-primary" data-ng-click="onRemove(tshirt);">
+              <i class="glyphicon glyphicon-trash"></i>
+            </a>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!tshirts.$resolved || tshirts.length">
+      No Tshirts yet, why don't you
+      <a href="/#!/tshirts/create" type="button" class="btn btn-lg btn-success">
+        Add
+        <i class="glyphicon glyphicon-white"></i>
+      </a>
+    </div>
+  </section>
+</div>

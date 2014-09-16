@@ -6,7 +6,7 @@ module.exports = function(app) {
 
   // Campaigns Routes
   app.route('/campaigns')
-  .get(campaigns.list)
+  .get(users.requiresLogin, campaigns.list)
   .post(users.requiresLogin, campaigns.create);
 
   app.route('/campaigns/:campaignId')

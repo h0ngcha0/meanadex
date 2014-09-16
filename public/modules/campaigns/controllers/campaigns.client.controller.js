@@ -99,7 +99,7 @@ angular.module('campaigns').controller('CampaignsController', [
 
             params.total($scope.presented_campaigns.length);
             $defer.resolve($scope.presented_campaigns);
-          }, 500);
+          }, 500); // FIXME: this is ugly
         }
       }
     );
