@@ -1,5 +1,5 @@
 <div class="container">
-  <section data-ng-controller="TshirtsController">
+  <section data-ng-controller="TshirtsController" data-ng-init="createOne()">
     <div class="page-header">
       <h1>New Tshirt</h1>
     </div>
@@ -11,37 +11,33 @@
               <label class="control-label" for="name">Name</label>
               <input type="text" data-ng-model="name" id="name"
                      class="form-control" placeholder="Name" required>
-              <label class="control-label" for="fimage">Front image</label>
-              <input type="text" data-ng-model="frontImage" id="fimage"
+              <label class="control-label" for="frontImage">Front image</label>
+              <input type="text" data-ng-model="frontImageUrl" id="frontImage"
                      class="form-control" placeholder="Front image" required>
-              <label class="control-label" for="bimage">Back image</label>
-              <input type="text" data-ng-model="backImage" id="bimage"
+              <label class="control-label" for="backImage">Back image</label>
+              <input type="text" data-ng-model="backImageUrl" id="backImage"
                      class="form-control" placeholder="Back image" required>
             </div>
           </div>
           <hr/>
-          <label class="control-label" for="name">Variants:</label>
-          <div data-ng-repeat="variant in variants">
-            <label class="control-label" for="vname">Name</label>
-            <input type="text" data-ng-model="variant.name" id="vname"
+
+          <div class="form-group">
+            <label class="control-label" for="name">Variant name</label>
+            <input type="text" data-ng-model="tmpVariant.name" id="name"
                    class="form-control" placeholder="Name" required>
             <label class="control-label" for="description">Description</label>
-            <input type="text" data-ng-model="variant.description" id="description"
+            <input type="text" data-ng-model="tmpVariant.description" id="description"
                    class="form-control" placeholder="Description" required>
             <label class="control-label" for="baseCost">Base cost</label>
-            <input type="text" data-ng-model="variant.baseCost" id="baseCost"
-                   class="form-control" placeholder="Base cost" required>
+            <input type="text" data-ng-model="tmpVariant.baseCost" id="baseCost"
+                   class="form-control" placeholder="0" required>
             <label class="control-label" for="unit">Unit</label>
-            <input type="text" data-ng-model="variant.unit" id="unit"
-                   class="form-control" placeholder="Unit" required>
-            <label class="control-label" for="colors">Colors</label>
-            <input type="text" data-ng-model="variant.colors" id="unit"
-                   class="form-control" placeholder="Colors" required>
+            <input type="text" data-ng-model="tmpVariant.unit" id="unit"
+                   class="form-control" placeholder="SEK" required>
+            <label class="control-label" for="unit">Color</label>
+            <input type="text" data-ng-model="tmpVariant.colors" id="colors"
+                   class="form-control" placeholder="black" required>
           </div>
-          <hr/>
-          <button class="btn btn-default" data-ng-click="addTshirtVariant()">
-            New variant
-          </button>
           <hr/>
           <div class="form-group">
             <input type="submit" class="btn btn-default">

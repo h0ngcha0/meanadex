@@ -7,16 +7,16 @@ angular.module('tshirts').controller('TshirtsController', [
   function($scope, $stateParams, $location, Authentication, Tshirts,
            $filter, NgTableParams, $timeout) {
     $scope.authentication = Authentication;
-    $scope.variants = [];
+    $scope.tmpVariant = undefined;
 
     // Create new Tshirt
     $scope.create = function() {
       // Create new Tshirt object
       var tshirt = new Tshirts ({
         name: this.name,
-        frontImageUrl: this.frontImage,
-        backImageUrl: this.backImage,
-        variants: this.variants
+        frontImageUrl: this.frontImageUrl,
+        backImageUrl: this.backImageUrl,
+        variants: [this.tmpVariant]
       });
 
       // Redirect after save
@@ -70,18 +70,23 @@ angular.module('tshirts').controller('TshirtsController', [
       });
     };
 
-    $scope.addTshirtVariant = function() {
-      $scope.tshirt.variants.push({
-        name: "Name",
-        description: "Description",
-        baseCost: 0,
-        unit: ['SEK'],
-        colors: ["black"],
-        $edit: true
-      });
+    var variantPlaceholder = {
+      name: '',
+      description: '',
+      baseCost: 0,
+      unit: ['SEK'],
+      colors: ['black'],
+      $edit: true
+    };
 
+    $scope.createOne = function() {
+      $scope.tmpVariant = variantPlaceholder;
+    };
+
+    $scope.addTshirtVariant = function() {
+      $scope.tshirt.variants.push(variantPlaceholder);
       $scope.variantsTableParams.reload();
-    }
+    };
 
     $scope.tshirtsTableParams = new NgTableParams(
       {
@@ -151,7 +156,7 @@ angular.module('tshirts').controller('TshirtsController', [
 
     $scope.onVariantRemove = function(variant) {
       var newVariants =  _.filter($scope.tshirt.variants, function(v) {
-                           return v.name != variant.name
+                           return v.name !== variant.name;
                          });
 
       $scope.tshirt.variants = newVariants;

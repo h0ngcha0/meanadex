@@ -138,7 +138,7 @@
         // Fixture mock form input values
         scope.name = name;
         scope.length = length;
-        scope.description = description,
+        scope.description = description;
         scope.url = url;
         scope.goal = goal;
         scope.sold = sold;

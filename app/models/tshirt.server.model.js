@@ -43,38 +43,22 @@ var TshirtSchema = new Schema({
           type: String,
           default: 'SEK'
         },
-        //colors: {
-        //  type: [
-        //    {
-        //      title: {
-        //        type: String,
-        //        required: 'color title is required'
-        //      }
-        //    },
-        //    {
-        //      style: {
-        //        type: String,
-        //        required: 'color style is required'
-        //      }
-        //    }
-        //  ],
-        //  required: 'variant colors is required',
-        //  default: []
-        //}
         colors: {
           type: String,
-          default: "black"
+          default: 'black'
         }
       }
     ],
     required: 'At least have one tshirt variants'
   },
   frontImageUrl: {
-    type: String, // URL
+    type: String,
+    default: 'modules/designer/img/canvas/crew_front.png',
     required: 'front image url required'
   },
   backImageUrl: {
-    type: String, // URL
+    type: String,
+    default: 'modules/designer/img/canvas/crew_back.png',
     required: 'back image url required'
   }
 });
