@@ -3,7 +3,7 @@
     <div data-ng-if="isAuthorized()">
       <ul class="nav nav-tabs">
         <li class="active">
-          <a href="#manage-tshirts-pane" data-toggle="tab" class="tab-link">
+          <a ng-click="listTshirts()" data-toggle="tab" class="tab-link">
             Manage Tshirt Types
           </a>
         </li>
@@ -15,6 +15,8 @@
       </ul>
       <br>
       <div class="tab-content">
+        <div ui-view></div>
+        <!--
         <div class="tab-pane active" id="manage-tshirts-pane"
              data-ng-controller="TshirtsController"
              data-ng-init="find()">
@@ -25,6 +27,7 @@
             manage campaigns
           </div>
         </div>
+        -->
       </div>
     </div>
     <div data-ng-if="!isAuthorized()">

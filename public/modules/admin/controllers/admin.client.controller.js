@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('admin').controller('AdminController', [
-  '$scope', 'Authentication', '$location',
-  function($scope, Authentication, $location) {
+  '$scope', 'Authentication', '$location', '$state',
+  function($scope, Authentication, $location, $state) {
     $scope.authentication = Authentication;
 
     // check if a user is authenticated
@@ -16,6 +16,11 @@ angular.module('admin').controller('AdminController', [
     $scope.isAuthorized = function() {
       var roles = $scope.authentication.user.roles;
       return _.contains(roles, 'admin');
+    };
+
+    $scope.listTshirts = function() {
+      console.log("goto admin.tshirts");
+      $state.go('admin.tshirts');
     };
   }
 ]);
