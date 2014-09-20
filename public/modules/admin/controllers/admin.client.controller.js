@@ -19,7 +19,6 @@ angular.module('admin').controller('AdminController', [
     };
 
     $scope.listTshirts = function() {
-      console.log("goto admin.tshirts");
       $state.go('admin.tshirts');
     };
   }

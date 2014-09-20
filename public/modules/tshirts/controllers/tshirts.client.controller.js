@@ -60,7 +60,6 @@ angular.module('tshirts').controller('TshirtsController', [
 
     // Find a list of Tshirts
     $scope.find = function() {
-      console.log("find is called...");
       $scope.tshirts = Tshirts.query();
     };
 

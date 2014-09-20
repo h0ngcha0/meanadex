@@ -5,7 +5,7 @@ angular.module('admin').config([
   '$stateProvider', '$urlRouterProvider',
   function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider
-      .when('/admin', '/admin/tshirts')
+      .when('/admin', '/admin/tshirts');
 
     // Admin state routing
     $stateProvider.
@@ -44,7 +44,6 @@ angular.module('admin').config([
     .state('admin.campaigns', {
       abstract: true,
       url: '/campaigns'
-    })
-    ;
+    });
   }
 ]);
