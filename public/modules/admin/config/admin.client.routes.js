@@ -17,7 +17,7 @@ angular.module('admin').config([
     .state('admin.tshirts', {
       url: '/tshirts',
       views: {
-        'tshirtView': {
+        'adminPanel': {
           templateUrl: 'modules/tshirts/views/list-tshirts.client.view.html',
           controller: 'TshirtsController'
         }
@@ -26,7 +26,7 @@ angular.module('admin').config([
     .state('admin.tshirtCreate', {
       url: '/tshirts/create',
       views: {
-        'tshirtView': {
+        'adminPanel': {
           templateUrl: 'modules/tshirts/views/create-tshirt.client.view.html',
           controller: 'TshirtsController'
         }
@@ -35,15 +35,20 @@ angular.module('admin').config([
     .state('admin.tshirtDetail', {
       url: '/tshirts/:tshirtId',
       views: {
-        'tshirtView': {
+        'adminPanel': {
           templateUrl: 'modules/tshirts/views/view-tshirt.client.view.html',
           controller: 'TshirtsController'
         }
       }
     })
     .state('admin.campaigns', {
-      abstract: true,
-      url: '/campaigns'
+      url: '/campaigns',
+      views: {
+        'adminPanel': {
+          templateUrl: 'modules/campaigns/views/list-campaigns.client.view.html',
+          controller: 'CampaignsController'
+        }
+      }
     });
   }
 ]);

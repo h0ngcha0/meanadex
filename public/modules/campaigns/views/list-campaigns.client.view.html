@@ -1,4 +1,4 @@
-<div class="container" data-ng-init="find()">
+<div class="container" data-ng-init="find()" class="tab-pane" id="list-campaigns">
   <section>
     <div class="page-header">
       <h3>My campaigns</h3>
@@ -9,9 +9,7 @@
           <td data-title="'Name'" filter="{ 'name': 'text' }">
             <span ng-if="!campaign.$edit">{{campaign.name}}</span>
             <div ng-if="campaign.$edit">
-              <input class="form-control"
-              type="text"
-              ng-model="campaign.name" />
+              <input class="form-control" type="text" ng-model="campaign.name" />
             </div>
           </td>
           <td data-title="'Description'" filter="{ 'description': 'text' }">

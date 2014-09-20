@@ -3,33 +3,22 @@
     <div data-ng-if="isAuthorized()">
       <ul class="nav nav-tabs">
         <li class="active">
-          <a ng-click="listTshirts()" data-toggle="tab" class="tab-link">
+          <a data-ng-click="listTshirts()" data-toggle="tab"
+             class="tab-link">
             Manage Tshirt Types
           </a>
         </li>
         <li>
-          <a href="#manage-campaigns-pane" data-toggle="tab" class="tab-link">
+          <a ui-sref="admin.campaigns" data-toggle="tab"
+             class="tab-link" data-target="list-campaigns">
             Manage Campaigns
           </a>
         </li>
       </ul>
       <br>
       <div class="tab-content">
-        <div ui-view="tshirtView"></div>
-        <!--
-        <div class="tab-pane active" id="manage-tshirts-pane"
-             data-ng-controller="TshirtsController"
-             data-ng-init="find()">
-          <md-list-tshirts/>
-        </div>
-        <div class="tab-pane" id="manage-campaigns-pane">
-          <div class="well">
-            manage campaigns
-          </div>
-        </div>
-        -->
+        <div ui-view="adminPanel"></div>
       </div>
-    </div>
     <div data-ng-if="!isAuthorized()">
       You do not have permission to see this page.
     </div>

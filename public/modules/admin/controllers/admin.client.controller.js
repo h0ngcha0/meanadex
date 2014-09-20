@@ -21,5 +21,9 @@ angular.module('admin').controller('AdminController', [
     $scope.listTshirts = function() {
       $state.go('admin.tshirts');
     };
+
+    $scope.listCampaigns = function() {
+      $location.path('admin/campaigns');
+    };
   }
 ]);
