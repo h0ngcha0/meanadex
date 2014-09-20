@@ -3,9 +3,10 @@
 // Campaigns controller
 angular.module('campaigns').controller('CampaignsController', [
   '$scope', '$stateParams', '$location', 'Authentication',
-  'Campaigns', '$cookies', 'localStorageService', '$filter', 'ngTableParams', '$timeout',
+  'Campaigns', '$cookies', 'localStorageService', '$filter',
+  'ngTableParams', '$timeout', '$http',
   function( $scope, $stateParams, $location, Authentication, Campaigns,
-    $cookies, localStorageService, $filter, NgTableParams, $timeout) {
+    $cookies, localStorageService, $filter, NgTableParams, $timeout, $http) {
     $scope.authentication = Authentication;
 
     // Create new Campaign
@@ -75,7 +76,7 @@ angular.module('campaigns').controller('CampaignsController', [
       $scope.campaigns = Campaigns.query();
     };
 
-    // Find existing Campaign
+    // Find existing Campaign for a particular user
     $scope.findOne = function() {
       $scope.campaign = Campaigns.get({
         campaignId: $stateParams.campaignId

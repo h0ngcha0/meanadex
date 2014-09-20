@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
     errorHandler = require('./errors'),
     Campaign = mongoose.model('Campaign'),
     shortId = require('shortid'),
+    us = require('underscore'),
     _ = require('lodash');
 
 /**
@@ -71,23 +72,42 @@ exports.delete = function(req, res) {
 };
 
 /**
- * List of Campaigns
+ * List of Campaigns by query
  */
-exports.list = function(req, res) {
-  var userId = req.user._id;
-  Campaign.find({user: userId}).
-    sort('-created').
-    populate('user', 'displayName').
-    exec(function(err, campaigns) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(campaigns);
-    }
-  });
+var listByQuery = function(queryFun) {
+  return function(req, res) {
+    var query = queryFun(req);
+    Campaign.find(query).
+      sort('-created').
+      populate('user', 'displayName').
+      exec(function(err, campaigns) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(campaigns);
+      }
+    });
+  };
 };
+
+/**
+ * List of Campaigns owned by a particular user
+ */
+exports.list = listByQuery(
+  function(req) {
+    var userId = req.user._id,
+        roles = req.user.roles;
+
+    // if it is admin, return all campaigns
+    if (us.contains(roles, 'admin')) {
+      return {};
+    } else {
+      return {user: userId};
+    }
+  }
+);
 
 /**
  * Campaign middleware
@@ -105,7 +125,22 @@ exports.campaignByID = function(req, res, next, id) {
  * Campaign authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-  if (req.campaign.user.id !== req.user.id) {
+  var roles = req.user.roles;
+
+  // user id has to match if not an admin
+  if (!us.contains(roles, 'admin')) {
+    if (req.campaign.user.id !== req.user.id) {
+      return res.status(403).send('User is not authorized');
+    }
+  }
+  next();
+};
+
+/**
+ * Campaign authorization middleware for admin role exclusive access
+ */
+exports.hasAdminAuthorization = function(req, res, next) {
+  if (!us.contains(req.user.roles, 'admin')) {
     return res.status(403).send('User is not authorized');
   }
   next();
