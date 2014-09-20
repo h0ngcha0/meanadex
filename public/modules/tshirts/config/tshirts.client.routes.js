@@ -10,10 +10,6 @@ angular.module('tshirts').config([
         url: '/tshirts',
         templateUrl: 'modules/tshirts/views/list-tshirts.client.view.html'
       }).
-      state('createTshirt', {
-        url: '/tshirts/create',
-        templateUrl: 'modules/tshirts/views/create-tshirt.client.view.html'
-      }).
       state('viewTshirt', {
         url: '/tshirts/:tshirtId',
         templateUrl: 'modules/tshirts/views/view-tshirt.client.view.html'

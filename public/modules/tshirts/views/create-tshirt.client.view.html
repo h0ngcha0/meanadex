@@ -1,52 +1,48 @@
-<div class="container">
-  <section data-ng-controller="TshirtsController" data-ng-init="createOne()">
-    <div class="page-header">
-      <h1>New Tshirt</h1>
-    </div>
-    <div class="col-md-12">
-      <form class="form-horizontal" data-ng-submit="create()" novalidate>
-        <fieldset>
-          <div class="form-group">
-            <div class="controls">
-              <label class="control-label" for="name">Name</label>
-              <input type="text" data-ng-model="name" id="name"
-                     class="form-control" placeholder="Name" required>
-              <label class="control-label" for="frontImage">Front image</label>
-              <input type="text" data-ng-model="frontImageUrl" id="frontImage"
-                     class="form-control" placeholder="Front image" required>
-              <label class="control-label" for="backImage">Back image</label>
-              <input type="text" data-ng-model="backImageUrl" id="backImage"
-                     class="form-control" placeholder="Back image" required>
-            </div>
-          </div>
-          <hr/>
+<div class="page-header">
+  <h3>New Tshirt</h3>
+</div>
+<div class="col-md-12" data-ng-init="createOne()">
+  <form class="form-horizontal" data-ng-submit="create()" novalidate>
+    <fieldset>
+      <div class="form-group">
+        <div class="controls">
+          <label class="control-label" for="name">Name</label>
+          <input type="text" data-ng-model="name" id="name"
+                 class="form-control" placeholder="Name" required>
+          <label class="control-label" for="frontImage">Front image</label>
+          <input type="text" data-ng-model="frontImageUrl" id="frontImage"
+                 class="form-control" placeholder="Front image" required>
+          <label class="control-label" for="backImage">Back image</label>
+          <input type="text" data-ng-model="backImageUrl" id="backImage"
+                 class="form-control" placeholder="Back image" required>
+        </div>
+      </div>
+      <hr/>
 
-          <div class="form-group">
-            <label class="control-label" for="name">Variant name</label>
-            <input type="text" data-ng-model="tmpVariant.name" id="name"
-                   class="form-control" placeholder="Name" required>
-            <label class="control-label" for="description">Description</label>
-            <input type="text" data-ng-model="tmpVariant.description" id="description"
-                   class="form-control" placeholder="Description" required>
-            <label class="control-label" for="baseCost">Base cost</label>
-            <input type="text" data-ng-model="tmpVariant.baseCost" id="baseCost"
-                   class="form-control" placeholder="0" required>
-            <label class="control-label" for="unit">Unit</label>
-            <input type="text" data-ng-model="tmpVariant.unit" id="unit"
-                   class="form-control" placeholder="SEK" required>
-            <label class="control-label" for="unit">Color</label>
-            <input type="text" data-ng-model="tmpVariant.colors" id="colors"
-                   class="form-control" placeholder="black" required>
-          </div>
-          <hr/>
-          <div class="form-group">
-            <input type="submit" class="btn btn-default">
-          </div>
-	  <div data-ng-show="error" class="text-danger">
-	    <strong data-ng-bind="error"></strong>
-	  </div>
-        </fieldset>
-      </form>
-    </div>
-  </section>
-<div>
+      <div class="form-group">
+        <label class="control-label" for="name">Variant name</label>
+        <input type="text" data-ng-model="tmpVariant.name" id="name"
+               class="form-control" placeholder="Name" required>
+        <label class="control-label" for="description">Description</label>
+        <input type="text" data-ng-model="tmpVariant.description" id="description"
+               class="form-control" placeholder="Description" required>
+        <label class="control-label" for="baseCost">Base cost</label>
+        <input type="text" data-ng-model="tmpVariant.baseCost" id="baseCost"
+               class="form-control" placeholder="0" required>
+        <label class="control-label" for="unit">Unit</label>
+        <input type="text" data-ng-model="tmpVariant.unit" id="unit"
+               class="form-control" placeholder="SEK" required>
+        <label class="control-label" for="unit">Color</label>
+        <input type="text" data-ng-model="tmpVariant.colors" id="colors"
+               class="form-control" placeholder="black" required>
+      </div>
+      <hr/>
+      <div class="form-group">
+        <input type="submit" class="btn btn-default">
+      </div>
+      <div data-ng-show="error" class="text-danger">
+	<strong data-ng-bind="error"></strong>
+      </div>
+    </fieldset>
+  </form>
+</div>

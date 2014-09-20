@@ -21,7 +21,7 @@ angular.module('tshirts').controller('TshirtsController', [
 
       // Redirect after save
       tshirt.$save(function(response) {
-        $location.path('tshirts/' + response._id);
+        $location.path('admin/tshirts/' + response._id);
 
         // Clear form fields
         $scope.name = '';

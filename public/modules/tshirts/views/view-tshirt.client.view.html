@@ -1,92 +1,91 @@
-<div class="container" data-ng-controller="TshirtsController" data-ng-init="findOne()">
-  <section>
-    <div class="page-header">
-      <h1 data-ng-bind="tshirt.name"></h1>
-      <div class="pull-right" data-ng-show="authentication.user._id == tshirt.user._id">
-        <a class="btn btn-primary" data-ng-click="remove();">
-          <i class="glyphicon glyphicon-trash"></i>
-        </a>
-      </div>
-    </div>
+<div data-ng-init="findOne()">
+  <div class="page-header">
+    <h3 data-ng-bind="tshirt.name"></h3>
+  </div>
 
-    <form class="form-horizontal" novalidate>
-      <fieldset>
-        <div class="form-group">
-          <div class="controls">
-            <label class="control-label" for="fimage">Front image</label>
-            <input type="text" data-ng-model="tshirt.frontImageUrl" id="fimage"
-                   class="form-control" placeholder="Front image" required>
-            <label class="control-label" for="bimage">Back image</label>
-            <input type="text" data-ng-model="tshirt.backImageUrl" id="bimage"
-                   class="form-control" required>
-          </div>
+  <form class="form-horizontal" novalidate>
+    <fieldset>
+      <div class="form-group">
+        <div class="controls">
+          <label class="control-label" for="fimage">Front image</label>
+          <input type="text" data-ng-model="tshirt.frontImageUrl" id="fimage"
+                 class="form-control" placeholder="Front image" required>
+          <label class="control-label" for="bimage">Back image</label>
+          <input type="text" data-ng-model="tshirt.backImageUrl" id="bimage"
+                 class="form-control" required>
         </div>
-        <hr/>
-        <div class="form-group">
-          <table ng-table="variantsTableParams" show-filter="false" class="table">
-            <tr ng-repeat="variant in $data">
-              <td data-title="'Name'">
-                <span ng-if="!variant.$edit">{{variant.name}}</span>
-                <div ng-if="variant.$edit">
-                  <input class="form-control" type="text" ng-model="variant.name" />
-                </div>
-              </td>
-              <td data-title="'Description'">
-                <span ng-if="!variant.$edit">{{variant.description}}</span>
-                <div ng-if="variant.$edit">
-                  <input class="form-control" type="text" ng-model="variant.description" />
-                </div>
-              </td>
-              <td data-title="'Base cost'">
-                <span ng-if="!variant.$edit">{{variant.baseCost}}</span>
-                <div ng-if="variant.$edit">
-                  <input class="form-control" type="text" ng-model="variant.baseCost" />
-                </div>
-              </td>
-              <td data-title="'Unit'">
-                <span ng-if="!variant.$edit">{{variant.unit}}</span>
-                <div ng-if="variant.$edit">
-                  <input class="form-control" type="text" ng-model="variant.unit" />
-                </div>
-              </td>
-              <td data-title="'Colors'">
-                <span ng-if="!variant.$edit">{{variant.colors}}</span>
-                <div ng-if="variant.$edit">
-                  <input class="form-control" type="text" ng-model="variant.colors" />
-                </div>
-              </td>
-              <td data-title="'Actions'" width="150">
-                <a data-ng-if="!variant.$edit" href=""
-                   class="btn btn-primary"
-                   data-ng-click="onVariantEdit(variant)">
-                  <i class="glyphicon glyphicon-edit"></i>
-                </a>
-                <a ng-if="variant.$edit"
-                   class="btn btn-primary btn-xs"
-                   data-ng-click="onVariantSave(variant)">Save</a>
-                <a class="btn btn-primary" data-ng-click="onVariantRemove(variant);">
-                  <i class="glyphicon glyphicon-trash"></i>
-                </a>
-              </td>
-            </tr>
-          </table>
-          <hr/>
-          <button class="btn btn-default" data-ng-click="addTshirtVariant()">
-            New variant
-          </button>
-        </div>
-      </fieldset>
-      <div data-ng-show="error" class="text-danger">
-        <strong data-ng-bind="error"></strong>
       </div>
-    </form>
-    <small>
-      <em class="text-muted">
-        Posted on
-        <span data-ng-bind="tshirt.created | date:'mediumDate'"></span>
-        by
-        <span data-ng-bind="tshirt.user.displayName"></span>
-      </em>
-    </small>
-</secsion>
+      <hr/>
+      <div class="form-group">
+        <table ng-table="variantsTableParams" show-filter="false" class="table">
+          <tr ng-repeat="variant in $data">
+            <td data-title="'Name'">
+              <span ng-if="!variant.$edit">{{variant.name}}</span>
+              <div ng-if="variant.$edit">
+                <input class="form-control" type="text" ng-model="variant.name" />
+              </div>
+            </td>
+            <td data-title="'Description'">
+              <span ng-if="!variant.$edit">{{variant.description}}</span>
+              <div ng-if="variant.$edit">
+                <input class="form-control" type="text" ng-model="variant.description" />
+              </div>
+            </td>
+            <td data-title="'Base cost'">
+              <span ng-if="!variant.$edit">{{variant.baseCost}}</span>
+              <div ng-if="variant.$edit">
+                <input class="form-control" type="text" ng-model="variant.baseCost" />
+              </div>
+            </td>
+            <td data-title="'Unit'">
+              <span ng-if="!variant.$edit">{{variant.unit}}</span>
+              <div ng-if="variant.$edit">
+                <input class="form-control" type="text" ng-model="variant.unit" />
+              </div>
+            </td>
+            <td data-title="'Colors'">
+              <span ng-if="!variant.$edit">{{variant.colors}}</span>
+              <div ng-if="variant.$edit">
+                <input class="form-control" type="text" ng-model="variant.colors" />
+              </div>
+            </td>
+            <td data-title="'Actions'" width="150">
+              <a data-ng-if="!variant.$edit" href=""
+                 class="btn btn-primary"
+                 data-ng-click="onVariantEdit(variant)">
+                <i class="glyphicon glyphicon-edit"></i>
+              </a>
+              <a ng-if="variant.$edit"
+                 class="btn btn-primary btn-xs"
+                 data-ng-click="onVariantSave(variant)">Save</a>
+              <a class="btn btn-primary" data-ng-click="onVariantRemove(variant);">
+                <i class="glyphicon glyphicon-trash"></i>
+              </a>
+            </td>
+          </tr>
+        </table>
+        <hr/>
+        <button class="btn btn-default" data-ng-click="addTshirtVariant()">
+          New variant
+        </button>
+        <div class="pull-right" data-ng-show="authentication.user._id == tshirt.user._id">
+          <a class="btn btn-primary" data-ng-click="remove();">
+            <i class="glyphicon glyphicon-trash"></i>
+          </a>
+        </div>
+
+      </div>
+    </fieldset>
+    <div data-ng-show="error" class="text-danger">
+      <strong data-ng-bind="error"></strong>
+    </div>
+  </form>
+  <small>
+    <em class="text-muted">
+      Posted on
+      <span data-ng-bind="tshirt.created | date:'mediumDate'"></span>
+      by
+      <span data-ng-bind="tshirt.user.displayName"></span>
+    </em>
+  </small>
 </div>

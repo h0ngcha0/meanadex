@@ -16,13 +16,30 @@ angular.module('admin').config([
       })
     .state('admin.tshirts', {
       url: '/tshirts',
-      templateUrl: 'modules/tshirts/views/list-tshirts.client.view.html',
-      controller: 'TshirtsController'
+      views: {
+        'tshirtView': {
+          templateUrl: 'modules/tshirts/views/list-tshirts.client.view.html',
+          controller: 'TshirtsController'
+        }
+      }
     })
-    .state('admin.tshirts.detail', {
-      url: '/:tshirtId',
-      template: '<bla>xx<bla>',
-      controller: 'TshirtsController'
+    .state('admin.tshirtCreate', {
+      url: '/tshirts/create',
+      views: {
+        'tshirtView': {
+          templateUrl: 'modules/tshirts/views/create-tshirt.client.view.html',
+          controller: 'TshirtsController'
+        }
+      }
+    })
+    .state('admin.tshirtDetail', {
+      url: '/tshirts/:tshirtId',
+      views: {
+        'tshirtView': {
+          templateUrl: 'modules/tshirts/views/view-tshirt.client.view.html',
+          controller: 'TshirtsController'
+        }
+      }
     })
     .state('admin.campaigns', {
       abstract: true,

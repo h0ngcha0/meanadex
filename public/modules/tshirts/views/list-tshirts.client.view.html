@@ -24,7 +24,7 @@
              class="btn btn-primary btn-xs"
              data-ng-click="onSave(tshirt)">Save</a>
           <a class="btn btn-primary"
-             ui-sref="admin.tshirts.detail({tshirtId: tshirt._id})">
+             ui-sref="admin.tshirtDetail({tshirtId: tshirt._id})">
             <i class="glyphicon glyphicon-eye-open"></i>
           </a>
           <a class="btn btn-primary" data-ng-click="onRemove(tshirt);">
@@ -33,7 +33,7 @@
         </td>
       </tr>
     </table>
-    <a href="/#!/tshirts/create" type="button" class="btn btn-lg btn-default">
+    <a ui-sref="admin.tshirtCreate" type="button" class="btn btn-lg btn-default">
       Add Tshirt
       <i class="glyphicon glyphicon-white"></i>
     </a>
