@@ -5,7 +5,6 @@ angular.module('designer').controller('DesignerController', [
   function($scope, mdCanvasService, localStorageService, allTshirts) {
     $scope.enableEdit = true;
 
-    console.log("before print");
     $scope.allTshirts = allTshirts;
 
     // a bit of a hack to get the select working two ways.
@@ -28,8 +27,6 @@ angular.module('designer').controller('DesignerController', [
 
     //$scope.currentTshirt = getCurrentTshirt();
     $scope.currentTshirt = $scope.allTshirts[0];
-    console.log("cur name");
-    console.log($scope.currentTshirt.name);
     //localStorageService.bind($scope, 'currentTshirt', $scope.currentTshirt);
 
     $scope.currentVariant = $scope.currentTshirt.variants[0];

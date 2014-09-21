@@ -19,8 +19,9 @@
       <div class="tab-content">
         <div ui-view="adminPanel"></div>
       </div>
-    <div data-ng-if="!isAuthorized()">
+    </div>
+    <div data-ng-if="!isAuthorized()" class="alert alert-warning">
       You do not have permission to see this page.
     </div>
   </section>
-</div>
+  </div>
