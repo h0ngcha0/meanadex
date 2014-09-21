@@ -5,35 +5,18 @@ angular.module('designer').controller('DesignerController', [
   function($scope, mdCanvasService, localStorageService, allTshirts) {
     $scope.enableEdit = true;
 
-    $scope.allTshirts = allTshirts;
+    // set the currentVariant to the first of all variants
+    $scope.allTshirts = _.map(
+      allTshirts,
+      function(t) {
+        t.currentVariant = t.variants[0];
+        return t
+      });
 
-    // a bit of a hack to get the select working two ways.
-    //var getCurrentTshirt = function() {
-    //  var storedTshirtType = localStorageService.get('currentTshirt');
-    //  if (storedTshirtType) {
-    //    var result = $scope.tshirt.types.filter(function(type) {
-    //      return type.name === storedTshirtType.name;
-    //    });
-    //
-    //    if(result.length === 0) {
-    //      return $scope.tshirt.types[0];
-    //    } else {
-    //      return result[0];
-    //    }
-    //  } else {
-    //    return $scope.tshirt.types[0];
-    //  }
-    //};
-
-    //$scope.currentTshirt = getCurrentTshirt();
     $scope.currentTshirt = $scope.allTshirts[0];
-    //localStorageService.bind($scope, 'currentTshirt', $scope.currentTshirt);
-
-    $scope.currentVariant = $scope.currentTshirt.variants[0];
-    //localStorageService.bind($scope, 'currentVariant', $scope.currentVariant);
 
     $scope.setVariant = function(variant) {
-      $scope.currentVariant = variant;
+      $scope.currentTshirt.currentVariant = variant;
     };
 
     $scope.images = [
