@@ -1,174 +1,39 @@
 'use strict';
 
 angular.module('designer').controller('DesignerController', [
-  '$scope', 'mdCanvasService', 'localStorageService',
-  function($scope, mdCanvasService, localStorageService) {
+  '$scope', 'mdCanvasService', 'localStorageService', 'allTshirts',
+  function($scope, mdCanvasService, localStorageService, allTshirts) {
     $scope.enableEdit = true;
 
-    $scope.tshirt = {
-      types: [
-        {
-          id: 1,
-          name: 'Short Sleeve Shirts',
-          variants: [
-            {
-              name: 'Hanes Tagless Tee',
-              description: 'Budget friendly',
-              colors: [
-                {title:'White', style:'#ffffff'},
-                {title:'Dark Heather', style:'#616161'},
-                {title:'Gray', style:'#f0f0f0'},
-                {title:'Salmon', style:'#eead91'},
-                {title:'Kiwi', style:'#8aa140'}
-              ],
-              baseCost: 50,
-              unit: 'SEK'
-            },
-            {
-              name: 'Canvas Ringspun Tee',
-              description: 'Premium material',
-              colors: [
-                {title:'Heather Orange', style:'#fc8d74'},
-                {title:'Heather Dark Chocolate', style:'#432d26'},
-                {title:'Salmon', style:'#eead91'}
-              ],
-              baseCost: 60,
-              unit: 'SEK'
-            },
-            {
-              name: 'American Apparel Crew',
-              description: 'Brand name',
-              colors: [
-                {title:'Avocado', style:'#aeba5e'},
-                {title:'Kiwi', style:'#8aa140'},
-                {title:'Irish Green', style:'#1f6522'}
-              ],
-              baseCost: 55,
-              unit: 'SEK'
-            }
-          ]
-        },
-        {
-          id: 2,
-          name: 'Long Sleeve Shirts',
-          variants: [
-            {
-              name: 'Gildan 6.1oz Long Sleeve',
-              description: 'Budget friendly',
-              colors: [
-                {title:'White', style:'#ffffff'},
-                {title:'Dark Heather', style:'#616161'},
-                {title:'Gray', style:'#f0f0f0'}
-              ],
-              baseCost: 70,
-              unit: 'SEK'
-            },
-            {
-              name: 'Hanes 6.1oz Long Sleeve',
-              description: 'Premium material',
-              colors: [
-                {title:'Heather Orange', style:'#fc8d74'},
-                {title:'Heather Dark Chocolate', style:'#432d26'},
-                {title:'Salmon', style:'#eead91'}
-              ],
-              baseCost: 72,
-              unit: 'SEK'
-            }
-          ]
-        },
-        {
-          id: 3,
-          name: 'Hoodies',
-          variants: [
-            {
-              name: 'Gildan 8oz Heavy Blend Hoodie',
-              description: 'Basic hoodie',
-              colors: [
-                {title:'White', style:'#ffffff'},
-                {title:'Dark Heather', style:'#616161'},
-                {title:'Gray', style:'#f0f0f0'}
-              ],
-              baseCost: 80,
-              unit: 'SEK'
-            },
-            {
-              name: 'Canvas Poly-Cotton Hoodie',
-              description: 'Premium blend hoodie',
-              colors: [
-                {title:'Heather Orange', style:'#fc8d74'},
-                {title:'Heather Dark Chocolate', style:'#432d26'},
-                {title:'Salmon', style:'#eead91'}
-              ],
-              baseCost: 82,
-              unit: 'SEK'
-            }
-          ]
-        },
-        {
-          id: 4,
-          name: 'Tank tops',
-          variants: [
-            {
-              name: 'Gildan Unisex Tank',
-              description: 'Budget friendly',
-              colors: [
-                {title:'White', style:'#ffffff'},
-                {title:'Dark Heather', style:'#616161'},
-                {title:'Gray', style:'#f0f0f0'}
-              ],
-              baseCost: 102,
-              unit: 'SEK'
-            },
-            {
-              name: 'Canvas Ringspun Tank',
-              description: 'Premium material',
-              colors: [
-                {title:'Heather Orange', style:'#fc8d74'},
-                {title:'Heather Dark Chocolate', style:'#432d26'},
-                {title:'Salmon', style:'#eead91'}
-              ],
-              baseCost: 98,
-              unit: 'SEK'
-            },
-            {
-              name: 'American Apparel Tank',
-              description: 'Top of the line',
-              colors: [
-                {title:'Avocado', style:'#aeba5e'},
-                {title:'Kiwi', style:'#8aa140'},
-                {title:'Irish Green', style:'#1f6522'}
-              ],
-              baseCost: 92,
-              unit: 'SEK'
-            }
-          ]
-        }
-      ]
-    };
+    console.log("before print");
+    $scope.allTshirts = allTshirts;
 
     // a bit of a hack to get the select working two ways.
-    var getCurrentTshirtType = function() {
-      var storedTshirtType = localStorageService.get('currentTshirtType');
-      if (storedTshirtType) {
-        var result = $scope.tshirt.types.filter(function(type) {
-          return type.name === storedTshirtType.name;
-        });
+    //var getCurrentTshirt = function() {
+    //  var storedTshirtType = localStorageService.get('currentTshirt');
+    //  if (storedTshirtType) {
+    //    var result = $scope.tshirt.types.filter(function(type) {
+    //      return type.name === storedTshirtType.name;
+    //    });
+    //
+    //    if(result.length === 0) {
+    //      return $scope.tshirt.types[0];
+    //    } else {
+    //      return result[0];
+    //    }
+    //  } else {
+    //    return $scope.tshirt.types[0];
+    //  }
+    //};
 
-        if(result.length === 0) {
-          return $scope.tshirt.types[0];
-        } else {
-          return result[0];
-        }
-      } else {
-        return $scope.tshirt.types[0];
-      }
-    };
+    //$scope.currentTshirt = getCurrentTshirt();
+    $scope.currentTshirt = $scope.allTshirts[0];
+    console.log("cur name");
+    console.log($scope.currentTshirt.name);
+    //localStorageService.bind($scope, 'currentTshirt', $scope.currentTshirt);
 
-    $scope.currentTshirtType = getCurrentTshirtType();
-    localStorageService.bind($scope, 'currentTshirtType', $scope.currentTshirtType);
-
-    $scope.currentVariant = $scope.currentTshirtType.variants[0];
-    localStorageService.bind($scope, 'currentVariant', $scope.currentVariant);
+    $scope.currentVariant = $scope.currentTshirt.variants[0];
+    //localStorageService.bind($scope, 'currentVariant', $scope.currentVariant);
 
     $scope.setVariant = function(variant) {
       $scope.currentVariant = variant;

@@ -1,9 +1,9 @@
 <div class="well">
   <h3>Style & quality</h3>
-  <!--Select types of the T-Shirts-->
+  <!--Select T-Shirts-->
   <select id="tshirt-type-selector"
-    ng-model="currentTshirtType"
-    ng-options="tshirtType.name for tshirtType in tshirt.types"
+    ng-model="currentTshirt"
+    ng-options="tshirt.name for tshirt in allTshirts"
     class="form-control">
     <option value=""> -- Choose your tshirt -- </option>
   </select>
@@ -13,7 +13,7 @@
   <ul class="list-group">
     <li class="list-group-item tshirt-variant"
       ng-click="setVariant(variant)"
-      ng-repeat="variant in currentTshirtType.variants" tabindex="-1">
+      ng-repeat="variant in currentTshirt.variants" tabindex="-1">
       {{variant.name}}
       <br>
       <small>{{variant.description}}</small>
@@ -23,9 +23,8 @@
   <div class="clearfix">
     <div class="btn-group inline pull-left">
       <a class="color-preview btn"
-        title="{{color.title}}"
-        style="background-color:{{color.style}};"
-        data-ng-click="setCanvasBgColor(color.style)"
+        style="background-color:{{color}};"
+        data-ng-click="setCanvasBgColor(color)"
         data-ng-repeat="color in currentVariant.colors">
       </a>
     </div>
