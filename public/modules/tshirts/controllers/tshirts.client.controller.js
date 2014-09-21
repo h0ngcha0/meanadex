@@ -7,7 +7,7 @@ angular.module('tshirts').controller('TshirtsController', [
   function($scope, $stateParams, $location, Authentication, Tshirts,
            $filter, NgTableParams, $timeout) {
     $scope.authentication = Authentication;
-    $scope.tmpVariant = undefined;
+    $scope.tmpVariant = {};
 
     // Create new Tshirt
     $scope.create = function() {
@@ -74,9 +74,26 @@ angular.module('tshirts').controller('TshirtsController', [
       name: '',
       description: '',
       baseCost: 0,
-      unit: ['SEK'],
-      colors: ['black'],
+      unit: 'SEK',
+      colors: [],
       $edit: true
+    };
+
+    $scope.addVariantColor = function() {
+      if (! _.contains($scope.tmpVariant.colors, $scope.tmpVariant.color)) {
+        $scope.tmpVariant.colors.push($scope.tmpVariant.color);
+        $scope.tmpVariant.error = '';
+      } else {
+        $scope.tmpVariant.error = 'Color already added';
+      }
+    };
+
+    $scope.removeVariantColor = function(color) {
+      $scope.tmpVariant.colors = _.filter(
+        $scope.tmpVariant.colors,
+        function(c) {
+          return c !== color
+        });
     };
 
     $scope.createOne = function() {

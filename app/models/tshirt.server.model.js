@@ -37,14 +37,20 @@ var TshirtSchema = new Schema({
         },
         baseCost: {
           type: Number,
-          required: 'variant baseCost is required'
+          required: 'variant baseCost is required',
+          min: [0, 'Base cost must be more than 0']
         },
         unit: {
           type: String,
+          enum: ['SEK', 'RMB', 'USD'],
           default: 'SEK'
         },
         colors: {
-          type: String,
+          type: [
+            {
+            type: String
+            }
+          ],
           default: 'black'
         }
       }

@@ -37,9 +37,11 @@
       <i class="glyphicon glyphicon-white"></i>
     </a>
   </div>
-  <div class="alert alert-warning text-center" data-ng-hide="!tshirts.$resolved || tshirts.length">
-    <a href="/#!/tshirts/create" type="button" class="btn btn-lg btn-default">
-      Add Tshirt
+  <div class="alert alert-warning text-center"
+       data-ng-hide="!tshirts.$resolved || tshirts.length">
+    There isn't any Tshirts yet,
+    <a ui-sref="admin.tshirtCreate" type="button">
+      add one.
       <i class="glyphicon glyphicon-white"></i>
     </a>
   </div>
