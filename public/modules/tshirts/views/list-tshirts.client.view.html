@@ -1,6 +1,7 @@
 <div id="list-tshirts" data-ng-init="find()">
   <div class="col-lg-12" data-ng-show="tshirts.length > 0">
-    <table ng-table="tshirtsTableParams" show-filter="true" class="table">
+    <table ng-table="tshirtsTableParams" show-filter="true"
+           class="table table-bordered">
       <tr ng-repeat="tshirt in $data">
         <td data-title="'Name'" filter="{ 'name': 'text' }">
           <span ng-if="!tshirt.$edit">{{tshirt.name}}</span>

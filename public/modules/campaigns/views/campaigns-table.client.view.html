@@ -1,5 +1,5 @@
 <div class="col-lg-12" data-ng-show="campaigns.length > 0">
-  <table ng-table="tableParams" show-filter="true" class="table">
+  <table ng-table="tableParams" show-filter="true" class="table table-bordered">
     <tr ng-repeat="campaign in $data">
       <td data-title="'Name'" filter="{ 'name': 'text' }">
         <span ng-if="!campaign.$edit">{{campaign.name}}</span>

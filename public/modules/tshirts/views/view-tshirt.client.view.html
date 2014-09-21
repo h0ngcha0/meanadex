@@ -5,19 +5,20 @@
 
   <form class="form-horizontal" novalidate>
     <fieldset>
-      <div class="form-group">
-        <div class="controls">
+      <div class="col-md-12">
+        <div class="col-md-6">
           <label class="control-label" for="fimage">Front image</label>
-          <input type="text" data-ng-model="tshirt.frontImageUrl" id="fimage"
-                 class="form-control" placeholder="Front image" required>
+          <img id="fimage" type="text" data-ng-src="{{tshirt.frontImageUrl}}"/>
+        </div>
+        <div class="col-md-6">
           <label class="control-label" for="bimage">Back image</label>
-          <input type="text" data-ng-model="tshirt.backImageUrl" id="bimage"
-                 class="form-control" required>
+          <img id="bimage" type="text" data-ng-src="{{tshirt.backImageUrl}}"/>
         </div>
       </div>
-      <hr/>
+
       <div class="form-group">
-        <table ng-table="variantsTableParams" show-filter="false" class="table">
+        <table ng-table="variantsTableParams" show-filter="false"
+               class="table table-bordered">
           <tr ng-repeat="variant in $data">
             <td data-title="'Name'">
               <span ng-if="!variant.$edit">{{variant.name}}</span>
