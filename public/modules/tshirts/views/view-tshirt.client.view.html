@@ -44,10 +44,18 @@
               </div>
             </td>
             <td data-title="'Colors'">
-              <span ng-if="!variant.$edit">{{variant.colors}}</span>
+              <span ng-if="!variant.$edit">
+                <a class="color-preview btn"
+                   data-ng-repeat="color in variant.colors"
+                   style="background-color:{{color}};">
+                </a>
+              </span>
+
+              <!-- FIXME, need to figure out a proper UI for this.
               <div ng-if="variant.$edit">
                 <input class="form-control" type="text" ng-model="variant.colors" />
               </div>
+              -->
             </td>
             <td data-title="'Actions'" width="150">
               <a data-ng-if="!variant.$edit" href=""

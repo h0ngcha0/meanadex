@@ -48,10 +48,10 @@ var TshirtSchema = new Schema({
         colors: {
           type: [
             {
-            type: String
+              type: String,
+              default: 'black'
             }
-          ],
-          default: 'black'
+          ]
         }
       }
     ],
