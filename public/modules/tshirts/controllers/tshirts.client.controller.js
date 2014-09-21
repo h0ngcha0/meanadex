@@ -96,7 +96,7 @@ angular.module('tshirts').controller('TshirtsController', [
       $scope.tmpVariant.colors = _.filter(
         $scope.tmpVariant.colors,
         function(c) {
-          return c !== color
+          return c !== color;
         });
     };
 

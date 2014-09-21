@@ -10,7 +10,7 @@ angular.module('designer').controller('DesignerController', [
       allTshirts,
       function(t) {
         t.currentVariant = t.variants[0];
-        return t
+        return t;
       });
 
     $scope.currentTshirt = $scope.allTshirts[0];
