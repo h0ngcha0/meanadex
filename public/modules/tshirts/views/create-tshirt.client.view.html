@@ -44,11 +44,11 @@
                   </a>
                 </td>
                 <td>
-                  <a class="btn" data-ng-click="removeVariantColor(color)">
+                  <a class="btn"
+                     data-ng-click="removeVariantColor(tmpVariant, color)">
                     <i class="glyphicon glyphicon-trash"></i>
                   </a>
                 </td>
-              </div>
             </table>
           </div>
         </div>
@@ -56,7 +56,7 @@
         <p class="btn btn-default" data-placement="top" data-original-title="Font Color">
           <input colorpicker colorpicker-position="top" data-ng-model="tmpVariant.color">
           <a id="tshirt-add-color" class="btn btn-default"
-                  data-ng-click="addVariantColor(tmpVariant.color)"
+                  data-ng-click="addVariantColor(tmpVariant, tmpVariant.color)"
                   data-original-title="Italic">
             Add
           </a>

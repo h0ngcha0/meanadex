@@ -52,11 +52,29 @@
                 </a>
               </span>
 
-              <!-- FIXME, need to figure out a proper UI for this.
-              <div ng-if="variant.$edit">
-                <input class="form-control" type="text" ng-model="variant.colors" />
-              </div>
-              -->
+              <span ng-if="variant.$edit">
+                <div data-ng-repeat="color in variant.colors">
+                  <a class="color-preview btn"
+                     style="background-color:{{color}};">
+                  </a>
+                  <a class="btn"
+                     data-ng-click="removeVariantColor(variant, color)">
+                    <i class="glyphicon glyphicon-trash"></i>
+                  </a>
+                </div>
+
+                <p class="btn btn-default" data-placement="top" data-original-title="Font Color">
+                  <input colorpicker colorpicker-position="top" data-ng-model="variant.color">
+                  <a id="tshirt-add-color" class="btn btn-default"
+                     data-ng-click="addVariantColor(variant, variant.color)"
+                     data-original-title="Italic">
+                    Add
+                  </a>
+                  <div data-ng-show="variant.error" class="text-danger">
+	            <strong data-ng-bind="variant.error"></strong>
+                  </div>
+                </p>
+              </span>
             </td>
             <td data-title="'Actions'" width="150">
               <a data-ng-if="!variant.$edit" href=""

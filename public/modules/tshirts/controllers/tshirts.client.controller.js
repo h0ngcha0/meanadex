@@ -83,18 +83,18 @@ angular.module('tshirts').controller('TshirtsController', [
 
     var variantPlaceholder = newVariantPlaceholder();
 
-    $scope.addVariantColor = function(color) {
-      if (! _.contains($scope.tmpVariant.colors, color)) {
-        $scope.tmpVariant.colors.push(color);
-        $scope.tmpVariant.error = '';
+    $scope.addVariantColor = function(variant, color) {
+      if (! _.contains(variant.colors, color)) {
+        variant.colors.push(color);
+        variant.error = '';
       } else {
-        $scope.tmpVariant.error = 'Color already added';
+        variant.error = 'Color already added';
       }
     };
 
-    $scope.removeVariantColor = function(color) {
-      $scope.tmpVariant.colors = _.filter(
-        $scope.tmpVariant.colors,
+    $scope.removeVariantColor = function(variant, color) {
+      variant.colors = _.filter(
+        variant.colors,
         function(c) {
           return c !== color;
         });
@@ -171,6 +171,7 @@ angular.module('tshirts').controller('TshirtsController', [
     };
 
     $scope.onVariantSave = function(variant) {
+      console.log("save..");
       variant.$edit = false;
       variantPlaceholder = newVariantPlaceholder();
       $scope.update();
