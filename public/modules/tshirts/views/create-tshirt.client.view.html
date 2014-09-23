@@ -33,38 +33,11 @@
         <input type="text" data-ng-model="tmpVariant.unit" id="unit"
                class="form-control" placeholder="SEK" required>
         <label class="control-label" for="unit">Color</label>
+        <md-tshirt-color-editor variant="tmpVariant"
+                                removecolor="removeVariantColor"
+                                addcolor="addVariantColor">
+      </md-tshirt-color-editor>
 
-        <div class="clearfix">
-          <div class="btn-group inline pull-left">
-            <table class="table-striped">
-              <tr data-ng-repeat="color in tmpVariant.colors">
-                <td>
-                  <a class="color-preview btn"
-                     style="background-color:{{color}};">
-                  </a>
-                </td>
-                <td>
-                  <a class="btn"
-                     data-ng-click="removeVariantColor(tmpVariant, color)">
-                    <i class="glyphicon glyphicon-trash"></i>
-                  </a>
-                </td>
-            </table>
-          </div>
-        </div>
-
-        <p class="btn btn-default" data-placement="top" data-original-title="Font Color">
-          <input colorpicker colorpicker-position="top" data-ng-model="tmpVariant.color">
-          <a id="tshirt-add-color" class="btn btn-default"
-                  data-ng-click="addVariantColor(tmpVariant, tmpVariant.color)"
-                  data-original-title="Italic">
-            Add
-          </a>
-          <div data-ng-show="tmpVariant.error" class="text-danger">
-	    <strong data-ng-bind="tmpVariant.error"></strong>
-          </div>
-        </p>
-      </div>
       <hr/>
       <div class="form-group">
         <input type="submit" class="btn btn-default">

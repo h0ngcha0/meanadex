@@ -45,36 +45,10 @@
               </div>
             </td>
             <td data-title="'Colors'">
-              <span ng-if="!variant.$edit">
-                <a class="color-preview btn"
-                   data-ng-repeat="color in variant.colors"
-                   style="background-color:{{color}};">
-                </a>
-              </span>
-
-              <span ng-if="variant.$edit">
-                <div data-ng-repeat="color in variant.colors">
-                  <a class="color-preview btn"
-                     style="background-color:{{color}};">
-                  </a>
-                  <a class="btn"
-                     data-ng-click="removeVariantColor(variant, color)">
-                    <i class="glyphicon glyphicon-trash"></i>
-                  </a>
-                </div>
-
-                <p class="btn btn-default" data-placement="top" data-original-title="Font Color">
-                  <input colorpicker colorpicker-position="top" data-ng-model="variant.color">
-                  <a id="tshirt-add-color" class="btn btn-default"
-                     data-ng-click="addVariantColor(variant, variant.color)"
-                     data-original-title="Italic">
-                    Add
-                  </a>
-                  <div data-ng-show="variant.error" class="text-danger">
-	            <strong data-ng-bind="variant.error"></strong>
-                  </div>
-                </p>
-              </span>
+              <md-tshirt-color-editor variant="variant"
+                                      removecolor="removeVariantColor"
+                                      addcolor="addVariantColor">
+              </md-tshirt-color-editor>
             </td>
             <td data-title="'Actions'" width="150">
               <a data-ng-if="!variant.$edit" href=""
