@@ -63,6 +63,11 @@ var CampaignSchema = new Schema({
     type: Number,
     required: 'price property is required'
   },
+  color: {
+    type: String,
+    required: 'color is required',
+    default: 'white'
+  },
   design: {
     type: String,
     required: 'design property is required',

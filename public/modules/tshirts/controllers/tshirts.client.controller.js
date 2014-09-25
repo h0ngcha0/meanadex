@@ -171,7 +171,6 @@ angular.module('tshirts').controller('TshirtsController', [
     };
 
     $scope.onVariantSave = function(variant) {
-      console.log("save..");
       variant.$edit = false;
       variantPlaceholder = newVariantPlaceholder();
       $scope.update();

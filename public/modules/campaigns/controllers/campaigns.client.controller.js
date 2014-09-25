@@ -178,6 +178,7 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
 
     $scope.tshirtsSalesGoal = localStorageService.get('tshirtsSalesGoal');
     $scope.tshirtPrice = localStorageService.get('tshirtPrice');
+    $scope.tshirtColor = localStorageService.get('tshirtColor');
 
     $scope.launchCampaign = function() {
       var campaign = new Campaigns ({
@@ -190,6 +191,7 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
         goal: parseInt($scope.tshirtsSalesGoal),
         sold: 0,
         price: $scope.tshirtPrice,
+        color: $scope.tshirtColor,
         cost: $scope.currentVariant.baseCost,
         design: JSON.stringify({
           front: mdCanvasService.getFrontCanvas(),
@@ -200,6 +202,7 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
       // Redirect after save
       campaign.$save(
         function(response) {
+          localStorageService.clearAll();
           $location.path('campaigns/' + response._id);
         },
         function(errorResponse) {

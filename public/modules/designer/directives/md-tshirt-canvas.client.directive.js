@@ -19,7 +19,8 @@ angular.module('designer').directive('mdTshirtCanvas', [
                 '#tshirtFacing',
                 '#shirtDiv',
                 design.front,
-                design.back
+                design.back,
+                campaign.color
               );
             },
             // promise fail

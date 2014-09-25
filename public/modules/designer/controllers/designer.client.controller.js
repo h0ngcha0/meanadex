@@ -14,9 +14,20 @@ angular.module('designer').controller('DesignerController', [
       });
 
     $scope.currentTshirt = $scope.allTshirts[0];
+    $scope.currentTshirt.currentVariant = $scope.currentTshirt.variants[0];
+    localStorageService.set('currentVariant', $scope.currentTshirt.currentVariant);
+
+    $scope.setCanvasBgColor = function(color) {
+      localStorageService.set('tshirtColor', color);
+      mdCanvasService.changeBackground(color);
+    };
+
+    $scope.tshirtColor = $scope.currentTshirt.currentVariant.colors[0];
+    $scope.setCanvasBgColor($scope.tshirtColor);
 
     $scope.setVariant = function(variant) {
       $scope.currentTshirt.currentVariant = variant;
+      localStorageService.set('currentVariant', variant);
     };
 
     $scope.images = [
@@ -89,10 +100,6 @@ angular.module('designer').controller('DesignerController', [
 
     $scope.addImage = function(imgSrc) {
       mdCanvasService.addImage(imgSrc);
-    };
-
-    $scope.setCanvasBgColor = function(color) {
-      mdCanvasService.changeBackground(color);
     };
   }
 ]);
