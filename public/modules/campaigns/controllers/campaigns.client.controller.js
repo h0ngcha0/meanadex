@@ -3,10 +3,9 @@
 // Campaigns controller
 angular.module('campaigns').controller('CampaignsController', [
   '$scope', '$stateParams', '$location', 'Authentication',
-  'Campaigns', '$cookies', 'localStorageService', '$filter',
-  'ngTableParams', '$timeout', '$http',
+  'Campaigns', '$cookies', '$filter', 'ngTableParams', '$timeout', '$http',
   function( $scope, $stateParams, $location, Authentication, Campaigns,
-    $cookies, localStorageService, $filter, NgTableParams, $timeout, $http) {
+    $cookies, $filter, NgTableParams, $timeout, $http) {
     $scope.authentication = Authentication;
 
     // Create new Campaign
@@ -122,36 +121,35 @@ angular.module('campaigns').controller('CampaignsController', [
 ]);
 
 angular.module('campaigns').controller('CampaignsSalesGoalController', [
-  '$scope', 'localStorageService',
-  function($scope, localStorageService) {
-    $scope.currentVariant = localStorageService.get('currentVariant');
+  '$scope', 'CampaignCache',
+  function($scope, CampaignCache) {
+    $scope.cost = CampaignCache.getCost();
 
-    $scope.tshirtsSalesGoal = localStorageService.get('tshirtsSalesGoal') || 50;
-    localStorageService.bind($scope, 'tshirtsSalesGoal', $scope.tshirtsSalesGoal);
+    $scope.tshirtsSalesGoal = CampaignCache.getGoal() || 50;
+    CampaignCache.bindGoal($scope);
 
-    $scope.tshirtPrice = localStorageService.get('tshirtPrice') || 70;
-    localStorageService.bind($scope, 'tshirtPrice', $scope.tshirtPrice);
+    $scope.tshirtPrice = CampaignCache.getPrice() || 70;
+    CampaignCache.bindPrice($scope);
 
     $scope.estimatedProfitFun = function() {
-      var profit = ($scope.tshirtPrice - $scope.currentVariant.baseCost) * $scope.tshirtsSalesGoal;
+      var profit = ($scope.tshirtPrice - $scope.cost) * $scope.tshirtsSalesGoal;
       return profit > 0 ? profit : 0;
     };
   }
 ]);
 
 angular.module('campaigns').controller('CampaignsSalesDetailsController', [
-  '$scope', 'Campaigns', 'localStorageService', 'mdCanvasService', '$location',
-  '$http',
-  function($scope, Campaigns, localStorageService, mdCanvasService, $location, $http) {
-    $scope.campaignTitle = localStorageService.get('campaignTitle') || '';
-    localStorageService.bind($scope, 'campaignTitle', $scope.campaignTitle);
+  '$scope', 'Campaigns', 'CampaignCache', 'mdCanvasService', '$location', '$http',
+  function($scope, Campaigns, CampaignCache, mdCanvasService, $location, $http) {
+    $scope.campaignTitle = CampaignCache.getTitle() || '';
+    CampaignCache.bindTitle($scope);
 
-    $scope.campaignDescription = localStorageService.get('campaignDescription') || '';
-    localStorageService.bind($scope, 'campaignDescription', $scope.campaignDescription);
+    $scope.campaignDescription = CampaignCache.getDescription() || '';
+    CampaignCache.bindDescription($scope);
 
-    var campaignUrl = localStorageService.get('campaignUrl') || '';
-    if (campaignUrl) {
-      $scope.campaignUrl = campaignUrl;
+    var url = CampaignCache.getUrl() || '';
+    if (url) {
+      $scope.campaignUrl = url;
     }
     else {
       $http.get('/campaign/url').success(function(response) {
@@ -161,10 +159,11 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
         $scope.error = response.message;
       });
     }
-    localStorageService.bind($scope, 'campaignUrl', $scope.campaignUrl);
+    CampaignCache.bindUrl($scope);
 
-    $scope.currentCampaignLength = localStorageService.get('currentCampaignLength') || 7;
-    localStorageService.bind($scope, 'currentCampaignLength', $scope.currentCampaignLength);
+    $scope.currentCampaignLength = CampaignCache.getLength() || 7;
+    CampaignCache.bindLength($scope);
+
     var dateAfterDaysFromNow = function(days) {
       return Date.today().addDays(days).toString().split(' ').slice(0, 3).join(' ');
     };
@@ -174,25 +173,19 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
       return days.toString() + ' days ' + '(Ending ' + dateAfterDaysFromNow(days) + ')';
     };
 
-    $scope.currentVariant = localStorageService.get('currentVariant');
-
-    $scope.tshirtsSalesGoal = localStorageService.get('tshirtsSalesGoal');
-    $scope.tshirtPrice = localStorageService.get('tshirtPrice');
-    $scope.tshirtColor = localStorageService.get('tshirtColor');
-
     $scope.launchCampaign = function() {
       var campaign = new Campaigns ({
         name: $scope.campaignTitle,
         created_at: Date.today(),
         ended_at: Date.today().addDays($scope.currentCampaignLength),
-        description: $scope.campaignDescription,
-        length: $scope.currentCampaignLength,
-        url: $scope.campaignUrl,
-        goal: parseInt($scope.tshirtsSalesGoal),
+        description: CampaignCache.get('campaignDescription'),
+        length: CampaignCache.get('currentCampaignLength'),
+        url: CampaignCache.get('campaignUrl'),
+        goal: parseInt(CampaignCache.get('tshirtsSalesGoal')),
         sold: 0,
-        price: $scope.tshirtPrice,
-        color: $scope.tshirtColor,
-        cost: $scope.currentVariant.baseCost,
+        price: CampaignCache.get('tshirtPrice'),
+        color: CampaignCache.getColor(),
+        cost: CampaignCache.getCost(),
         design: JSON.stringify({
           front: mdCanvasService.getFrontCanvas(),
           back: mdCanvasService.getBackCanvas()
@@ -202,7 +195,7 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
       // Redirect after save
       campaign.$save(
         function(response) {
-          localStorageService.clearAll();
+          CampaignCache.clear();
           $location.path('campaigns/' + response._id);
         },
         function(errorResponse) {

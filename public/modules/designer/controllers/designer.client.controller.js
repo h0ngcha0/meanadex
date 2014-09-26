@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('designer').controller('DesignerController', [
-  '$scope', 'mdCanvasService', 'localStorageService', 'allTshirts',
-  function($scope, mdCanvasService, localStorageService, allTshirts) {
+  '$scope', 'mdCanvasService', 'allTshirts', 'CampaignCache',
+  function($scope, mdCanvasService, allTshirts, CampaignCache) {
     $scope.enableEdit = true;
 
     // set the currentVariant to the first of all variants
@@ -15,19 +15,22 @@ angular.module('designer').controller('DesignerController', [
 
     $scope.currentTshirt = $scope.allTshirts[0];
     $scope.currentTshirt.currentVariant = $scope.currentTshirt.variants[0];
-    localStorageService.set('currentVariant', $scope.currentTshirt.currentVariant);
+    CampaignCache.setColor($scope.currentTshirt.currentVariant.colors[0]);
 
     $scope.setCanvasBgColor = function(color) {
-      localStorageService.set('tshirtColor', color);
+      CampaignCache.setColor(color);
       mdCanvasService.changeBackground(color);
     };
 
     $scope.tshirtColor = $scope.currentTshirt.currentVariant.colors[0];
     $scope.setCanvasBgColor($scope.tshirtColor);
 
+    var baseCost = $scope.currentTshirt.currentVariant.baseCost;
+    CampaignCache.setCost(baseCost);
+
     $scope.setVariant = function(variant) {
       $scope.currentTshirt.currentVariant = variant;
-      localStorageService.set('currentVariant', variant);
+      CampaignCache.setCost(variant.baseCost);
     };
 
     $scope.images = [
