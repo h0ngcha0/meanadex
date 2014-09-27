@@ -17,6 +17,15 @@ angular.module('designer').controller('DesignerController', [
     $scope.currentTshirt.currentVariant = $scope.currentTshirt.variants[0];
     CampaignCache.setColor($scope.currentTshirt.currentVariant.colors[0]);
 
+    $scope.$watch(
+      'currentTshirt',
+      function(newVal, _oldVal) {
+        $scope.currentTshirt.currentVariant = newVal.variants[0];
+
+        var color = newVal.currentVariant.colors[0];
+        $scope.setCanvasBgColor(color);
+      });
+
     $scope.setCanvasBgColor = function(color) {
       CampaignCache.setColor(color);
       mdCanvasService.changeBackground(color);
