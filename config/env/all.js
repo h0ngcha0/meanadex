@@ -43,7 +43,8 @@ module.exports = {
         'public/lib/angular-rangeslider/angular.rangeSlider.js',
         'public/lib/angular-local-storage/angular-local-storage.js',
         'public/lib/ng-table/ng-table.js',
-        'public/lib/angular-data/dist/angular-data.js'
+        'public/lib/angular-data/dist/angular-data.js',
+        'public/lib/angular-file-upload/angular-file-upload.js'
       ]
     },
     css: [

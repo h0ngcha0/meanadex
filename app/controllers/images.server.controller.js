@@ -5,7 +5,7 @@
  */
 var mongoose = require('mongoose'),
     errorHandler = require('./errors'),
-    Image = mongoose.model('Image'),
+    Img = mongoose.model('Image'),
     _ = require('lodash');
 
 /**
@@ -73,7 +73,7 @@ exports.delete = function(req, res) {
  * List of Images
  */
 exports.list = function(req, res) {
-  Image.find().sort('-created').populate('user', 'displayName').exec(
+  Img.find().sort('-created').populate('user', 'displayName').exec(
     function(err, images) {
       if (err) {
         return res.status(400).send({
@@ -89,7 +89,7 @@ exports.list = function(req, res) {
  * Image middleware
  */
 exports.imageByID = function(req, res, next, id) {
-  Image.findById(id).populate('user', 'displayName').exec(
+  Img.findById(id).populate('user', 'displayName').exec(
     function(err, image) {
       if (err) return next(err);
       if (! image) return next(new Error('Failed to load Image ' + id));

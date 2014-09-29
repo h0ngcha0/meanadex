@@ -6,7 +6,7 @@
 var should = require('should'),
     mongoose = require('mongoose'),
     User = mongoose.model('User'),
-    Image = mongoose.model('Image');
+    Img = mongoose.model('Image');
 
 /**
  * Globals
@@ -58,7 +58,7 @@ describe('Image Model Unit Tests:', function() {
   });
 
   afterEach(function(done) {
-    Image.remove().exec();
+    Img.remove().exec();
     User.remove().exec();
 
     done();

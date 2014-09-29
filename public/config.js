@@ -19,7 +19,8 @@ var ApplicationConfiguration = (
       'ui-rangeSlider',
       'LocalStorageModule',
       'ngTable',
-      'angular-data.DS'
+      'angular-data.DS',
+      'angularFileUpload'
     ];
 
     // Add a new vertical module

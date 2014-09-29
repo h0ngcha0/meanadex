@@ -2,8 +2,8 @@
 
 // Images controller
 angular.module('images').controller('ImagesController', [
-  '$scope', '$stateParams', '$location', 'Authentication', 'Images',
-  function($scope, $stateParams, $location, Authentication, Images ) {
+  '$scope', '$stateParams', '$location', 'Authentication', 'Images', 'FileUploader',
+  function($scope, $stateParams, $location, Authentication, Images, FileUploader) {
     $scope.authentication = Authentication;
 
     // Create new Image
@@ -63,5 +63,7 @@ angular.module('images').controller('ImagesController', [
         imageId: $stateParams.imageId
       });
     };
+
+    $scope.uploader = new FileUploader();
   }
 ]);

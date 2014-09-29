@@ -25,6 +25,7 @@
     "ng-table": "~0.3.3",
     "angular-rangeslider": "~0.0.7",
     "underscore": "~1.7.0",
-    "angular-data": "~0.10.5"
+    "angular-data": "~0.10.5",
+    "angular-file-upload": "~1.1.1"
   }
 }
