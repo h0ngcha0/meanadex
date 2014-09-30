@@ -6,15 +6,15 @@ angular.module('campaigns').service('CampaignCache', [
   function(localStorageService) {
     var store = function(k, v) {
       localStorageService.set(k, v);
-    }
+    };
 
     var retrieve = function(k) {
       return localStorageService.get(k);
-    }
+    };
 
     var bind = function(bo) {
       localStorageService.bind(bo.scope, bo.key, bo.scope[bo.key]);
-    }
+    };
 
     this.set = function(k, v) {
       store(k, v);

@@ -18,7 +18,9 @@ var ApplicationConfiguration = (
       'colorpicker.module',
       'ui-rangeSlider',
       'LocalStorageModule',
-      'ngTable'
+      'ngTable',
+      'angular-data.DS',
+      'angularFileUpload'
     ];
 
     // Add a new vertical module
