@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('designer').controller('DesignerController', [
-  '$scope', 'mdCanvasService', 'allTshirts', 'CampaignCache',
-  function($scope, mdCanvasService, allTshirts, CampaignCache) {
+  '$scope', 'mdCanvasService', 'allTshirts', 'CampaignCache', 'FileUploader', '$window',
+  function($scope, mdCanvasService, allTshirts, CampaignCache, FileUploader, $window) {
     $scope.enableEdit = true;
 
     // set the currentVariant to the first of all variants
@@ -113,5 +113,36 @@ angular.module('designer').controller('DesignerController', [
     $scope.addImage = function(imgSrc) {
       mdCanvasService.addImage(imgSrc);
     };
+
+    $scope.uploader = new FileUploader();
+
+
+    var helper = {
+      support: !!($window.FileReader && $window.CanvasRenderingContext2D),
+      isFile: function(item) {
+        return angular.isObject(item) && item instanceof $window.File;
+      },
+      isImage: function(file) {
+        var type =  '|' + file.type.slice(file.type.lastIndexOf('/') + 1) + '|';
+        return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+      }
+    };
+
+    function onLoadFile(event) {
+      var imgUrl = event.target.result;
+      $scope.addImage(imgUrl);
+    }
+
+    $scope.$watch('uploader.queue.length', function(newVal, oldVal) {
+      if(newVal > 0) {
+        // grab the new uploaded image
+        var queueItem = $scope.uploader.queue[newVal-1];
+        if(helper.isFile(queueItem.file) || helper.isImage(queueItem.file)) {
+          var reader = new FileReader();
+          reader.onload = onLoadFile;
+          reader.readAsDataURL(queueItem._file);
+        }
+      }
+    });
   }
 ]);

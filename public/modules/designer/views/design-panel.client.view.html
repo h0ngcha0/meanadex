@@ -16,7 +16,26 @@
         <md-image-page images='images'></md-image-page>
       </div>
       <div class="well">
-        <button class="btn btn-default">Or upload your own</button>
+        <div ng-show="uploader.isHTML5">
+
+          <div nv-file-drop="" uploader="uploader"
+               options="{ url: '/foo' }">
+            <div nv-file-over="" uploader="uploader"
+                 class="well drop-zone">
+              Drop image here
+            </div>
+          </div>
+        </div>
+
+        Or
+
+        <span class="btn btn-default btn-file">
+          <input nv-file-select="" type="file" uploader="uploader" multiple>
+          Upload image
+          </input>
+
+        </span>
+
       </div>
     </div>
   </div>
