@@ -8,21 +8,38 @@ var mongoose = require('mongoose'),
     Img = mongoose.model('Image'),
     _ = require('lodash');
 
+
+var options = {
+  tmpDir: __dirname + '/../../public/uploads/tmp',
+  uploadDir: __dirname + '/../../public/uploads',
+  uploadUrl: '/uploads/',
+  storage: {
+    type: 'local'
+  }
+};
+
+var uploader = require('blueimp-file-upload-expressjs')(options);
+
 /**
  * Create a Image
  */
 exports.create = function(req, res) {
-  var image = new Image(req.body);
-  image.user = req.user;
+  uploader.post(req, res, function (obj) {
+    console.log(obj);
+    var imageUrl = _.head(obj.files).url;
 
-  image.save(function(err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(image);
-    }
+    var image = new Img({url: imageUrl});
+    image.user = req.user;
+
+    image.save(function(err) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(image);
+      }
+    });
   });
 };
 
@@ -34,39 +51,23 @@ exports.read = function(req, res) {
 };
 
 /**
- * Update a Image
- */
-exports.update = function(req, res) {
-  var image = req.image ;
-
-  image = _.extend(image , req.body);
-
-  image.save(function(err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(image);
-    }
-  });
-};
-
-/**
  * Delete an Image
  */
 exports.delete = function(req, res) {
-  var image = req.image ;
-
-  image.remove(function(err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(image);
-    }
+  uploader.delete(req, res, function (obj) {
+    res.send(JSON.stringify(obj));
   });
+  //var image = req.image ;
+  //
+  //image.remove(function(err) {
+  //  if (err) {
+  //    return res.status(400).send({
+  //      message: errorHandler.getErrorMessage(err)
+  //    });
+  //  } else {
+  //    res.jsonp(image);
+  //  }
+  //});
 };
 
 /**
