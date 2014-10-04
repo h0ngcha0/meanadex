@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
     errorHandler = require('./errors'),
     Img = mongoose.model('Image'),
+    path = require('path'),
     _ = require('lodash');
 
 
@@ -54,20 +55,26 @@ exports.read = function(req, res) {
  * Delete an Image
  */
 exports.delete = function(req, res) {
-  uploader.delete(req, res, function (obj) {
-    res.send(JSON.stringify(obj));
+  var imgName = path.basename(req.image.url);
+  var uploaderUrl = options.uploadUrl + imgName;
+  uploader.delete({url: uploaderUrl}, res, function (result) {
+    if(result.success) {
+      var image = req.image;
+      image.remove(function(err) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          res.jsonp(image);
+        }
+      });
+    } else {
+      res.status(400).send({
+        message: 'Fail to delete ' + imgName
+      });
+    }
   });
-  //var image = req.image ;
-  //
-  //image.remove(function(err) {
-  //  if (err) {
-  //    return res.status(400).send({
-  //      message: errorHandler.getErrorMessage(err)
-  //    });
-  //  } else {
-  //    res.jsonp(image);
-  //  }
-  //});
 };
 
 /**

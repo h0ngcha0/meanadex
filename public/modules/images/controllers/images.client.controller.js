@@ -64,6 +64,8 @@ angular.module('images').controller('ImagesController', [
       });
     };
 
+
+    // file upload
     $scope.uploader = new FileUploader({
       url: '/images'
     });
@@ -74,6 +76,15 @@ angular.module('images').controller('ImagesController', [
       };
 
       item.upload();
+    };
+
+    $scope.removeCurrentItem = function() {
+      $scope.currentQueueItem.remove();
+      $scope.currentQueueItem = undefined;
+    };
+
+    $scope.uploader.onAfterAddingFile = function(item) {
+      $scope.currentQueueItem = item;
     };
   }
 ]);
