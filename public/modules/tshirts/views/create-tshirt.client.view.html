@@ -13,48 +13,16 @@
           </span>
           <span class="col-md-4">
             <label class="control-label" for="frontImage">Front image</label>
-
-            <div ng-show="frontUploader.isHTML5">
-              <div nv-file-drop="" uploader="frontUploader"
-                   options="{ url: '/images' }">
-                <div nv-file-over="" uploader="frontUploader"
-                     class="well drop-zone">
-                  Drop image here
-                </div>
-              </div>
-            </div>
-
-            <input type="file" nv-file-select="" uploader="frontUploader" multiple />
-            <div data-ng-if="currentQueueItemFront">
-              <hr/>
-              <div ng-show="backUploader.isHTML5">
-                <md-image-thumb file="currentQueueItemFront._file" width=200>
-                </md-image-thumb>
-              </div>
-            </div>
+            <md-image-upload uploader="frontUploader"
+                             current-queue-item="currentQueueItemFront"
+                             lable="Front image">
+            </md-image-upload>
           </span>
           <span class="col-md-4">
             <label class="control-label" for="backImage">Back image</label>
-
-            <div ng-show="backUploader.isHTML5">
-
-              <div nv-file-drop="" uploader="backUploader"
-                   options="{ url: '/images' }">
-                <div nv-file-over="" uploader="backUploader"
-                     class="well drop-zone">
-                  Drop image here
-                </div>
-              </div>
-            </div>
-
-            <input type="file" nv-file-select="" uploader="backUploader" multiple />
-            <div data-ng-if="currentQueueItemBack">
-              <hr/>
-              <div ng-show="backUploader.isHTML5">
-                <md-image-thumb file="currentQueueItemBack._file" width=200>
-                </md-image-thumb>
-              </div>
-            </div>
+            <md-image-upload uploader="backUploader"
+                             current-queue-item="currentQueueItemBack"
+                             label="Back image">
           </span>
         </div>
       </div>
