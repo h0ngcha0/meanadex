@@ -57,15 +57,15 @@ var TshirtSchema = new Schema({
     ],
     required: 'At least have one tshirt variants'
   },
-  frontImageUrl: {
-    type: String,
-    default: 'modules/designer/img/canvas/crew_front.png',
-    required: 'front image url required'
+  frontImage: {
+    type: Schema.ObjectId,
+    ref: 'Image',
+    required: 'front image'
   },
-  backImageUrl: {
-    type: String,
-    default: 'modules/designer/img/canvas/crew_back.png',
-    required: 'back image url required'
+  backImage: {
+    type: Schema.ObjectId,
+    ref: 'Image',
+    required: 'back image'
   }
 });
 

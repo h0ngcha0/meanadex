@@ -1,6 +1,6 @@
 <div class="container" data-ng-controller="ImagesController" data-ng-init="findOne()">
   <section >
-    <img src="{{image.url}}"/>
+    <img src="{{image.url}}" height=300/>
     <h3 data-ng-bind="image.url"></h3>
     <div class="pull-right" data-ng-show="authentication.user._id == image.user._id">
       <a class="btn btn-primary" data-ng-click="remove();">

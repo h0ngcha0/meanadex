@@ -3,31 +3,55 @@
 // Tshirts controller
 angular.module('tshirts').controller('TshirtsController', [
   '$scope', '$stateParams', '$location', 'Authentication', 'Tshirts',
-  '$filter', 'ngTableParams', '$timeout',
+  '$filter', 'ngTableParams', '$timeout', 'FileUploader',
   function($scope, $stateParams, $location, Authentication, Tshirts,
-           $filter, NgTableParams, $timeout) {
+           $filter, NgTableParams, $timeout, FileUploader) {
     $scope.authentication = Authentication;
     $scope.tmpVariant = {};
 
     // Create new Tshirt
     $scope.create = function() {
-      // Create new Tshirt object
-      var tshirt = new Tshirts ({
-        name: this.name,
-        frontImageUrl: this.frontImageUrl,
-        backImageUrl: this.backImageUrl,
-        variants: [this.tmpVariant]
-      });
+      if(!$scope.currentQueueItemFront) {
+        $scope.error = 'Need to have front image';
+        return;
+      }
 
-      // Redirect after save
-      tshirt.$save(function(response) {
-        $location.path('admin/tshirts/' + response._id);
+      if(!$scope.currentQueueItemBack) {
+        $scope.error = 'Need to have back image';
+        return;
+      }
 
-        // Clear form fields
-        $scope.name = '';
-      }, function(errorResponse) {
-           $scope.error = errorResponse.data.message;
-         });
+      $scope.currentQueueItemFront.onSuccess = function(responseF, statusF, headerF) {
+        var frontImgId = responseF._id;
+
+        $scope.currentQueueItemBack.onSuccess = function(responseB, statusB, headerB) {
+          var backImgId = responseB._id;
+
+          var tshirt = new Tshirts ({
+            name: $scope.name,
+            frontImage: frontImgId,
+            backImage: backImgId,
+            variants: [$scope.tmpVariant]
+          });
+
+          // Redirect after save
+          tshirt.$save(
+            function(response) {
+              $location.path('admin/tshirts/' + response._id);
+
+              // Clear form fields
+              $scope.name = '';
+            },
+            function(errorResponse) {
+              $scope.error = errorResponse.data.message;
+            }
+          );
+        };
+
+        $scope.currentQueueItemBack.upload();
+      };
+
+      $scope.currentQueueItemFront.upload();
     };
 
     // Remove existing Tshirt
@@ -186,5 +210,24 @@ angular.module('tshirts').controller('TshirtsController', [
       $scope.update();
       $scope.variantsTableParams.reload();
     };
+
+    // front image upload
+    $scope.frontUploader = new FileUploader({
+      url: '/images'
+    });
+
+    $scope.frontUploader.onAfterAddingFile = function(item) {
+      $scope.currentQueueItemFront = item;
+    };
+
+    // back image uploader
+    $scope.backUploader = new FileUploader({
+      url: '/images'
+    });
+
+    $scope.backUploader.onAfterAddingFile = function(item) {
+      $scope.currentQueueItemBack = item;
+    };
+
   }
 ]);
