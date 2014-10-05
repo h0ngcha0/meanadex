@@ -1,0 +1,18 @@
+<div ng-show="uploader.isHTML5">
+  <div nv-file-drop="" uploader="uploader"
+       options="{ url: '/images' }">
+    <div nv-file-over="" uploader="uploader"
+         class="well drop-zone">
+      Drop image here
+    </div>
+  </div>
+</div>
+
+<input type="file" nv-file-select="" uploader="uploader" multiple />
+<div data-ng-if="currentQueueItem">
+  <hr/>
+  <div ng-show="uploader.isHTML5">
+    <md-image-thumb file="currentQueueItem._file" width=200>
+    </md-image-thumb>
+  </div>
+</div>

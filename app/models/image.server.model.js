@@ -10,10 +10,10 @@ var mongoose = require('mongoose'),
  * Image Schema
  */
 var ImageSchema = new Schema({
-  name: {
+  url: {
     type: String,
     default: '',
-    required: 'Please fill Image name',
+    required: 'Please fill Image url',
     trim: true
   },
   created: {

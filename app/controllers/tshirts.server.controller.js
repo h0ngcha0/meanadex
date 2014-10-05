@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
     errorHandler = require('./errors'),
     Tshirt = mongoose.model('Tshirt'),
+    Images = require('../../app/controllers/images'),
     _ = require('lodash');
 
 /**
@@ -37,8 +38,7 @@ exports.read = function(req, res) {
  * Update a Tshirt
  */
 exports.update = function(req, res) {
-  var tshirt = req.tshirt ;
-
+  var tshirt = req.tshirt;
   tshirt = _.extend(tshirt , req.body);
 
   tshirt.save(function(err) {
@@ -73,7 +73,12 @@ exports.delete = function(req, res) {
  * List of Tshirts
  */
 exports.list = function(req, res) {
-  Tshirt.find().sort('-created').populate('user', 'displayName').exec(function(err, tshirts) {
+  Tshirt.find().
+    sort('-created').
+    populate('user', 'displayName').
+    populate('frontImage', 'url').
+    populate('backImage', 'url').
+    exec(function(err, tshirts) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -88,7 +93,11 @@ exports.list = function(req, res) {
  * Tshirt middleware
  */
 exports.tshirtByID = function(req, res, next, id) {
-  Tshirt.findById(id).populate('user', 'displayName').exec(function(err, tshirt) {
+  Tshirt.findById(id).
+    populate('user', 'displayName').
+    populate('frontImage', 'url').
+    populate('backImage', 'url').
+    exec(function(err, tshirt) {
     if (err) return next(err);
     if (! tshirt) return next(new Error('Failed to load Tshirt ' + id));
     req.tshirt = tshirt ;

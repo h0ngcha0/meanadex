@@ -10,7 +10,7 @@ angular.module('images').controller('ImagesController', [
     $scope.create = function() {
       // Create new Image object
       var image = new Images ({
-        name: this.name
+        url: this.url
       });
 
       // Redirect after save
@@ -18,7 +18,7 @@ angular.module('images').controller('ImagesController', [
         $location.path('images/' + response._id);
 
         // Clear form fields
-        $scope.name = '';
+        $scope.url = '';
       }, function(errorResponse) {
            $scope.error = errorResponse.data.message;
          });
@@ -64,6 +64,27 @@ angular.module('images').controller('ImagesController', [
       });
     };
 
-    $scope.uploader = new FileUploader();
+
+    // file upload
+    $scope.uploader = new FileUploader({
+      url: '/images'
+    });
+
+    $scope.uploadItem = function(item) {
+      item.onSuccess = function(response, status, header) {
+        $location.path('images/' + response._id);
+      };
+
+      item.upload();
+    };
+
+    $scope.removeCurrentItem = function() {
+      $scope.currentQueueItem.remove();
+      $scope.currentQueueItem = undefined;
+    };
+
+    $scope.uploader.onAfterAddingFile = function(item) {
+      $scope.currentQueueItem = item;
+    };
   }
 ]);

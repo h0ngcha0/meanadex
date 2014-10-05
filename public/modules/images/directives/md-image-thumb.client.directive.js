@@ -15,32 +15,38 @@ angular.module('tshirts').directive('mdImageThumb', [
     };
 
     return {
-      restrict: 'A',
+      restrict: 'E',
+      scope: {
+        file: '=',
+        width: '='
+      },
       template: '<canvas/>',
       link: function(scope, element, attributes) {
-        if (!helper.support) return;
+        scope.$watch('file', function() {
+          var file = scope.file;
 
-        var params = scope.$eval(attributes.mdImageThumb);
+          if (!helper.support) return;
 
-        if (!helper.isFile(params.file)) return;
-        if (!helper.isImage(params.file)) return;
+          if (!helper.isFile(file)) return;
+          if (!helper.isImage(file)) return;
 
-        var canvas = element.find('canvas');
-        var reader = new FileReader();
+          var canvas = element.find('canvas');
+          var reader = new FileReader();
 
-        function onLoadFile(event) {
-          var img = new Image();
-          img.onload = function() {
-            var width = params.width || ((img.width / img.height) * params.height);
-            var height = params.height || ((img.height / img.width) * params.width);
-            canvas.attr({ width: width, height: height });
-            canvas[0].getContext('2d').drawImage(img, 0, 0, width, height);
-          };
-          img.src = event.target.result;
-        }
+          function onLoadFile(event) {
+            var img = new Image();
+            img.onload = function() {
+              var width = scope.width;
+              var height = ((img.height / img.width) * scope.width);
+              canvas.attr({ width: width, height: height });
+              canvas[0].getContext('2d').drawImage(img, 0, 0, width, height);
+            };
+            img.src = event.target.result;
+          }
 
-        reader.onload = onLoadFile;
-        reader.readAsDataURL(params.file);
+          reader.onload = onLoadFile;
+          reader.readAsDataURL(file);
+        });
       }
     };
   }
