@@ -16,3 +16,19 @@
     </md-image-thumb>
   </div>
 </div>
+
+<span data-ng-if="currentQueueItem">
+  <button class="btn btn-primary btn-xs col-md-2"
+          data-ng-click="onImageUpload()">
+    <span class="glyphicon glyphicon-upload"></span>
+    upload
+  </button>
+  <div data-ng-show="uploader.isHTML5" class="col-md-10">
+    <div class="progress" style="margin-bottom: 0;">
+      <div class="progress-bar"
+           role="progressbar"
+           ng-style="{ 'width': currentQueueItem.progress + '%' }">
+      </div>
+    </div>
+  </div>
+</span>

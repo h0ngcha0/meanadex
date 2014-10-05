@@ -7,7 +7,8 @@ angular.module('tshirts').directive('mdImageUpload', [
       restrict: 'E',
       scope: {
         uploader: '=',
-        currentQueueItem: '='
+        currentQueueItem: '=',
+        onImageUpload: '&'
       },
       templateUrl: 'modules/images/views/image-upload.client.view.html',
       link: function(scope, element, attrs) {

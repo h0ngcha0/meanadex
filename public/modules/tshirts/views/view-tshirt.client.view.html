@@ -10,14 +10,9 @@
           <div class="col-md-6" data-ng-if="tshirt.editFrontImg">
             <label class="control-label" for="fimage">Front image</label>
             <md-image-upload uploader="frontUploader"
-                             current-queue-item="currentQueueItemFront">
+                             current-queue-item="currentQueueItemFront"
+                             on-image-upload="onFrontImgUpload()">
             </md-image-upload>
-            <button class="btn btn-primary btn-xs"
-                    data-ng-click="onFrontImgUpload()"
-                    data-ng-if="currentQueueItemFront">
-              <span class="glyphicon glyphicon-upload"></span>
-              upload
-            </button>
           </div>
           <div class="col-md-6" data-ng-if="!tshirt.editFrontImg">
             <label class="control-label" for="fimage">Front image</label>
@@ -35,14 +30,9 @@
           <div class="col-md-6" data-ng-if="tshirt.editBackImg">
             <label class="control-label" for="bimage">Back image</label>
             <md-image-upload uploader="backUploader"
-                             current-queue-item="currentQueueItemBack">
+                             current-queue-item="currentQueueItemBack"
+                             on-image-upload="onBackImgUpload()">
             </md-image-upload>
-            <button class="btn btn-primary btn-xs"
-                    data-ng-click="onBackImgUpload()"
-                    data-ng-if="currentQueueItemBack">
-              <span class="glyphicon glyphicon-upload"></span>
-              upload
-            </button>
           </div>
           <div class="col-md-6" data-ng-if="!tshirt.editBackImg">
             <label class="control-label" for="bimage">Back image</label>
