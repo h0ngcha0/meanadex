@@ -74,26 +74,9 @@ angular.module('tshirts').controller('TshirtsController', [
     // Update existing Tshirt
     $scope.update = function(tshirt0) {
       var tshirt = tshirt0 || $scope.tshirt;
-      var backImageUrl = $scope.tshirt.backImageUrl;
-      var frontImageUrl = $scope.tshirt.frontImageUrl;
 
       tshirt.$update(
         function(response) {
-          if(backImageUrl) {
-            $scope.tshirt.backImage = {
-              _id: $scope.tshirt.backImage,
-              url: backImageUrl
-            };
-            $scope.tshirt.backImageUrl = undefined;
-          }
-
-          if(frontImageUrl) {
-            $scope.tshirt.frontImage = {
-              _id: $scope.tshirt.frontImage,
-              url: frontImageUrl
-            };
-            $scope.tshirt.frontImageUrl = undefined;
-          }
         },
         function(errorResponse) {
           $scope.error = errorResponse.data.message;
@@ -260,29 +243,34 @@ angular.module('tshirts').controller('TshirtsController', [
       $scope.tshirt.editBackImg = true;
     };
 
-    $scope.onFrontImgUpload = function() {
-      $scope.currentQueueItemFront.onSuccess = function(response, status, header) {
+    var onImgUploadSuccess = function(side, edit) {
+      return function(response, status, header) {
         var imgId = response._id;
-        var url = response.url;
-        $scope.tshirt.frontImage = imgId;
-        $scope.tshirt.frontImageUrl = url;
-        $scope.tshirt.editFrontImg = false;
-        $scope.update();
-      };
+        var imgUrl = response.url;
+        $scope.tshirt[side] = imgId;
+        $scope.tshirt[edit] = false;
 
+        $scope.tshirt.$update(
+          function(response) {
+            $scope.tshirt[side] = {
+              _id: imgId,
+              url: imgUrl
+            };
+          },
+          function(errorResponse) {
+            $scope.error = errorResponse.data.message;
+          }
+        );
+      };
+    };
+
+    $scope.onFrontImgUpload = function() {
+      $scope.currentQueueItemFront.onSuccess = onImgUploadSuccess('frontImage', 'editFrontImg');
       $scope.currentQueueItemFront.upload();
     };
 
     $scope.onBackImgUpload = function() {
-      $scope.currentQueueItemBack.onSuccess = function(response, status, header) {
-        var imgId = response._id;
-        var url = response.url;
-        $scope.tshirt.backImage = imgId;
-        $scope.tshirt.backImageUrl = url;
-        $scope.tshirt.editBackImg = false;
-        $scope.update();
-      };
-
+      $scope.currentQueueItemBack.onSuccess = onImgUploadSuccess('backImage', 'editBackImg');
       $scope.currentQueueItemBack.upload();
     };
   }
