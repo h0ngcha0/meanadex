@@ -11,29 +11,16 @@ angular.module('designer').directive('mdTextInput', [
           // FIXME: need to figure out a way to communicate the set the
           // currentFont, fontColor and inputText from here
           scope.$on('mdeTextObjectSelected', function(event, props) {
-            //element.find('#text-string').val(props.text);
+            var index = _.indexOf(_.map(scope.fonts, function(font) {
+                                    return font.name.toLowerCase();
+                                  }), props.fontFamily.toLowerCase()) || 0;
 
-            //element.find('#text-fontcolor').minicolors(
-            //  'value', props.fontColor
-            //);
-
-            var index;
-            for(var i=0; i<scope.fonts.length; i++) {
-              if (scope.fonts[i].name.toLowerCase() === props.fontFamily.toLowerCase()) {
-                index = i;
-              }
-            }
-
-            element.find('.font-family-picker').val(index || 0);
+            element.find('.font-family-picker').val(index);
+            element.find('#text-string').val(props.text);
           });
 
           scope.$on('mdeObjectCleared', function(event) {
             element.find('#text-string').val('');
-            //element.find('#text-fontcolor').minicolors(
-            //  'value', '#000000'
-            //);
-
-            //element.find('.font-family-picker').val(0);
           });
         }, 0);
       }

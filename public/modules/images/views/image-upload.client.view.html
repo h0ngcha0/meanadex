@@ -17,13 +17,13 @@
   </div>
 </div>
 
-<span data-ng-if="currentQueueItem">
-  <button class="btn btn-primary btn-xs col-md-2"
+<span data-ng-if="displayUpload && currentQueueItem">
+  <button class="btn btn-primary btn-xs col-md-3"
           data-ng-click="onImageUpload()">
     <span class="glyphicon glyphicon-upload"></span>
     upload
   </button>
-  <div data-ng-show="uploader.isHTML5" class="col-md-10">
+  <div data-ng-show="uploader.isHTML5" class="col-md-9">
     <div class="progress" style="margin-bottom: 0;">
       <div class="progress-bar"
            role="progressbar"

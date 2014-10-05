@@ -2,12 +2,12 @@
 <br>
 <div class="input-group">
   <input autocomplete="off"
-  id="text-string"
-  class="form-control"
-  type="text"
-  ng-model="inputText"
-  ng-keyup="addOrEditText()"
-  placeholder="Add your text here">
+         id="text-string"
+         class="form-control"
+         type="text"
+         ng-model="inputText"
+         ng-keyup="addOrEditText()"
+         placeholder="Add your text here">
 </div>
 <br>
 
@@ -15,21 +15,21 @@
 <br>
 <!-- TODO: set the style of the list -->
 <select class="font-family-picker form-control"
-  ng-init="currentFont=fonts[0]"
-  ng-model="currentFont"
-  ng-change="changeFontFamily()"
-  ng-options="font.name for font in fonts">
+        ng-init="currentFont=fonts[0]"
+        ng-model="currentFont"
+        ng-change="changeFontFamily()"
+        ng-options="font.name for font in fonts">
 </select>
 <br>
 
 <b>Text color</b>
 <br>
 <p class="btn btn-default" href="/#!/" data-placement="top"
-  data-original-title="Font Color">
+   data-original-title="Font Color">
   <input colorpicker
-  colorpicker-position="top"
-  data-ng-change="changeColorText()"
-  data-ng-model="fontColor">
+         colorpicker-position="top"
+         data-ng-change="changeColorText()"
+         data-ng-model="fontColor">
   </input>
 </p>
 <br><br>
@@ -37,22 +37,22 @@
 <b>Text Style</b>
 <br>
 <button id="text-bold"
-  class="btn btn-default"
-  data-original-title="Bold"
-  data-ng-click="changeToBoldText()">
+        class="btn btn-default"
+        data-original-title="Bold"
+        data-ng-click="changeToBoldText()">
   <img src="modules/designer/img/font_bold.png">
 </button>
 <button id="text-italic"
-  class="btn btn-default"
-  data-original-title="Italic"
-  data-ng-click="changeToItalicText()">
+        class="btn btn-default"
+        data-original-title="Italic"
+        data-ng-click="changeToItalicText()">
 
   <img src="modules/designer/img/font_italic.png">
 </button>
 <button id="text-underline"
-  class="btn btn-default"
-  data-original-title="Underline"
-  data-ng-click="changeToUnderlineText()">
+        class="btn btn-default"
+        data-original-title="Underline"
+        data-ng-click="changeToUnderlineText()">
 
   <img src="modules/designer/img/font_underline.png">
 </button>

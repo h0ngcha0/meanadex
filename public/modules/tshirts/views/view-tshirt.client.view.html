@@ -11,7 +11,8 @@
             <label class="control-label" for="fimage">Front image</label>
             <md-image-upload uploader="frontUploader"
                              current-queue-item="currentQueueItemFront"
-                             on-image-upload="onFrontImgUpload()">
+                             on-image-upload="onFrontImgUpload()"
+                             display-upload="true">
             </md-image-upload>
           </div>
           <div class="col-md-6" data-ng-if="!tshirt.editFrontImg">
@@ -31,7 +32,8 @@
             <label class="control-label" for="bimage">Back image</label>
             <md-image-upload uploader="backUploader"
                              current-queue-item="currentQueueItemBack"
-                             on-image-upload="onBackImgUpload()">
+                             on-image-upload="onBackImgUpload()"
+                             display-upload="true">
             </md-image-upload>
           </div>
           <div class="col-md-6" data-ng-if="!tshirt.editBackImg">
