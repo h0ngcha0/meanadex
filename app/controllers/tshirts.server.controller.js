@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
     errorHandler = require('./errors'),
     Tshirt = mongoose.model('Tshirt'),
+    Images = require('../../app/controllers/images'),
     _ = require('lodash');
 
 /**
@@ -37,8 +38,7 @@ exports.read = function(req, res) {
  * Update a Tshirt
  */
 exports.update = function(req, res) {
-  var tshirt = req.tshirt ;
-
+  var tshirt = req.tshirt;
   tshirt = _.extend(tshirt , req.body);
 
   tshirt.save(function(err) {

@@ -78,6 +78,33 @@ exports.delete = function(req, res) {
 };
 
 /**
+ * Delete an Image by its ID
+ */
+exports.deleteById = function(id) {
+  Img.findById(id).exec(
+    function(err, image) {
+      if (err) return err;
+      if (! image) return (new Error('Failed to load Image ' + id));
+
+      var imgName = path.basename(image.url);
+      var uploaderUrl = options.uploadUrl + imgName;
+      uploader.delete({url: uploaderUrl}, {}, function (result) {
+        if(result.success) {
+          image.remove(function(err) {
+            if (err) {
+              // FIXME: log the error properly
+              console.log('error deleting image info from db. ' + err);
+            }
+          });
+        } else {
+          // FIXME: log the error properly
+          console.log('error deleting image: ' + uploaderUrl);
+        }
+      });
+    });
+};
+
+/**
  * List of Images
  */
 exports.list = function(req, res) {
