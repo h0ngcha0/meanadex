@@ -8,6 +8,7 @@ var mongoose = require('mongoose'),
     Img = mongoose.model('Image'),
     path = require('path'),
     async = require('async'),
+    winston = require('winston'),
     _ = require('lodash');
 
 
@@ -27,9 +28,7 @@ var uploader = require('blueimp-file-upload-expressjs')(options);
  */
 exports.create = function(req, res) {
   uploader.post(req, res, function (obj) {
-    console.log(obj);
     var imageUrl = _.head(obj.files).url;
-
     var image = new Img({url: imageUrl});
     image.user = req.user;
 
@@ -87,7 +86,7 @@ exports.delete = function(req, res) {
     if(err) {
       res.status(400).send({
         message: errorHandler.getErrorMessage(err.message)
-      })
+      });
     } else {
       // return the result of second task
       res.jsonp(results[1]);
@@ -146,7 +145,7 @@ exports.deleteById = function(id) {
 
   var resultCallback = function(err, results) {
     if(err) {
-      // FIXME: log the error properly
+      winston.error('error deleting id %s', id, err);
       console.log(err);
     }
   };
@@ -155,7 +154,7 @@ exports.deleteById = function(id) {
     findImageByIdFun,
     deleteUploadedFileFun,
     removeImageFromDbFun
-  ], resultCallback)
+  ], resultCallback);
 };
 
 /**

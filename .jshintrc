@@ -23,6 +23,7 @@
     "fabric": true,
     "$": true,
     "xit": true,
+    "async": true,
     "_": true,
     "ApplicationConfiguration": true
   },

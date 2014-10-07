@@ -42,7 +42,8 @@
     "shortid": "^2.0.1",
     "swig": "~1.4.1",
     "underscore": "~1.7.0",
-    "blueimp-file-upload-expressjs": "~0.2.12"
+    "blueimp-file-upload-expressjs": "~0.2.12",
+    "winston": "~0.8.1"
   },
   "devDependencies": {
     "supertest": "~0.13.0",
