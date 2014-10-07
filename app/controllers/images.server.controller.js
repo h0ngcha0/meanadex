@@ -104,27 +104,58 @@ exports.delete = function(req, res) {
  * Delete an Image by its ID
  */
 exports.deleteById = function(id) {
-  Img.findById(id).exec(
-    function(err, image) {
-      if (err) return err;
-      if (! image) return (new Error('Failed to load Image ' + id));
-
-      var imgName = path.basename(image.url);
-      var uploaderUrl = options.uploadUrl + imgName;
-      uploader.delete({url: uploaderUrl}, {}, function (result) {
-        if(result.success) {
-          image.remove(function(err) {
-            if (err) {
-              // FIXME: log the error properly
-              console.log('error deleting image info from db. ' + err);
-            }
-          });
+  var findImageByIdFun = function(callback) {
+    Img.findById(id).exec(
+      function(err, image) {
+        if (err) {
+          callback(err);
+        } else if (!image) {
+          callback(new Error('Failed to load Image ' + id));
         } else {
-          // FIXME: log the error properly
-          console.log('error deleting image: ' + uploaderUrl);
+          callback(null, image);
         }
       });
+  };
+
+  var deleteUploadedFileFun = function(image, callback) {
+    var imgName = path.basename(image.url);
+    var uploaderUrl = options.uploadUrl + imgName;
+
+    uploader.delete({url: uploaderUrl}, {}, function (result) {
+      if(result.success) {
+        callback(null, image);
+      } else {
+        callback({
+          message: 'error deleting image: ' + uploaderUrl
+        });
+      }
     });
+  };
+
+  var removeImageFromDbFun = function(image, callback) {
+    image.remove(function(err) {
+      if (err) {
+        callback({
+          message: 'error deleting image info from db. ' + err
+        });
+      } else {
+        callback(null);
+      }
+    });
+  };
+
+  var resultCallback = function(err, results) {
+    if(err) {
+      // FIXME: log the error properly
+      console.log(err);
+    }
+  };
+
+  async.waterfall([
+    findImageByIdFun,
+    deleteUploadedFileFun,
+    removeImageFromDbFun
+  ], resultCallback)
 };
 
 /**
