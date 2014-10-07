@@ -7,6 +7,8 @@ var mongoose = require('mongoose'),
     errorHandler = require('./errors'),
     Img = mongoose.model('Image'),
     path = require('path'),
+    async = require('async'),
+    winston = require('winston'),
     _ = require('lodash');
 
 
@@ -26,9 +28,7 @@ var uploader = require('blueimp-file-upload-expressjs')(options);
  */
 exports.create = function(req, res) {
   uploader.post(req, res, function (obj) {
-    console.log(obj);
     var imageUrl = _.head(obj.files).url;
-
     var image = new Img({url: imageUrl});
     image.user = req.user;
 
@@ -57,51 +57,104 @@ exports.read = function(req, res) {
 exports.delete = function(req, res) {
   var imgName = path.basename(req.image.url);
   var uploaderUrl = options.uploadUrl + imgName;
-  uploader.delete({url: uploaderUrl}, res, function (result) {
-    if(result.success) {
-      var image = req.image;
-      image.remove(function(err) {
+  var deleteUploadedFileFun = function(callback) {
+    uploader.delete({url: uploaderUrl}, res, function (result) {
+      if(result.success) {
+        callback(null);
+      } else {
+        callback({
+          message: 'Fail to delete ' + imgName
+        });
+      }
+    });
+  };
+
+  var removeImageInDbFun = function(callback) {
+    var image = req.image;
+    image.remove(function(err) {
         if (err) {
-          return res.status(400).send({
+          callback({
             message: errorHandler.getErrorMessage(err)
           });
         } else {
-          res.jsonp(image);
+          callback(null, image);
         }
       });
-    } else {
+  };
+
+  var resultCallback = function(err, results) {
+    if(err) {
       res.status(400).send({
-        message: 'Fail to delete ' + imgName
+        message: errorHandler.getErrorMessage(err.message)
       });
+    } else {
+      // return the result of second task
+      res.jsonp(results[1]);
     }
-  });
+  };
+
+  async.series([
+    deleteUploadedFileFun,
+    removeImageInDbFun
+  ], resultCallback);
 };
 
 /**
  * Delete an Image by its ID
  */
 exports.deleteById = function(id) {
-  Img.findById(id).exec(
-    function(err, image) {
-      if (err) return err;
-      if (! image) return (new Error('Failed to load Image ' + id));
-
-      var imgName = path.basename(image.url);
-      var uploaderUrl = options.uploadUrl + imgName;
-      uploader.delete({url: uploaderUrl}, {}, function (result) {
-        if(result.success) {
-          image.remove(function(err) {
-            if (err) {
-              // FIXME: log the error properly
-              console.log('error deleting image info from db. ' + err);
-            }
-          });
+  var findImageByIdFun = function(callback) {
+    Img.findById(id).exec(
+      function(err, image) {
+        if (err) {
+          callback(err);
+        } else if (!image) {
+          callback(new Error('Failed to load Image ' + id));
         } else {
-          // FIXME: log the error properly
-          console.log('error deleting image: ' + uploaderUrl);
+          callback(null, image);
         }
       });
+  };
+
+  var deleteUploadedFileFun = function(image, callback) {
+    var imgName = path.basename(image.url);
+    var uploaderUrl = options.uploadUrl + imgName;
+
+    uploader.delete({url: uploaderUrl}, {}, function (result) {
+      if(result.success) {
+        callback(null, image);
+      } else {
+        callback({
+          message: 'error deleting image: ' + uploaderUrl
+        });
+      }
     });
+  };
+
+  var removeImageFromDbFun = function(image, callback) {
+    image.remove(function(err) {
+      if (err) {
+        callback({
+          message: 'error deleting image info from db. ' + err
+        });
+      } else {
+        callback(null);
+      }
+    });
+  };
+
+  var resultCallback = function(err, results) {
+    if(err) {
+      winston.error('error deleting id %s', id, err);
+      console.log(err);
+    }
+  };
+
+  async.waterfall([
+    findImageByIdFun,
+    deleteUploadedFileFun,
+    removeImageFromDbFun
+  ], resultCallback);
 };
 
 /**

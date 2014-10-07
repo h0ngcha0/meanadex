@@ -59,11 +59,11 @@ angular.module('tshirts').controller('TshirtsController', [
       if ( tshirt ) {
         tshirt.$remove();
 
-        for (var i in $scope.tshirts ) {
-          if ($scope.tshirts [i] === tshirt ) {
-            $scope.tshirts.splice(i, 1);
-          }
-        }
+       for (var i in $scope.tshirts ) {
+         if ($scope.tshirts [i] === tshirt ) {
+           $scope.tshirts.splice(i, 1);
+         }
+       }
       } else {
         $scope.tshirt.$remove(function() {
           $location.path('tshirts');
