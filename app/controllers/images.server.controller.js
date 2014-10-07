@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
     errorHandler = require('./errors'),
     Img = mongoose.model('Image'),
     path = require('path'),
+    async = require('async'),
     _ = require('lodash');
 
 
@@ -57,24 +58,46 @@ exports.read = function(req, res) {
 exports.delete = function(req, res) {
   var imgName = path.basename(req.image.url);
   var uploaderUrl = options.uploadUrl + imgName;
-  uploader.delete({url: uploaderUrl}, res, function (result) {
-    if(result.success) {
-      var image = req.image;
-      image.remove(function(err) {
+  var deleteUploadedFileFun = function(callback) {
+    uploader.delete({url: uploaderUrl}, res, function (result) {
+      if(result.success) {
+        callback(null);
+      } else {
+        callback({
+          message: 'Fail to delete ' + imgName
+        });
+      }
+    });
+  };
+
+  var removeImageInDbFun = function(callback) {
+    var image = req.image;
+    image.remove(function(err) {
         if (err) {
-          return res.status(400).send({
+          callback({
             message: errorHandler.getErrorMessage(err)
           });
         } else {
-          res.jsonp(image);
+          callback(null, image);
         }
       });
-    } else {
+  };
+
+  var resultCallback = function(err, results) {
+    if(err) {
       res.status(400).send({
-        message: 'Fail to delete ' + imgName
-      });
+        message: errorHandler.getErrorMessage(err.message)
+      })
+    } else {
+      // return the result of second task
+      res.jsonp(results[1]);
     }
-  });
+  };
+
+  async.series([
+    deleteUploadedFileFun,
+    removeImageInDbFun
+  ], resultCallback);
 };
 
 /**
