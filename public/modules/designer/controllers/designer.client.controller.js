@@ -1,46 +1,84 @@
 'use strict';
 
 angular.module('designer').controller('DesignerController', [
-  '$scope', 'mdCanvasService', 'allTshirts', 'CampaignCache', 'FileUploader', '$window',
-  function($scope, mdCanvasService, allTshirts, CampaignCache, FileUploader, $window) {
+  '$scope', 'mdCanvasService', 'allTshirts', 'CampaignCache',
+  'FileUploader', '$window', '$location',
+  function($scope, mdCanvasService, allTshirts, CampaignCache,
+           FileUploader, $window, $location) {
     $scope.enableEdit = true;
 
-    // set the currentVariant to the first of all variants
-    $scope.allTshirts = _.map(
-      allTshirts,
-      function(t) {
-        t.currentVariant = t.variants[0];
-        return t;
-      });
+    var helper = {
+      support: !!($window.FileReader && $window.CanvasRenderingContext2D),
+      isFile: function(item) {
+        return angular.isObject(item) && item instanceof $window.File;
+      },
+      isImage: function(file) {
+        var type =  '|' + file.type.slice(file.type.lastIndexOf('/') + 1) + '|';
+        return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+      }
+    };
 
-    $scope.currentTshirt = $scope.allTshirts[0];
-    $scope.currentTshirt.currentVariant = $scope.currentTshirt.variants[0];
-    CampaignCache.setColor($scope.currentTshirt.currentVariant.colors[0]);
+    $scope.ensureEnoughData = function() {
+      if(!allTshirts || (allTshirts.length === 0)) {
+        $location.path('admin/tshirts');
+      }
+    };
 
-    $scope.$watch(
-      'currentTshirt',
-      function(newVal, _oldVal) {
-        $scope.currentTshirt.currentVariant = newVal.variants[0];
-
-        var color = newVal.currentVariant.colors[0];
-        $scope.setCanvasBgColor(color);
-      });
+    $scope.uploader = new FileUploader();
 
     $scope.setCanvasBgColor = function(color) {
       CampaignCache.setColor(color);
       mdCanvasService.changeBackground(color);
     };
 
-    $scope.tshirtColor = $scope.currentTshirt.currentVariant.colors[0];
-    $scope.setCanvasBgColor($scope.tshirtColor);
-
-    var baseCost = $scope.currentTshirt.currentVariant.baseCost;
-    CampaignCache.setCost(baseCost);
-
     $scope.setVariant = function(variant) {
       $scope.currentTshirt.currentVariant = variant;
       CampaignCache.setCost(variant.baseCost);
     };
+
+    if(allTshirts && (allTshirts.length !== 0)) {
+      // set the currentVariant to the first of all variants
+      $scope.allTshirts = _.map(
+        allTshirts,
+        function(t) {
+          t.currentVariant = t.variants[0];
+          return t;
+        });
+
+      $scope.currentTshirt = $scope.allTshirts[0];
+      $scope.currentTshirt.currentVariant = $scope.currentTshirt.variants[0];
+      CampaignCache.setColor($scope.currentTshirt.currentVariant.colors[0]);
+
+      $scope.tshirtColor = $scope.currentTshirt.currentVariant.colors[0];
+      $scope.setCanvasBgColor($scope.tshirtColor);
+
+      var baseCost = $scope.currentTshirt.currentVariant.baseCost;
+      CampaignCache.setCost(baseCost);
+
+      $scope.$watch(
+        'currentTshirt',
+        function(newVal, _oldVal) {
+          $scope.currentTshirt.currentVariant = newVal.variants[0];
+
+          var color = newVal.currentVariant.colors[0];
+          $scope.setCanvasBgColor(color);
+        });
+
+      $scope.$watch('uploader.queue.length', function(newVal, oldVal) {
+        if(newVal > 0) {
+          // grab the new uploaded image
+          var queueItem = $scope.uploader.queue[newVal-1];
+          if(helper.isFile(queueItem.file) || helper.isImage(queueItem.file)) {
+            var reader = new FileReader();
+            reader.onload = function(event) {
+              var imgUrl = event.target.result;
+              $scope.addImage(imgUrl);
+            };
+            reader.readAsDataURL(queueItem._file);
+          }
+        }
+      });
+    }
 
     $scope.images = [
       {src: 'modules/designer/img/avatar/avatar-1.jpeg'},
@@ -113,36 +151,5 @@ angular.module('designer').controller('DesignerController', [
     $scope.addImage = function(imgSrc) {
       mdCanvasService.addImage(imgSrc);
     };
-
-    $scope.uploader = new FileUploader();
-
-
-    var helper = {
-      support: !!($window.FileReader && $window.CanvasRenderingContext2D),
-      isFile: function(item) {
-        return angular.isObject(item) && item instanceof $window.File;
-      },
-      isImage: function(file) {
-        var type =  '|' + file.type.slice(file.type.lastIndexOf('/') + 1) + '|';
-        return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
-      }
-    };
-
-    function onLoadFile(event) {
-      var imgUrl = event.target.result;
-      $scope.addImage(imgUrl);
-    }
-
-    $scope.$watch('uploader.queue.length', function(newVal, oldVal) {
-      if(newVal > 0) {
-        // grab the new uploaded image
-        var queueItem = $scope.uploader.queue[newVal-1];
-        if(helper.isFile(queueItem.file) || helper.isImage(queueItem.file)) {
-          var reader = new FileReader();
-          reader.onload = onLoadFile;
-          reader.readAsDataURL(queueItem._file);
-        }
-      }
-    });
   }
 ]);
