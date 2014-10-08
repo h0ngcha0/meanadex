@@ -64,20 +64,16 @@ angular.module('designer').controller('DesignerController', [
           $scope.setCanvasBgColor(color);
         });
 
-      $scope.$watch('uploader.queue.length', function(newVal, oldVal) {
-        if(newVal > 0) {
-          // grab the new uploaded image
-          var queueItem = $scope.uploader.queue[newVal-1];
-          if(helper.isFile(queueItem.file) || helper.isImage(queueItem.file)) {
-            var reader = new FileReader();
-            reader.onload = function(event) {
-              var imgUrl = event.target.result;
-              $scope.addImage(imgUrl);
-            };
-            reader.readAsDataURL(queueItem._file);
-          }
+      uploader.onAfterAddingFile = function(queueItem) {
+        if(helper.isFile(queueItem.file) || helper.isImage(queueItem.file)) {
+          var reader = new FileReader();
+          reader.onload = function(event) {
+            var imgUrl = event.target.result;
+            $scope.addImage(imgUrl);
+          };
+          reader.readAsDataURL(queueItem._file);
         }
-      });
+      };
     }
 
     $scope.images = [
