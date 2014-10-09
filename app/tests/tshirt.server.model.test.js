@@ -6,6 +6,7 @@
 var should = require('should'),
     mongoose = require('mongoose'),
     User = mongoose.model('User'),
+    Img = mongoose.model('Image'),
     Tshirt = mongoose.model('Tshirt');
 
 /**
@@ -18,7 +19,7 @@ var user, tshirt;
  */
 describe('Tshirt Model Unit Tests:', function() {
   beforeEach(function(done) {
-    user = new User({
+    var user = new User({
       firstName: 'Full',
       lastName: 'Name',
       displayName: 'Full Name',
@@ -27,10 +28,32 @@ describe('Tshirt Model Unit Tests:', function() {
       password: 'password'
     });
 
+    var frontImg = new Img({
+      url: '0.0.0.0/from_image.jpg',
+      user: user
+    });
+
+    var backImg = new Img({
+      url: '0.0.0.0/back_image.jpg',
+      user: user
+    });
+
     user.save(function() {
       tshirt = new Tshirt({
         name: 'Tshirt Name',
-        user: user
+        user: user,
+        variants:
+          [
+            {
+              name: 'Variant Name',
+              description: 'Description',
+              baseCost: 10,
+              unit: 'SEK',
+              colors: ['00000', 'ffffff']
+            }
+          ],
+        frontImage: frontImg,
+        backImage: backImg
       });
 
       done();
@@ -45,7 +68,7 @@ describe('Tshirt Model Unit Tests:', function() {
              });
     });
 
-    it('should be able to show an error when try to save without name', function(done) { 
+    it('should be able to show an error when try to save without name', function(done) {
       tshirt.name = '';
 
       return tshirt.save(function(err) {
@@ -58,6 +81,7 @@ describe('Tshirt Model Unit Tests:', function() {
   afterEach(function(done) {
     Tshirt.remove().exec();
     User.remove().exec();
+    Img.remove().exec();
 
     done();
   });
