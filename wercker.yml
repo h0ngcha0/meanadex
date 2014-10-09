@@ -7,9 +7,6 @@ build:
   steps:
     # A step that executes `npm install` command
     - npm-install
-    - jshint:
-        use_strict: true
-        trailing_whitespace: false
 
     # A step that executes `npm test` command
     - npm-test
