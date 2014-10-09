@@ -1,5 +1,7 @@
 ## Monadex Manifesto
 
+[![wercker status](https://app.wercker.com/status/b91bf3f2fa58d4db274292c9780702c2/m/master "wercker status")](https://app.wercker.com/project/bykey/b91bf3f2fa58d4db274292c9780702c2)
+
 Paul Graham made a good point that programming is very much like
 painting. You start from scratch with some vague sense of
 orientation, and whatever you end up with after a few iterations might
