@@ -1,7 +1,9 @@
 'use strict';
 
+var HOST = process.env.WERCKER_MONGODB_HOST || 'localhost';
+
 module.exports = {
-  db: 'mongodb://localhost/meanadex-test',
+  db: 'mongodb://' + HOST + '/meanadex-test',
   port: 3001,
   app: {
     title: 'meanadex - Test Environment'
