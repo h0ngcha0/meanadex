@@ -28,8 +28,8 @@ describe('Image Model Unit Tests:', function() {
     });
 
     user.save(function() {
-      image = new Image({
-        name: 'Image Name',
+      image = new Img({
+        url: 'Image Name',
         user: user
       });
 
@@ -46,8 +46,8 @@ describe('Image Model Unit Tests:', function() {
         });
     });
 
-    it('should be able to show an error when try to save without name', function(done) {
-      image.name = '';
+    it('should be able to show an error when try to save without url', function(done) {
+      image.url = '';
 
       return image.save(
         function(err) {
