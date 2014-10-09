@@ -147,7 +147,7 @@ module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
 
   // Making grunt default to force in order not to break the project.
-  grunt.option('force', !process.env.WERCKER || true);
+  grunt.option('force', !process.env.WERCKER || false);
 
   // A Task for loading the configuration object
   grunt.task.registerTask('loadConfig', 'Task that loads the config into a grunt option.', function() {
