@@ -54,32 +54,34 @@
         });
       }));
 
-    it('$scope.find() should create an array with at least one Image object fetched from XHR', inject(
-      function(Images) {
-        // Create sample Image using the Images service
-        var sampleImage = new Images({
-          name: 'New Image'
-        });
+    it('$scope.find() should create an array with at least one Image ' +
+       'object fetched from XHR',
+       inject(function(Images) {
+         // Create sample Image using the Images service
+         var sampleImage = new Images({
+           url: '0.0.0.0/sample_url'
+         });
 
-        // Create a sample Images array that includes the new Image
-        var sampleImages = [sampleImage];
+         // Create a sample Images array that includes the new Image
+         var sampleImages = [sampleImage];
 
-        // Set GET response
-        $httpBackend.expectGET('images').respond(sampleImages);
+         // Set GET response
+         $httpBackend.expectGET('images').respond(sampleImages);
 
-        // Run controller functionality
-        scope.find();
-        $httpBackend.flush();
+         // Run controller functionality
+         scope.find();
+         $httpBackend.flush();
 
-        // Test scope value
-        expect(scope.images).toEqualData(sampleImages);
-      }));
+         // Test scope value
+         expect(scope.images).toEqualData(sampleImages);
+       }));
 
-    it('$scope.findOne() should create an array with one Image object fetched from XHR using a imageId URL parameter', inject(
+    it('$scope.findOne() should create an array with one Image object' +
+       'fetched from XHR using a imageId URL parameter', inject(
       function(Images) {
         // Define a sample Image object
         var sampleImage = new Images({
-          name: 'New Image'
+          url: '0.0.0.0/new_url'
         });
 
         // Set the URL parameter
@@ -96,21 +98,22 @@
         expect(scope.image).toEqualData(sampleImage);
       }));
 
-    it('$scope.create() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(
+    it('$scope.create() with valid form data should send a POST request with' +
+       'the form input values and then locate to new object URL', inject(
       function(Images) {
         // Create a sample Image object
         var sampleImagePostData = new Images({
-          name: 'New Image'
+          url: '0.0.0.0/new_url'
         });
 
         // Create a sample Image response
         var sampleImageResponse = new Images({
           _id: '525cf20451979dea2c000001',
-          name: 'New Image'
+          url: '0.0.0.0/new_url'
         });
 
         // Fixture mock form input values
-        scope.name = 'New Image';
+        scope.url = '0.0.0.0/new_url';
 
         // Set POST response
         $httpBackend.expectPOST('images', sampleImagePostData).respond(sampleImageResponse);
@@ -120,7 +123,7 @@
         $httpBackend.flush();
 
         // Test form inputs are reset
-        expect(scope.name).toEqual('');
+        expect(scope.url).toEqual('');
 
         // Test URL redirection after the Image was created
         expect($location.path()).toBe('/images/' + sampleImageResponse._id);
@@ -131,7 +134,7 @@
         // Define a sample Image put data
         var sampleImagePutData = new Images({
           _id: '525cf20451979dea2c000001',
-          name: 'New Image'
+          url: '0.0.0.0/new_url'
         });
 
         // Mock Image in scope
@@ -148,25 +151,27 @@
         expect($location.path()).toBe('/images/' + sampleImagePutData._id);
       }));
 
-    it('$scope.remove() should send a DELETE request with a valid imageId and remove the Image from the scope', inject(
-      function(Images) {
-        // Create new Image object
-        var sampleImage = new Images({
-          _id: '525a8422f6d0f87f0e407a33'
-        });
+    it('$scope.remove() should send a DELETE request with a valid imageId and remove'
+       + 'the Image from the scope',
+       inject(function(Images) {
+         // Create new Image object
+         var sampleImage = new Images({
+           _id: '525a8422f6d0f87f0e407a33'
+         });
 
-        // Create new Images array and include the Image
-        scope.images = [sampleImage];
+         // Create new Images array and include the Image
+         scope.images = [sampleImage];
 
-        // Set expected DELETE response
-        $httpBackend.expectDELETE(/images\/([0-9a-fA-F]{24})$/).respond(204);
+         // Set expected DELETE response
+         $httpBackend.expectDELETE(/images\/([0-9a-fA-F]{24})$/).respond(204);
 
-        // Run controller functionality
-        scope.remove(sampleImage);
-        $httpBackend.flush();
+         // Run controller functionality
+         scope.remove(sampleImage);
+         $httpBackend.flush();
 
-        // Test array after successful delete
-        expect(scope.images.length).toBe(0);
-      }));
+         // Test array after successful delete
+         expect(scope.images.length).toBe(0);
+       })
+      );
   });
 }());
