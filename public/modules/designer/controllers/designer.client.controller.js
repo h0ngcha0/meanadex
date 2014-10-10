@@ -64,7 +64,7 @@ angular.module('designer').controller('DesignerController', [
           $scope.setCanvasBgColor(color);
         });
 
-      uploader.onAfterAddingFile = function(queueItem) {
+      $scope.uploader.onAfterAddingFile = function(queueItem) {
         if(helper.isFile(queueItem.file) || helper.isImage(queueItem.file)) {
           var reader = new FileReader();
           reader.onload = function(event) {

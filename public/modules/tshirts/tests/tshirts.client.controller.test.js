@@ -104,9 +104,25 @@
        inject(
          function(Tshirts) {
            // Create a sample Tshirt object
+           var variant = {
+             name: 'variant_1',
+             description: 'description_1',
+             baseCost: 0,
+             unit: 'SEK',
+             colors: ['black']
+           };
+
+           var frontImageId = 'front_image_id';
+           var backImageId = 'back_image_id';
            var sampleTshirtPostData = new Tshirts({
-             name: 'New Tshirt'
+             name: 'New Tshirt',
+             frontImage: frontImageId,
+             backImage: backImageId,
+             variants: [variant]
            });
+
+           var frontImageResponse = {_id: frontImageId};
+           var backImageResponse = {_id: backImageId};
 
            // Create a sample Tshirt response
            var sampleTshirtResponse = new Tshirts({
@@ -116,6 +132,19 @@
 
            // Fixture mock form input values
            scope.name = 'New Tshirt';
+           scope.tmpVariant = variant;
+
+           scope.currentQueueItemFront = {
+             upload: function() {
+               scope.currentQueueItemFront.onSuccess(frontImageResponse);
+             }
+           };
+
+           scope.currentQueueItemBack = {
+             upload: function() {
+               scope.currentQueueItemBack.onSuccess(backImageResponse);
+             }
+           };
 
            // Set POST response
            $httpBackend.expectPOST('tshirts', sampleTshirtPostData).respond(sampleTshirtResponse);
@@ -128,7 +157,7 @@
            expect(scope.name).toEqual('');
 
            // Test URL redirection after the Tshirt was created
-           expect($location.path()).toBe('/tshirts/' + sampleTshirtResponse._id);
+           expect($location.path()).toBe('/admin/tshirts/' + sampleTshirtResponse._id);
          })
       );
 
@@ -150,8 +179,8 @@
         scope.update();
         $httpBackend.flush();
 
-        // Test URL location to new object
-        expect($location.path()).toBe('/tshirts/' + sampleTshirtPutData._id);
+        // Url should not change because it stays in the same admin page
+        expect($location.path()).toBe('');
       }));
 
     it('$scope.remove() should send a DELETE request with a valid tshirtId '+
