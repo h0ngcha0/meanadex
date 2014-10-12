@@ -101,7 +101,7 @@ angular.module('tshirts').controller('TshirtsController', [
         description: '',
         baseCost: 0,
         unit: 'SEK',
-        colors: ['black'],
+        colors: ['red'],
         $edit: true
       };
     };

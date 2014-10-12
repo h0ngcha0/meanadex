@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('tshirts').directive('mdImageThumb', [
-  '$window', 'ImageUtils',
-  function($window, ImageUtils) {
+  '$window', 'ImagesUtils',
+  function($window, ImagesUtils) {
     return {
       restrict: 'E',
       scope: {
@@ -14,10 +14,10 @@ angular.module('tshirts').directive('mdImageThumb', [
         scope.$watch('file', function() {
           var file = scope.file;
 
-          if (!ImageUtils.support()) return;
+          if (!ImagesUtils.support()) return;
 
-          if (!ImageUtils.isFile(file)) return;
-          if (!ImageUtils.isImage(file)) return;
+          if (!ImagesUtils.isFile(file)) return;
+          if (!ImagesUtils.isImage(file)) return;
 
           var canvas = element.find('canvas');
           var reader = new FileReader();

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('images').factory('ImageUtils', [
+angular.module('images').factory('ImagesUtils', [
   '$window',
   function($window) {
     return {
