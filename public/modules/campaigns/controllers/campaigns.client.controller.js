@@ -3,9 +3,9 @@
 // Campaigns controller
 angular.module('campaigns').controller('CampaignsController', [
   '$scope', '$stateParams', '$location', 'Authentication',
-  'Campaigns', '$cookies', '$filter', 'ngTableParams', '$timeout', '$http',
+  'Campaigns', '$cookies', '$filter', 'AdminUtils', '$timeout', '$http',
   function( $scope, $stateParams, $location, Authentication, Campaigns,
-    $cookies, $filter, NgTableParams, $timeout, $http) {
+    $cookies, $filter, AdminUtils, $timeout, $http) {
     $scope.authentication = Authentication;
 
     // Create new Campaign
@@ -82,23 +82,14 @@ angular.module('campaigns').controller('CampaignsController', [
       });
     };
 
-    $scope.tableParams = new NgTableParams(
-      {
-        page: 1,
-        count: 10
-      },
-      {
-        total: 0,
-        getData: function($defer, params) {
-          var orderedData = params.filter() ?
-            $filter('filter')($scope.campaigns, params.filter()) :
-            $scope.campaigns;
+    $scope.tableParams = AdminUtils.newTableParams(
+      function($defer, params) {
+        var orderedData = params.filter() ?
+          $filter('filter')($scope.campaigns, params.filter()) :
+          $scope.campaigns;
 
-          $scope.presented_campaigns = orderedData;
-
-          params.total($scope.presented_campaigns.length);
-          $defer.resolve($scope.presented_campaigns);
-        }
+        params.total(orderedData.length);
+        $defer.resolve(orderedData);
       }
     );
 

@@ -3,9 +3,9 @@
 // Tshirts controller
 angular.module('tshirts').controller('TshirtsController', [
   '$scope', '$stateParams', '$location', 'Authentication', 'Tshirts',
-  '$filter', 'ngTableParams', '$timeout', 'FileUploader',
+  '$filter', 'AdminUtils', '$timeout', 'FileUploader',
   function($scope, $stateParams, $location, Authentication, Tshirts,
-           $filter, NgTableParams, $timeout, FileUploader) {
+           $filter, AdminUtils, $timeout, FileUploader) {
     $scope.authentication = Authentication;
     $scope.tmpVariant = {};
 
@@ -134,23 +134,14 @@ angular.module('tshirts').controller('TshirtsController', [
       $scope.variantsTableParams.reload();
     };
 
-    $scope.tshirtsTableParams = new NgTableParams(
-      {
-        page: 1,
-        count: 10
-      },
-      {
-        total: 0,
-        getData: function($defer, params) {
-          var orderedData = params.filter() ?
-            $filter('filter')($scope.tshirts, params.filter()) : $scope.tshirts;
+    $scope.tshirtsTableParams = AdminUtils.newTableParams(
+      function($defer, params) {
+        var orderedData = params.filter() ?
+          $filter('filter')($scope.tshirts, params.filter()) :
+          $scope.tshirts;
 
-          $scope.presentedTshirts = orderedData;
-
-          params.total($scope.presentedTshirts.length);
-          $defer.resolve($scope.presentedTshirts);
-        },
-        $scope: {$data: {}}
+        params.total(orderedData.length);
+        $defer.resolve(orderedData);
       }
     );
 
@@ -163,23 +154,15 @@ angular.module('tshirts').controller('TshirtsController', [
       );
     };
 
-   $scope.variantsTableParams = new NgTableParams(
-      {
-        page: 1,
-        count: 10
-      },
-      {
-        total: 0,
-        getData: function($defer, params) {
-          var orderedData = params.filter() ?
-            $filter('filter')($scope.tshirt.variants, params.filter()) :
-            $scope.tshirt.variants;
+    $scope.variantsTableParams = AdminUtils.newTableParams(
+      function($defer, params) {
+        var orderedData = params.filter() ?
+          $filter('filter')($scope.tshirt.variants, params.filter()) :
+          $scope.tshirt.variants,
+            length = (orderedData && orderedData.length) || 0;
 
-          $scope.presentedVariants = orderedData || 0;
-
-          params.total($scope.presentedVariants.length);
-          $defer.resolve($scope.presentedVariants);
-        }
+        params.total(length);
+        $defer.resolve(orderedData);
       }
     );
 
