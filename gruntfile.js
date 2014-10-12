@@ -150,13 +150,20 @@ module.exports = function(grunt) {
   grunt.option('force', !process.env.WERCKER || false);
 
   // A Task for loading the configuration object
-  grunt.task.registerTask('loadConfig', 'Task that loads the config into a grunt option.', function() {
-    var init = require('./config/init')();
-    var config = require('./config/config');
+  grunt.task.registerTask(
+    'loadConfig',
+    'Task that loads the config into a grunt option.',
+    function() {
+      var init = require('./config/init')();
+      var config = require('./config/config');
 
-    grunt.config.set('applicationJavaScriptFiles', config.assets.js);
-    grunt.config.set('applicationCSSFiles', config.assets.css);
-  });
+      grunt.config.set('applicationJavaScriptFiles', config.assets.js);
+      grunt.config.set('applicationCSSFiles', config.assets.css);
+    }
+  );
+
+  // A Task for populating test data into the database
+  require('./populate-test-data')(grunt);
 
   // Default task(s).
   grunt.registerTask('default', ['lint', 'concurrent:default']);
