@@ -172,9 +172,10 @@ angular.module('tshirts').controller('TshirtsController', [
         total: 0,
         getData: function($defer, params) {
           var orderedData = params.filter() ?
-            $filter('filter')($scope.tshirt.variants, params.filter()) : $scope.tshirt.variants;
+            $filter('filter')($scope.tshirt.variants, params.filter()) :
+            $scope.tshirt.variants;
 
-          $scope.presentedVariants = orderedData;
+          $scope.presentedVariants = orderedData || 0;
 
           params.total($scope.presentedVariants.length);
           $defer.resolve($scope.presentedVariants);

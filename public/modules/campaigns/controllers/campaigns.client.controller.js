@@ -90,19 +90,25 @@ angular.module('campaigns').controller('CampaignsController', [
       {
         total: 0,
         getData: function($defer, params) {
-          $timeout(function() {
-            var orderedData = params.filter() ?
+          var orderedData = params.filter() ?
             $filter('filter')($scope.campaigns, params.filter()) :
             $scope.campaigns;
 
-            $scope.presented_campaigns = orderedData;
+          $scope.presented_campaigns = orderedData;
 
-            params.total($scope.presented_campaigns.length);
-            $defer.resolve($scope.presented_campaigns);
-          }, 500); // FIXME: this is ugly
+          params.total($scope.presented_campaigns.length);
+          $defer.resolve($scope.presented_campaigns);
         }
       }
     );
+
+    // Find a list of Campaigns and load them into campaign table
+    $scope.loadAllCampaignsInTableData = function() {
+      $scope.campaigns = Campaigns.query(
+        function(data) {
+          $scope.tableParams.reload();
+        });
+    };
 
     $scope.onRemove = function(campaign) {
       $scope.remove(campaign);
