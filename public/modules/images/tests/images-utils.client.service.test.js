@@ -1,7 +1,6 @@
 'use strict';
 
 (function() {
-  // Images Controller Spec
   describe('Images Utils Service Tests', function() {
     // Then we can start by loading the main application module
     beforeEach(module(ApplicationConfiguration.applicationModuleName));

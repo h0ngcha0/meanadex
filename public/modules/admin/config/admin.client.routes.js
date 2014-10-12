@@ -45,7 +45,7 @@ angular.module('admin').config([
       url: '/campaigns',
       views: {
         'adminPanel': {
-          templateUrl: 'modules/campaigns/views/list-all-campaigns.client.view.html',
+          templateUrl: 'modules/campaigns/views/list-campaigns.client.view.html',
           controller: 'CampaignsController'
         }
       }

@@ -21,11 +21,6 @@ angular.module('campaigns').config([
       templateUrl: 'modules/campaigns/views/campaign-summary.client.view.html',
       controller: 'CampaignsSummaryController'
     }).
-    state('listCampaigns', {
-      url: '/campaigns',
-      templateUrl: 'modules/campaigns/views/list-campaigns.client.view.html',
-      controller: 'CampaignsController'
-    }).
     state('viewCampaign', {
       url: '/campaigns/:campaignId',
       templateUrl: 'modules/campaigns/views/view-campaign.client.view.html',
