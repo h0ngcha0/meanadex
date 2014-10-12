@@ -93,11 +93,6 @@ angular.module('tshirts').controller('TshirtsController', [
       $scope.tshirt = Tshirts.get({
         tshirtId: $stateParams.tshirtId
       });
-
-      $scope.tshirt.editFrontImg = false;
-      $scope.tshirt.editBackImg = false;
-      $scope.currentQueueItemBack = undefined;
-      $scope.currentQueueItemFront = undefined;
     };
 
     var newVariantPlaceholder = function() {
@@ -147,18 +142,26 @@ angular.module('tshirts').controller('TshirtsController', [
       {
         total: 0,
         getData: function($defer, params) {
-          $timeout(function() {
-            var orderedData = params.filter() ?
-              $filter('filter')($scope.tshirts, params.filter()) : $scope.tshirts;
+          var orderedData = params.filter() ?
+            $filter('filter')($scope.tshirts, params.filter()) : $scope.tshirts;
 
-            $scope.presentedTshirts = orderedData;
+          $scope.presentedTshirts = orderedData;
 
-            params.total($scope.presentedTshirts.length);
-            $defer.resolve($scope.presentedTshirts);
-          }, 800); // FIXME: this is ugly
-        }
+          params.total($scope.presentedTshirts.length);
+          $defer.resolve($scope.presentedTshirts);
+        },
+        $scope: {$data: {}}
       }
     );
+
+    // Find a list of Tshirts and load them into tshirts table
+    $scope.loadAllTshirtInTableData = function() {
+      $scope.tshirts = Tshirts.query(
+        function(data) {
+          $scope.tshirtsTableParams.reload();
+        }
+      );
+    };
 
    $scope.variantsTableParams = new NgTableParams(
       {
@@ -168,18 +171,33 @@ angular.module('tshirts').controller('TshirtsController', [
       {
         total: 0,
         getData: function($defer, params) {
-          $timeout(function() {
-            var orderedData = params.filter() ?
-              $filter('filter')($scope.tshirt.variants, params.filter()) : $scope.tshirt.variants;
+          var orderedData = params.filter() ?
+            $filter('filter')($scope.tshirt.variants, params.filter()) : $scope.tshirt.variants;
 
-            $scope.presentedVariants = orderedData;
+          $scope.presentedVariants = orderedData;
 
-            params.total($scope.presentedVariants.length);
-            $defer.resolve($scope.presentedVariants);
-          }, 800); // FIXME: this is ugly
+          params.total($scope.presentedVariants.length);
+          $defer.resolve($scope.presentedVariants);
         }
       }
     );
+
+    // Find existing Tshirt and load all the variants to variants table
+    $scope.loadAllVariantsInTableData = function() {
+      $scope.tshirt = Tshirts.get(
+        {
+          tshirtId: $stateParams.tshirtId
+        },
+        function(data) {
+          $scope.variantsTableParams.reload();
+        }
+      );
+
+      $scope.tshirt.editFrontImg = false;
+      $scope.tshirt.editBackImg = false;
+      $scope.currentQueueItemBack = undefined;
+      $scope.currentQueueItemFront = undefined;
+    };
 
 
     $scope.onRemove = function(tshirt) {
