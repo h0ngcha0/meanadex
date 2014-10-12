@@ -1,19 +1,8 @@
 'use strict';
 
 angular.module('tshirts').directive('mdImageThumb', [
-  '$window',
-  function($window) {
-    var helper = {
-      support: !!($window.FileReader && $window.CanvasRenderingContext2D),
-      isFile: function(item) {
-        return angular.isObject(item) && item instanceof $window.File;
-      },
-      isImage: function(file) {
-        var type =  '|' + file.type.slice(file.type.lastIndexOf('/') + 1) + '|';
-        return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
-      }
-    };
-
+  '$window', 'ImageUtils',
+  function($window, ImageUtils) {
     return {
       restrict: 'E',
       scope: {
@@ -25,10 +14,10 @@ angular.module('tshirts').directive('mdImageThumb', [
         scope.$watch('file', function() {
           var file = scope.file;
 
-          if (!helper.support) return;
+          if (!ImageUtils.support()) return;
 
-          if (!helper.isFile(file)) return;
-          if (!helper.isImage(file)) return;
+          if (!ImageUtils.isFile(file)) return;
+          if (!ImageUtils.isImage(file)) return;
 
           var canvas = element.find('canvas');
           var reader = new FileReader();

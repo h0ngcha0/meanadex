@@ -2,21 +2,10 @@
 
 angular.module('designer').controller('DesignerController', [
   '$scope', 'mdCanvasService', 'allTshirts', 'CampaignCache',
-  'FileUploader', '$window', '$location',
+  'FileUploader', '$window', '$location', 'ImageUtils',
   function($scope, mdCanvasService, allTshirts, CampaignCache,
-           FileUploader, $window, $location) {
+           FileUploader, $window, $location, ImageUtils) {
     $scope.enableEdit = true;
-
-    var helper = {
-      support: !!($window.FileReader && $window.CanvasRenderingContext2D),
-      isFile: function(item) {
-        return angular.isObject(item) && item instanceof $window.File;
-      },
-      isImage: function(file) {
-        var type =  '|' + file.type.slice(file.type.lastIndexOf('/') + 1) + '|';
-        return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
-      }
-    };
 
     $scope.ensureEnoughData = function() {
       if(!allTshirts || (allTshirts.length === 0)) {
@@ -65,7 +54,7 @@ angular.module('designer').controller('DesignerController', [
         });
 
       $scope.uploader.onAfterAddingFile = function(queueItem) {
-        if(helper.isFile(queueItem.file) || helper.isImage(queueItem.file)) {
+        if(ImageUtils.isFile(queueItem.file) || ImageUtils.isImage(queueItem.file)) {
           var reader = new FileReader();
           reader.onload = function(event) {
             var imgUrl = event.target.result;
