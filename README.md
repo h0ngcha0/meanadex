@@ -22,6 +22,19 @@ at the time of writing, the site look like this:
   * Customers will be asked about the size of the shirt, shipping address, email, creditcard details, etc, when attempting to buy t-shirts
   * Users can use admin dashboard to manage all the campains he has (CRUD operations).
 
+### Generate test data
+
+After starting a fresh system with
+
+      npm start
+
+you can generate some test data using
+
+    grunt populateTestData
+
+This will generate an admin user with username set to ```admin``` and
+password set to ```password```. It will generate a sample tshirt as well.
+
 ### Resources
 
 All roads lead to Rome, the question is which one is the shortest. We
