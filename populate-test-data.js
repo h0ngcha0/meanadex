@@ -34,16 +34,23 @@ module.exports = function(grunt) {
         );
       };
 
-      var createFrontImages = function(user, callback) {
+      var createImage = function(path, callback) {
         request.post(
           'http://localhost:3000/images',
           {
             formData: {
               file: fs.createReadStream(
-                __dirname + '/public/modules/designer/img/canvas/crew_front.png'
+                __dirname + path
               )
             }
           },
+          callback
+        );
+      };
+
+      var createFrontImage = function(user, callback) {
+        createImage(
+          '/public/modules/designer/img/canvas/crew_front.png',
           function(error, response, body) {
             var img = JSON.parse(body),
                 frontImgId = img._id;
@@ -53,16 +60,9 @@ module.exports = function(grunt) {
         );
       };
 
-      var createBackImages = function(frontImgId, callback) {
-        request.post(
-          'http://localhost:3000/images',
-          {
-            formData: {
-              file: fs.createReadStream(
-                __dirname + '/public/modules/designer/img/canvas/crew_back.png'
-              )
-            }
-          },
+      var createBackImage = function(frontImgId, callback) {
+        createImage(
+          '/public/modules/designer/img/canvas/crew_back.png',
           function(error, response, body) {
             var img = JSON.parse(body),
                 backImgId = img._id;
@@ -100,7 +100,7 @@ module.exports = function(grunt) {
           },
           function(error, response, body) {
             var tshirt = JSON.parse(body);
-            console.log('Tshirt: ' + tshirt.name + ' is uploaded');
+            console.log('Tshirt: ' + tshirt.name + ' is created');
             callback(error, tshirt);
           }
         );
@@ -118,8 +118,8 @@ module.exports = function(grunt) {
 
       async.waterfall([
         createAdminUser,
-        createFrontImages,
-        createBackImages,
+        createFrontImage,
+        createBackImage,
         createTshirt
       ], resultCallback);
     }
