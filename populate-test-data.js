@@ -4,15 +4,16 @@
  * Module dependencies.
  */
 var request = require('request'),
-    async = require('async');
+    async = require('async'),
+    fs = require('fs');
 
 module.exports = function(grunt) {
+  request = request.defaults({jar: true});
   grunt.task.registerTask(
     'populateTestData',
     'Task that populats test data into the database.',
     function() {
       var done = this.async();
-
       var createAdminUser = function(callback) {
         request.post(
           'http://localhost:3000/auth/signup',
@@ -36,14 +37,10 @@ module.exports = function(grunt) {
         request.post(
           'http://localhost:3000/images',
           {
-            auth: {
-              'user': 'admin',
-              'pass': 'password',
-              'sendImmediately': false
-            },
-            form: {
-              url: 'niux',
-              user: user
+            formData: {
+              file: fs.createReadStream(
+                __dirname + '/public/modules/designer/img/canvas/crew_front.png'
+              )
             }
           },
           function(error, response, body) {
@@ -54,10 +51,10 @@ module.exports = function(grunt) {
 
       var resultCallback = function(err, results) {
         if(err) {
-          console.log(err);
+          done(false);
         } else {
-          console.log(results);
           console.log('success!')
+          done()
         }
       };
 
