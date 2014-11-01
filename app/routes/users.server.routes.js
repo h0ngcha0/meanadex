@@ -52,6 +52,10 @@ module.exports = function(app) {
   app.route('/auth/github').get(passport.authenticate('github'));
   app.route('/auth/github/callback').get(users.oauthCallback('github'));
 
+  // Setting the stripe oauth routes
+  app.route('/auth/stripe').get(passport.authenticate('stripe'));
+  app.route('/auth/stripe/callback').get(users.oauthCallback('stripe'));
+
   // Finish by binding the user middleware
   app.param('userId', users.userByID);
 };
