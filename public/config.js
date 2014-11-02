@@ -20,7 +20,8 @@ var ApplicationConfiguration = (
       'LocalStorageModule',
       'ngTable',
       'angular-data.DS',
-      'angularFileUpload'
+      'angularFileUpload',
+      'timer'
     ];
 
     // Add a new vertical module

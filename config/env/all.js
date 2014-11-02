@@ -45,6 +45,7 @@ module.exports = {
         'public/lib/angular-local-storage/angular-local-storage.js',
         'public/lib/ng-table/ng-table.js',
         'public/lib/angular-data/dist/angular-data.js',
+        'public/lib/angular-timer/dist/angular-timer.js',
         'public/lib/angular-file-upload/angular-file-upload.js'
       ]
     },

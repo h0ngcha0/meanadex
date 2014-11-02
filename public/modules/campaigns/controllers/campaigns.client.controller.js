@@ -77,9 +77,11 @@ angular.module('campaigns').controller('CampaignsController', [
 
     // Find existing Campaign for a particular user
     $scope.findOne = function() {
-      $scope.campaign = Campaigns.get({
-        campaignId: $stateParams.campaignId
-      });
+      $scope.campaign = Campaigns.get(
+        {
+          campaignId: $stateParams.campaignId
+        }
+      );
     };
 
     $scope.tableParams = AdminUtils.newTableParams(

@@ -34,14 +34,20 @@
             </tr>
           </table>
 
-          <hr/>
+          <div class="" data-ng-if="campaign.ended_at">
+            <timer end-time="campaign.ended_at">
+              {{days}} days, {{hours}} hours, {{minutes}} minutes,
+              {{seconds}} seconds.
+            </timer>
+          </div>
 
-          <a id="purchase"
-             href="#!/purchase"
+          <hr/>
+          <a id="order"
+             href="#!/order"
              type="button"
              class="btn btn-lg btn-block btn-success"
-             name="purchase">
-            Purchase
+             name="order">
+            Order
             <i class="glyphicon glyphicon-shopping-cart glyphicon-white"></i>
           </a>
         </div>
