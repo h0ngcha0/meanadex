@@ -33,6 +33,7 @@ module.exports = {
   stripe: {
     clientID: process.env.STRIPE_ID || 'ca_53emHeHCgJWdAOPGsIp4uIdFCCEXkdal',
     clientSecret: process.env.STRIPE_SECRET || 'sk_test_POGF3C0J4jmm8rFZNGwLrLaH',
+    publishableKey: process.env.PUBLISHABLE_KEY || 'pk_test_WMSaxecz5HSTGZxlFbuxdF7B',
     callbackURL: 'http://127.0.0.1:3000/auth/stripe/callback'
   },
   mailer: {

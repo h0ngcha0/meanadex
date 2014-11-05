@@ -37,11 +37,15 @@ describe('Campaign Model Unit Tests:', function() {
         length: 7,
         url: 'campaign_url',
         goal: 100,
-        sold: 20,
-        cost: 50,
-        price: 80,
-        design: 'nice design',
-        orders: ['order1', 'order2']
+        cost: {
+          value: 50,
+          unit: 'SEK'
+        },
+        price: {
+          value: 80,
+          unit: 'SEK'
+        },
+        design: 'nice design'
       });
 
       done();

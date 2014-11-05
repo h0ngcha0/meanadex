@@ -50,18 +50,31 @@ var CampaignSchema = new Schema({
     required: 'Please fill in Campaign Goal',
     min: [10, 'The minimal goal of a campaign is 10']
   },
-  sold: {
-    type: Number,
-    required: 'sold property is required',
-    default: 0
-  },
   cost: {
-    type: Number,
-    required: 'cost property is required'
+    type: {
+      value: {
+        type: Number,
+        required: 'Cost value is required'
+      },
+      unit: {
+        type: String,
+        required: 'Cost unit is required'
+      }
+    },
+    required: 'Post property is required'
   },
   price: {
-    type: Number,
-    required: 'price property is required'
+    type: {
+      value: {
+        type: Number,
+        required: 'Price value is required'
+      },
+      unit: {
+        type: String,
+        required: 'Price unit is required'
+      }
+    },
+    required: 'Price property is required'
   },
   color: {
     type: String,
@@ -72,10 +85,6 @@ var CampaignSchema = new Schema({
     type: String,
     required: 'design property is required',
     trim: true
-  },
-  orders: {
-    type: Array,
-    default: []
   }
 });
 

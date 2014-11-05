@@ -14,6 +14,8 @@ module.exports = function(app) {
   .put(users.requiresLogin, campaigns.hasAuthorization, campaigns.update)
   .delete(users.requiresLogin, campaigns.hasAuthorization, campaigns.delete);
 
+  app.route('/campaign/order').post(campaigns.order);
+
   app.route('/campaign/url').get(campaigns.url);
 
   app.route('/:url/').get(campaigns.fromUrl);

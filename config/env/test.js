@@ -33,6 +33,12 @@ module.exports = {
     clientSecret: process.env.GITHUB_SECRET || 'APP_SECRET',
     callbackURL: 'http://localhost:3000/auth/github/callback'
   },
+  stripe: {
+    clientID: process.env.STRIPE_ID || 'ca_53emHeHCgJWdAOPGsIp4uIdFCCEXkdal',
+    clientSecret: process.env.STRIPE_SECRET || 'sk_test_POGF3C0J4jmm8rFZNGwLrLaH',
+    publishableKey: process.env.PUBLISHABLE_KEY || 'pk_test_WMSaxecz5HSTGZxlFbuxdF7B',
+    callbackURL: 'http://127.0.0.1:3000/auth/stripe/callback'
+  },
   mailer: {
     from: process.env.MAILER_FROM || 'MAILER_FROM',
     options: {
