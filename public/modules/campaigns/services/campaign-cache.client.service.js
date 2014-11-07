@@ -106,24 +106,34 @@ angular.module('campaigns').service('CampaignCache', [
       });
     };
 
-    // cost
-    var cost = 'cost';
-    this.setCost = function(v) {
-      store(cost, v);
-    };
-
-    this.getCost = function() {
-      return retrieve(cost);
-    };
-
     // background color
     var color = 'color';
     this.setColor = function(v) {
-      store('color', v);
+      store(color, v);
     };
 
     this.getColor = function() {
-      return retrieve('color');
+      return retrieve(color);
+    };
+
+    // tshirt
+    var tshirt = 'tshirt';
+    this.setTshirt = function(v) {
+      store(tshirt, v);
+    };
+
+    this.getTshirt = function() {
+      return retrieve(tshirt);
+    };
+
+    // variant
+    var variant = 'variant';
+    this.setVariant = function(v) {
+      store(variant, v);
+    };
+
+    this.getVariant = function() {
+      return retrieve(variant);
     };
 
     // clear

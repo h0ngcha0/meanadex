@@ -22,7 +22,7 @@ angular.module('designer').controller('DesignerController', [
 
     $scope.setVariant = function(variant) {
       $scope.currentTshirt.currentVariant = variant;
-      CampaignCache.setCost(variant.baseCost);
+      CampaignCache.setVariant(variant);
     };
 
     if(allTshirts && (allTshirts.length !== 0)) {
@@ -37,20 +37,24 @@ angular.module('designer').controller('DesignerController', [
       $scope.currentTshirt = $scope.allTshirts[0];
       $scope.currentTshirt.currentVariant = $scope.currentTshirt.variants[0];
       CampaignCache.setColor($scope.currentTshirt.currentVariant.colors[0]);
+      CampaignCache.setTshirt($scope.currentTshirt);
+      CampaignCache.setVariant($scope.currentTshirt.currentVariant);
 
       $scope.tshirtColor = $scope.currentTshirt.currentVariant.colors[0];
       $scope.setCanvasBgColor($scope.tshirtColor);
 
-      var baseCost = $scope.currentTshirt.currentVariant.baseCost;
-      CampaignCache.setCost(baseCost);
-
       $scope.$watch(
         'currentTshirt',
         function(newVal, _oldVal) {
-          $scope.currentTshirt.currentVariant = newVal.variants[0];
+          var color;
 
-          var color = newVal.currentVariant.colors[0];
+          $scope.currentTshirt = newVal;
+          $scope.currentTshirt.currentVariant = newVal.variants[0];
+          color = $scope.currentTshirt.currentVariant.colors[0];
           $scope.setCanvasBgColor(color);
+
+          CampaignCache.setTshirt($scope.currentTshirt);
+          CampaignCache.setVariant($scope.currentTshirt.currentVariant);
         });
 
       $scope.uploader.onAfterAddingFile = function(queueItem) {

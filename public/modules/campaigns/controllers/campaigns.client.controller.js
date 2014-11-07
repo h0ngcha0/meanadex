@@ -122,7 +122,9 @@ angular.module('campaigns').controller('CampaignsController', [
 angular.module('campaigns').controller('CampaignsSalesGoalController', [
   '$scope', 'CampaignCache',
   function($scope, CampaignCache) {
-    $scope.cost = CampaignCache.getCost();
+    var variant = CampaignCache.getVariant();
+    $scope.cost = variant.baseCost;
+    $scope.unit = variant.unit;
 
     $scope.tshirtsSalesGoal = CampaignCache.getGoal() || 50;
     CampaignCache.bindGoal($scope);
@@ -173,6 +175,9 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
     };
 
     $scope.launchCampaign = function() {
+      var tshirt = CampaignCache.getTshirt(),
+          variant = CampaignCache.getVariant();
+
       var campaign = new Campaigns ({
         name: $scope.campaignTitle,
         created_at: Date.today(),
@@ -181,10 +186,17 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
         length: CampaignCache.getLength(),
         url: CampaignCache.getUrl(),
         goal: parseInt(CampaignCache.getGoal()),
-        sold: 0,
-        price: CampaignCache.getPrice(),
+        cost: {
+          value: variant.baseCost,
+          unit: variant.unit
+        },
+        tshirtRef: tshirt._id,
+        tshirt: tshirt,
+        price: {
+          value: CampaignCache.getPrice(),
+          unit: variant.unit
+        },
         color: CampaignCache.getColor(),
-        cost: CampaignCache.getCost(),
         design: JSON.stringify({
           front: mdCanvasService.getFrontCanvas(),
           back: mdCanvasService.getBackCanvas()

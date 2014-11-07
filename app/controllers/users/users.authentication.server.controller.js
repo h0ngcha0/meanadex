@@ -104,11 +104,11 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
   if (!req.user) {
     // Define a search query fields
     var searchMainProviderIdentifierField =
-    'providerData.' + providerUserProfile.providerIdentifierField;
+      'providerData.' + providerUserProfile.providerIdentifierField;
     var searchAdditionalProviderIdentifierField =
-    'additionalProvidersData.' +
-    providerUserProfile.provider + '.' +
-    providerUserProfile.providerIdentifierField;
+      'additionalProvidersData.' +
+      providerUserProfile.provider + '.' +
+      providerUserProfile.providerIdentifierField;
 
     // Define main provider search query
     var mainProviderSearchQuery = {};

@@ -78,8 +78,19 @@ var CampaignSchema = new Schema({
   },
   color: {
     type: String,
-    required: 'color is required',
+    required: 'Color is required',
     default: 'white'
+  },
+  // the reason that we store both tshirt and tshirt ref is because
+  // the tshirt that tshirt ref refers to might be changed.
+  tshirtRef: {
+    type: Schema.ObjectId,
+    required: 'Tshirt ref is required',
+    ref: 'Tshirt'
+  },
+  tshirt: {
+    type: Schema.Types.Mixed,
+    required: 'Tshirt is required'
   },
   design: {
     type: String,

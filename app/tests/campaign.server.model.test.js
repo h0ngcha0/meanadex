@@ -37,6 +37,7 @@ describe('Campaign Model Unit Tests:', function() {
         length: 7,
         url: 'campaign_url',
         goal: 100,
+        color: 'black',
         cost: {
           value: 50,
           unit: 'SEK'
