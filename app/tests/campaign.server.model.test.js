@@ -6,6 +6,8 @@
 var should = require('should'),
     mongoose = require('mongoose'),
     User = mongoose.model('User'),
+    Img = mongoose.model('Image'),
+    Tshirt = mongoose.model('Tshirt'),
     Campaign = mongoose.model('Campaign');
 
 /**
@@ -27,6 +29,33 @@ describe('Campaign Model Unit Tests:', function() {
       password: 'password'
     });
 
+    var frontImg = new Img({
+      url: '0.0.0.0/from_image.jpg',
+      user: user
+    });
+
+    var backImg = new Img({
+      url: '0.0.0.0/back_image.jpg',
+      user: user
+    });
+
+    var tshirt = new Tshirt({
+      name: 'Tshirt Name',
+      user: user,
+      variants:
+      [
+        {
+          name: 'Variant Name',
+          description: 'Description',
+          baseCost: 10,
+          unit: 'SEK',
+          colors: ['00000', 'ffffff']
+        }
+      ],
+      frontImage: frontImg,
+      backImage: backImg
+    });
+
     user.save(function() {
       campaign = new Campaign({
         name: 'Campaign Name',
@@ -42,6 +71,8 @@ describe('Campaign Model Unit Tests:', function() {
           value: 50,
           unit: 'SEK'
         },
+        tshirt: tshirt,
+        tshirtRef: tshirt._id,
         price: {
           value: 80,
           unit: 'SEK'
