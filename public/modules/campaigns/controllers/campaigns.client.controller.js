@@ -122,9 +122,9 @@ angular.module('campaigns').controller('CampaignsController', [
 angular.module('campaigns').controller('CampaignsSalesGoalController', [
   '$scope', 'CampaignCache',
   function($scope, CampaignCache) {
-    var variant = CampaignCache.getVariant();
-    $scope.cost = variant.baseCost;
-    $scope.unit = variant.unit;
+    var tshirt = CampaignCache.getTshirt();
+    $scope.cost = tshirt.currentVariant.baseCost;
+    $scope.unit = tshirt.currentVariant.unit;
 
     $scope.tshirtsSalesGoal = CampaignCache.getGoal() || 50;
     CampaignCache.bindGoal($scope);
@@ -175,8 +175,7 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
     };
 
     $scope.launchCampaign = function() {
-      var tshirt = CampaignCache.getTshirt(),
-          variant = CampaignCache.getVariant();
+      var tshirt = CampaignCache.getTshirt();
 
       var campaign = new Campaigns ({
         name: $scope.campaignTitle,
@@ -186,10 +185,6 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
         length: CampaignCache.getLength(),
         url: CampaignCache.getUrl(),
         goal: parseInt(CampaignCache.getGoal()),
-        cost: {
-          value: variant.baseCost,
-          unit: variant.unit
-        },
         tshirtRef: tshirt._id,
         tshirt: tshirt,
         price: {

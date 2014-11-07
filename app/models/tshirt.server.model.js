@@ -6,6 +6,35 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
+var VariantSchema = new Schema({
+  name: {
+    type: String,
+    required: 'variant name is required'
+  },
+  description: {
+    type: String,
+    required: 'variant description is required'
+  },
+  baseCost: {
+    type: Number,
+    required: 'variant baseCost is required',
+    min: [0, 'Base cost must be more than 0']
+  },
+  unit: {
+    type: String,
+    enum: ['SEK', 'RMB', 'USD'],
+    default: 'SEK'
+  },
+  colors: {
+    type: [
+      {
+        type: String,
+        default: 'black'
+      }
+    ]
+  }
+});
+
 /**
  * Tshirt Schema
  */
@@ -25,36 +54,7 @@ var TshirtSchema = new Schema({
     ref: 'User'
   },
   variants: {
-    type: [
-      {
-        name: {
-          type: String,
-          required: 'variant name is required'
-        },
-        description: {
-          type: String,
-          required: 'variant description is required'
-        },
-        baseCost: {
-          type: Number,
-          required: 'variant baseCost is required',
-          min: [0, 'Base cost must be more than 0']
-        },
-        unit: {
-          type: String,
-          enum: ['SEK', 'RMB', 'USD'],
-          default: 'SEK'
-        },
-        colors: {
-          type: [
-            {
-              type: String,
-              default: 'black'
-            }
-          ]
-        }
-      }
-    ],
+    type: [VariantSchema],
     required: 'At least have one tshirt variants'
   },
   frontImage: {

@@ -50,19 +50,6 @@ var CampaignSchema = new Schema({
     required: 'Please fill in Campaign Goal',
     min: [10, 'The minimal goal of a campaign is 10']
   },
-  cost: {
-    type: {
-      value: {
-        type: Number,
-        required: 'Cost value is required'
-      },
-      unit: {
-        type: String,
-        required: 'Cost unit is required'
-      }
-    },
-    required: 'Post property is required'
-  },
   price: {
     type: {
       value: {
@@ -88,6 +75,7 @@ var CampaignSchema = new Schema({
     required: 'Tshirt ref is required',
     ref: 'Tshirt'
   },
+  // currentVariant is embedded in tshirt
   tshirt: {
     type: Schema.Types.Mixed,
     required: 'Tshirt is required'

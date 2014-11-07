@@ -22,7 +22,6 @@ angular.module('designer').controller('DesignerController', [
 
     $scope.setVariant = function(variant) {
       $scope.currentTshirt.currentVariant = variant;
-      CampaignCache.setVariant(variant);
     };
 
     if(allTshirts && (allTshirts.length !== 0)) {
@@ -38,7 +37,6 @@ angular.module('designer').controller('DesignerController', [
       $scope.currentTshirt.currentVariant = $scope.currentTshirt.variants[0];
       CampaignCache.setColor($scope.currentTshirt.currentVariant.colors[0]);
       CampaignCache.setTshirt($scope.currentTshirt);
-      CampaignCache.setVariant($scope.currentTshirt.currentVariant);
 
       $scope.tshirtColor = $scope.currentTshirt.currentVariant.colors[0];
       $scope.setCanvasBgColor($scope.tshirtColor);
@@ -54,7 +52,6 @@ angular.module('designer').controller('DesignerController', [
           $scope.setCanvasBgColor(color);
 
           CampaignCache.setTshirt($scope.currentTshirt);
-          CampaignCache.setVariant($scope.currentTshirt.currentVariant);
         });
 
       $scope.uploader.onAfterAddingFile = function(queueItem) {

@@ -67,10 +67,6 @@ describe('Campaign Model Unit Tests:', function() {
         url: 'campaign_url',
         goal: 100,
         color: 'black',
-        cost: {
-          value: 50,
-          unit: 'SEK'
-        },
         tshirt: tshirt,
         tshirtRef: tshirt._id,
         price: {

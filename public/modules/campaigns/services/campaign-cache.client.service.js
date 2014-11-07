@@ -126,16 +126,6 @@ angular.module('campaigns').service('CampaignCache', [
       return retrieve(tshirt);
     };
 
-    // variant
-    var variant = 'variant';
-    this.setVariant = function(v) {
-      store(variant, v);
-    };
-
-    this.getVariant = function() {
-      return retrieve(variant);
-    };
-
     // clear
     this.clear = function() {
       localStorageService.clearAll();
