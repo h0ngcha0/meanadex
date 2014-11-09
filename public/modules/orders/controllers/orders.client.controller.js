@@ -3,8 +3,13 @@
 // Orders controller
 angular.module('orders').controller('OrdersController', [
   '$scope', '$stateParams', '$location', 'Authentication', 'Orders',
-  function($scope, $stateParams, $location, Authentication, Orders ) {
+  function($scope, $stateParams, $location, Authentication, Orders) {
+
     $scope.authentication = Authentication;
+
+    $scope.orderedCampaign = JSON.parse($stateParams.campaign);
+    $scope.sizes = ['S', 'M', 'L'];
+    $scope.tshirtSize = 'M';
 
     // Create new Order
     $scope.create = function() {

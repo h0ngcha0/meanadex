@@ -54,29 +54,14 @@
           </div>
 
           <hr/>
-
-          <form action="/campaign/order" method="POST">
-            <script
-               src="https://checkout.stripe.com/checkout.js"
-               class="stripe-button"
-               data-key="pk_test_WMSaxecz5HSTGZxlFbuxdF7B"
-               data-image="/modules/core/img/brand/favicon.ico"
-               data-name="Meanadex"
-               data-currency="SEK"
-               data-description="{{campaign.name}}"
-               data-amount="{{campaign.price}}">
-            </script>
-          </form>
-          <!--
           <a id="order"
-             href="#!/order"
+             data-ng-click="reserveCampaign('Meanadex', campaign)"
              type="button"
              class="btn btn-lg btn-block btn-success"
              name="order">
-            Order
+            Make reservation
             <i class="glyphicon glyphicon-shopping-cart glyphicon-white"></i>
           </a>
-          -->
         </div>
 
         <small>

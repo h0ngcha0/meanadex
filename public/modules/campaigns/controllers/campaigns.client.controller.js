@@ -2,10 +2,10 @@
 
 // Campaigns controller
 angular.module('campaigns').controller('CampaignsController', [
-  '$scope', '$stateParams', '$location', 'Authentication',
+  '$scope', '$stateParams', '$state', '$location', 'Authentication',
   'Campaigns', '$cookies', '$filter', 'AdminUtils', '$timeout', '$http',
-  function( $scope, $stateParams, $location, Authentication, Campaigns,
-    $cookies, $filter, AdminUtils, $timeout, $http) {
+  function($scope, $stateParams, $state, $location, Authentication,
+           Campaigns, $cookies, $filter, AdminUtils, $timeout, $http) {
     $scope.authentication = Authentication;
 
     // Create new Campaign
@@ -116,98 +116,12 @@ angular.module('campaigns').controller('CampaignsController', [
     $scope.onEdit = function(campaign) {
       campaign.$edit = true;
     };
-  }
-]);
 
-angular.module('campaigns').controller('CampaignsSalesGoalController', [
-  '$scope', 'CampaignCache',
-  function($scope, CampaignCache) {
-    var tshirt = CampaignCache.getTshirt();
-    $scope.cost = tshirt.currentVariant.baseCost;
-    $scope.unit = tshirt.currentVariant.unit;
-
-    $scope.tshirtsSalesGoal = CampaignCache.getGoal() || 50;
-    CampaignCache.bindGoal($scope);
-
-    $scope.tshirtPrice = CampaignCache.getPrice() || 70;
-    CampaignCache.bindPrice($scope);
-
-    $scope.estimatedProfitFun = function() {
-      var profit = ($scope.tshirtPrice - $scope.cost) * $scope.tshirtsSalesGoal;
-      return profit > 0 ? profit : 0;
-    };
-  }
-]);
-
-angular.module('campaigns').controller('CampaignsSalesDetailsController', [
-  '$scope', 'Campaigns', 'CampaignCache', 'mdCanvasService', '$location', '$http',
-  function($scope, Campaigns, CampaignCache, mdCanvasService, $location, $http) {
-    $scope.campaignTitle = CampaignCache.getTitle() || '';
-    CampaignCache.bindTitle($scope);
-
-    $scope.campaignDescription = CampaignCache.getDescription() || '';
-    CampaignCache.bindDescription($scope);
-
-    var url = CampaignCache.getUrl() || '';
-    if (url) {
-      $scope.campaignUrl = url;
-    }
-    else {
-      $http.get('/campaign/url').success(function(response) {
-        $scope.campaignUrl = JSON.parse(response);
-
-      }).error(function(response) {
-        $scope.error = response.message;
-      });
-    }
-    CampaignCache.bindUrl($scope);
-
-    $scope.currentCampaignLength = CampaignCache.getLength() || 7;
-    CampaignCache.bindLength($scope);
-
-    var dateAfterDaysFromNow = function(days) {
-      return Date.today().addDays(days).toString().split(' ').slice(0, 3).join(' ');
-    };
-
-    $scope.campaignLengths = [3, 5, 7, 10, 14, 21];
-    $scope.displayCampaignLength = function(days) {
-      return days.toString() + ' days ' + '(Ending ' + dateAfterDaysFromNow(days) + ')';
-    };
-
-    $scope.launchCampaign = function() {
-      var tshirt = CampaignCache.getTshirt();
-
-      var campaign = new Campaigns ({
-        name: $scope.campaignTitle,
-        created_at: Date.today(),
-        ended_at: Date.today().addDays($scope.currentCampaignLength),
-        description: CampaignCache.getDescription(),
-        length: CampaignCache.getLength(),
-        url: CampaignCache.getUrl(),
-        goal: parseInt(CampaignCache.getGoal()),
-        tshirtRef: tshirt._id,
-        tshirt: tshirt,
-        price: {
-          value: CampaignCache.getPrice(),
-          unit: variant.unit
-        },
-        color: CampaignCache.getColor(),
-        design: JSON.stringify({
-          front: mdCanvasService.getFrontCanvas(),
-          back: mdCanvasService.getBackCanvas()
-        })
-      });
-
-      // Redirect after save
-      campaign.$save(
-        function(response) {
-          CampaignCache.clear();
-          $location.path('campaigns/' + response._id);
-        },
-        function(errorResponse) {
-          $scope.error = errorResponse.data.message;
-        }
-      );
+    $scope.reserveCampaign = function(name, campaign) {
+      var campaignJson = JSON.stringify(campaign);
+      $state.go('createOrder', {
+        campaign: campaignJson
+      }, {location: false, inherit: false});
     };
   }
 ]);

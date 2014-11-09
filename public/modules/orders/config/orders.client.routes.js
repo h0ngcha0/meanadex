@@ -11,8 +11,9 @@ angular.module('orders').config([
         templateUrl: 'modules/orders/views/list-orders.client.view.html'
       }).
       state('createOrder', {
-        url: '/orders/create',
-        templateUrl: 'modules/orders/views/create-order.client.view.html'
+        url: '/orders/create?campaign',
+        templateUrl: 'modules/orders/views/create-order.client.view.html',
+        controller: 'OrdersController'
       }).
       state('viewOrder', {
         url: '/orders/:orderId',
