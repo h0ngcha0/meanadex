@@ -72,8 +72,45 @@ angular.module('orders').controller('OrdersController', [
       });
     };
 
+    $scope.totalPrice = function(quantity) {
+      var price = parseInt($scope.orderedCampaign.price.value);
+      if(quantity === undefined) {
+        return price;
+      } else {
+        return price * quantity;
+      }
+    };
+
     $scope.orderCampaign = function(name, campaign) {
-      console.log(campaign);
+      var messages = [];
+
+      var msgsMap = {
+        quantity: 'Quantity is required',
+        email: 'Email is required',
+        fullname: 'Full name is required',
+        shippingAddr: 'Shipping address is required',
+        roomNum: 'Room number is required',
+        city: 'City is required',
+        zipcode: 'Zip code is required'
+      };
+
+      Object.keys(msgsMap).forEach(function(key) {
+        if($scope.orderForm[key].$error.required) {
+          messages.push(msgsMap[key]);
+        }
+      });
+
+      if($scope.orderForm.email.$error.email){
+        messages.push("email format is not correct");
+      }
+
+      if(messages === []) {
+        console.log('yay');
+      } else {
+        $scope.error = {
+          messages: messages
+        };
+      }
     };
   }
 ]);

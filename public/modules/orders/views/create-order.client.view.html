@@ -3,10 +3,11 @@
     <div class="span12">
       <div class="col-lg-4">
         <div class="well">
+          <form name="orderForm">
           <table class="table table-bordered">
             <tr>
               <th>
-                <label class="control-label" for="quantity">
+                <label class="control-label" size="3" for="quantity">
                   Quantity
                 </label>
               </th>
@@ -16,16 +17,18 @@
                 </label>
               </th>
               <th>
-                <label class="control-label" for="price">
+                <label class="control-label" size="5" for="price">
                   Price
                 </label>
               </th>
             </tr>
             <tr>
               <td>
-                <input type="text" data-ng-model="quantity"
+                <input type="number" data-ng-model="quantity"
                        id="quantity" class="form-control"
-                       placeholder="1" size="3" required>
+                       required="quantity is required"
+                       data-ng-minlength=1 name="quantity"
+                       placeholder="1" size="3" data-ng-required="true">
               </td>
               <td>
                 <select data-ng-model="tshirtSize" id="size"
@@ -34,15 +37,15 @@
                         required>
               </td>
               <td>
-                <label class="control-label" for="name">
-                  {{orderedCampaign.price.value}} {{orderedCampaign.price.unit}}
+                <label class="control-label" size="5" for="name">
+                  {{totalPrice(quantity)}} {{orderedCampaign.price.unit}}
                 </label>
               </td>
             </tr>
             <tr>
               <td colspan="3">
-                <input type="text" data-ng-model="email"
-                       id="email" class="form-control"
+                <input type="email" data-ng-model="email"
+                       id="email" class="form-control" name="email"
                        placeholder="Email address (for receipt)"
                        required>
               </td>
@@ -51,7 +54,7 @@
               <td colspan="3">
                 <input type="text" data-ng-model="fullname"
                        id="fullname" class="form-control"
-                       placeholder="Full Name"
+                       placeholder="Full Name" name="fullname"
                        required>
               </td>
             </tr>
@@ -59,7 +62,7 @@
               <td colspan="3">
                 <input type="text" data-ng-model="shippingAddr"
                        id="shippingAddr" class="form-control"
-                       placeholder="Shipping address"
+                       placeholder="Shipping address" name="shippingAddr"
                        required>
               </td>
             </tr>
@@ -67,7 +70,7 @@
               <td colspan="3">
                 <input type="text" data-ng-model="roomNum"
                        id="roomNum" class="form-control"
-                       placeholder="Apt/suite"
+                       placeholder="Apt/suite" name="roomNum"
                        required>
               </td>
             </tr>
@@ -75,13 +78,13 @@
               <td colspan="2">
                 <input type="text" data-ng-model="city"
                        id="city" class="form-control"
-                       placeholder="City"
+                       placeholder="City" name="city"
                        required>
               </td>
               <td colspan="1">
                 <input type="text" data-ng-model="zipcode"
                        id="zipcode" class="form-control"
-                       placeholder="Zip code"
+                       placeholder="Zip code" name="zipcode"
                        required>
               </td>
             </tr>
@@ -94,6 +97,14 @@
               </td>
             </tr>
           </table>
+          </form>
+	  <div data-ng-show="error" class="text-danger">
+            <ul>
+              <li data-ng-repeat="msg in error.messages">
+                {{msg}}
+              </li>
+            <ul>
+	  </div>
           <a id="order"
              data-ng-click="orderCampaign('Meanadex', orderedCampaign)"
              type="button"
@@ -102,9 +113,6 @@
             Pay with card
             <i class="glyphicon glyphicon-shopping-cart glyphicon-white"></i>
           </a>
-	  <div data-ng-show="error" class="text-danger">
-	    <strong data-ng-bind="error"></strong>
-	  </div>
         </div>
       </div>
       <div class="col-lg-8">
