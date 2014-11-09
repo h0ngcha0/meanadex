@@ -5,21 +5,21 @@
         <div class="well">
           <table class="table table-bordered">
             <tr>
-              <td>
+              <th>
                 <label class="control-label" for="quantity">
                   Quantity
                 </label>
-              </td>
-              <td>
+              </th>
+              <th>
                 <label class="control-label" for="size">
                   Size
                 </label>
-              </td>
-              <td>
+              </th>
+              <th>
                 <label class="control-label" for="price">
                   Price
                 </label>
-              </td>
+              </th>
             </tr>
             <tr>
               <td>
@@ -39,9 +39,63 @@
                 </label>
               </td>
             </tr>
+            <tr>
+              <td colspan="3">
+                <input type="text" data-ng-model="email"
+                       id="email" class="form-control"
+                       placeholder="Email address (for receipt)"
+                       required>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                <input type="text" data-ng-model="fullname"
+                       id="fullname" class="form-control"
+                       placeholder="Full Name"
+                       required>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                <input type="text" data-ng-model="shippingAddr"
+                       id="shippingAddr" class="form-control"
+                       placeholder="Shipping address"
+                       required>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                <input type="text" data-ng-model="roomNum"
+                       id="roomNum" class="form-control"
+                       placeholder="Apt/suite"
+                       required>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <input type="text" data-ng-model="city"
+                       id="city" class="form-control"
+                       placeholder="City"
+                       required>
+              </td>
+              <td colspan="1">
+                <input type="text" data-ng-model="zipcode"
+                       id="zipcode" class="form-control"
+                       placeholder="Zip code"
+                       required>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                <select data-ng-model="country" id="country"
+                        data-ng-options="country for country in countries"
+                        class="form-control"
+                        required>
+              </td>
+            </tr>
           </table>
           <a id="order"
-             data-ng-click="orderCampaign('Meanadex', campaign)"
+             data-ng-click="orderCampaign('Meanadex', orderedCampaign)"
              type="button"
              class="btn btn-lg btn-block btn-success"
              name="order">

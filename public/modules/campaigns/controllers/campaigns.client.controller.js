@@ -117,7 +117,7 @@ angular.module('campaigns').controller('CampaignsController', [
       campaign.$edit = true;
     };
 
-    $scope.reserveCampaign = function(name, campaign) {
+    $scope.reserveCampaign = function(campaign) {
       var campaignJson = JSON.stringify(campaign);
       $state.go('createOrder', {
         campaign: campaignJson

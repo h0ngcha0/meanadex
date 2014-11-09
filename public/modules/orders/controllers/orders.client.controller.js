@@ -11,6 +11,9 @@ angular.module('orders').controller('OrdersController', [
     $scope.sizes = ['S', 'M', 'L'];
     $scope.tshirtSize = 'M';
 
+    $scope.countries = ['Finland', 'Sweden', 'Norway', 'Denmark'];
+    $scope.country = 'Sweden';
+
     // Create new Order
     $scope.create = function() {
       // Create new Order object
@@ -67,6 +70,10 @@ angular.module('orders').controller('OrdersController', [
       $scope.order = Orders.get({
         orderId: $stateParams.orderId
       });
+    };
+
+    $scope.orderCampaign = function(name, campaign) {
+      console.log(campaign);
     };
   }
 ]);
