@@ -13,12 +13,18 @@ angular.module('orders').controller('OrdersController', [
 
     $scope.countries = ['Finland', 'Sweden', 'Norway', 'Denmark'];
     $scope.country = 'Sweden';
+    $scope.shippingAddr = {};
 
     // Create new Order
-    $scope.create = function() {
+    $scope.create = function(campaign, provider, email, description, payment, shippingAddr) {
       // Create new Order object
       var order = new Orders ({
-        name: this.name
+        campaign: campaign,
+        provider: provider,
+        email: email,
+        description: description,
+        payment: payment,
+        shippingAddr: shippingAddr
       });
 
       // Redirect after save
@@ -101,11 +107,33 @@ angular.module('orders').controller('OrdersController', [
       });
 
       if($scope.orderForm.email.$error.email){
-        messages.push("email format is not correct");
+        messages.push('email format is not correct');
       }
 
-      if(messages === []) {
-        console.log('yay');
+      // Check if there're any errors
+      if(messages.length === 0) {
+        var handler = StripeCheckout.configure({
+          key: 'pk_test_WMSaxecz5HSTGZxlFbuxdF7B',
+          image: '/modules/core/img/brand/favicon.ico',
+          token: function(payment) {
+            $scope.create(
+              $scope.orderedCampaign._id,
+              'stripe',
+              $scope.email,
+              $scope.orderedCampaign.name,
+              payment,
+              $scope.shippingAddr
+            );
+          }
+        });
+
+        // Open Checkout with further options
+        handler.open({
+          name: 'Meanadex',
+          description: $scope.orderedCampaign.title,
+          amount: $scope.orderedCampaign.price.value,
+          unit: $scope.orderedCampaign.price.unit
+        });
       } else {
         $scope.error = {
           messages: messages

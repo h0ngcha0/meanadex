@@ -52,7 +52,7 @@
             </tr>
             <tr>
               <td colspan="3">
-                <input type="text" data-ng-model="fullname"
+                <input type="text" data-ng-model="shippingAddr.name"
                        id="fullname" class="form-control"
                        placeholder="Full Name" name="fullname"
                        required>
@@ -60,15 +60,15 @@
             </tr>
             <tr>
               <td colspan="3">
-                <input type="text" data-ng-model="shippingAddr"
+                <input type="text" data-ng-model="shippingAddr.street"
                        id="shippingAddr" class="form-control"
-                       placeholder="Shipping address" name="shippingAddr"
+                       placeholder="Street name" name="shippingAddr"
                        required>
               </td>
             </tr>
             <tr>
               <td colspan="3">
-                <input type="text" data-ng-model="roomNum"
+                <input type="text" data-ng-model="shippingAddr.roomNum"
                        id="roomNum" class="form-control"
                        placeholder="Apt/suite" name="roomNum"
                        required>
@@ -76,13 +76,13 @@
             </tr>
             <tr>
               <td colspan="2">
-                <input type="text" data-ng-model="city"
+                <input type="text" data-ng-model="shippingAddr.city"
                        id="city" class="form-control"
                        placeholder="City" name="city"
                        required>
               </td>
               <td colspan="1">
-                <input type="text" data-ng-model="zipcode"
+                <input type="text" data-ng-model="shippingAddr.zipcode"
                        id="zipcode" class="form-control"
                        placeholder="Zip code" name="zipcode"
                        required>
@@ -90,7 +90,7 @@
             </tr>
             <tr>
               <td colspan="3">
-                <select data-ng-model="country" id="country"
+                <select data-ng-model="country" id="shippingAddr.country"
                         data-ng-options="country for country in countries"
                         class="form-control"
                         required>

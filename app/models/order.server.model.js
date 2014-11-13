@@ -30,6 +30,40 @@ var OrderSchema = new Schema({
     required: 'Order description is required',
     trim: true
   },
+  email: {
+    type: String,
+    required: 'Email is required',
+    trim: true
+  },
+  shippingAddr: {
+    type: {
+      name: {
+        type: String,
+        required: 'Full name is required'
+      },
+      street: {
+        type: String,
+        required: 'Street is required'
+      },
+      roomNum: {
+        type: String,
+        required: 'Room number is required'
+      },
+      city: {
+        type: String,
+        required: 'City is required'
+      },
+      zipcode: {
+        type: String,
+        required: 'Zipcode is required'
+      },
+      country: {
+        type: String,
+        required: 'Country is required'
+      }
+    },
+    required: 'Shipping address is required'
+  },
   payment: {
     type: Schema.Types.Mixed,
     required: 'Payment info is required'
