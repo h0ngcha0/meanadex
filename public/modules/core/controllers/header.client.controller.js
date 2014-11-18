@@ -11,6 +11,10 @@ angular.module('core').controller('HeaderController', [
       $scope.isCollapsed = !$scope.isCollapsed;
     };
 
+    $scope.isAdmin = function() {
+      return _.contains($scope.authentication.user.roles, 'admin');
+    };
+
     // Collapsing the menu after navigation
     $scope.$on('$stateChangeSuccess', function() {
       $scope.isCollapsed = false;
