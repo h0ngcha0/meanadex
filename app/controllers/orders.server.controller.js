@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
     errorHandler = require('./errors'),
     Order = mongoose.model('Order'),
+    utils = require('./utils'),
     _ = require('lodash');
 
 /**
@@ -72,17 +73,7 @@ exports.delete = function(req, res) {
 /**
  * List of Orders
  */
-exports.list = function(req, res) {
-  Order.find().sort('-created').populate('user', 'displayName').exec(function(err, orders) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(orders);
-    }
-  });
-};
+exports.list = utils.listWithUser(Order);
 
 /**
  * Order middleware

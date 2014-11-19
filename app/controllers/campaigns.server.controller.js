@@ -10,6 +10,7 @@ var mongoose = require('mongoose'),
     us = require('underscore'),
     config = require('../../config/config'),
     stripe = require('stripe')(config.stripe.clientSecret),
+    utils = require('./utils'),
     _ = require('lodash');
 
 /**
@@ -74,42 +75,9 @@ exports.delete = function(req, res) {
 };
 
 /**
- * List of Campaigns by query
- */
-var listByQuery = function(queryFun) {
-  return function(req, res) {
-    var query = queryFun(req);
-    Campaign.find(query).
-      sort('-created').
-      populate('user', 'displayName').
-      exec(function(err, campaigns) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        res.jsonp(campaigns);
-      }
-    });
-  };
-};
-
-/**
  * List of Campaigns owned by a particular user
  */
-exports.list = listByQuery(
-  function(req) {
-    var userId = req.user._id,
-        roles = req.user.roles;
-
-    // if it is admin, return all campaigns
-    if (us.contains(roles, 'admin')) {
-      return {};
-    } else {
-      return {user: userId};
-    }
-  }
-);
+exports.list = utils.listWithUser(Campaign);
 
 /**
  * Campaign middleware
