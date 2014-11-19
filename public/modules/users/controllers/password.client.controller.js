@@ -28,18 +28,25 @@ angular.module('users').controller('PasswordController', [
     $scope.resetUserPassword = function() {
       $scope.success = $scope.error = null;
 
-      $http.post('/auth/reset/' + $stateParams.token, $scope.passwordDetails).success(function(response) {
-        // If successful show success message and clear form
-        $scope.passwordDetails = null;
+      $http.post('/auth/reset/' + $stateParams.token, $scope.passwordDetails).
+        success(
+          function(response) {
+            // If successful show success message and clear form
+            $scope.passwordDetails = null;
 
-        // Attach user profile
-        Authentication.user = response;
+            // Attach user profile
+            Authentication.user = response;
 
-        // And redirect to the index page
-        $location.path('/password/reset/success');
-        }).error(function(response) {
-        $scope.error = response.message;
-      });
+            // And redirect to the reset success page
+            $location.path('/user/password/reset/success');
+          }).
+        error(
+          function(response) {
+            $scope.error = response.message;
+            // And redirect to the reset invalid page
+            $location.path('/user/password/reset/invalid');
+          }
+        );
     };
   }
 ]);
