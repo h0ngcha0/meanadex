@@ -73,7 +73,13 @@ exports.delete = function(req, res) {
 /**
  * List of Orders
  */
-exports.list = utils.listWithUser(Order);
+exports.list = utils.listWithUser(
+  Order,
+  {
+    'user': 'displayName',
+    'campaign': 'name'
+  }
+);
 
 /**
  * Order middleware

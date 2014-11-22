@@ -77,7 +77,12 @@ exports.delete = function(req, res) {
 /**
  * List of Campaigns owned by a particular user
  */
-exports.list = utils.listWithUser(Campaign);
+exports.list = utils.listWithUser(
+  Campaign,
+  {
+    'user': 'displayName'
+  }
+);
 
 /**
  * Campaign middleware

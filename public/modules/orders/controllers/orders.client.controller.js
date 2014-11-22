@@ -3,7 +3,9 @@
 // Orders controller
 angular.module('orders').controller('OrdersController', [
   '$scope', '$stateParams', '$location', 'Authentication', 'Orders',
-  function($scope, $stateParams, $location, Authentication, Orders) {
+  '$filter', 'AdminUtils',
+  function($scope, $stateParams, $location, Authentication, Orders,
+           $filter, AdminUtils) {
 
     $scope.authentication = Authentication;
 
@@ -46,5 +48,25 @@ angular.module('orders').controller('OrdersController', [
         orderId: $stateParams.orderId
       });
     };
+
+    $scope.tableParams = AdminUtils.newTableParams(
+      function($defer, params) {
+        var orderedData = params.filter() ?
+          $filter('filter')($scope.orders, params.filter()) :
+          $scope.orders;
+
+        params.total(orderedData.length);
+        $defer.resolve(orderedData);
+      }
+    );
+
+    // Find a list of Orders and load them into order table
+    $scope.loadAllOrdersInTableData = function() {
+      $scope.orders = Orders.query(
+        function(data) {
+          $scope.tableParams.reload();
+        });
+    };
+
   }
 ]);

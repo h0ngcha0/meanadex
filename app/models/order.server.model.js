@@ -64,6 +64,14 @@ var OrderSchema = new Schema({
     },
     required: 'Shipping address is required'
   },
+  amount: {
+    type: Number,
+    required: 'Amount is required'
+  },
+  unit: {
+    type: String,
+    required: 'Unit is required'
+  },
   payment: {
     type: Schema.Types.Mixed,
     required: 'Payment info is required'

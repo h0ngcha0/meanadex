@@ -23,13 +23,19 @@ var userQuery = function(req) {
  * List of object by query, sorted by create date, populated
  * with user displayName
  */
-var listByQuery = function(model, queryFun) {
+var listByQuery = function(model, queryFun, populateMap) {
   return function(req, res) {
     var query = queryFun(req);
-    model.find(query).
-      sort('-created').
-      populate('user', 'displayName').
-      exec(function(err, objects) {
+    var results = model.find(query).sort('-created');
+
+    us.each(
+      populateMap,
+      function(value, key) {
+        results.populate(key, value);
+      }
+    );
+
+    results.exec(function(err, objects) {
       if (err) {
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)
@@ -42,6 +48,7 @@ var listByQuery = function(model, queryFun) {
 };
 
 
-exports.listWithUser = function(model) {
-  return listByQuery(model, userQuery);
+exports.listWithUser = function(model, populateMap) {
+  if(!populateMap) populateMap = {};
+  return listByQuery(model, userQuery, populateMap);
 };

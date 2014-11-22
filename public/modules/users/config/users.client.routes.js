@@ -92,6 +92,15 @@ angular.module('users').config([
           }
         }
       }).
+      state('user.orders', {
+        url: '/orders',
+        views: {
+          'userPanel': {
+            templateUrl: 'modules/orders/views/list-orders.client.view.html',
+            controller: 'OrdersController'
+          }
+        }
+      }).
       state('user.campaigns', {
         url: '/campaigns',
         views: {

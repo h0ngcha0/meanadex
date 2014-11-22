@@ -16,7 +16,11 @@ angular.module('orders').controller('CreateOrderController', [
     $scope.shippingAddr = {};
 
     // Create new Order
-    $scope.create = function(campaign, provider, email, description, payment, shippingAddr) {
+    $scope.create = function(
+      campaign, provider, email,
+      description, payment, shippingAddr,
+      amount, unit
+    ) {
       // Create new Order object
       var order = new Orders ({
         campaign: campaign,
@@ -24,6 +28,8 @@ angular.module('orders').controller('CreateOrderController', [
         email: email,
         description: description,
         payment: payment,
+        amount: amount,
+        unit: unit,
         shippingAddr: shippingAddr
       });
 
