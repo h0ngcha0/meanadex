@@ -22,7 +22,8 @@ var OrderSchema = new Schema({
   campaign: {
     type: Schema.ObjectId,
     required: 'Campaign info is required',
-    ref: 'Campaign'
+    ref: 'Campaign',
+    index: true
   },
   description: {
     type: String,
@@ -80,6 +81,6 @@ var OrderSchema = new Schema({
     type: Schema.Types.Mixed,
     required: 'Payment info is required'
   }
-});
+}, {autoIndex: false});
 
 mongoose.model('Order', OrderSchema);

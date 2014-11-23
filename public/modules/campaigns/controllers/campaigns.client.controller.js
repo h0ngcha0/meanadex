@@ -126,7 +126,7 @@ angular.module('campaigns').controller('CampaignsController', [
       } else {
         return 0;
       }
-    }
+    };
 
     $scope.reserveCampaign = function(campaign) {
       var campaignJson = JSON.stringify(campaign);
