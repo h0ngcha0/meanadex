@@ -39,7 +39,7 @@ angular.module('orders').controller('CreateOrderController', [
         function(response) {
           $state.go('finishOrder', {
             orderId: response._id
-          })
+          });
 
           // Clear form fields
           $scope.name = '';

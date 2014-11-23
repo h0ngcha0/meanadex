@@ -1,0 +1,21 @@
+<div class="container" data-ng-init="findOne()">
+  <section>
+    <div class="page-header">
+      <h3>Congratulations, {{order.user.displayName}}!</h3>
+      Your have reserved an order for <a data-ng-href="#!/campaigns/{{order.campaign._id}}">{{order.campaign.name}}</a>
+    </div>
+    <div class="pull-right" data-ng-show="authentication.user._id == order.user._id">
+      <a class="btn btn-primary" data-ng-click="remove();">
+        <i class="glyphicon glyphicon-trash"></i>
+      </a>
+    </div>
+    <small>
+      <em class="text-muted">
+        Ordered by
+        <span data-ng-bind="order.user.displayName"></span>
+        on
+        <span data-ng-bind="order.created_at | date:'mediumDate'"></span>
+      </em>
+    </small>
+  </section>
+</div>

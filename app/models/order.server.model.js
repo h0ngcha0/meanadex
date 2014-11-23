@@ -19,6 +19,10 @@ var OrderSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'User'
   },
+  created_at: {
+    type: Date,
+    default: Date.now
+  },
   campaign: {
     type: Schema.ObjectId,
     required: 'Campaign info is required',

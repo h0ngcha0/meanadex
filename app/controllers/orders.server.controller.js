@@ -100,7 +100,10 @@ exports.listByCampaign = function(campaignId) {
  * Order middleware
  */
 exports.orderByID = function(req, res, next, id) {
-  Order.findById(id).populate('user', 'displayName').exec(function(err, order) {
+  Order.findById(id).
+    populate('user', 'displayName').
+    populate('campaign', 'name').
+    exec(function(err, order) {
     if (err) return next(err);
     if (! order) return next(new Error('Failed to load Order ' + id));
     req.order = order ;
