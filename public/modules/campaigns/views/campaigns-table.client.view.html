@@ -8,7 +8,7 @@
         </div>
       </td>
       <td data-title="'Description'" filter="{ 'description': 'text' }">
-        <span ng-if="!campaign.$edit">{{campaign.description}}</span>
+        <span ng-if="!campaign.$edit" ng-bind-html="campaign.description"></span>
         <div ng-if="campaign.$edit">
           <input class="form-control"
                  type="text"

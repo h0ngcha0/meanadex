@@ -82,6 +82,21 @@ exports.list = utils.listWithUser(
 );
 
 /**
+ * List of Orders by campaign id
+ */
+exports.listByCampaign = function(campaignId) {
+  return Order.find({
+    'campaign': campaignId
+  }).sort(
+    '-created'
+  ).populate(
+    'user', 'displayName'
+  ).populate(
+    'campaign', 'name'
+  );
+};
+
+/**
  * Order middleware
  */
 exports.orderByID = function(req, res, next, id) {

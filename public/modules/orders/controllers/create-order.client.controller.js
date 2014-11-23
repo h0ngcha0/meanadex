@@ -19,7 +19,7 @@ angular.module('orders').controller('CreateOrderController', [
     $scope.create = function(
       campaign, provider, email,
       description, payment, shippingAddr,
-      amount, unit
+      amount, quantity, unit
     ) {
       // Create new Order object
       var order = new Orders ({
@@ -29,6 +29,7 @@ angular.module('orders').controller('CreateOrderController', [
         description: description,
         payment: payment,
         amount: amount,
+        quantity: quantity,
         unit: unit,
         shippingAddr: shippingAddr
       });
@@ -88,7 +89,10 @@ angular.module('orders').controller('CreateOrderController', [
               $scope.email,
               $scope.orderedCampaign.name,
               payment,
-              $scope.shippingAddr
+              $scope.shippingAddr,
+              $scope.orderedCampaign.price.value,
+              $scope.quantity,
+              $scope.orderedCampaign.price.unit
             );
           }
         });
@@ -97,7 +101,7 @@ angular.module('orders').controller('CreateOrderController', [
         handler.open({
           name: 'Meanadex',
           description: $scope.orderedCampaign.title,
-          amount: $scope.orderedCampaign.price.value,
+          amount: $scope.totalPrice($scope.quantity),
           unit: $scope.orderedCampaign.price.unit
         });
       } else {

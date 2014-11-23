@@ -68,6 +68,10 @@ var OrderSchema = new Schema({
     type: Number,
     required: 'Amount is required'
   },
+  quantity: {
+    type: Number,
+    required: 'Quantity is required'
+  },
   unit: {
     type: String,
     required: 'Unit is required'

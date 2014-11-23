@@ -56,6 +56,17 @@ describe('Order Model Unit Tests:', function() {
         user: user,
         campaign: campaign,
         description: 'description',
+        email: 'user@example.com',
+        amount: 40,
+        unit: 'SEK',
+        shippingAddr: {
+          name: 'username',
+          street: 'street',
+          roomNum: 'room number',
+          city: 'city',
+          zipcode: '12345',
+          country: 'Sweden'
+        },
         payment: {}
       });
 

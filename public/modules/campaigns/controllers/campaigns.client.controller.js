@@ -79,7 +79,8 @@ angular.module('campaigns').controller('CampaignsController', [
     $scope.findOne = function() {
       $scope.campaign = Campaigns.get(
         {
-          campaignId: $stateParams.campaignId
+          campaignId: $stateParams.campaignId,
+          withOrder: true
         }
       );
     };
@@ -116,6 +117,16 @@ angular.module('campaigns').controller('CampaignsController', [
     $scope.onEdit = function(campaign) {
       campaign.$edit = true;
     };
+
+    $scope.sold = function(campaign) {
+      if(Array.isArray(campaign.orders)) {
+        return _.reduce(campaign.orders, function(num, order) {
+                 return num + order.quantity;
+               }, 0);
+      } else {
+        return 0;
+      }
+    }
 
     $scope.reserveCampaign = function(campaign) {
       var campaignJson = JSON.stringify(campaign);

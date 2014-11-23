@@ -11,6 +11,7 @@ var mongoose = require('mongoose'),
     config = require('../../config/config'),
     stripe = require('stripe')(config.stripe.clientSecret),
     utils = require('./utils'),
+    orders = require('../../app/controllers/orders'),
     _ = require('lodash');
 
 /**
@@ -35,7 +36,24 @@ exports.create = function(req, res) {
  * Show the current Campaign
  */
 exports.read = function(req, res) {
-  res.jsonp(req.campaign);
+  var withOrder = req.param('withOrder');
+  var campaign = req.campaign;
+
+  if(withOrder) {
+    var query = orders.listByCampaign(campaign._id);
+    query.lean().exec(function(err, objects) {
+      if(err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        campaign.orders = objects;
+        res.jsonp(campaign);
+      }
+    });
+  } else {
+    res.jsonp(campaign);
+  }
 };
 
 /**
@@ -88,7 +106,8 @@ exports.list = utils.listWithUser(
  * Campaign middleware
  */
 exports.campaignByID = function(req, res, next, id) {
-  Campaign.findById(id).populate('user', 'displayName').exec(function(err, campaign) {
+  // use lean() will make mongoose return json data
+  Campaign.findById(id).lean().populate('user', 'displayName').exec(function(err, campaign) {
     if (err) return next(err);
     if (! campaign) return next(new Error('Failed to load Campaign ' + id));
     req.campaign = campaign ;

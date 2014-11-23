@@ -49,6 +49,11 @@ angular.module('orders').controller('OrdersController', [
       });
     };
 
+    $scope.onRemove = function(order) {
+      $scope.remove(order);
+      $scope.tableParams.reload();
+    };
+
     $scope.tableParams = AdminUtils.newTableParams(
       function($defer, params) {
         var orderedData = params.filter() ?
