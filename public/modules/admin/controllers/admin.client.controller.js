@@ -6,11 +6,7 @@ angular.module('admin').controller('AdminController', [
     $scope.authentication = Authentication;
 
     // check if a user is authenticated
-    $scope.ensureAuthenticated = function() {
-      if(!$scope.authentication.user) {
-        $location.path('signin');
-      }
-    };
+    $scope.ensureAuthenticated = Authentication.ensureAuthenticated;
 
     // check if a user is authorized to access the admin page
     $scope.isAuthorized = function() {

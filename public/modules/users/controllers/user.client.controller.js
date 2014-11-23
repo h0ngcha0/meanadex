@@ -6,10 +6,6 @@ angular.module('users').controller('UserController', [
     $scope.authentication = Authentication;
 
     // check if a user is authenticated
-    $scope.ensureAuthenticated = function() {
-      if(!$scope.authentication.user) {
-        $location.path('signin');
-      }
-    };
+    $scope.ensureAuthenticated = Authentication.ensureAuthenticated;
   }
 ]);
