@@ -58,6 +58,7 @@ describe('Order Model Unit Tests:', function() {
         description: 'description',
         email: 'user@example.com',
         amount: 40,
+        quantity: 2,
         unit: 'SEK',
         shippingAddr: {
           name: 'username',
