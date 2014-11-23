@@ -16,8 +16,8 @@ angular.module('orders').config([
         templateUrl: 'modules/orders/views/create-order.client.view.html',
         controller: 'CreateOrderController'
       }).
-      state('viewOrder', {
-        url: '/orders/:orderId',
+      state('finishOrder', {
+        url: '/orders/finish?orderId',
         templateUrl: 'modules/orders/views/view-order.client.view.html',
         controller: 'OrdersController'
       }).

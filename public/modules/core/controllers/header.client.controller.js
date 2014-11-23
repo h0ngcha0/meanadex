@@ -12,7 +12,11 @@ angular.module('core').controller('HeaderController', [
     };
 
     $scope.isAdmin = function() {
-      return _.contains($scope.authentication.user.roles, 'admin');
+      if($scope.authentication.user) {
+        return _.contains($scope.authentication.user.roles, 'admin');
+      } else {
+        return false;
+      }
     };
 
     // Collapsing the menu after navigation

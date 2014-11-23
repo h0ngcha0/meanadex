@@ -1,5 +1,5 @@
-<div class="container">
-  <section >
+<div class="container" data-ng-init="ensureAuthenticated()">
+  <section data-ng-if="authentication.user">
     <div ui-view="userPanel"></div>
   </section>
 </div>

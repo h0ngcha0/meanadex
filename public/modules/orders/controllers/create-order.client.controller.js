@@ -2,8 +2,8 @@
 
 // Orders controller
 angular.module('orders').controller('CreateOrderController', [
-  '$scope', '$stateParams', '$location', 'Authentication', 'Orders',
-  function($scope, $stateParams, $location, Authentication, Orders) {
+  '$scope', '$stateParams', '$state', '$location', 'Authentication', 'Orders',
+  function($scope, $stateParams, $state, $location, Authentication, Orders) {
 
     $scope.authentication = Authentication;
 
@@ -34,15 +34,19 @@ angular.module('orders').controller('CreateOrderController', [
         shippingAddr: shippingAddr
       });
 
-      // Redirect after save
-      order.$save(function(response) {
-        $location.path('orders/' + response._id);
+      // Redirect to the finish order page after save
+      order.$save(
+        function(response) {
+          $state.go('finishOrder', {
+            orderId: response._id
+          })
 
-        // Clear form fields
-        $scope.name = '';
-      }, function(errorResponse) {
-           $scope.error = errorResponse.data.message;
-         });
+          // Clear form fields
+          $scope.name = '';
+        },
+        function(errorResponse) {
+          $scope.error = errorResponse.data.message;
+        });
     };
 
     $scope.totalPrice = function(quantity) {
