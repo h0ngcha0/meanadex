@@ -7,6 +7,7 @@ module.exports = {
     keywords: 'tshirt, crowd sourcing, mean, lambda'
   },
   port: process.env.PORT || 3000,
+  httpsPort: process.env.PORT || 4000,
   templateEngine: 'swig',
   sessionSecret: 'MEAN',
   sessionCollection: 'sessions',

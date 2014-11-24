@@ -53,6 +53,10 @@ module.exports = {
     clientSecret: process.env.STRIPE_SECRET || 'APP_SECRET',
     callbackURL: 'http://localhost:3000/auth/stripe/callback'
   },
+  ssl: {
+    privateKeyPath: process.env.SSL_PATH_PRIVATE_KEY || '',
+    certificatePath: process.env.SSL_PATH_CERTIFICATE || ''
+  },
   mailer: {
     from: process.env.MAILER_FROM || 'MAILER_FROM',
     options: {
