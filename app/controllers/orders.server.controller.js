@@ -9,21 +9,41 @@ var mongoose = require('mongoose'),
     utils = require('./utils'),
     _ = require('lodash');
 
+var stripe = require('stripe')(
+  'sk_test_POGF3C0J4jmm8rFZNGwLrLaH'
+);
+
 /**
  * Create a Order
  */
 exports.create = function(req, res) {
-  var order = new Order(req.body);
-  order.user = req.user;
+  var order = new Order(req.body),
+      payment = req.body.payment;
+  stripe.charges.create({
+    amount: req.body.amount * 100,
+    currency: req.body.unit,
+    card: payment.id, // obtained with Stripe.js
+    description: 'Charge for' + req.body.description
+  }, function(err, charge) {
+    // asynchronously called
 
-  order.save(function(err) {
     if (err) {
       return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
+        message: err.message
       });
-    } else {
-      res.jsonp(order);
     }
+
+    order.user = req.user;
+
+    order.save(function(err) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(order);
+      }
+    });
   });
 };
 
