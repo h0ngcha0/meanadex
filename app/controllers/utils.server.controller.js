@@ -1,7 +1,7 @@
 'use strict';
 
 var errorHandler = require('./errors'),
-    config = require('../../../config/config'),
+    config = require('../../config/config'),
     nodemailer = require('nodemailer'),
     us = require('underscore');
 
@@ -62,12 +62,12 @@ exports.listWithUser = function(model, populateMap) {
 /**
  * Send mail
  */
-exports.sendMail = function(emailHTML, email, callback) {
+exports.sendMail = function(emailHTML, subject, email, callback) {
   var smtpTransport = nodemailer.createTransport(config.mailer.options);
   var mailOptions = {
     to: email,
     from: config.mailer.from,
-    subject: 'Password Reset',
+    subject: subject,
     html: emailHTML
   };
 

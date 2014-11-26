@@ -42,13 +42,18 @@ exports.create = function(req, res) {
           message: errorHandler.getErrorMessage(err)
         });
       } else {
-        utils.sendMail("test", order.email, function(err) {
-          if (!err) {
-            winston.error('error sending email for order %j', order, err);
-          } else {
-            winston.info('email sent for order %j', order);
+        utils.sendMail(
+          'test',
+          'Your order is created',
+          order.email,
+          function(err) {
+            if (!err) {
+              winston.error('error sending email for order %j', order, err);
+            } else {
+              winston.info('email sent for order %j', order);
+            }
           }
-        });
+        );
         res.jsonp(order);
       }
     });

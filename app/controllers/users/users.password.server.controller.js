@@ -9,7 +9,7 @@ var _ = require('lodash'),
     passport = require('passport'),
     User = mongoose.model('User'),
     config = require('../../../config/config'),
-    utils = require('./utils'),
+    utils = require('../utils'),
     crypto = require('crypto'),
     async = require('async'),
     crypto = require('crypto');
@@ -70,15 +70,20 @@ exports.forgot = function(req, res, next) {
     },
     // If valid email, send reset email using service
     function(emailHTML, user, done) {
-      utils.sendMail(emailHTML, user.email, function(err) {
-        if (!err) {
-          res.send({
-            message: 'An email has been sent to ' + user.email + ' with further instructions.'
-          });
-        }
+      utils.sendMail(
+        emailHTML,
+        'Password Reset',
+        user.email,
+        function(err) {
+          if (!err) {
+            res.send({
+              message: 'An email has been sent to ' + user.email + ' with further instructions.'
+            });
+          }
 
-        done(err);
-      });
+          done(err);
+        }
+      );
     }
     ], function(err) {
     if (err) return next(err);
@@ -169,17 +174,14 @@ exports.reset = function(req, res, next) {
     },
     // If valid email, send reset email using service
     function(emailHTML, user, done) {
-      var smtpTransport = nodemailer.createTransport(config.mailer.options);
-      var mailOptions = {
-        to: user.email,
-        from: config.mailer.from,
-        subject: 'Your password has been changed',
-        html: emailHTML
-      };
-
-      smtpTransport.sendMail(mailOptions, function(err) {
-        done(err, 'done');
-      });
+      utils.sendMail(
+        emailHTML,
+        'Your password has been changed',
+        user.email,
+        function(err) {
+          done(err, 'done');
+        }
+      );
     }
     ], function(err) {
     if (err) return next(err);
