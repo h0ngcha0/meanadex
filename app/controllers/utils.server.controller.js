@@ -1,6 +1,8 @@
 'use strict';
 
 var errorHandler = require('./errors'),
+    config = require('../../../config/config'),
+    nodemailer = require('nodemailer'),
     us = require('underscore');
 
 /**
@@ -55,4 +57,19 @@ var userQuery = function(req) {
 exports.listWithUser = function(model, populateMap) {
   if(!populateMap) populateMap = {};
   return exports.listByQuery(model, userQuery, populateMap);
+};
+
+/**
+ * Send mail
+ */
+exports.sendMail = function(emailHTML, email, callback) {
+  var smtpTransport = nodemailer.createTransport(config.mailer.options);
+  var mailOptions = {
+    to: email,
+    from: config.mailer.from,
+    subject: 'Password Reset',
+    html: emailHTML
+  };
+
+  smtpTransport.sendMail(mailOptions, callback);
 };

@@ -9,7 +9,7 @@ var _ = require('lodash'),
     passport = require('passport'),
     User = mongoose.model('User'),
     config = require('../../../config/config'),
-    nodemailer = require('nodemailer'),
+    utils = require('./utils'),
     crypto = require('crypto'),
     async = require('async'),
     crypto = require('crypto');
@@ -70,14 +70,7 @@ exports.forgot = function(req, res, next) {
     },
     // If valid email, send reset email using service
     function(emailHTML, user, done) {
-      var smtpTransport = nodemailer.createTransport(config.mailer.options);
-      var mailOptions = {
-        to: user.email,
-        from: config.mailer.from,
-        subject: 'Password Reset',
-        html: emailHTML
-      };
-      smtpTransport.sendMail(mailOptions, function(err) {
+      utils.sendMail(emailHTML, user.email, function(err) {
         if (!err) {
           res.send({
             message: 'An email has been sent to ' + user.email + ' with further instructions.'

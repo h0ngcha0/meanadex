@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
     errorHandler = require('./errors'),
     Order = mongoose.model('Order'),
     utils = require('./utils'),
+    winston = require('winston'),
     _ = require('lodash');
 
 var stripe = require('stripe')(
@@ -41,6 +42,13 @@ exports.create = function(req, res) {
           message: errorHandler.getErrorMessage(err)
         });
       } else {
+        utils.sendMail("test", order.email, function(err) {
+          if (!err) {
+            winston.error('error sending email for order %j', order, err);
+          } else {
+            winston.info('email sent for order %j', order);
+          }
+        });
         res.jsonp(order);
       }
     });
