@@ -41,7 +41,7 @@ exports.create = function(req, res) {
 
         callback(err);
       }
-    )
+    );
   };
 
   var saveOrder = function(callback) {
@@ -56,8 +56,8 @@ exports.create = function(req, res) {
         res.jsonp(order);
       }
 
-      callback(err)
-    })
+      callback(err);
+    });
   };
 
   var renderEmail = function(callback) {
@@ -82,7 +82,7 @@ exports.create = function(req, res) {
       'Your order is created',
       order.email,
       function(err) {
-        callback(err)
+        callback(err);
       }
     );
   };

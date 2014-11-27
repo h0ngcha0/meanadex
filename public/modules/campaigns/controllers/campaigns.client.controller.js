@@ -81,6 +81,11 @@ angular.module('campaigns').controller('CampaignsController', [
         {
           campaignId: $stateParams.campaignId,
           withOrder: true
+        },
+        function(data) {
+        },
+        function(err) {
+          $location.path('/campaign_not_found');
         }
       );
     };
