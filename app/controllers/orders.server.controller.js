@@ -7,6 +7,9 @@ var mongoose = require('mongoose'),
     errorHandler = require('./errors'),
     Order = mongoose.model('Order'),
     utils = require('./utils'),
+    config = require('../../config/config'),
+    winston = require('winston'),
+    async = require('async'),
     _ = require('lodash');
 
 var stripe = require('stripe')(
@@ -17,34 +20,85 @@ var stripe = require('stripe')(
  * Create a Order
  */
 exports.create = function(req, res) {
-  var order = new Order(req.body),
-      payment = req.body.payment;
-  stripe.charges.create({
-    amount: req.body.amount * 100,
-    currency: req.body.unit,
-    card: payment.id, // obtained with Stripe.js
-    description: 'Charge for' + req.body.description
-  }, function(err, charge) {
-    // asynchronously called
+  var orderReq = req.body,
+      order = new Order(orderReq),
+      payment = orderReq.payment;
 
-    if (err) {
-      return res.status(400).send({
-        message: err.message
-      });
-    }
+  var makeCharges = function(callback) {
+    stripe.charges.create(
+      {
+        amount: req.body.amount * 100,
+        currency: req.body.unit,
+        card: payment.id, // obtained with Stripe.js
+        description: 'Charge for' + req.body.description
+      },
+      function(err, charge) {
+        if (err) {
+          res.status(400).send({
+            message: err.message
+          });
+        }
 
+        callback(err);
+      }
+    )
+  };
+
+  var saveOrder = function(callback) {
     order.user = req.user;
 
     order.save(function(err) {
-      if (err) {
-        return res.status(400).send({
+      if(err) {
+        res.status(400).send({
           message: errorHandler.getErrorMessage(err)
         });
       } else {
         res.jsonp(order);
       }
-    });
-  });
+
+      callback(err)
+    })
+  };
+
+  var renderEmail = function(callback) {
+    var urlPrefix = 'http://' + req.headers.host;
+
+    res.render(
+      'templates/order-finish-confirm-email',
+      {
+        name: req.user.displayName,
+        appName: config.app.title,
+        campaign_name: order.description,
+        campaign_url: urlPrefix + '/#!/campaigns/' + orderReq.campaign
+      },
+      function(err, emailHTML) {
+        callback(err, emailHTML);
+      });
+  };
+
+  var sendEmail = function(emailHTML, callback) {
+    utils.sendMail(
+      emailHTML,
+      'Your order is created',
+      order.email,
+      function(err) {
+        callback(err)
+      }
+    );
+  };
+
+  var logging = function(err, results) {
+    if (err) {
+      winston.error('error while creating order: ', err);
+    }
+  };
+
+  async.waterfall([
+    makeCharges,
+    saveOrder,
+    renderEmail,
+    sendEmail
+  ], logging);
 };
 
 /**

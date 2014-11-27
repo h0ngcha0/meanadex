@@ -30,7 +30,7 @@ After starting a fresh system with
 
 you can generate some test data using
 
-    grunt populateTestData
+      grunt populateTestData
 
 This will generate an admin user with username set to ```admin``` and
 password set to ```password```. It will generate a sample tshirt as well.
