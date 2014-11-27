@@ -7,7 +7,9 @@ var mongoose = require('mongoose'),
     errorHandler = require('./errors'),
     Order = mongoose.model('Order'),
     utils = require('./utils'),
+    config = require('../../config/config'),
     winston = require('winston'),
+    async = require('async'),
     _ = require('lodash');
 
 var stripe = require('stripe')(
@@ -18,8 +20,9 @@ var stripe = require('stripe')(
  * Create a Order
  */
 exports.create = function(req, res) {
-  var order = new Order(req.body),
-      payment = req.body.payment;
+  var orderReq = req.body,
+      order = new Order(orderReq),
+      payment = orderReq.payment;
   stripe.charges.create({
     amount: req.body.amount * 100,
     currency: req.body.unit,
@@ -42,18 +45,29 @@ exports.create = function(req, res) {
           message: errorHandler.getErrorMessage(err)
         });
       } else {
-        utils.sendMail(
-          'test',
-          'Your order is created',
-          order.email,
-          function(err) {
-            if (!err) {
-              winston.error('error sending email for order %j', order, err);
-            } else {
-              winston.info('email sent for order %j', order);
-            }
-          }
-        );
+        res.render(
+          'templates/order-finish-confirm-email',
+          {
+            name: req.user.displayName,
+            appName: config.app.title,
+            campaign_name: order.description,
+            campaign_url: 'http://' + req.headers.host + '/#!/campaigns/' + orderReq.campaign
+          },
+          function(err, emailHTML) {
+            utils.sendMail(
+              emailHTML,
+              'Your order is created',
+              order.email,
+              function(err) {
+                if (err) {
+                  winston.error('error sending email for order', orderReq, err);
+                } else {
+                  winston.info('email sent for order', orderReq);
+                }
+              }
+            );
+          });
+
         res.jsonp(order);
       }
     });
