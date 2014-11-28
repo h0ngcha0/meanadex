@@ -3,7 +3,9 @@
 // Orders controller
 angular.module('orders').controller('CreateOrderController', [
   '$scope', '$stateParams', '$state', '$location', 'Authentication', 'Orders',
-  function($scope, $stateParams, $state, $location, Authentication, Orders) {
+  'stripeImage',
+  function($scope, $stateParams, $state, $location, Authentication, Orders,
+           stripeImage) {
 
     $scope.authentication = Authentication;
 
@@ -85,7 +87,7 @@ angular.module('orders').controller('CreateOrderController', [
       if(messages.length === 0) {
         var handler = StripeCheckout.configure({
           key: 'pk_test_WMSaxecz5HSTGZxlFbuxdF7B',
-          image: '/modules/core/img/brand/favicon.ico',
+          image: stripeImage,
           token: function(payment) {
             $scope.create(
               $scope.orderedCampaign._id,

@@ -39,6 +39,12 @@ exports.read = function(req, res) {
   var withOrder = req.param('withOrder');
   var campaign = req.campaign;
 
+  if (!campaign) {
+    return res.status(400).send({
+      message: 'Campaign not found: ' + req.param('campaignId')
+    });
+  }
+
   if(withOrder) {
     var query = orders.listByCampaign(campaign._id);
     query.lean().exec(function(err, objects) {
@@ -109,8 +115,7 @@ exports.campaignByID = function(req, res, next, id) {
   // use lean() will make mongoose return json data
   Campaign.findById(id).lean().populate('user', 'displayName').exec(function(err, campaign) {
     if (err) return next(err);
-    if (! campaign) return next(new Error('Failed to load Campaign ' + id));
-    req.campaign = campaign ;
+    req.campaign = campaign;
     next();
   });
 };

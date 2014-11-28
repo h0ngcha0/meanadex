@@ -6,6 +6,7 @@ var ApplicationConfiguration = (
     // Init module configuration options
     var applicationModuleName = 'meanadex';
     var applicationModuleVendorDependencies = [
+      'constants',
       'ngResource',
       'ngCookies',
       'ngAnimate',

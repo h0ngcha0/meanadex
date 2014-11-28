@@ -117,8 +117,33 @@ module.exports = function(grunt) {
         }
       }
     },
+    ngconstant: {
+      options: {
+        name: 'constants',
+        dest: 'public/modules/core/services/constants.js',
+        constants: {
+          stripeImage: 'undefined'
+        }
+      },
+      development: {
+        constants: {
+          stripeImage: 'https://localhost:4000/modules/core/img/brand/favicon.ico'
+        }
+      },
+      test: {
+        constants: {
+          stripeImage: 'https://localhost:4000/modules/core/img/brand/favicon.ico'
+        }
+      },
+      production: {
+        constants: {}
+      }
+    },
     concurrent: {
-      default: ['nodemon', 'watch'],
+      default: ['ngconstant:development', 'nodemon', 'watch'],
+      development: ['ngconstant:development', 'nodemon', 'watch'],
+      test: ['ngconstant:test', 'nodemon', 'watch'],
+      production: ['ngconstant:production', 'nodemon', 'watch'],
       debug: ['nodemon', 'watch', 'node-inspector'],
       options: {
         logConcurrentOutput: true
@@ -182,4 +207,7 @@ module.exports = function(grunt) {
 
   // flow task
   grunt.loadNpmTasks('grunt-flow-type-check');
+
+  // ng-constant for dynamically generating constant values
+  grunt.loadNpmTasks('grunt-ng-constant');
 };
