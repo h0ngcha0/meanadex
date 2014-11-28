@@ -72,6 +72,7 @@
     "karma-phantomjs-launcher": "~0.1.2",
     "tough-cookie": "~0.12.1",
     "form-data": "~0.1.4",
-    "grunt-flow-type-check": "~0.2.1"
+    "grunt-flow-type-check": "~0.2.1",
+    "grunt-ng-constant": "~1.0.0"
   }
 }
