@@ -21,30 +21,36 @@ var stripe = require('stripe')(
  */
 exports.create = function(req, res) {
   var orderReq = req.body,
-      order = new Order(orderReq),
       payment = orderReq.payment;
 
-  var makeCharges = function(callback) {
-    stripe.charges.create(
+  var createCustomer = function(callback) {
+    stripe.customers.create(
       {
-        amount: req.body.amount * 100,
-        currency: req.body.unit,
+        email: orderReq.email,
         card: payment.id, // obtained with Stripe.js
-        description: 'Charge for' + req.body.description
+        description: 'Charge for campaign: ' + orderReq.description,
+        metadata: {
+          campaignId: orderReq.campaign,
+          amount: req.body.amount * 100,
+          currency: req.body.unit
+        }
       },
-      function(err, charge) {
+      function(err, customer) {
         if (err) {
           res.status(400).send({
             message: err.message
           });
         }
 
-        callback(err);
+        callback(err, customer.id);
       }
     );
   };
 
-  var saveOrder = function(callback) {
+  var saveOrder = function(customerId, callback) {
+    orderReq.payment.customerId = customerId;
+    var order = new Order(orderReq);
+
     order.user = req.user;
 
     order.save(function(err) {
@@ -68,7 +74,7 @@ exports.create = function(req, res) {
       {
         name: req.user.displayName,
         appName: config.app.title,
-        campaign_name: order.description,
+        campaign_name: orderReq.description,
         campaign_url: urlPrefix + '/#!/campaigns/' + orderReq.campaign
       },
       function(err, emailHTML) {
@@ -80,7 +86,7 @@ exports.create = function(req, res) {
     utils.sendMail(
       emailHTML,
       'Your order is created',
-      order.email,
+      orderReq.email,
       function(err) {
         callback(err);
       }
@@ -94,7 +100,7 @@ exports.create = function(req, res) {
   };
 
   async.waterfall([
-    makeCharges,
+    createCustomer,
     saveOrder,
     renderEmail,
     sendEmail
