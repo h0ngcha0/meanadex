@@ -13,7 +13,7 @@ var mongoose = require('mongoose'),
     _ = require('lodash');
 
 var stripe = require('stripe')(
-  'sk_test_POGF3C0J4jmm8rFZNGwLrLaH'
+  config.stripe.clientSecret
 );
 
 /**

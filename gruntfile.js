@@ -64,7 +64,7 @@ module.exports = function(grunt) {
     },
     csslint: {
       options: {
-        csslintrc: '.csslintrc',
+        csslintrc: '.csslintrc'
       },
       all: {
         src: watchFiles.clientCSS
@@ -122,17 +122,26 @@ module.exports = function(grunt) {
         name: 'constants',
         dest: 'public/modules/core/services/constants.js',
         constants: {
-          stripeImage: 'undefined'
+          ENV: {
+            stripeImage: undefined,
+            stripePublicKey: undefined
+          }
         }
       },
       development: {
         constants: {
-          stripeImage: 'https://localhost:4000/modules/core/img/brand/favicon.ico'
+          ENV: {
+            stripeImage: 'https://localhost:4000/modules/core/img/brand/favicon.ico',
+            stripePublicKey: 'pk_test_WMSaxecz5HSTGZxlFbuxdF7B'
+          }
         }
       },
       test: {
         constants: {
-          stripeImage: 'https://localhost:4000/modules/core/img/brand/favicon.ico'
+          ENV: {
+            stripeImage: 'https://localhost:4000/modules/core/img/brand/favicon.ico',
+            stripePublicKey: 'pk_test_WMSaxecz5HSTGZxlFbuxdF7B'
+          }
         }
       },
       production: {
