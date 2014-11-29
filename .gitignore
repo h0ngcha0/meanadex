@@ -8,3 +8,6 @@ app/tests/coverage/
 .bower-*/
 .idea/
 .tern-port
+public/modules/core/services/constants.js
+public/uploads/
+todo.org
