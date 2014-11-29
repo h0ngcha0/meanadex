@@ -23,7 +23,8 @@ ADD . /home/mean
 # currently only works for development
 ENV NODE_ENV development
 
-# Port 3000 for server
+# Port 3000 for http server
+# Port 4000 for https server
 # Port 35729 for livereload
-EXPOSE 3000 35729
+EXPOSE 3000 4000 35729
 CMD ["grunt"]
