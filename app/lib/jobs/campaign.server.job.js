@@ -5,18 +5,17 @@ var mongoose = require('mongoose'),
     async = require('async'),
     winston = require('winston'),
     Campaign = mongoose.model('Campaign'),
+    stripe = require('stripe')(config.stripe.clientSecret),
     _ = require('lodash');
 
 module.exports = function(agenda) {
   agenda.define('check campaigns maturity', function(job, done) {
-    var data = job.attrs.data;
-
     var listOrders = function(campaignId) {
       return function(callback) {
         var query = orders.listByCampaign(campaignId);
         query.lean().exec(function(err, campaignOrders) {
           if(err) {
-            console.log('error getting orders for campaign: ' + campaignId);
+            winston.log('error getting orders for campaign: ' + campaignId);
           }
 
           callback(err, campaignOrders)
@@ -27,6 +26,24 @@ module.exports = function(agenda) {
     var chargeOrders = function(campaignOrders, callback) {
       _.forEach(campaignOrders, function(order) {
         // making the charge
+        var customerId = order.payment.customerId;
+
+        // FIXME: need to charge on behalf of the campaign owner
+        stripe.charges.create(
+          {
+            customer: customerId,
+            amount: order.amount * 100,
+            currency: order.unit,
+            description: order.description
+          },
+          function(err, charge) {
+            if(err) {
+              winston.error('error charging order: ' + order._id + '; customer id: ' + customerId);
+            } else {
+              winston.info('order: ' + order._id + ' with customer id: ' + customerId + ' charged');
+            }
+          }
+        );
       });
 
       // always go through
@@ -38,7 +55,7 @@ module.exports = function(agenda) {
         campaign.matured = true;
         campaign.save(function(err) {
           if(err) {
-            console.log('campaign ' + campaign._id + ' is tipped.');
+            winston.log('campaign ' + campaign._id + ' is tipped.');
           }
 
           callback(err);
@@ -48,7 +65,7 @@ module.exports = function(agenda) {
 
     var logging = function(err, results) {
       if (err) {
-        winston.error('error while creating order: ', err);
+        winston.error('error while trying to tip campaigns: ', err);
       }
     };
 
