@@ -43,6 +43,12 @@ module.exports = {
     publishableKey: process.env.PUBLISHABLE_KEY || 'pk_test_WMSaxecz5HSTGZxlFbuxdF7B',
     callbackURL: 'http://127.0.0.1:3000/auth/stripe/callback'
   },
+  job: {
+    campaignJob: {
+      start: 'Saturday at noon',
+      frequency: '1 week'
+    }
+  },
   mailer: {
     from: process.env.MAILER_FROM || 'MAILER_FROM',
     options: {

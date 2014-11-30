@@ -65,7 +65,10 @@ module.exports = function(agenda) {
     });
   });
 
-  var checkCampaignMaturity = agenda.schedule('in 1 minutes', 'check campaigns maturity');
+  var checkCampaignMaturity = agenda.schedule(
+    config.job.campaignJob.start,
+    'check campaigns maturity'
+  );
 
-  checkCampaignMaturity.repeatEvery('1 minute').save();
+  checkCampaignMaturity.repeatEvery(config.job.campaignJob.frequency).save();
 };
