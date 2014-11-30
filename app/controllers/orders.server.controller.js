@@ -84,7 +84,7 @@ exports.create = function(req, res) {
   };
 
   var sendEmail = function(emailHTML, callback) {
-    agenda.now('order reserve email', {
+    agenda.now('send email', {
       email: orderReq.email,
       emailHTML: emailHTML,
       subject: 'Your order is created'

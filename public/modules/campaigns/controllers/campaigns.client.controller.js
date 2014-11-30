@@ -8,37 +8,6 @@ angular.module('campaigns').controller('CampaignsController', [
            Campaigns, $cookies, $filter, AdminUtils, $timeout, $http) {
     $scope.authentication = Authentication;
 
-    // Create new Campaign
-    $scope.create = function(date) {
-      // Create new Campaign object
-      var campaign = new Campaigns ({
-        name: this.name,
-        created_at: date,
-        ended_at: date.addDays(this.length), //Date.today()
-        description: this.description,
-        length: this.length,
-        url: this.url,
-        goal: this.goal,
-        sold: this.sold,
-        cost: this.cost,
-        price: this.price,
-        design: this.design
-      });
-
-      // Redirect after save
-      campaign.$save(
-        function(response) {
-          $location.path('campaigns/' + response._id);
-
-          // Clear form fields
-          $scope.name = '';
-        },
-        function(errorResponse) {
-          $scope.error = errorResponse.data.message;
-        }
-      );
-    };
-
     // Remove existing Campaign
     $scope.remove = function( campaign ) {
       if ( campaign ) {

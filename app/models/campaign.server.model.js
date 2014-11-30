@@ -84,6 +84,11 @@ var CampaignSchema = new Schema({
     type: String,
     required: 'design property is required',
     trim: true
+  },
+  matured: {
+    type: Boolean,
+    required: 'matured property is required',
+    default: false
   }
 });
 

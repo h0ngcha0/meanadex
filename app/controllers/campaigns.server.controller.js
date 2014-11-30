@@ -17,7 +17,9 @@ var mongoose = require('mongoose'),
  * Create a Campaign
  */
 exports.create = function(req, res) {
-  var campaign = new Campaign(req.body);
+  var campaignReq = req.body,
+      campaign = new Campaign(campaignReq);
+
   campaign.user = req.user;
 
   campaign.save(function(err) {

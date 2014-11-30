@@ -3,7 +3,7 @@ var config = require('../../../config/config'),
     nodemailer = require('nodemailer');
 
 module.exports = function(agenda) {
-  agenda.define('order reserve email', {priority: 'high'}, function(job, done) {
+  agenda.define('send email', {priority: 'high'}, function(job, done) {
     var data = job.attrs.data;
 
     var smtpTransport = nodemailer.createTransport(config.mailer.options);
@@ -18,4 +18,4 @@ module.exports = function(agenda) {
       done();
     });
   });
-}
+};
