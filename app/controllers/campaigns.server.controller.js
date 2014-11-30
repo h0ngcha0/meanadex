@@ -9,7 +9,6 @@ var mongoose = require('mongoose'),
     shortId = require('shortid'),
     us = require('underscore'),
     config = require('../../config/config'),
-    stripe = require('stripe')(config.stripe.clientSecret),
     utils = require('./utils'),
     orders = require('../../app/controllers/orders'),
     _ = require('lodash');
@@ -166,28 +165,6 @@ exports.fromUrl = function(req, res, next) {
       }
       else {
         res.redirect('/#!/campaigns/' + campaign._id);
-      }
-    }
-  );
-};
-
-exports.order = function(req, res) {
-  var transaction = req.body,
-      stripeToken = transaction.stripeToken;
-
-  console.log('ordering.....');
-  console.log(stripeToken);
-  console.log(transaction);
-
-  stripe.customers.create(
-    {
-      card: stripeToken
-    },
-    function(err, customer) {
-      if(err) {
-        console.log(err);
-      } else {
-        console.log(customer);
       }
     }
   );
