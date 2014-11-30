@@ -24,4 +24,3 @@ if(jobModules.length) {
 }
 
 module.exports = agenda;
-

@@ -10,6 +10,7 @@ var mongoose = require('mongoose'),
     config = require('../../config/config'),
     winston = require('winston'),
     async = require('async'),
+    agenda = require('../lib/agenda.server.lib.js'),
     _ = require('lodash');
 
 var stripe = require('stripe')(
@@ -83,14 +84,13 @@ exports.create = function(req, res) {
   };
 
   var sendEmail = function(emailHTML, callback) {
-    utils.sendMail(
-      emailHTML,
-      'Your order is created',
-      orderReq.email,
-      function(err) {
-        callback(err);
-      }
-    );
+    agenda.now('order reserve email', {
+      email: orderReq.email,
+      emailHTML: emailHTML,
+      subject: 'Your order is created'
+    });
+
+    callback(undefined);
   };
 
   var logging = function(err, results) {
