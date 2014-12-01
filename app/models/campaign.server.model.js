@@ -84,6 +84,15 @@ var CampaignSchema = new Schema({
     type: String,
     required: 'design property is required',
     trim: true
+  },
+  state: {
+    type: String,
+    // 'not_tipped': campaign waiting to be tipped
+    // 'tipped': campaign tipped and order charged
+    // 'expired': campaign expired, order not charged
+    enum: ['not_tipped', 'tipped', 'expired'],
+    required: 'matured property is required',
+    default: 'not_tipped'
   }
 });
 

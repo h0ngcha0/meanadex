@@ -40,6 +40,12 @@ module.exports = {
     privateKeyPath: process.env.SSL_PATH_PRIVATE_KEY || './config/env/ssl/development/key.pem',
     certificatePath: process.env.SSL_PATH_CERTIFICATE || './config/env/ssl/development/cert.pem'
   },
+  job: {
+    campaignJob: {
+      start: 'in 1 minutes',
+      frequency: '10 minute'
+    }
+  },
   mailer: {
     from: process.env.MAILER_FROM || 'MAILER_FROM',
     options: {
