@@ -11,3 +11,4 @@ app/tests/coverage/
 public/modules/core/services/constants.js
 public/uploads/
 todo.org
+logs/
