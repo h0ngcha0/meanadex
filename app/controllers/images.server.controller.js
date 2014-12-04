@@ -8,7 +8,7 @@ var mongoose = require('mongoose'),
     Img = mongoose.model('Image'),
     path = require('path'),
     async = require('async'),
-    winston = require('winston'),
+    logger = require('../lib/logger.server.lib.js'),
     _ = require('lodash');
 
 
@@ -145,7 +145,7 @@ exports.deleteById = function(id) {
 
   var resultCallback = function(err, results) {
     if(err) {
-      winston.error('error deleting id %s', id, err);
+      logger.error('error deleting id %s', id, err);
       console.log(err);
     }
   };

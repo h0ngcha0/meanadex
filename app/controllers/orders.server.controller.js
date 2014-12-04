@@ -8,7 +8,7 @@ var mongoose = require('mongoose'),
     Order = mongoose.model('Order'),
     utils = require('./utils'),
     config = require('../../config/config'),
-    winston = require('winston'),
+    logger = require('../lib/logger.server.lib.js'),
     async = require('async'),
     agenda = require('../lib/agenda.server.lib.js'),
     _ = require('lodash');
@@ -95,7 +95,7 @@ exports.create = function(req, res) {
 
   var logging = function(err, results) {
     if (err) {
-      winston.error('error while creating order: ', err);
+      logger.error('error while creating order: ', err);
     }
   };
 
