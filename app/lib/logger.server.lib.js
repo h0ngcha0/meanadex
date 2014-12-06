@@ -6,13 +6,30 @@ var winston = require('winston'),
 // FIXME: should put logging configuration in the config file
 var logger = new (winston.Logger)({
   transports: [
-    new (winston.transports.Console)(
-      {level: 'verbose' }
-    ),
+    new (winston.transports.Console)({
+      colorize: true,
+      timestamp: function() {
+        var date = new Date();
+        return date.getDate() + '/' +
+          (date.getMonth() + 1) + ' ' +
+          date.toTimeString().substr(0,5) + ' [' + global.process.pid + ']';
+      },
+      level: config.logging.console.level
+    }
+                                    ),
     new (winston.transports.File)(
-      {filename: './logs/meanadex-debug.log', level: 'debug' },
-      {filename: './logs/meanadex-info.log', level: 'info' },
-      {filename: './logs/meanadex-error.log', level: 'error' }
+      {
+        filename: config.logging.file.debug.filename,
+        level: config.logging.file.debug.level
+      },
+      {
+        filename: config.logging.file.info.filename,
+        level: config.logging.file.info.level
+      },
+      {
+        filename: config.logging.file.error.filename,
+        level: config.logging.file.error.level
+      }
     )
   ]
 });

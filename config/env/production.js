@@ -57,6 +57,28 @@ module.exports = {
     privateKeyPath: process.env.SSL_PATH_PRIVATE_KEY || '',
     certificatePath: process.env.SSL_PATH_CERTIFICATE || ''
   },
+  // FIXME: in production use S3 or similiar for image uploader
+  imageUploaderOptions: {
+  },
+  logging: {
+    console: {
+      level: 'info'
+    },
+    file: {
+      debug: {
+        filename: './logs/meanadex-debug.log',
+        level: 'debug'
+      },
+      info: {
+        filename: './logs/meanadex-info.log',
+        level: 'info'
+      },
+      error: {
+        filename: './logs/meanadex-error.log',
+        level: 'error'
+      }
+    }
+  },
   mailer: {
     from: process.env.MAILER_FROM || 'MAILER_FROM',
     options: {

@@ -49,6 +49,33 @@ module.exports = {
       frequency: '1 week'
     }
   },
+  imageUploaderOptions: {
+    tmpDir: './public/uploads/tmp',
+    uploadDir: './public/uploads',
+    uploadUrl: '/uploads/',
+    storage: {
+      type: 'local'
+    }
+  },
+  logging: {
+    console: {
+      level: 'verbose'
+    },
+    file: {
+      debug: {
+        filename: './logs/meanadex-debug.log',
+        level: 'debug'
+      },
+      info: {
+        filename: './logs/meanadex-info.log',
+        level: 'info'
+      },
+      error: {
+        filename: './logs/meanadex-error.log',
+        level: 'error'
+      }
+    }
+  },
   mailer: {
     from: process.env.MAILER_FROM || 'MAILER_FROM',
     options: {
