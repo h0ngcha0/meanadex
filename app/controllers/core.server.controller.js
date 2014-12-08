@@ -9,8 +9,3 @@ exports.index = function(req, res) {
   });
 };
 
-exports.dashboard = function(req, res) {
-  res.render('dashboard', {
-    user: req.user
-  });
-};

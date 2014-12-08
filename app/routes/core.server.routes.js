@@ -6,5 +6,4 @@ module.exports = function(app) {
   var users = require('../../app/controllers/users');
 
   app.route('/').get(core.index);
-  app.route('/dashboard').get(users.requiresLogin, core.dashboard);
 };
