@@ -3,9 +3,9 @@
 // Campaigns controller
 angular.module('campaigns').controller('CampaignsController', [
   '$scope', '$stateParams', '$state', '$location', 'Authentication',
-  'Campaigns', '$cookies', '$filter', 'AdminUtils', '$timeout', '$http',
+  'Campaigns', '$cookies', '$filter', 'DashboardUtils', '$timeout', '$http',
   function($scope, $stateParams, $state, $location, Authentication,
-           Campaigns, $cookies, $filter, AdminUtils, $timeout, $http) {
+           Campaigns, $cookies, $filter, DashboardUtils, $timeout, $http) {
     $scope.authentication = Authentication;
 
     // Remove existing Campaign
@@ -59,7 +59,7 @@ angular.module('campaigns').controller('CampaignsController', [
       );
     };
 
-    $scope.tableParams = AdminUtils.newTableParams(
+    $scope.tableParams = DashboardUtils.newTableParams(
       function($defer, params) {
         var orderedData = params.filter() ?
           $filter('filter')($scope.campaigns, params.filter()) :

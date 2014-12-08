@@ -3,9 +3,9 @@
 // Tshirts controller
 angular.module('tshirts').controller('TshirtsController', [
   '$scope', '$stateParams', '$location', 'Authentication', 'Tshirts',
-  '$filter', 'AdminUtils', '$timeout', 'FileUploader',
+  '$filter', 'DashboardUtils', '$timeout', 'FileUploader',
   function($scope, $stateParams, $location, Authentication, Tshirts,
-           $filter, AdminUtils, $timeout, FileUploader) {
+           $filter, DashboardUtils, $timeout, FileUploader) {
     $scope.authentication = Authentication;
     $scope.tmpVariant = {};
 
@@ -134,7 +134,7 @@ angular.module('tshirts').controller('TshirtsController', [
       $scope.variantsTableParams.reload();
     };
 
-    $scope.tshirtsTableParams = AdminUtils.newTableParams(
+    $scope.tshirtsTableParams = DashboardUtils.newTableParams(
       function($defer, params) {
         var orderedData = params.filter() ?
           $filter('filter')($scope.tshirts, params.filter()) :
@@ -154,7 +154,7 @@ angular.module('tshirts').controller('TshirtsController', [
       );
     };
 
-    $scope.variantsTableParams = AdminUtils.newTableParams(
+    $scope.variantsTableParams = DashboardUtils.newTableParams(
       function($defer, params) {
         var orderedData = params.filter() ?
           $filter('filter')($scope.tshirt.variants, params.filter()) :
