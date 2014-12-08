@@ -71,7 +71,7 @@ var deleteCustomer = function(err, customerId) {
 };
 
 var maybeChargeOrders = function(campaign, campaignOrders, callback) {
-  var numOrders = campaignOrders.length();
+  var numOrders = campaignOrders.length;
 
   var goalReached = numOrders >= campaign.goal ? true : false;
 
