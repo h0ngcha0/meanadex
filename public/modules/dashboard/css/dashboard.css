@@ -16,6 +16,8 @@
 }
 .page-wrapper.open .sidebar-wrapper {
   left: 150px;
+  border-right: dashed lightgray;
+  border-width: 1px;
 }
 
 /**
@@ -228,6 +230,8 @@ ul.sidebar li a {
 }
 ul.sidebar .sidebar-main {
   height: 65px;
+  border-bottom: dashed lightgray;
+  border-width: 1px;
 }
 ul.sidebar .sidebar-main a {
   font-size: 18px;
