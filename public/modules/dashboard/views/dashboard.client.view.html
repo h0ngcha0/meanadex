@@ -1,4 +1,7 @@
-<div class="page-wrapper" ng-class="{'open': toggle}" ng-cloak>
+<div class="page-wrapper"
+     data-ng-class="{'open': toggle}"
+     data-ng-init="ensureAuthenticated()"
+     ng-cloak>
   <section>
     <!-- Sidebar -->
     <div class="sidebar-wrapper">
