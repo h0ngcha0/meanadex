@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
     config = require('../../../config/config'),
     orders = require('../../../app/controllers/orders'),
     async = require('async'),
-    winston = require('winston'),
+    logger = require('../logger.server.lib.js'),
     Campaign = mongoose.model('Campaign'),
     stripe = require('stripe')(config.stripe.clientSecret),
     _ = require('lodash');
@@ -13,7 +13,7 @@ var listAllOrders = function(campaign) {
     var query = orders.listByCampaign(campaign._id);
     query.lean().exec(function(err, campaignOrders) {
       if(err) {
-        winston.log('error getting orders for campaign: ' + campaign._id);
+        logger.log('error getting orders for campaign: ' + campaign._id);
       }
 
       callback(err, campaign, campaignOrders);
@@ -38,11 +38,11 @@ var maybeChargeOrder = function(order, chargeFlag) {
         },
         function(err, charge) {
           if(err) {
-            winston.error(
+            logger.error(
               'error charging order: ' + order._id + '; customer id: ' + customerId
             );
           } else {
-            winston.info(
+            logger.info(
               'order: ' + order._id + ' with customer id: ' + customerId + ' charged.'
             );
           }
@@ -62,9 +62,9 @@ var deleteCustomer = function(err, customerId) {
     customerId,
     function(err, confirmation) {
       if(err) {
-        winston.error('error deleting customer: ' + customerId);
+        logger.error('error deleting customer: ' + customerId);
       } else {
-        winston.info('customer: ' + customerId + ' deleted.');
+        logger.info('customer: ' + customerId + ' deleted.');
       }
     }
   );
@@ -89,7 +89,7 @@ var changeCampaignState = function(campaign, goalReached, callback) {
   campaign.state = goalReached ? 'tipped' : 'expired';
   campaign.save(function(err) {
     if(err) {
-      winston.log('campaign ' + campaign._id + ' is tipped.');
+      logger.error('campaign ' + campaign._id + ' is tipped.');
     }
 
     callback(err);
@@ -98,13 +98,14 @@ var changeCampaignState = function(campaign, goalReached, callback) {
 
 var logging = function(err, results) {
   if (err) {
-    winston.error('error while trying to tip campaigns: ', err);
+    logger.error('error while trying to tip campaigns: ', err);
   }
 };
 
 module.exports = function(agenda) {
   agenda.define('check campaigns maturity', function(job, done) {
-    Campaign.find({ended_at: {$gt: Date.now()}}).
+    logger.info('check campaigns maturity job started');
+    Campaign.find({ended_at: {$lt: Date.now()}}).
       where('state').equals('not_tipped').
       exec(function(err, campaigns) {
       _.forEach(campaigns, function(campaign){

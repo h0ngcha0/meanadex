@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('admin').factory('AdminUtils', [
+angular.module('dashboard').factory('DashboardUtils', [
   'ngTableParams',
   function(NgTableParams) {
     var tableOptions = {

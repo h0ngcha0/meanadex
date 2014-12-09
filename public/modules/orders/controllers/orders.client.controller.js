@@ -3,9 +3,9 @@
 // Orders controller
 angular.module('orders').controller('OrdersController', [
   '$scope', '$stateParams', '$location', 'Authentication', 'Orders',
-  '$filter', 'AdminUtils',
+  '$filter', 'DashboardUtils',
   function($scope, $stateParams, $location, Authentication, Orders,
-           $filter, AdminUtils) {
+           $filter, DashboardUtils) {
 
     $scope.authentication = Authentication;
 
@@ -54,7 +54,7 @@ angular.module('orders').controller('OrdersController', [
       $scope.tableParams.reload();
     };
 
-    $scope.tableParams = AdminUtils.newTableParams(
+    $scope.tableParams = DashboardUtils.newTableParams(
       function($defer, params) {
         var orderedData = params.filter() ?
           $filter('filter')($scope.orders, params.filter()) :

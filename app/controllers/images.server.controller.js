@@ -8,20 +8,13 @@ var mongoose = require('mongoose'),
     Img = mongoose.model('Image'),
     path = require('path'),
     async = require('async'),
-    winston = require('winston'),
+    logger = require('../lib/logger.server.lib.js'),
+    config = require('../../config/config'),
     _ = require('lodash');
 
-
-var options = {
-  tmpDir: __dirname + '/../../public/uploads/tmp',
-  uploadDir: __dirname + '/../../public/uploads',
-  uploadUrl: '/uploads/',
-  storage: {
-    type: 'local'
-  }
-};
-
-var uploader = require('blueimp-file-upload-expressjs')(options);
+var uploader = require('blueimp-file-upload-expressjs')(
+  config.imageUploaderOptions
+);
 
 /**
  * Create a Image
@@ -56,7 +49,7 @@ exports.read = function(req, res) {
  */
 exports.delete = function(req, res) {
   var imgName = path.basename(req.image.url);
-  var uploaderUrl = options.uploadUrl + imgName;
+  var uploaderUrl = config.imageUploaderOptions.uploadUrl + imgName;
   var deleteUploadedFileFun = function(callback) {
     uploader.delete({url: uploaderUrl}, res, function (result) {
       if(result.success) {
@@ -118,7 +111,7 @@ exports.deleteById = function(id) {
 
   var deleteUploadedFileFun = function(image, callback) {
     var imgName = path.basename(image.url);
-    var uploaderUrl = options.uploadUrl + imgName;
+    var uploaderUrl = config.imageUploaderOptions.uploadUrl + imgName;
 
     uploader.delete({url: uploaderUrl}, {}, function (result) {
       if(result.success) {
@@ -145,7 +138,7 @@ exports.deleteById = function(id) {
 
   var resultCallback = function(err, results) {
     if(err) {
-      winston.error('error deleting id %s', id, err);
+      logger.error('error deleting id %s', id, err);
       console.log(err);
     }
   };
