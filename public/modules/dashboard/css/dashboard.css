@@ -299,13 +299,14 @@ ul.sidebar .sidebar-list .menu-icon {
 }
 .sidebar-footer {
   position: absolute;
-  height: 40px;
+  height: 150px;
   bottom: 0;
   width: 100%;
   padding: 0;
   margin: 0;
   transition: all .6s ease 0s;
   text-align: center;
+  border-top: dashed lightgray;
 }
 .sidebar-footer div a {
   color: #b2bfdc;
