@@ -56,6 +56,15 @@ angular.module('dashboard').config([
             controller: 'CampaignsController'
           }
         }
+      }).
+      state('dashboard.orders', {
+        url: '/orders',
+        views: {
+          'dashboardPanel': {
+            templateUrl: 'modules/orders/views/list-orders.client.view.html',
+            controller: 'OrdersController'
+          }
+        }
       });
   }
 ]);

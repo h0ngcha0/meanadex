@@ -25,9 +25,6 @@
         <td data-title="'End at'">
           <span>{{campaign.ended_at | date:'mediumDate'}}</span>
         </td>
-        <td data-title="'URL'">
-          <span>{{campaign.url}}</span>
-        </td>
         <td data-title="'Goal'">
           <span>{{campaign.goal}}</span>
         </td>
@@ -37,21 +34,16 @@
         <td data-title="'Price'">
           <span>{{campaign.price.value}} {{campaign.price.unit}}</span>
         </td>
-        <td data-title="'Actions'" width="150">
+        <td data-title="'Actions'">
           <a data-ng-if="!campaign.$edit" href=""
-             class="btn btn-primary"
-             data-ng-click="onEdit(campaign)">
-            <i class="glyphicon glyphicon-edit"></i>
-          </a>
+             class="fa fa-edit fa-fw"
+             data-ng-click="onEdit(campaign)"/>
           <a ng-if="campaign.$edit" href=""
-             class="btn btn-primary btn-xs"
-             data-ng-click="onSave(campaign)">Save</a>
-          <a class="btn btn-primary" data-ng-href="#!/campaigns/{{campaign._id}}">
-            <i class="glyphicon glyphicon-eye-open"></i>
+             class="fa fa-save fa-fw"
+             data-ng-click="onSave(campaign)"/>
+          <a class="fa fa-eye fa-fw" data-ng-href="#!/campaigns/{{campaign._id}}">
           </a>
-          <a class="btn btn-primary" data-ng-click="onRemove(campaign);">
-            <i class="glyphicon glyphicon-trash"></i>
-          </a>
+          <a class="fa fa-trash-o fa-fw" data-ng-click="onRemove(campaign);"/>
         </td>
       </tr>
     </table>
