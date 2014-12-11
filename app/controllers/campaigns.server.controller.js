@@ -11,6 +11,7 @@ var mongoose = require('mongoose'),
     us = require('underscore'),
     config = require('../../config/config'),
     utils = require('./utils'),
+    async = require('async'),
     _ = require('lodash');
 
 /**
@@ -119,12 +120,81 @@ exports.delete = function(req, res) {
 /**
  * List of Campaigns owned by a particular user
  */
-exports.list = utils.listWithUser(
-  Campaign,
-  {
+exports.list = function(req, res) {
+  var userQuery = function(req) {
+    var userId = req.user._id,
+        roles = req.user.roles;
+
+    // if it is admin, return all campaigns
+    if (us.contains(roles, 'admin')) {
+      return {};
+    } else {
+      return {user: userId};
+    }
+  };
+  var populateMap = {
     'user': 'displayName'
-  }
-);
+  };
+  var query = userQuery(req);
+  var results = Campaign.find(query).sort('-created');
+
+  us.each(
+    populateMap,
+    function(value, key) {
+      results.populate(key, value);
+    }
+  );
+
+  results.exec(function(err, objects) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      var augmentCampaign = function(c, callback) {
+        var campaign = _.clone(c.toObject());
+        var options = {};
+        options.map = function () {
+          emit(this.campaign, this.quantity);
+        };
+        options.reduce = function (key, values) {
+          return Array.sum(values);
+        };
+        options.query = {campaign: campaign._id};
+
+        Order.count(options.query, function(err, count){
+          if(err) {
+            callback(err, campaign);
+          }
+          if(!count) {
+            campaign.sold = 0;
+            callback(err, campaign);
+          }
+          else {
+            Order.mapReduce(options, function(err, results) {
+              if(err) {
+                callback(err, campaign);
+              } else {
+                campaign.sold = results[0].value;
+                callback(err, campaign);
+              }
+            });
+          }
+        });
+      };
+      async.map(objects, augmentCampaign, function(err, results) {
+        if(err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        }
+        else {
+          res.jsonp(results);
+        }
+      });
+    }
+  });
+};
 
 /**
  * Campaign middleware
