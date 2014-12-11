@@ -1,7 +1,6 @@
 'use strict';
 var mongoose = require('mongoose'),
     config = require('../../../config/config'),
-    orders = require('../../../app/controllers/orders'),
     async = require('async'),
     logger = require('../logger.server.lib.js'),
     Campaign = mongoose.model('Campaign'),
@@ -10,7 +9,10 @@ var mongoose = require('mongoose'),
 
 var listAllOrders = function(campaign) {
   return function(callback) {
-    var query = orders.listByCampaign(campaign._id);
+    var query = Order
+      .find({'campaign': campaign._id})
+      .sort('-created')
+      .populate('user displayName campaign name');
     query.lean().exec(function(err, campaignOrders) {
       if(err) {
         logger.log('error getting orders for campaign: ' + campaign._id);
