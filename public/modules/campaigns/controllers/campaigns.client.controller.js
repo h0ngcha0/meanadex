@@ -48,8 +48,7 @@ angular.module('campaigns').controller('CampaignsController', [
     $scope.findOne = function() {
       $scope.campaign = Campaigns.get(
         {
-          campaignId: $stateParams.campaignId,
-          withOrder: true
+          campaignId: $stateParams.campaignId
         },
         function(data) {
         },
@@ -90,16 +89,6 @@ angular.module('campaigns').controller('CampaignsController', [
 
     $scope.onEdit = function(campaign) {
       campaign.$edit = true;
-    };
-
-    $scope.sold = function(campaign) {
-      if(Array.isArray(campaign.orders)) {
-        return _.reduce(campaign.orders, function(num, order) {
-                 return num + order.quantity;
-               }, 0);
-      } else {
-        return 0;
-      }
     };
 
     $scope.reserveCampaign = function(campaign) {
