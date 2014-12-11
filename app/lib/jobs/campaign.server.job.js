@@ -3,6 +3,7 @@ var mongoose = require('mongoose'),
     config = require('../../../config/config'),
     async = require('async'),
     logger = require('../logger.server.lib.js'),
+    Order = mongoose.model('Order'),
     Campaign = mongoose.model('Campaign'),
     stripe = require('stripe')(config.stripe.clientSecret),
     _ = require('lodash');
