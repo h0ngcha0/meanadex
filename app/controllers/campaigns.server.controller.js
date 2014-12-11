@@ -1,5 +1,7 @@
 'use strict';
 
+/* global emit */
+
 /**
  * Module dependencies.
  */
