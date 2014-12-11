@@ -12,7 +12,8 @@ var listAllOrders = function(campaign) {
     var query = Order
       .find({'campaign': campaign._id})
       .sort('-created')
-      .populate('user displayName campaign name');
+      .populate('user', 'displayName')
+      .populate('campaign', 'name');
     query.lean().exec(function(err, campaignOrders) {
       if(err) {
         logger.log('error getting orders for campaign: ' + campaign._id);
