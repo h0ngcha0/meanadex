@@ -54,14 +54,27 @@ exports.read = function(req, res) {
   };
   options.query = {campaign: campaign._id};
 
-  Order.mapReduce(options, function(err, results) {
+  Order.count(options.query, function(err, count){
     if(err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
-    } else {
-      campaign.sold = results[0].value;
+    }
+    if(!count) {
+      campaign.sold = 0;
       res.jsonp(campaign);
+    }
+    else {
+      Order.mapReduce(options, function(err, results) {
+        if(err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          campaign.sold = results[0].value;
+          res.jsonp(campaign);
+        }
+      });
     }
   });
 
