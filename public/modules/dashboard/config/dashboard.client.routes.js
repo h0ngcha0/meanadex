@@ -5,7 +5,7 @@ angular.module('dashboard').config([
   '$stateProvider', '$urlRouterProvider',
   function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider
-      .when('/dashboard', '/dashboard/default');
+      .when('/dashboard', '/dashboard/front');
 
     // Dashboard state routing
     $stateProvider.
@@ -14,8 +14,8 @@ angular.module('dashboard').config([
         templateUrl: 'modules/dashboard/views/dashboard.client.view.html',
         controller: 'DashboardController'
       }).
-      state('dashboard.default', {
-        url: '/default',
+      state('dashboard.front', {
+        url: '/front',
         views: {
           'dashboardPanel': {
             templateUrl: 'modules/dashboard/views/front.client.view.html',

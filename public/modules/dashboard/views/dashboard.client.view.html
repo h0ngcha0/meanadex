@@ -7,9 +7,11 @@
     <div class="sidebar-wrapper">
       <ul class="sidebar">
         <li class="sidebar-main">
-          <a ng-click="toggleSidebar()">
+          <a ui-sref="dashboard.front">
             Dashboard
-            <span class="menu-icon glyphicon glyphicon-transfer"></span>
+            <span data-ng-click="toggleSidebar()"
+                  class="menu-icon glyphicon glyphicon-transfer">
+            </span>
           </a>
         </li>
         <li class="sidebar-title"><span>NAVIGATION</span></li>
