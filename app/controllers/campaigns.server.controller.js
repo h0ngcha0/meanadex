@@ -202,8 +202,7 @@ exports.list = function(req, res) {
  * Campaign middleware
  */
 exports.campaignByID = function(req, res, next, id) {
-  // use lean() will make mongoose return json data
-  Campaign.findById(id).lean().populate('user', 'displayName').exec(function(err, campaign) {
+  Campaign.findById(id).populate('user', 'displayName').exec(function(err, campaign) {
     if (err) return next(err);
     req.campaign = campaign;
     next();
