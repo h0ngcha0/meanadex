@@ -32,10 +32,12 @@ exports.getErrorMessage = function(err) {
       default:
       message = 'Something went wrong';
     }
-  } else {
+  } else if (err.errors) {
     for (var errName in err.errors) {
       if (err.errors[errName].message) message = err.errors[errName].message;
     }
+  } else {
+    message = err.message;
   }
 
   return message;
