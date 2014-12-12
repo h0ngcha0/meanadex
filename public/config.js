@@ -18,7 +18,6 @@ var ApplicationConfiguration = (
       'textAngular',
       'colorpicker.module',
       'ui-rangeSlider',
-      'LocalStorageModule',
       'ngTable',
       'angular-data.DS',
       'angularFileUpload',
