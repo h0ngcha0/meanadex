@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-lg-6" data-ng-controller="SettingsController">
+    <dashboard-widget>
+      <dashboard-widget-header icon="fa-qq"
+                               title="Connect with other social acounts">
+      </dashboard-widget-header>
+      <dashboard-widget-body>
+        <div class="text-center row">
+          <a href="/auth/facebook"
+             data-ng-hide="isConnectedSocialAccount('facebook')"
+             class="undecorated-link fa fa-facebook fa-4x col-md-2">
+          </a>
+          <a href="/auth/twitter"
+             data-ng-hide="isConnectedSocialAccount('twitter')"
+             class="undecorated-link fa fa-twitter fa-4x col-md-2">
+          </a>
+          <a href="/auth/google"
+             data-ng-hide="isConnectedSocialAccount('google')"
+             class="undecorated-link fa fa-google-plus fa-4x col-md-2">
+          </a>
+          <a href="/auth/linkedin"
+             data-ng-hide="isConnectedSocialAccount('linkedin')"
+             class="undecorated-link fa fa-linkedin fa-4x col-md-2">
+          </a>
+          <a href="/auth/github"
+             data-ng-hide="isConnectedSocialAccount('github')"
+             class="undecorated-link fa fa-github fa-4x col-md-2">
+          </a>
+        </div>
+      </dashboard-widget-body>
+    </dashboard-widget>
+  </div>
+</div>

@@ -36,13 +36,15 @@
         </td>
         <td data-title="'Actions'">
           <a data-ng-if="!campaign.$edit" href=""
-             class="fa fa-edit fa-fw"
+             class="undecorated-link fa fa-edit fa-lg"
              data-ng-click="onEdit(campaign)"/>
           <a ng-if="campaign.$edit" href=""
-             class="fa fa-save fa-fw"
+             class="undecorated-link fa fa-save fa-lg"
              data-ng-click="onSave(campaign)"/>
-          <a class="fa fa-eye fa-fw" data-ng-href="#!/campaigns/{{campaign._id}}"/>
-          <a class="fa fa-trash-o fa-fw" data-ng-click="onRemove(campaign);"/>
+          <a class="undecorated-link fa fa-eye fa-lg"
+             data-ng-href="#!/campaigns/{{campaign._id}}"/>
+          <a class="undecorated-link fa fa-trash-o fa-lg"
+             data-ng-click="onRemove(campaign);"/>
         </td>
       </tr>
     </table>

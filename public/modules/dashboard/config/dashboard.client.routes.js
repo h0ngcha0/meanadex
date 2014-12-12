@@ -22,6 +22,14 @@ angular.module('dashboard').config([
             controller: 'DashboardController'
           }
         }}).
+      state('dashboard.profile', {
+        url: '/profile',
+        views: {
+          'dashboardPanel': {
+            templateUrl: 'modules/dashboard/views/profile.client.view.html',
+            controller: 'DashboardController'
+          }
+        }}).
       state('dashboard.tshirts', {
         url: '/tshirts',
         views: {
