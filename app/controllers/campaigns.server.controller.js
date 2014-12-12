@@ -48,6 +48,8 @@ exports.read = function(req, res) {
     });
   }
 
+  campaign = campaign.toObject();
+
   var options = {};
   options.map = function () {
     emit(this.campaign, this.quantity);
