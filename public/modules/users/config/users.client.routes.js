@@ -65,24 +65,6 @@ angular.module('users').config([
             templateUrl: 'modules/users/views/password/reset-password.client.view.html'
           }
         }
-      }).
-      state('user.orders', {
-        url: '/orders',
-        views: {
-          'userPanel': {
-            templateUrl: 'modules/orders/views/list-orders.client.view.html',
-            controller: 'OrdersController'
-          }
-        }
-      }).
-      state('user.campaigns', {
-        url: '/campaigns',
-        views: {
-          'userPanel': {
-            templateUrl: 'modules/campaigns/views/list-campaigns.client.view.html',
-            controller: 'CampaignsController'
-          }
-        }
       });
   }
 ]);
