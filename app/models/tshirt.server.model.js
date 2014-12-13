@@ -20,7 +20,7 @@ var VariantSchema = new Schema({
     required: 'variant baseCost is required',
     min: [0, 'Base cost must be more than 0']
   },
-  unit: {
+  currency: {
     type: String,
     enum: ['SEK', 'RMB', 'USD'],
     default: 'SEK'

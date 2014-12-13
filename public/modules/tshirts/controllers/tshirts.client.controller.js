@@ -100,7 +100,7 @@ angular.module('tshirts').controller('TshirtsController', [
         name: '',
         description: '',
         baseCost: 0,
-        unit: 'SEK',
+        currency: 'SEK',
         colors: ['red'],
         $edit: true
       };

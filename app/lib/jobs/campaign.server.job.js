@@ -37,7 +37,7 @@ var maybeChargeOrder = function(order, chargeFlag) {
         {
           customer: customerId,
           amount: order.amount * 100,
-          currency: order.unit,
+          currency: order.currency,
           description: order.description
         },
         function(err, charge) {

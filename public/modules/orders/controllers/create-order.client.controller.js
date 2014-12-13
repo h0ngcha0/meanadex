@@ -21,7 +21,7 @@ angular.module('orders').controller('CreateOrderController', [
     $scope.create = function(
       campaign, provider, email,
       description, payment, shippingAddr,
-      amount, quantity, unit
+      amount, quantity, currency
     ) {
       // Create new Order object
       var order = new Orders ({
@@ -32,7 +32,7 @@ angular.module('orders').controller('CreateOrderController', [
         payment: payment,
         amount: amount,
         quantity: quantity,
-        unit: unit,
+        currency: currency,
         shippingAddr: shippingAddr
       });
 
@@ -98,7 +98,7 @@ angular.module('orders').controller('CreateOrderController', [
               $scope.shippingAddr,
               $scope.orderedCampaign.price.value,
               $scope.quantity,
-              $scope.orderedCampaign.price.unit
+              $scope.orderedCampaign.price.currency
             );
           }
         });
@@ -108,7 +108,7 @@ angular.module('orders').controller('CreateOrderController', [
           name: 'Meanadex',
           description: $scope.orderedCampaign.title,
           amount: $scope.totalPrice($scope.quantity),
-          unit: $scope.orderedCampaign.price.unit
+          currency: $scope.orderedCampaign.price.currency
         });
       } else {
         $scope.error = {

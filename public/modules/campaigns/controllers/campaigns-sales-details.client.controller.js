@@ -51,7 +51,7 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
         tshirt: tshirt,
         price: {
           value: CampaignCache.getPrice(),
-          unit: variant.unit
+          currency: variant.currency
         },
         color: CampaignCache.getColor(),
         design: JSON.stringify({
