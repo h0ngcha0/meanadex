@@ -14,29 +14,11 @@ angular.module('users').config([
         templateUrl: 'modules/users/views/user.client.view.html',
         controller: 'UserController'
       }).
-      state('user.profile', {
-        url: '/settings/profile',
-        views: {
-          'userPanel': {
-            templateUrl: 'modules/users/views/settings/edit-profile.client.view.html',
-            controller: 'SettingsController'
-          }
-        }
-      }).
       state('user.password', {
         url: '/settings/password',
         views: {
           'userPanel': {
             templateUrl: 'modules/users/views/settings/change-password.client.view.html',
-            controller: 'SettingsController'
-          }
-        }
-      }).
-      state('user.accounts', {
-        url: '/settings/accounts',
-        views: {
-          'userPanel': {
-            templateUrl: 'modules/users/views/settings/social-accounts.client.view.html',
             controller: 'SettingsController'
           }
         }
