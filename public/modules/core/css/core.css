@@ -110,6 +110,22 @@ body {
   letter-spacing: 1px;
 }
 
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus {
+  color: #fcd116;
+  border: 1px dashed #fcd116;
+  background-color: #005b99;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
+  color: #fcd116;
+  border: 1px dashed #fcd116;
+  background: #005b99;
+}
+
+.navbar-nav > li > .dropdown-menu {
+  background-color: #005b99;
+}
+
 .navbar-default, .navbar-inverse {
   border: 0;
 }

@@ -15,9 +15,9 @@ var should = require('should'),
 var user, campaign, order;
 
 /**
- * Unit tests
+ * Currency tests
  */
-describe('Order Model Unit Tests:', function() {
+describe('Order Model Currency Tests:', function() {
   beforeEach(function(done) {
     user = new User({
       firstName: 'Full',
@@ -40,11 +40,11 @@ describe('Order Model Unit Tests:', function() {
       sold: 20,
       cost: {
         value: 50,
-        unit: 'SEK'
+        currency: 'SEK'
       },
       price: {
         value: 80,
-        unit: 'SEK'
+        currency: 'SEK'
       },
       design: 'nice design',
       orders: ['order1', 'order2']
@@ -59,7 +59,7 @@ describe('Order Model Unit Tests:', function() {
         email: 'user@example.com',
         amount: 40,
         quantity: 2,
-        unit: 'SEK',
+        currency: 'SEK',
         shippingAddr: {
           name: 'username',
           street: 'street',

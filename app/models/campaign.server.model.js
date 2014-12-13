@@ -56,9 +56,9 @@ var CampaignSchema = new Schema({
         type: Number,
         required: 'Price value is required'
       },
-      unit: {
+      currency: {
         type: String,
-        required: 'Price unit is required'
+        required: 'Price currency is required'
       }
     },
     required: 'Price property is required'

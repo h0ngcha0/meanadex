@@ -108,7 +108,7 @@
              name: 'variant_1',
              description: 'description_1',
              baseCost: 0,
-             unit: 'SEK',
+             currency: 'SEK',
              colors: ['black']
            };
 

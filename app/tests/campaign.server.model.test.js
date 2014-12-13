@@ -16,9 +16,9 @@ var should = require('should'),
 var user, campaign;
 
 /**
- * Unit tests
+ * Currency tests
  */
-describe('Campaign Model Unit Tests:', function() {
+describe('Campaign Model Currency Tests:', function() {
   beforeEach(function(done) {
     user = new User({
       firstName: 'Full',
@@ -48,7 +48,7 @@ describe('Campaign Model Unit Tests:', function() {
           name: 'Variant Name',
           description: 'Description',
           baseCost: 10,
-          unit: 'SEK',
+          currency: 'SEK',
           colors: ['00000', 'ffffff']
         }
       ],
@@ -71,7 +71,7 @@ describe('Campaign Model Unit Tests:', function() {
         tshirtRef: tshirt._id,
         price: {
           value: 80,
-          unit: 'SEK'
+          currency: 'SEK'
         },
         design: 'nice design'
       });

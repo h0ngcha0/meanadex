@@ -77,9 +77,9 @@ var OrderSchema = new Schema({
     type: Number,
     required: 'Quantity is required'
   },
-  unit: {
+  currency: {
     type: String,
-    required: 'Unit is required'
+    required: 'Currency is required'
   },
   payment: {
     type: Schema.Types.Mixed,

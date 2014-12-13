@@ -1,30 +1,53 @@
-<div class="page-wrapper" ng-class="{'open': toggle}" ng-cloak>
+<div class="page-wrapper"
+     data-ng-class="{'open': toggle}"
+     data-ng-init="ensureAuthenticated()"
+     ng-cloak>
   <section>
     <!-- Sidebar -->
     <div class="sidebar-wrapper">
       <ul class="sidebar">
         <li class="sidebar-main">
-          <a ng-click="toggleSidebar()">
-            Dashboard
-            <span class="menu-icon glyphicon glyphicon-transfer"></span>
+          <a>
+            <span ui-sref="dashboard.front">Dashboard</span>
+            <span data-ng-click="toggleSidebar()"
+                  class="menu-icon glyphicon glyphicon-transfer">
+            </span>
           </a>
         </li>
         <li class="sidebar-title"><span>NAVIGATION</span></li>
         <li class="sidebar-list">
-          <a ui-sref="dashboard.tshirts">Tshirts <span class="menu-icon fa fa-tachometer"></span></a>
+          <a ui-sref="dashboard.profile">
+            Profile
+            <span class="menu-icon fa fa-user"></span>
+          </a>
         </li>
         <li class="sidebar-list">
-          <a ui-sref="dashboard.campaigns">Campaigns <span class="menu-icon fa fa-table"></span></a>
+          <a ui-sref="dashboard.tshirts">
+            Tshirts
+            <span class="menu-icon fa fa-circle-o-notch"></span>
+          </a>
+        </li>
+        <li class="sidebar-list">
+          <a ui-sref="dashboard.campaigns">
+            Campaigns
+            <span class="menu-icon fa fa-tasks"></span>
+          </a>
+        </li>
+        <li class="sidebar-list">
+          <a ui-sref="dashboard.orders">
+            Orders
+            <span class="menu-icon fa fa-trophy"></span>
+          </a>
         </li>
       </ul>
       <div class="sidebar-footer">
         <div class="col-xs-4">
-          <a href="https://github.com/rdash/rdash-angular" target="_blank">
+          <a href="https://github.com/monadexio/meanadex" target="_blank">
             Github
           </a>
         </div>
         <div class="col-xs-4">
-          <a href="https://github.com/rdash/rdash-angular/README.md" target="_blank">
+          <a href="https://github.com/monadexio/meanadex/README.md" target="_blank">
             About
           </a>
         </div>

@@ -5,7 +5,7 @@ angular.module('campaigns').controller('CampaignsSalesGoalController', [
   function($scope, CampaignCache) {
     var tshirt = CampaignCache.getTshirt();
     $scope.cost = tshirt.currentVariant.baseCost;
-    $scope.unit = tshirt.currentVariant.unit;
+    $scope.currency = tshirt.currentVariant.currency;
 
     $scope.tshirtsSalesGoal = CampaignCache.getGoal() || 50;
     CampaignCache.bindGoal($scope);

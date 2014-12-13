@@ -1,4 +1,4 @@
-<div class="container" data-ng-init="loadAllOrdersInTableData()">
+<div id="list-all-orders" data-ng-init="loadAllOrdersInTableData()">
   <div class="col-lg-12" data-ng-show="orders.length > 0">
     <table ng-table="tableParams" show-filter="true" class="table table-bordered">
       <tr ng-repeat="order in $data">
@@ -6,21 +6,19 @@
           <span>{{order.provider}}</span>
         </td>
         <td data-title="'Amount'">
-          <span>{{order.amount}} {{order.unit}}</span>
+          <span>{{order.amount}} {{order.currency}}</span>
         </td>
         <td data-title="'Email'">
           <span>{{order.email}}</span>
         </td>
-        <td data-title="'Campaign'">
+        <td data-title="'Campaign'" filter="{ 'campaign': 'text' }">
           <a data-ng-href="#!/campaigns/{{order.campaign._id}}">{{order.campaign.name}}</a>
         </td>
         <td data-title="'Created at'">
           <span>{{order.created_at | date:'medium'}}</span>
         </td>
-        <td data-title="'Actions'" width="150">
-          <a class="btn btn-primary" data-ng-click="onRemove(order);">
-            <i class="glyphicon glyphicon-trash"></i>
-          </a>
+        <td data-title="'Actions'">
+          <a class="undecorated-link fa fa-trash-o fa-lg" data-ng-click="onRemove(order);"/>
         </td>
       </tr>
     </table>

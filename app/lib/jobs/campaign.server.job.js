@@ -1,16 +1,20 @@
 'use strict';
 var mongoose = require('mongoose'),
     config = require('../../../config/config'),
-    orders = require('../../../app/controllers/orders'),
     async = require('async'),
     logger = require('../logger.server.lib.js'),
+    Order = mongoose.model('Order'),
     Campaign = mongoose.model('Campaign'),
     stripe = require('stripe')(config.stripe.clientSecret),
     _ = require('lodash');
 
 var listAllOrders = function(campaign) {
   return function(callback) {
-    var query = orders.listByCampaign(campaign._id);
+    var query = Order
+      .find({'campaign': campaign._id})
+      .sort('-created')
+      .populate('user', 'displayName')
+      .populate('campaign', 'name');
     query.lean().exec(function(err, campaignOrders) {
       if(err) {
         logger.log('error getting orders for campaign: ' + campaign._id);
@@ -33,7 +37,7 @@ var maybeChargeOrder = function(order, chargeFlag) {
         {
           customer: customerId,
           amount: order.amount * 100,
-          currency: order.unit,
+          currency: order.currency,
           description: order.description
         },
         function(err, charge) {

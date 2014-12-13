@@ -33,7 +33,7 @@ exports.create = function(req, res) {
         metadata: {
           campaignId: orderReq.campaign,
           amount: req.body.amount * 100,
-          currency: req.body.unit
+          currency: req.body.currency
         }
       },
       function(err, customer) {
