@@ -52,7 +52,7 @@ angular.module('orders').controller('CreateOrderController', [
     };
 
     $scope.totalPrice = function(quantity) {
-      var price = parseInt($scope.orderedCampaign.price.value);
+      var price = parseInt($scope.orderedCampaign.price.value) * 100;
       if(quantity === undefined) {
         return price;
       } else {
