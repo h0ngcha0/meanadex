@@ -30,7 +30,7 @@ angular.module('orders').controller('CreateOrderController', [
         email: email,
         description: description,
         payment: payment,
-        amount: amount,
+        amount: $scope.totalPrice(quantity),
         quantity: quantity,
         currency: currency,
         shippingAddr: shippingAddr
