@@ -51,3 +51,70 @@
     </dashboard-widget>
   </div>
 </div>
+
+<div class="row">
+  <div class="col-lg-6" data-ng-controller="SettingsController">
+    <dashboard-widget>
+      <dashboard-widget-header icon="fa-edit"
+                               title="Edit profile">
+      </dashboard-widget-header>
+      <dashboard-widget-body>
+        <div>
+          <form name="userForm"
+                data-ng-submit="updateUserProfile(userForm.$valid)"
+                class="signin form-horizontal"
+                autocomplete="off">
+            <fieldset>
+              <table class="table table-striped">
+                <tr>
+                  <td>First Name</td>
+                  <td>
+                    <input type="text" id="firstName" name="firstName"
+                           class="form-control" data-ng-model="user.firstName"
+                           placeholder="First Name">
+                  </td>
+                </tr>
+                <tr>
+                  <td>Last Name</td>
+                  <td>
+                    <input type="text" id="lastName" name="lastName"
+                           class="form-control" data-ng-model="user.lastName"
+                           placeholder="Last Name">
+                  </td>
+                </tr>
+                <tr>
+                  <td>Email</td>
+                  <td>
+                    <input type="email" id="email" name="email"
+                           class="form-control" data-ng-model="user.email"
+                           placeholder="Email">
+                  </td>
+                </tr>
+                <tr>
+                  <td>Username</td>
+                  <td>
+                    <input type="text" id="username" name="username"
+                           class="form-control" data-ng-model="user.username"
+                           placeholder="Username">
+                  </td>
+                </tr>
+              </table>
+              <div class="text-center form-group">
+                <a type="submit" class="btn btn-large btn-default">
+                  <i class="fa fa-save"></i>
+                  Save Profile
+                </a>
+              </div>
+              <div data-ng-show="success" class="text-center text-success">
+                <strong>Profile Saved Successfully</strong>
+              </div>
+              <div data-ng-show="error" class="text-center text-danger">
+                <strong data-ng-bind="error"></strong>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </dashboard-widget-body>
+    </dashboard-widget>
+  </div>
+</div>
