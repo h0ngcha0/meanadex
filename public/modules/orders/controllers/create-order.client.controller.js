@@ -52,7 +52,7 @@ angular.module('orders').controller('CreateOrderController', [
     };
 
     $scope.totalPrice = function(quantity) {
-      var price = parseInt($scope.orderedCampaign.price.value) * 100;
+      var price = parseInt($scope.orderedCampaign.price.value);
       if(quantity === undefined) {
         return price;
       } else {
@@ -107,7 +107,7 @@ angular.module('orders').controller('CreateOrderController', [
         handler.open({
           name: 'Meanadex',
           description: $scope.orderedCampaign.title,
-          amount: $scope.totalPrice($scope.quantity),
+          amount: $scope.totalPrice($scope.quantity) * 100,
           currency: $scope.orderedCampaign.price.currency
         });
       } else {
