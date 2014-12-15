@@ -8,6 +8,8 @@ module.exports = function(grunt) {
     clientViews: ['public/modules/**/views/**/*.html'],
     clientJS: ['public/js/*.js', 'public/modules/**/*.js'],
     clientCSS: ['public/modules/**/*.css'],
+    clientSCSS: ['public/modules/**/*.scss'],
+    clientLESS: ['public/modules/**/*.less'],
     mochaTests: ['app/tests/**/*.js']
   };
 
@@ -52,6 +54,20 @@ module.exports = function(grunt) {
           spawn: false,
           livereload: true
         }
+      },
+      clientSCSS: {
+        files: watchFiles.clientSCSS,
+        tasks: ['sass', 'csslint'],
+        options: {
+          livereload: true
+        }
+      },
+      clientLESS: {
+        files: watchFiles.clientLESS,
+        tasks: ['less', 'csslint'],
+        options: {
+          livereload: true
+        }
       }
     },
     jshint: {
@@ -85,6 +101,30 @@ module.exports = function(grunt) {
         files: {
           'public/dist/application.min.css': '<%= applicationCSSFiles %>'
         }
+      }
+    },
+    sass: {
+      dist: {
+        files: [{
+          expand: true,
+          src: watchFiles.clientSCSS,
+          ext: '.css',
+          rename: function(base, src) {
+            return  src.replace('/scss/', '/css/');
+          }
+        }]
+      }
+    },
+    less: {
+      dist: {
+        files: [{
+          expand: true,
+          src: watchFiles.clientLESS,
+          ext: '.css',
+          rename: function(base, src) {
+            return  src.replace('/less/', '/css/');
+          }
+        }]
       }
     },
     nodemon: {
@@ -206,7 +246,7 @@ module.exports = function(grunt) {
   grunt.registerTask('debug', ['lint', 'concurrent:debug']);
 
   // Lint task(s).
-  grunt.registerTask('lint', ['jshint', 'csslint']);
+  grunt.registerTask('lint', ['sass', 'less', 'jshint', 'csslint']);
 
   // Build task(s).
   grunt.registerTask('build', ['lint', 'loadConfig', 'ngmin', 'uglify', 'cssmin']);

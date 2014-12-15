@@ -55,6 +55,12 @@ module.exports = {
     css: [
       'public/modules/**/css/*.css'
     ],
+    less: [
+      'public/modules/**/less/*.less'
+    ],
+    sass: [
+      'public/modules/**/scss/*.scss'
+    ],
     js: [
       'public/config.js',
       'public/application.js',
