@@ -86,7 +86,6 @@ angular.module('dashboard').controller('DashboardController', [
     };
 
     $scope.openToDate = function($event) {
-      console.log('open to date');
       $event.preventDefault();
       $event.stopPropagation();
 
