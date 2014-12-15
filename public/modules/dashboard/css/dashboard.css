@@ -104,20 +104,34 @@
   0%,
   100% {
     -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    -ms-transform: scale(0);
+    -o-transform: scale(0);
+    transform: scale(0);
   }
   50% {
     -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
   }
 }
 @keyframes bounce {
   0%,
   100% {
-    transform: scale(0);
     -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    -ms-transform: scale(0);
+    -o-transform: scale(0);
+    transform: scale(0);
   }
   50% {
-    transform: scale(1);
     -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
   }
 }
 
@@ -283,7 +297,7 @@ ul.sidebar .sidebar-list .menu-icon {
 .page-wrapper:not(.open) ul.sidebar .sidebar-title {
   display: none;
   height: 0;
-  text-indent: -100px;
+  text-indent: -99px;
 }
 .page-wrapper:not(.open) ul.sidebar .sidebar-title.separator {
   display: block;
