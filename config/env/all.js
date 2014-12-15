@@ -19,7 +19,6 @@ module.exports = {
         'public/lib/font-awesome/css/font-awesome.css',
         'public/lib/rdash-ui/dist/css/rdash.css',
         'public/lib/angular-bootstrap-colorpicker/css/colorpicker.css',
-        'public/lib/jquery-ui/themes/smoothness/jquery-ui.css',
         'public/lib/ng-table/ng-table.css',
         'public/lib/angular-rangeslider/angular.rangeSlider.css'
       ],
@@ -28,7 +27,6 @@ module.exports = {
         'public/lib/underscore/underscore.js',
         'public/lib/async/lib/async.js',
         'https://checkout.stripe.com/checkout.js',
-        'public/lib/jquery-ui/ui/jquery-ui.js',
         'public/lib/angular/angular.js',
         'public/lib/angular-resource/angular-resource.js',
         'public/lib/angular-cookies/angular-cookies.js',
