@@ -17,9 +17,9 @@ module.exports = {
         'public/lib/bootstrap/dist/css/bootstrap.css',
         'public/lib/bootstrap/dist/css/bootstrap-theme.css',
         'public/lib/font-awesome/css/font-awesome.css',
-        'public/lib/rdash-ui/dist/css/rdash.css',
         'public/lib/angular-bootstrap-colorpicker/css/colorpicker.css',
         'public/lib/ng-table/ng-table.css',
+        'public/lib/nvd3/nv.d3.css',
         'public/lib/angular-rangeslider/angular.rangeSlider.css'
       ],
       js: [
@@ -47,7 +47,10 @@ module.exports = {
         'public/lib/ng-table/ng-table.js',
         'public/lib/angular-data/dist/angular-data.js',
         'public/lib/angular-timer/dist/angular-timer.js',
-        'public/lib/angular-file-upload/angular-file-upload.js'
+        'public/lib/angular-file-upload/angular-file-upload.js',
+        'public/lib/d3/d3.js',
+        'public/lib/nvd3/nv.d3.js',
+        'public/lib/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js'
       ]
     },
     css: [
