@@ -45,10 +45,10 @@ angular.module('dashboard').controller('DashboardController', [
     };
 
 
-    // graph related
+    // Fake data for now
     $scope.campaignGraphData = [
       {
-        "key": "Series 1",
+        'key': 'Series 1',
         values: [
           [0, 10],
           [1, 20],
@@ -60,7 +60,7 @@ angular.module('dashboard').controller('DashboardController', [
           [100, 10]
         ]
       }
-    ]
+    ];
 
     // date picker related
     $scope.today = Date.today();
@@ -86,6 +86,7 @@ angular.module('dashboard').controller('DashboardController', [
     };
 
     $scope.openToDate = function($event) {
+      console.log('open to date');
       $event.preventDefault();
       $event.stopPropagation();
 
