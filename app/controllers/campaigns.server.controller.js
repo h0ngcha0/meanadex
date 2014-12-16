@@ -10,7 +10,6 @@ var mongoose = require('mongoose'),
     Order = mongoose.model('Order'),
     Campaign = mongoose.model('Campaign'),
     shortId = require('shortid'),
-    us = require('underscore'),
     config = require('../../config/config'),
     utils = require('./utils'),
     async = require('async'),
@@ -82,7 +81,6 @@ exports.read = function(req, res) {
       });
     }
   });
-
 };
 
 /**
@@ -130,7 +128,7 @@ exports.list = function(req, res) {
         roles = req.user.roles;
 
     // if it is admin, return all campaigns
-    if (us.contains(roles, 'admin')) {
+    if (_.contains(roles, 'admin')) {
       return {};
     } else {
       return {user: userId};
@@ -142,7 +140,7 @@ exports.list = function(req, res) {
   var query = userQuery(req);
   var results = Campaign.find(query).sort('-created');
 
-  us.each(
+  _.each(
     populateMap,
     function(value, key) {
       results.populate(key, value);
@@ -218,7 +216,7 @@ exports.hasAuthorization = function(req, res, next) {
   var roles = req.user.roles;
 
   // user id has to match if not an admin
-  if (!us.contains(roles, 'admin')) {
+  if (!_.contains(roles, 'admin')) {
     if (req.campaign.user.id !== req.user.id) {
       return res.status(403).send('User is not authorized');
     }
@@ -230,7 +228,7 @@ exports.hasAuthorization = function(req, res, next) {
  * Campaign authorization middleware for admin role exclusive access
  */
 exports.hasAdminAuthorization = function(req, res, next) {
-  if (!us.contains(req.user.roles, 'admin')) {
+  if (!_.contains(req.user.roles, 'admin')) {
     return res.status(403).send('User is not authorized');
   }
   next();
