@@ -150,7 +150,7 @@ module.exports = function(grunt) {
         }
       }
     },
-    ngmin: {
+    ngAnnotate: {
       production: {
         files: {
           'public/dist/application.js': '<%= applicationJavaScriptFiles %>'
@@ -249,7 +249,7 @@ module.exports = function(grunt) {
   grunt.registerTask('lint', ['sass', 'less', 'jshint', 'csslint']);
 
   // Build task(s).
-  grunt.registerTask('build', ['lint', 'loadConfig', 'ngmin', 'uglify', 'cssmin']);
+  grunt.registerTask('build', ['lint', 'loadConfig', 'ngAnnotate', 'uglify', 'cssmin']);
 
   // Test task.
   grunt.registerTask('test', ['env:test', 'mochaTest', 'karma:unit']);
