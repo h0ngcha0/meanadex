@@ -2,6 +2,7 @@
 
 module.exports = {
   db: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://localhost/meanadex',
+  html5shiv: 'public/lib/html5shiv/dist/html5shiv.min.js',
   assets: {
     lib: {
       css: [

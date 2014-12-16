@@ -11,6 +11,7 @@ module.exports = {
   templateEngine: 'swig',
   sessionSecret: 'MEAN',
   sessionCollection: 'sessions',
+  html5shiv: 'public/lib/html5shiv/dist/html5shiv.js',
   assets: {
     lib: {
       css: [

@@ -41,6 +41,7 @@ module.exports = function(db) {
   app.locals.facebookAppId = config.facebook.clientID;
   app.locals.jsFiles = config.getJavaScriptAssets();
   app.locals.cssFiles = config.getCSSAssets();
+  app.locals.html5shiv = config.html5shiv.replace('public/', '');
 
   // Passing the request url to environment locals
   app.use(function(req, res, next) {
