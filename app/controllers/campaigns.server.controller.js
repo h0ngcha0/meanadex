@@ -174,23 +174,25 @@ exports.list = function(req, res) {
     }
 
     // TODO: use momentjs to validate date?
-    query.created_at = {};
     var setIfDateValid = function(date, callback) {
       if(date) {
         var parsedDate = Date.parse(date);
-        if (parsedDate != NaN) {
+        if (!isNaN(parsedDate)) {
+          if (!query.created_at) {
+            query.created_at = {};
+          }
           callback(new Date(parsedDate));
         }
       }
-    }
+    };
 
     setIfDateValid(startDate, function(date) {
-      query.created_at.$gte = date
-    })
+      query.created_at.$gte = date;
+    });
 
     setIfDateValid(endDate, function(date) {
       query.created_at.$lte = date;
-    })
+    });
 
     logger.info('list campaign query option: ', query);
     return query;

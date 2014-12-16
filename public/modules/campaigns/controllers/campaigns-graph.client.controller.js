@@ -6,13 +6,7 @@ angular.module('campaigns').controller('CampaignsGraphController', [
   function($scope, Authentication, Campaigns) {
     $scope.authentication = Authentication;
 
-    $scope.findBetween = function(start, end) {
-      $scope.campaigns = Campaigns.query(
-        {
-          startDate: start,
-          endDate: end
-        }
-      );
+    var findBetween = function(start, end) {
     };
 
     // Fake data for now
