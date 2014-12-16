@@ -119,20 +119,73 @@ exports.delete = function(req, res) {
   });
 };
 
+var populateSold = function(campaigns, callback) {
+  var augmentCampaign = function(c, callback) {
+    var campaign = _.clone(c.toObject());
+    var options = {};
+    options.map = function () {
+      emit(this.campaign, this.quantity);
+    };
+    options.reduce = function (key, values) {
+      return Array.sum(values);
+    };
+    options.query = {campaign: campaign._id};
+
+    Order.count(options.query, function(err, count){
+      if(err) {
+        callback(err, campaign);
+      }
+      if(!count) {
+        campaign.sold = 0;
+        callback(err, campaign);
+      }
+      else {
+        Order.mapReduce(options, function(err, results) {
+          if(err) {
+            callback(err, campaign);
+          } else {
+            campaign.sold = results[0].value;
+            callback(err, campaign);
+          }
+        });
+      }
+    });
+  };
+  async.map(campaigns, augmentCampaign, function(err, results) {
+    callback(err, results);
+  });
+};
+
 /**
  * List of Campaigns owned by a particular user
  */
 exports.list = function(req, res) {
   var userQuery = function(req) {
-    var userId = req.user._id,
+    var query = {},
+        userId = req.user._id,
+        startDate = req.param('startDate'),
+        endDate = req.param('endDate'),
         roles = req.user.roles;
 
     // if it is admin, return all campaigns
-    if (_.contains(roles, 'admin')) {
-      return {};
-    } else {
-      return {user: userId};
+    if (!_.contains(roles, 'admin')) {
+      query.user = userId;
     }
+
+    console.log('niux');
+    console.log(startDate);
+    console.log(endDate);
+
+    // TODO: use momentjs to validate date?
+    if(startDate) {
+      query.created_on.$gte = startDate;
+    }
+
+    if(endDate) {
+      query.created_on.$lte = endDate;
+    }
+
+    return query;
   };
   var populateMap = {
     'user': 'displayName'
@@ -153,38 +206,7 @@ exports.list = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      var augmentCampaign = function(c, callback) {
-        var campaign = _.clone(c.toObject());
-        var options = {};
-        options.map = function () {
-          emit(this.campaign, this.quantity);
-        };
-        options.reduce = function (key, values) {
-          return Array.sum(values);
-        };
-        options.query = {campaign: campaign._id};
-
-        Order.count(options.query, function(err, count){
-          if(err) {
-            callback(err, campaign);
-          }
-          if(!count) {
-            campaign.sold = 0;
-            callback(err, campaign);
-          }
-          else {
-            Order.mapReduce(options, function(err, results) {
-              if(err) {
-                callback(err, campaign);
-              } else {
-                campaign.sold = results[0].value;
-                callback(err, campaign);
-              }
-            });
-          }
-        });
-      };
-      async.map(objects, augmentCampaign, function(err, results) {
+      populateSold(objects, function(err, results) {
         if(err) {
           return res.status(400).send({
             message: errorHandler.getErrorMessage(err)
