@@ -13,6 +13,7 @@ var mongoose = require('mongoose'),
     config = require('../../config/config'),
     utils = require('./utils'),
     async = require('async'),
+    logger = require('../lib/logger.server.lib.js'),
     _ = require('lodash');
 
 /**
@@ -172,19 +173,26 @@ exports.list = function(req, res) {
       query.user = userId;
     }
 
-    console.log('niux');
-    console.log(startDate);
-    console.log(endDate);
-
     // TODO: use momentjs to validate date?
-    if(startDate) {
-      query.created_on.$gte = startDate;
+    query.created_at = {};
+    var setIfDateValid = function(date, callback) {
+      if(date) {
+        var parsedDate = Date.parse(date);
+        if (parsedDate != NaN) {
+          callback(new Date(parsedDate));
+        }
+      }
     }
 
-    if(endDate) {
-      query.created_on.$lte = endDate;
-    }
+    setIfDateValid(startDate, function(date) {
+      query.created_at.$gte = date
+    })
 
+    setIfDateValid(endDate, function(date) {
+      query.created_at.$lte = date;
+    })
+
+    logger.info('list campaign query option: ', query);
     return query;
   };
   var populateMap = {
