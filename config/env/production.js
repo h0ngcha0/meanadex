@@ -7,8 +7,7 @@ module.exports = {
     lib: {
       css: [
         'public/lib/bootstrap/dist/css/bootstrap.min.css',
-        'public/lib/bootstrap/dist/css/bootstrap-theme.min.css',
-        'public/lib/rdash-ui/dist/css/rdash.min.css'
+        'public/lib/bootstrap/dist/css/bootstrap-theme.min.css'
       ],
       js: [
         'public/lib/angular/angular.min.js',
