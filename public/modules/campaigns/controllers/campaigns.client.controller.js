@@ -44,6 +44,15 @@ angular.module('campaigns').controller('CampaignsController', [
       $scope.campaigns = Campaigns.query();
     };
 
+    $scope.findBetween = function(start, end) {
+      $scope.campaigns = Campaigns.query(
+        {
+          startDate: start,
+          endDate: end
+        }
+      );
+    };
+
     // Find existing Campaign for a particular user
     $scope.findOne = function() {
       $scope.campaign = Campaigns.get(

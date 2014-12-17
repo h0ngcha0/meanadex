@@ -2,8 +2,7 @@
 
 var errorHandler = require('./errors'),
     config = require('../../config/config'),
-    nodemailer = require('nodemailer'),
-    us = require('underscore');
+    nodemailer = require('nodemailer');
 
 /**
  * List of object by query, sorted by create date, populated
@@ -14,7 +13,7 @@ exports.listByQuery = function(model, queryFun, populateMap) {
     var query = queryFun(req);
     var results = model.find(query).sort('-created');
 
-    us.each(
+    _.each(
       populateMap,
       function(value, key) {
         results.populate(key, value);
@@ -42,7 +41,7 @@ var userQuery = function(req) {
       roles = req.user.roles;
 
   // if it is admin, return all campaigns
-  if (us.contains(roles, 'admin')) {
+  if (_.contains(roles, 'admin')) {
     return {};
   } else {
     return {user: userId};

@@ -10,10 +10,10 @@ var mongoose = require('mongoose'),
     Order = mongoose.model('Order'),
     Campaign = mongoose.model('Campaign'),
     shortId = require('shortid'),
-    us = require('underscore'),
     config = require('../../config/config'),
     utils = require('./utils'),
     async = require('async'),
+    logger = require('../lib/logger.server.lib.js'),
     _ = require('lodash');
 
 /**
@@ -82,7 +82,6 @@ exports.read = function(req, res) {
       });
     }
   });
-
 };
 
 /**
@@ -121,20 +120,82 @@ exports.delete = function(req, res) {
   });
 };
 
+var populateSold = function(campaigns, callback) {
+  var augmentCampaign = function(c, callback) {
+    var campaign = _.clone(c.toObject());
+    var options = {};
+    options.map = function () {
+      emit(this.campaign, this.quantity);
+    };
+    options.reduce = function (key, values) {
+      return Array.sum(values);
+    };
+    options.query = {campaign: campaign._id};
+
+    Order.count(options.query, function(err, count){
+      if(err) {
+        callback(err, campaign);
+      }
+      if(!count) {
+        campaign.sold = 0;
+        callback(err, campaign);
+      }
+      else {
+        Order.mapReduce(options, function(err, results) {
+          if(err) {
+            callback(err, campaign);
+          } else {
+            campaign.sold = results[0].value;
+            callback(err, campaign);
+          }
+        });
+      }
+    });
+  };
+  async.map(campaigns, augmentCampaign, function(err, results) {
+    callback(err, results);
+  });
+};
+
 /**
  * List of Campaigns owned by a particular user
  */
 exports.list = function(req, res) {
   var userQuery = function(req) {
-    var userId = req.user._id,
+    var query = {},
+        userId = req.user._id,
+        startDate = req.param('startDate'),
+        endDate = req.param('endDate'),
         roles = req.user.roles;
 
     // if it is admin, return all campaigns
-    if (us.contains(roles, 'admin')) {
-      return {};
-    } else {
-      return {user: userId};
+    if (!_.contains(roles, 'admin')) {
+      query.user = userId;
     }
+
+    // TODO: use momentjs to validate date?
+    var setIfDateValid = function(date, callback) {
+      if(date) {
+        var parsedDate = Date.parse(date);
+        if (!isNaN(parsedDate)) {
+          if (!query.created_at) {
+            query.created_at = {};
+          }
+          callback(new Date(parsedDate));
+        }
+      }
+    };
+
+    setIfDateValid(startDate, function(date) {
+      query.created_at.$gte = date;
+    });
+
+    setIfDateValid(endDate, function(date) {
+      query.created_at.$lte = date;
+    });
+
+    logger.info('list campaign query option: ', query);
+    return query;
   };
   var populateMap = {
     'user': 'displayName'
@@ -142,7 +203,7 @@ exports.list = function(req, res) {
   var query = userQuery(req);
   var results = Campaign.find(query).sort('-created');
 
-  us.each(
+  _.each(
     populateMap,
     function(value, key) {
       results.populate(key, value);
@@ -155,38 +216,7 @@ exports.list = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      var augmentCampaign = function(c, callback) {
-        var campaign = _.clone(c.toObject());
-        var options = {};
-        options.map = function () {
-          emit(this.campaign, this.quantity);
-        };
-        options.reduce = function (key, values) {
-          return Array.sum(values);
-        };
-        options.query = {campaign: campaign._id};
-
-        Order.count(options.query, function(err, count){
-          if(err) {
-            callback(err, campaign);
-          }
-          if(!count) {
-            campaign.sold = 0;
-            callback(err, campaign);
-          }
-          else {
-            Order.mapReduce(options, function(err, results) {
-              if(err) {
-                callback(err, campaign);
-              } else {
-                campaign.sold = results[0].value;
-                callback(err, campaign);
-              }
-            });
-          }
-        });
-      };
-      async.map(objects, augmentCampaign, function(err, results) {
+      populateSold(objects, function(err, results) {
         if(err) {
           return res.status(400).send({
             message: errorHandler.getErrorMessage(err)
@@ -218,7 +248,7 @@ exports.hasAuthorization = function(req, res, next) {
   var roles = req.user.roles;
 
   // user id has to match if not an admin
-  if (!us.contains(roles, 'admin')) {
+  if (!_.contains(roles, 'admin')) {
     if (req.campaign.user.id !== req.user.id) {
       return res.status(403).send('User is not authorized');
     }
@@ -230,7 +260,7 @@ exports.hasAuthorization = function(req, res, next) {
  * Campaign authorization middleware for admin role exclusive access
  */
 exports.hasAdminAuthorization = function(req, res, next) {
-  if (!us.contains(req.user.roles, 'admin')) {
+  if (!_.contains(req.user.roles, 'admin')) {
     return res.status(403).send('User is not authorized');
   }
   next();
