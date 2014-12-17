@@ -27,7 +27,7 @@ ul.sidebar {
     overflow-y: auto;
     li {
         a {
-            color: #fff;
+            color: black;
             display: block;
             float: left;
             text-decoration: none;
@@ -35,6 +35,7 @@ ul.sidebar {
         }
     }
     .sidebar-main {
+        border-bottom: 2px dashed lightgray;
         height: 65px;
         a {
             font-size: 18px;
@@ -63,11 +64,11 @@ ul.sidebar {
         a {
             text-indent: 25px;
             font-size: 15px;
-            color: #b2bfdc;
+            color: black;
             line-height: 40px;
         }
         a:hover {
-            color: #fff;
+            color: grey;
             border-left: 3px solid @sidebarMenuItemHover;
             text-indent: 22px;
             .menu-icon {
@@ -98,7 +99,6 @@ ul.sidebar {
         .sidebar-list {
             a:hover {
                 span {
-                    border-left: 3px solid #e99d1a;
                     text-indent: 22px;
                 }
             }
@@ -109,8 +109,9 @@ ul.sidebar {
     }
 }
 .sidebar-footer {
+    border-top: 2px dashed lightgray;
     position: absolute;
-    height: 90px;
+    height: 140px;
     bottom: 0;
     width: 100%;
     padding: 0;
@@ -119,12 +120,12 @@ ul.sidebar {
     text-align: center;
     div {
         a {
-            color: #b2bfdc;
+            color: black;
             font-size: 12px;
             line-height: 43px;
         }
         a:hover {
-            color: #ffffff;
+            color: grey;
             text-decoration: none;
         }
     }
