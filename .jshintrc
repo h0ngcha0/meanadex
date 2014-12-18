@@ -25,7 +25,6 @@
     "xit": true,
     "async": true,
     "_": true,
-    "moment": true,
     "StripeCheckout": true,
     "ApplicationConfiguration": true
   },

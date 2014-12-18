@@ -1,5 +1,8 @@
 'use strict';
 
+/* global moment */
+/* global d3 */
+
 // Campaigns controller
 angular.module('campaigns').controller('CampaignsGraphController', [
   '$scope', 'Authentication', 'Campaigns',
@@ -29,12 +32,12 @@ angular.module('campaigns').controller('CampaignsGraphController', [
         map[date]++;
       });
 
+
       return _.map(_.pairs(map), function(m) {
-               return [moment(m[0], format).format('x'), m[1]];
-             });
+        return [moment(m[0], format).format('x'), m[1]];
+      });
     };
 
-    // Fake data for now
     Campaigns.query(
       {
         startDate: $scope.fromDate,
@@ -45,6 +48,8 @@ angular.module('campaigns').controller('CampaignsGraphController', [
                    var dd = moment(Date.parse(d.created_at));
                    return dd;
                  });
+
+        // Assume 8 days for now.
         var result = categorizeByDay(ts, moment($scope.weekAgo), 8);
         $scope.campaignGraphData = [
           {
@@ -59,7 +64,7 @@ angular.module('campaigns').controller('CampaignsGraphController', [
       return function(d){
         return d3.time.format('%x')(new Date(d));
       };
-    }
+    };
 
     $scope.dateOptions = {
       formatYear: 'yy',
