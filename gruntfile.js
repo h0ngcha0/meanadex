@@ -15,6 +15,15 @@ module.exports = function(grunt) {
 
   // Project Configuration
   grunt.initConfig({
+    copy: {
+      main: {
+        expand: true,
+        flatten: true,
+        src: ['public/modules/dashboard/fonts/*'],
+        dest: 'public/fonts',
+        filter: 'isFile'
+      }
+    },
     pkg: grunt.file.readJSON('package.json'),
     watch: {
       serverViews: {
@@ -249,7 +258,7 @@ module.exports = function(grunt) {
   grunt.registerTask('lint', ['sass', 'less', 'jshint', 'csslint']);
 
   // Build task(s).
-  grunt.registerTask('build', ['lint', 'loadConfig', 'ngAnnotate', 'uglify', 'cssmin']);
+  grunt.registerTask('build', ['lint', 'loadConfig', 'ngAnnotate', 'uglify', 'cssmin', 'copy']);
 
   // Test task.
   grunt.registerTask('test', ['env:test', 'mochaTest', 'karma:unit']);
