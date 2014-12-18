@@ -30,6 +30,7 @@
     "async": "~0.9.0",
     "angular-timer": "~1.1.7",
     "angularjs-nvd3-directives": "~0.0.7",
-    "html5shiv": "~3.7.2"
+    "html5shiv": "~3.7.2",
+    "moment": "~2.8.4"
   }
 }

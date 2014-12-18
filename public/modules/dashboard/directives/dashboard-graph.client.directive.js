@@ -15,7 +15,8 @@ angular.module('dashboard').directive('dashboardGraph', [
         toMaxDate: '=',
         openToDate: '&',
         datepickerOptions: '=',
-        graphData: '='
+        graphData: '=',
+        xformat: '&'
       },
       restrict: 'E',
       templateUrl: 'modules/dashboard/views/dashboard-graph.client.view.html',

@@ -46,7 +46,8 @@
     "stripe": "^2.8.0",
     "swig": "~1.4.1",
     "winston": "~0.8.1",
-    "agenda": "~0.6.25"
+    "agenda": "~0.6.25",
+    "moment": "~2.8.4"
   },
   "devDependencies": {
     "form-data": "~0.1.4",

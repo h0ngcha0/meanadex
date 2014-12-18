@@ -41,7 +41,8 @@ module.exports = {
         'public/lib/bootstrap/dist/js/bootstrap.js',
         'public/lib/textAngular/dist/textAngular-sanitize.min.js',
         'public/lib/textAngular/dist/textAngular.min.js',
-        'public/lib/datejs/build/date.js',
+        'public/lib/datejs/build/date.js', // need to deprecate, prefer momentjs
+        'public/lib/moment/moment.js',
         'public/lib/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js',
         'public/lib/angular-rangeslider/angular.rangeSlider.js',
         'public/lib/angular-local-storage/angular-local-storage.js',
