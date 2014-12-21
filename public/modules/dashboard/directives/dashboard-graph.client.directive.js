@@ -17,6 +17,7 @@ angular.module('dashboard').directive('dashboardGraph', [
         datepickerOptions: '=',
         graphData: '=',
         xscale: '&',
+        tooltipcontent: '&',
         xformat: '&'
       },
       restrict: 'E',
