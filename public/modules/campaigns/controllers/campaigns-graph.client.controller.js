@@ -66,10 +66,8 @@ angular.module('campaigns').controller('CampaignsGraphController', [
       };
     };
 
-    $scope.xtickvalues = function() {
-      return function(d) {
-        return d[0].values.map(function(v) {return v[0];});
-      };
+    $scope.xscale = function() {
+      return d3.time.scale();
     };
 
     $scope.dateOptions = {
