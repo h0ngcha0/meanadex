@@ -194,7 +194,6 @@ exports.list = function(req, res) {
       query.created_at.$lte = date;
     });
 
-    logger.info('list campaign query option: ', query);
     return query;
   };
   var populateMap = {

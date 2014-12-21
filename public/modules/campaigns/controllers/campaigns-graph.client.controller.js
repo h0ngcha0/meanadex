@@ -38,6 +38,27 @@ angular.module('campaigns').controller('CampaignsGraphController', [
       });
     };
 
+    $scope.loadCampaignData = function(fromDate, toDate, callback) {
+      Campaigns.query(
+        {
+          startDate: $scope.fromDate,
+          endDate: $scope.toDate
+        },
+        function(data) {
+          var ts = _.map(data, function(d) {
+                     var dd = moment(Date.parse(d.created_at));
+                     return dd;
+                   });
+
+
+          callback(null, ts);
+        },
+        function(err) {
+          callback(err);
+        }
+      );
+    };
+
     Campaigns.query(
       {
         startDate: $scope.fromDate,
@@ -50,7 +71,7 @@ angular.module('campaigns').controller('CampaignsGraphController', [
                  });
 
         // Assume 8 days for now.
-        var result = categorizeByDay(ts, moment($scope.weekAgo), 8);
+        var result = categorizeByDay(ts, moment($scope.weekAgo), 7);
         $scope.campaignGraphData = [
           {
             'key': 'Campaigns',
