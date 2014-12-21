@@ -1,29 +1,45 @@
-<div id="list-all-orders" data-ng-init="loadAllOrdersInTableData()">
+<div id="list-all-orders"
+     data-ng-init="loadAllOrdersInTableData()"
+     class="row">
   <div class="col-lg-12" data-ng-show="orders.length > 0">
-    <table ng-table="tableParams" show-filter="true" class="table table-bordered">
-      <tr ng-repeat="order in $data">
-        <td data-title="'Provider'">
-          <span>{{order.provider}}</span>
-        </td>
-        <td data-title="'Amount'">
-          <span>{{order.amount}} {{order.currency}}</span>
-        </td>
-        <td data-title="'Email'">
-          <span>{{order.email}}</span>
-        </td>
-        <td data-title="'Campaign'" filter="{ 'campaign': 'text' }">
-          <a data-ng-href="#!/campaigns/{{order.campaign._id}}">{{order.campaign.name}}</a>
-        </td>
-        <td data-title="'Created at'">
-          <span>{{order.created_at | date:'medium'}}</span>
-        </td>
-        <td data-title="'Actions'">
-          <a class="undecorated-link fa fa-trash-o fa-lg" data-ng-click="onRemove(order);"/>
-        </td>
-      </tr>
-    </table>
+    <dashboard-widget>
+      <dashboard-widget-header icon="fa-trophy" title="Orders">
+        <a href="#">Manage</a>
+      </dashboard-widget-header>
+      <dashboard-widget-body classes="medium no-padding">
+        <div class="table-responsive">
+          <table ng-table="tableParams" show-filter="true" class="table table-bordered">
+            <tr ng-repeat="order in $data">
+              <td data-title="'Provider'">
+                <span>{{order.provider}}</span>
+              </td>
+              <td data-title="'Amount'">
+                <span>{{order.amount}} {{order.currency}}</span>
+              </td>
+              <td data-title="'Email'">
+                <span>{{order.email}}</span>
+              </td>
+              <td data-title="'Campaign'" filter="{ 'campaign': 'text' }">
+                <a data-ng-href="#!/campaigns/{{order.campaign._id}}">{{order.campaign.name}}</a>
+              </td>
+              <td data-title="'Created at'">
+                <span>{{order.created_at | date:'medium'}}</span>
+              </td>
+              <td data-title="'Actions'">
+                <a class="undecorated-link fa fa-trash-o fa-lg" data-ng-click="onRemove(order);"/>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </dashboard-widget-body>
+    </dashboard-widget>
   </div>
-  <div class="alert alert-warning text-center" data-ng-hide="!orders.$resolved || orders.length">
-    No Orders yet.
+  <div class="row alerts-container"
+       data-ng-hide="!orders.$resolved || orders.length">
+    <div class="col-xs-12">
+      <alert type="success">
+        No orders yet.
+      </alert>
+    </div>
   </div>
 </div>
