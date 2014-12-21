@@ -1,33 +1,45 @@
-<div id="list-tshirts" data-ng-init="loadAllTshirtInTableData()">
+<div id="list-tshirts"
+     data-ng-init="loadAllTshirtInTableData()"
+     class="row">
   <div class="col-lg-12" data-ng-show="tshirts.length > 0">
-    <table ng-table="tshirtsTableParams" show-filter="true"
-           class="table table-bordered">
-      <tr ng-repeat="tshirt in $data">
-        <td data-title="'Name'" filter="{ 'name': 'text' }">
-          <span>{{tshirt.name}}</span>
-        </td>
-        <td data-title="'Created at'">
-          <span>{{tshirt.created | date:'mediumDate' }}</span>
-        </td>
-        <td data-title="'Actions'">
-          <a class="undecorated-link fa fa-eye fa-lg"
-             ui-sref="dashboard.tshirtDetail({tshirtId: tshirt._id})"/>
-          <a class="undecorated-link fa fa-trash-o fa-lg"
-             data-ng-click="onRemove(tshirt);"/>
-        </td>
-      </tr>
-    </table>
-    <a ui-sref="dashboard.tshirtCreate" type="button" class="btn btn-lg btn-default">
-      Add Tshirt
-      <i class="glyphicon glyphicon-white"></i>
-    </a>
+    <dashboard-widget>
+      <dashboard-widget-header icon="fa-circle-o-notch" title="Tshirts">
+        <a ui-sref="dashboard.tshirtCreate" type="button" class="btn btn-sm btn-info">
+          Add Tshirt
+          <i class="glyphicon glyphicon-white"></i>
+        </a>
+      </dashboard-widget-header>
+      <dashboard-widget-body classes="medium no-padding">
+        <div class="table-responsive">
+          <table ng-table="tshirtsTableParams" show-filter="true"
+                 class="table table-bordered">
+            <tr ng-repeat="tshirt in $data">
+              <td data-title="'Name'" filter="{ 'name': 'text' }">
+                <span>{{tshirt.name}}</span>
+              </td>
+              <td data-title="'Created at'">
+                <span>{{tshirt.created | date:'mediumDate' }}</span>
+              </td>
+              <td data-title="'Actions'">
+                <a class="undecorated-link fa fa-eye fa-lg"
+                   ui-sref="dashboard.tshirtDetail({tshirtId: tshirt._id})"/>
+                <a class="undecorated-link fa fa-trash-o fa-lg"
+                   data-ng-click="onRemove(tshirt);"/>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </dashboard-widget-body>
+    </dashboard-widget>
   </div>
-  <div class="alert alert-warning text-center"
+  <div class="row alerts-container"
        data-ng-hide="!tshirts.$resolved || tshirts.length">
-    There isn't any Tshirts yet,
-    <a ui-sref="dashboard.tshirtCreate" type="button">
-      add one.
-      <i class="glyphicon glyphicon-white"></i>
-    </a>
+    <div class="col-xs-12">
+      <alert type="success">
+        There isn't any Tshirts yet,
+        <a ui-sref="dashboard.tshirtCreate">
+        </a>
+      </alert>
+    </div>
   </div>
 </div>
