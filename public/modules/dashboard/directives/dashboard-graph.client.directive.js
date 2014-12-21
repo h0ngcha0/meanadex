@@ -20,7 +20,6 @@ angular.module('dashboard').directive('dashboardGraph', [
         graphData: '=',
         xscale: '&',
         tooltipcontent: '&',
-        xformat: '&',
         loadData: '&'
       },
       restrict: 'E',
@@ -75,6 +74,13 @@ angular.module('dashboard').directive('dashboardGraph', [
             }
           });
         };
+
+        scope.xformat = function(){
+          return function(d){
+            return d3.time.format('%x')(new Date(d));
+          };
+        };
+
       }
     };
   }

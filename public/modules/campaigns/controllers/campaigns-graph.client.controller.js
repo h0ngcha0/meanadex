@@ -81,12 +81,6 @@ angular.module('campaigns').controller('CampaignsGraphController', [
       }
     );
 
-    $scope.xformat = function(){
-      return function(d){
-        return d3.time.format('%x')(new Date(d));
-      };
-    };
-
     $scope.xscale = function() {
       return d3.time.scale();
     };
