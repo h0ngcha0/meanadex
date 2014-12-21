@@ -3,21 +3,15 @@
 /* global moment */
 
 angular.module('dashboard').directive('dashboardGraph', [
-  function() {
+  '$timeout',
+  function($timeout) {
     return {
       scope: {
-        fromDate: '=',
         fromDateIsOpen: '=',
-        fromMinDate: '=',
-        fromMaxDate: '=',
         openFromDate: '&',
-        toDate: '=',
         toDateIsOpen: '=',
-        toMinDate: '=',
-        toMaxDate: '=',
         openToDate: '&',
         datepickerOptions: '=',
-        graphData: '=',
         loadData: '&'
       },
       restrict: 'E',
@@ -51,6 +45,10 @@ angular.module('dashboard').directive('dashboardGraph', [
             }
           );
         };
+
+        scope.today = Date.today();
+        scope.toDate = Date.today();
+        scope.fromDate = Date.today().addDays(-7); // week ago
 
         scope.reloadData = function() {
           var start = moment(scope.fromDate);
@@ -89,6 +87,11 @@ angular.module('dashboard').directive('dashboardGraph', [
             return '<p>' + y + ' &#64; ' + newX + '</p>';
           };
         };
+
+        // first time loading data
+        $timeout(function() {
+          scope.reloadData()
+        }, 0);
       }
     };
   }

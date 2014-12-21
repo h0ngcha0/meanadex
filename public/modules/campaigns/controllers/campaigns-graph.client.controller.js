@@ -18,25 +18,6 @@ angular.module('campaigns').controller('CampaignsGraphController', [
     $scope.fromDate = $scope.weekAgo;
     $scope.toDate = $scope.today;
 
-    // start is a moment/date
-    var categorizeByDay = function(ts, start, times) {
-      var format = 'DD/MM/YY';
-      var map = {};
-      for (var i = 0; i < times; i++) {
-        var key = start.clone().add(i, 'days').format(format);
-        map[key] =  0;
-      }
-
-      _.each(ts, function(t) {
-        var date = t.format(format);
-        map[date]++;
-      });
-
-
-      return _.map(_.pairs(map), function(m) {
-        return [moment(m[0], format).format('x'), m[1]];
-      });
-    };
 
     $scope.loadCampaignData = function(fromDate, toDate, callback) {
       Campaigns.query(
@@ -58,28 +39,6 @@ angular.module('campaigns').controller('CampaignsGraphController', [
         }
       );
     };
-
-    Campaigns.query(
-      {
-        startDate: $scope.fromDate,
-        endDate: $scope.toDate
-      },
-      function(data) {
-        var ts = _.map(data, function(d) {
-                   var dd = moment(Date.parse(d.created_at));
-                   return dd;
-                 });
-
-        // Assume 8 days for now.
-        var result = categorizeByDay(ts, moment($scope.weekAgo), 7);
-        $scope.campaignGraphData = [
-          {
-            'key': 'Campaigns',
-            values: result
-          }
-        ];
-      }
-    );
 
     $scope.dateOptions = {
       formatYear: 'yy',
