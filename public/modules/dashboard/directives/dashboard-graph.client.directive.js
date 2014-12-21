@@ -7,11 +7,6 @@ angular.module('dashboard').directive('dashboardGraph', [
   function($timeout) {
     return {
       scope: {
-        fromDateIsOpen: '=',
-        openFromDate: '&',
-        toDateIsOpen: '=',
-        openToDate: '&',
-        datepickerOptions: '=',
         loadData: '&'
       },
       restrict: 'E',
@@ -106,6 +101,11 @@ angular.module('dashboard').directive('dashboardGraph', [
             var newX = d3.time.format('%Y-%m-%d')(new Date(+e.point[0]));
             return '<p>' + y + ' &#64; ' + newX + '</p>';
           };
+        };
+
+        scope.dateOptions = {
+          formatYear: 'yy',
+          startingDay: 1
         };
 
         // first time loading data

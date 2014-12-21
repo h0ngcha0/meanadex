@@ -39,10 +39,5 @@ angular.module('campaigns').controller('CampaignsGraphController', [
         }
       );
     };
-
-    $scope.dateOptions = {
-      formatYear: 'yy',
-      startingDay: 1
-    };
   }
 ]);
