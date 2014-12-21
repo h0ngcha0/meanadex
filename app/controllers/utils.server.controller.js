@@ -2,7 +2,8 @@
 
 var errorHandler = require('./errors'),
     config = require('../../config/config'),
-    nodemailer = require('nodemailer');
+    nodemailer = require('nodemailer'),
+    _ = require('lodash');
 
 /**
  * List of object by query, sorted by create date, populated

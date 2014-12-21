@@ -162,8 +162,12 @@ var populateSold = function(campaigns, callback) {
  * List of Campaigns owned by a particular user
  */
 exports.list = function(req, res) {
-  var unpack = function(str) {
-    return str.slice(1, str.length-1);
+  var unpack = function(obj) {
+    if(_.isString(obj)) {
+      return obj.slice(1, obj.length-1);
+    } else {
+      return obj;
+    }
   };
 
   var userQuery = function(req) {
