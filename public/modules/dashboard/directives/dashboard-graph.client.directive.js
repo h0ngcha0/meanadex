@@ -47,8 +47,8 @@ angular.module('dashboard').directive('dashboardGraph', [
         scope.fromDate = Date.today().addDays(-7); // week ago
 
         scope.reloadData = function() {
-          var start = moment(scope.fromDate);
-          var end = moment(scope.toDate);
+          var start = moment(scope.fromDate).startOf('day');
+          var end = moment(scope.toDate).endOf('day');
 
           scope.loadData()(start, end, function(err, ts){
             if(!err) {

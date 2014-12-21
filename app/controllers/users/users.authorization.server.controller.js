@@ -11,8 +11,6 @@ var _ = require('lodash'),
  * User middleware
  */
 exports.userByID = function(req, res, next, id) {
-  console.log('userByID:');
-  console.log(id);
   User.findOne({
     _id: id
   }).exec(function(err, user) {

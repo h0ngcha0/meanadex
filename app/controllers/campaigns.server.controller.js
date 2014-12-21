@@ -13,7 +13,6 @@ var mongoose = require('mongoose'),
     config = require('../../config/config'),
     utils = require('./utils'),
     async = require('async'),
-    moment = require('moment'),
     logger = require('../lib/logger.server.lib.js'),
     _ = require('lodash');
 
@@ -162,53 +161,10 @@ var populateSold = function(campaigns, callback) {
  * List of Campaigns owned by a particular user
  */
 exports.list = function(req, res) {
-  var unpack = function(obj) {
-    if(_.isString(obj)) {
-      return obj.slice(1, obj.length-1);
-    } else {
-      return obj;
-    }
-  };
-
-  var userQuery = function(req) {
-    var query = {},
-        userId = req.user._id,
-        startDate = unpack(req.param('startDate')),
-        endDate = unpack(req.param('endDate')),
-        roles = req.user.roles;
-
-    // if it is admin, return all campaigns
-    if (!_.contains(roles, 'admin')) {
-      query.user = userId;
-    }
-
-    var setIfDateValid = function(date, callback) {
-      if(date) {
-        var parsedDate = moment(date, moment.ISO_8601);
-        if (parsedDate.isValid()) {
-          if (!query.created_at) {
-            query.created_at = {};
-          }
-
-          callback(parsedDate.toDate());
-        }
-      }
-    };
-
-    setIfDateValid(startDate, function(date) {
-      query.created_at.$gte = date;
-    });
-
-    setIfDateValid(endDate, function(date) {
-      query.created_at.$lte = date;
-    });
-
-    return query;
-  };
   var populateMap = {
     'user': 'displayName'
   };
-  var query = userQuery(req);
+  var query = utils.userQuery(req);
   var results = Campaign.find(query).sort('-created');
 
   _.each(
