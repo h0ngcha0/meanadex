@@ -77,6 +77,26 @@ angular.module('dashboard').directive('dashboardGraph', [
           };
         };
 
+
+        scope.date = {
+          fromOpened: false,
+          toOpened: false
+        };
+
+        scope.openFromDate = function($event) {
+          $event.preventDefault();
+          $event.stopPropagation();
+
+          scope.date.fromOpened = true;
+        };
+
+        scope.openToDate = function($event) {
+          $event.preventDefault();
+          $event.stopPropagation();
+
+          scope.date.toOpened = true;
+        };
+
         scope.xscale = function() {
           return d3.time.scale();
         };

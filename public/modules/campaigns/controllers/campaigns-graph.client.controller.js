@@ -44,24 +44,5 @@ angular.module('campaigns').controller('CampaignsGraphController', [
       formatYear: 'yy',
       startingDay: 1
     };
-
-    $scope.date = {
-      fromOpened: false,
-      toOpened: false
-    };
-
-    $scope.openFromDate = function($event) {
-      $event.preventDefault();
-      $event.stopPropagation();
-
-      $scope.date.fromOpened = true;
-    };
-
-    $scope.openToDate = function($event) {
-      $event.preventDefault();
-      $event.stopPropagation();
-
-      $scope.date.toOpened = true;
-    };
   }
 ]);

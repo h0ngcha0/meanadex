@@ -6,14 +6,14 @@
              datepicker-popup="yyyy/MM/dd"
              data-ng-change="reloadData()"
              ng-model="fromDate"
-             is-open="fromDateIsOpen"
+             is-open="date.fromOpened"
              max-date="toDate"
              datepicker-options="datepickerOptions"
              data-ng-required="true"
              close-text="Close" />
       <span class="input-group-btn">
         <button type="button" class="btn btn-default"
-                ng-click="openFromDate()($event)">
+                ng-click="openFromDate($event)">
           <i class="glyphicon glyphicon-calendar"></i>
         </button>
       </span>
@@ -29,7 +29,7 @@
              datepicker-popup="yyyy/MM/dd"
              data-ng-change="reloadData()"
              ng-model="toDate"
-             is-open="toDateIsOpen"
+             is-open="date.toOpened"
              min-date="fromDate"
              max-date="today"
              datepicker-options="datepickerOptions"
@@ -37,7 +37,7 @@
              close-text="Close" />
       <span class="input-group-btn">
         <button type="button" class="btn btn-default"
-                ng-click="openToDate()($event)">
+                ng-click="openToDate($event)">
           <i class="glyphicon glyphicon-calendar"></i>
         </button>
       </span>
