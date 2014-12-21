@@ -81,17 +81,6 @@ angular.module('campaigns').controller('CampaignsGraphController', [
       }
     );
 
-    $scope.xscale = function() {
-      return d3.time.scale();
-    };
-
-    $scope.tooltipcontent = function() {
-        return function(key, x, y, e, graph) {
-            var newX = d3.time.format('%Y-%m-%d')(new Date(+e.point[0]));
-            return '<p>' + y + ' &#64; ' + newX + '</p>';
-        };
-    };
-
     $scope.dateOptions = {
       formatYear: 'yy',
       startingDay: 1
