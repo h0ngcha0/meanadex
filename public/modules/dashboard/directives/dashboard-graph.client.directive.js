@@ -1,6 +1,7 @@
 'use strict';
 
 /* global moment */
+/* global d3 */
 
 angular.module('dashboard').directive('dashboardGraph', [
   '$timeout',
@@ -51,11 +52,7 @@ angular.module('dashboard').directive('dashboardGraph', [
 
           scope.loadData()(start, end, function(err, ts){
             if(!err) {
-              console.log('time series:');
-              console.log(ts);
               var result = categorizeByDay(ts, start, end);
-              console.log('result');
-              console.log(result);
               scope.graphData = [
                 {
                   'key': 'Campaigns',
@@ -110,7 +107,7 @@ angular.module('dashboard').directive('dashboardGraph', [
 
         // first time loading data
         $timeout(function() {
-          scope.reloadData()
+          scope.reloadData();
         }, 0);
       }
     };

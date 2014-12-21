@@ -5,25 +5,13 @@
 
 // Campaigns controller
 angular.module('campaigns').controller('CampaignsGraphController', [
-  '$scope', 'Authentication', 'Campaigns',
-  function($scope, Authentication, Campaigns) {
-    $scope.authentication = Authentication;
-
-    var findBetween = function(start, end) {
-    };
-
-    // date picker related
-    $scope.today = Date.today();
-    $scope.weekAgo = Date.today().addDays(-7);
-    $scope.fromDate = $scope.weekAgo;
-    $scope.toDate = $scope.today;
-
-
+  '$scope', 'Campaigns',
+  function($scope, Campaigns) {
     $scope.loadCampaignData = function(fromDate, toDate, callback) {
       Campaigns.query(
         {
-          startDate: $scope.fromDate,
-          endDate: $scope.toDate
+          startDate: fromDate,
+          endDate: toDate
         },
         function(data) {
           var ts = _.map(data, function(d) {

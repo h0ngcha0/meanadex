@@ -13,6 +13,7 @@ var mongoose = require('mongoose'),
     config = require('../../config/config'),
     utils = require('./utils'),
     async = require('async'),
+    moment = require('moment'),
     logger = require('../lib/logger.server.lib.js'),
     _ = require('lodash');
 
@@ -161,11 +162,15 @@ var populateSold = function(campaigns, callback) {
  * List of Campaigns owned by a particular user
  */
 exports.list = function(req, res) {
+  var unpack = function(str) {
+    return str.slice(1, str.length-1);
+  };
+
   var userQuery = function(req) {
     var query = {},
         userId = req.user._id,
-        startDate = req.param('startDate'),
-        endDate = req.param('endDate'),
+        startDate = unpack(req.param('startDate')),
+        endDate = unpack(req.param('endDate')),
         roles = req.user.roles;
 
     // if it is admin, return all campaigns
@@ -173,15 +178,15 @@ exports.list = function(req, res) {
       query.user = userId;
     }
 
-    // TODO: use momentjs to validate date?
     var setIfDateValid = function(date, callback) {
       if(date) {
-        var parsedDate = Date.parse(date);
-        if (!isNaN(parsedDate)) {
+        var parsedDate = moment(date, moment.ISO_8601);
+        if (parsedDate.isValid()) {
           if (!query.created_at) {
             query.created_at = {};
           }
-          callback(new Date(parsedDate));
+
+          callback(parsedDate.toDate());
         }
       }
     };
