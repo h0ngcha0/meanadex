@@ -1,73 +1,103 @@
-<div class="page-header">
-  <h3>New Tshirt</h3>
+<div class="row">
+  <div class="col-lg-12">
+    <dashboard-widget>
+      <dashboard-widget-header icon="fa-circle-o-notch"
+                               title="New Tshirt">
+        <span>
+          <a data-ng-click="create()" class="btn btn-info btn-sm">
+            Submit
+          </a>
+        </span>
+      </dashboard-widget-header>
+    </dashboard-widget>
+  </div>
 </div>
-<div class="col-md-12" data-ng-init="createOne()">
-  <form class="form-horizontal" data-ng-submit="create()" novalidate>
-    <fieldset>
-      <div class="form-group">
-        <div class="controls">
-          <span class="col-md-4">
-            <label class="control-label" for="name">Name</label>
-            <input type="text" data-ng-model="name" id="name"
-                   class="form-control" placeholder="Name" required>
-          </span>
-          <span class="col-md-4">
-            <label class="control-label" for="frontImage">Front image</label>
-            <md-image-upload uploader="frontUploader"
-                             current-queue-item="currentQueueItemFront"
-                             display-upload="false">
-            </md-image-upload>
-          </span>
-          <span class="col-md-4">
-            <label class="control-label" for="backImage">Back image</label>
-            <md-image-upload uploader="backUploader"
-                             current-queue-item="currentQueueItemBack"
-                             display-upload="false">
-          </span>
-        </div>
-      </div>
-      <hr/>
 
-      <div class="form-group">
-        <span class="col-md-3">
-          <label class="control-label" for="name">Variant name</label>
-          <input type="text" data-ng-model="tmpVariant.name" id="name"
-                 class="form-control" placeholder="Name" required>
-        </span>
-        <span class="col-md-3">
-          <label class="control-label" for="description">Description</label>
-          <input type="text" data-ng-model="tmpVariant.description" id="description"
-                 class="form-control" placeholder="Description" required>
-        </span>
-        <span class="col-md-3">
-          <label class="control-label" for="baseCost">Base cost</label>
-          <input type="text" data-ng-model="tmpVariant.baseCost" id="baseCost"
-                 class="form-control" placeholder="0" required>
-        </span>
-        <span class="col-md-3">
-          <label class="control-label" for="currency">Currency</label>
-          <input type="text" data-ng-model="tmpVariant.currency" id="currency"
-                 class="form-control" placeholder="SEK" required>
-        </span>
-        <span class="col-md-12">
-          <label class="control-label" for="currency">Color</label>
-          <md-tshirt-color-editor variant="tmpVariant"
-                                  removecolor="removeVariantColor"
-                                  addcolor="addVariantColor">
-          </md-tshirt-color-editor>
-        </span>
-      </div>
-      <hr/>
-      <div class="form-group">
-        <span class="col-md-12">
-          <input type="submit" class="btn btn-default">
-        </span>
-      </div>
-      <div data-ng-show="error" class="text-danger">
-        <span class="col-md-12">
-	  <strong data-ng-bind="error"></strong>
-        </span>
-      </div>
-    </fieldset>
-  </form>
+<div class="row">
+  <div class="col-lg-6">
+    <dashboard-widget>
+      <dashboard-widget-header icon="fa-file-image-o" title="Front image">
+      </dashboard-widget-header>
+      <dashboard-widget-body>
+        <div class="row">
+          <md-image-upload uploader="frontUploader"
+                           current-queue-item="currentQueueItemFront"
+                           display-upload="false">
+          </md-image-upload>
+        </div>
+      </dashboard-widget-body>
+    </dashboard-widget>
+  </div>
+  <div class="col-lg-6">
+    <dashboard-widget>
+      <dashboard-widget-header icon="fa-file-image-o" title="Back image">
+      </dashboard-widget-header>
+      <dashboard-widget-body>
+        <div class="row">
+          <md-image-upload uploader="backUploader"
+                           current-queue-item="currentQueueItemBack"
+                           display-upload="false">
+          </md-image-upload>
+        </div>
+      </dashboard-widget-body>
+    </dashboard-widget>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <dashboard-widget>
+      <dashboard-widget-header icon="fa-file-image-o" title="Tshirt details">
+      </dashboard-widget-header>
+      <dashboard-widget-body>
+        <div class="table-responsive" data-ng-init="createOne()">
+          <table class="table table-striped">
+            <tr>
+              <td>Tshirt name</td>
+              <td>Variant name</td>
+              <td>Variant description</td>
+              <td>Base cost</td>
+              <td>Currency</td>
+              <td>Color</td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" data-ng-model="name" id="name"
+                       class="form-control" placeholder="Tshirt Name" required>
+              </td>
+              <td>
+                <input type="text" data-ng-model="tmpVariant.name" id="name"
+                       class="form-control" placeholder="Variant Name" required>
+              </td>
+              <td>
+                <input type="text" data-ng-model="tmpVariant.description" id="description"
+                       class="form-control" placeholder="Variant Description" required>
+              </td>
+              <td>
+                <input type="text" data-ng-model="tmpVariant.baseCost" id="baseCost"
+                       class="form-control" placeholder="0" required>
+              </td>
+              <td>
+                <input type="text" data-ng-model="tmpVariant.currency" id="currency"
+                       class="form-control" placeholder="SEK" required>
+              </td>
+              <td>
+                <md-tshirt-color-editor variant="tmpVariant"
+                                        removecolor="removeVariantColor"
+                                        addcolor="addVariantColor">
+                </md-tshirt-color-editor>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <a data-ng-click="create()" class="btn btn-info btn-sm">
+                  Submit
+                </a>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </dashboard-widget-body>
+    </dashboard-widget>
+  </div>
 </div>
