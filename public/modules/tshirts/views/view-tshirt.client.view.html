@@ -15,9 +15,15 @@
   <div class="col-lg-6">
     <dashboard-widget>
       <dashboard-widget-header icon="fa-tasks" title="Front image">
+        <a class="btn btn-info btn-sm"
+           data-ng-click="onFrontImgEdit()"
+           data-ng-if="!tshirt.editFrontImg">
+          <span class="glyphicon glyphicon-edit"></span>
+          edit
+        </a>
       </dashboard-widget-header>
       <dashboard-widget-body>
-        <div data-ng-if="tshirt.editFrontImg">
+        <div data-ng-if="tshirt.editFrontImg" class="row">
           <md-image-upload uploader="frontUploader"
                            current-queue-item="currentQueueItemFront"
                            on-image-upload="onFrontImgUpload()"
@@ -25,12 +31,6 @@
           </md-image-upload>
         </div>
         <div data-ng-if="!tshirt.editFrontImg">
-          <button class="btn btn-primary btn-xs"
-                  data-ng-click="onFrontImgEdit()">
-            <span class="glyphicon glyphicon-edit"></span>
-            edit
-          </button>
-          <hr/>
           <img id="fimage"
                data-ng-src="{{tshirt.frontImage.url}}"
                width="50%"/>
@@ -42,9 +42,15 @@
   <div class="col-lg-6">
     <dashboard-widget>
       <dashboard-widget-header icon="fa-tasks" title="Back image">
+        <a class="btn btn-info btn-sm"
+           data-ng-click="onBackImgEdit()"
+           data-ng-if="!tshirt.editBackImg">
+          <span class="glyphicon glyphicon-edit"></span>
+          edit
+        </a>
       </dashboard-widget-header>
       <dashboard-widget-body>
-        <div data-ng-if="tshirt.editBackImg">
+        <div data-ng-if="tshirt.editBackImg" class="row">
           <md-image-upload uploader="backUploader"
                            current-queue-item="currentQueueItemBack"
                            on-image-upload="onBackImgUpload()"
@@ -52,12 +58,6 @@
           </md-image-upload>
         </div>
         <div data-ng-if="!tshirt.editBackImg">
-          <button class="btn btn-primary btn-xs"
-                  data-ng-click="onBackImgEdit()">
-            <span class="glyphicon glyphicon-edit"></span>
-            edit
-          </button>
-          <hr/>
           <img id="bimage"
                data-ng-src="{{tshirt.backImage.url}}"
                width="50%"/>
