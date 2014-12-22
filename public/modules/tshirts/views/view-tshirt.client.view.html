@@ -1,58 +1,79 @@
-<div data-ng-init="loadAllVariantsInTableData()">
-  <div class="page-header">
-    <h3 data-ng-bind="tshirt.name"></h3>
+<div data-ng-init="loadAllVariantsInTableData()" class="row">
+  <div class="col-lg-12">
+    <dashboard-widget>
+      <dashboard-widget-header icon="fa-tasks" title="{{tshirt.name}}">
+        <a ui-sref="dashboard.tshirtCreate" type="button" class="btn btn-sm btn-info">
+          Add Tshirt
+          <i class="glyphicon glyphicon-white"></i>
+        </a>
+      </dashboard-widget-header>
+    </dashboard-widget>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-6">
+    <dashboard-widget>
+      <dashboard-widget-header icon="fa-tasks" title="Front image">
+      </dashboard-widget-header>
+      <dashboard-widget-body>
+        <div data-ng-if="tshirt.editFrontImg">
+          <md-image-upload uploader="frontUploader"
+                           current-queue-item="currentQueueItemFront"
+                           on-image-upload="onFrontImgUpload()"
+                           display-upload="true">
+          </md-image-upload>
+        </div>
+        <div data-ng-if="!tshirt.editFrontImg">
+          <button class="btn btn-primary btn-xs"
+                  data-ng-click="onFrontImgEdit()">
+            <span class="glyphicon glyphicon-edit"></span>
+            edit
+          </button>
+          <hr/>
+          <img id="fimage"
+               data-ng-src="{{tshirt.frontImage.url}}"
+               width="50%"/>
+        </div>
+      </dashboard-widget-body>
+    </dashboard-widget>
   </div>
 
-  <form class="form-horizontal" novalidate>
-    <fieldset>
-      <div class="form-group">
-        <div class="col-md-12">
-          <div class="col-md-6" data-ng-if="tshirt.editFrontImg">
-            <label class="control-label" for="fimage">Front image</label>
-            <md-image-upload uploader="frontUploader"
-                             current-queue-item="currentQueueItemFront"
-                             on-image-upload="onFrontImgUpload()"
-                             display-upload="true">
-            </md-image-upload>
-          </div>
-          <div class="col-md-6" data-ng-if="!tshirt.editFrontImg">
-            <label class="control-label" for="fimage">Front image</label>
-            <button class="btn btn-primary btn-xs"
-               data-ng-click="onFrontImgEdit()">
-              <span class="glyphicon glyphicon-edit"></span>
-              edit
-            </button>
-            <hr/>
-            <img id="fimage"
-                 data-ng-src="{{tshirt.frontImage.url}}"
-                 width="50%"/>
-          </div>
-
-          <div class="col-md-6" data-ng-if="tshirt.editBackImg">
-            <label class="control-label" for="bimage">Back image</label>
-            <md-image-upload uploader="backUploader"
-                             current-queue-item="currentQueueItemBack"
-                             on-image-upload="onBackImgUpload()"
-                             display-upload="true">
-            </md-image-upload>
-          </div>
-          <div class="col-md-6" data-ng-if="!tshirt.editBackImg">
-            <label class="control-label" for="bimage">Back image</label>
-            <button class="btn btn-primary btn-xs"
-               data-ng-click="onBackImgEdit()">
-              <span class="glyphicon glyphicon-edit"></span>
-              edit
-            </button>
-            <hr/>
-            <img id="bimage"
-                 data-ng-src="{{tshirt.backImage.url}}"
-                 width="50%"/>
-          </div>
+  <div class="col-lg-6">
+    <dashboard-widget>
+      <dashboard-widget-header icon="fa-tasks" title="Back image">
+      </dashboard-widget-header>
+      <dashboard-widget-body>
+        <div data-ng-if="tshirt.editBackImg">
+          <md-image-upload uploader="backUploader"
+                           current-queue-item="currentQueueItemBack"
+                           on-image-upload="onBackImgUpload()"
+                           display-upload="true">
+          </md-image-upload>
         </div>
+        <div data-ng-if="!tshirt.editBackImg">
+          <button class="btn btn-primary btn-xs"
+                  data-ng-click="onBackImgEdit()">
+            <span class="glyphicon glyphicon-edit"></span>
+            edit
+          </button>
+          <hr/>
+          <img id="bimage"
+               data-ng-src="{{tshirt.backImage.url}}"
+               width="50%"/>
+        </div>
+      </dashboard-widget-body>
+    </dashboard-widget>
+  </div>
+</div>
 
-        <hr/>
-        <div class="col-md-12">
-          <label class="control-label">Edit variants</label>
+<div class="row">
+  <div class="col-lg-12">
+    <dashboard-widget>
+      <dashboard-widget-header icon="fa-tasks" title="Variants">
+      </dashboard-widget-header>
+      <dashboard-widget-body>
+        <div class="table-responsive">
           <table ng-table="variantsTableParams" show-filter="false"
                  class="table table-bordered">
             <tr ng-repeat="variant in $data">
@@ -102,28 +123,19 @@
             </tr>
           </table>
         </div>
-        <hr/>
-        <button class="btn btn-default" data-ng-click="addTshirtVariant()">
-          New variant
-        </button>
-        <div class="pull-right" data-ng-show="authentication.user._id == tshirt.user._id">
-          <a class="btn btn-primary" data-ng-click="remove();">
-            <i class="glyphicon glyphicon-trash"></i>
-          </a>
+        <div data-ng-show="error" class="text-danger">
+          <strong data-ng-bind="error"></strong>
         </div>
-
-      </div>
-    </fieldset>
-    <div data-ng-show="error" class="text-danger">
-      <strong data-ng-bind="error"></strong>
-    </div>
-  </form>
-  <small>
-    <em class="text-muted">
-      Posted on
-      <span data-ng-bind="tshirt.created | date:'mediumDate'"></span>
-      by
-      <span data-ng-bind="tshirt.user.displayName"></span>
-    </em>
-  </small>
+      </dashboard-widget-body>
+    </dashboard-widget>
+  </div>
 </div>
+
+<small>
+  <em class="text-muted">
+    Created on
+    <span data-ng-bind="tshirt.created | date:'mediumDate'"></span>
+    by
+    <span data-ng-bind="tshirt.user.displayName"></span>
+  </em>
+</small>
