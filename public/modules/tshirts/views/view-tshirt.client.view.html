@@ -1,7 +1,7 @@
 <div data-ng-init="loadAllVariantsInTableData()" class="row">
   <div class="col-lg-12">
     <dashboard-widget>
-      <dashboard-widget-header icon="fa-tasks" title="{{tshirt.name}}">
+      <dashboard-widget-header icon="fa-circle-o-notch" title="{{tshirt.name}}">
         <a ui-sref="dashboard.tshirtCreate" type="button" class="btn btn-sm btn-info">
           Add Tshirt
           <i class="glyphicon glyphicon-white"></i>
@@ -14,7 +14,7 @@
 <div class="row">
   <div class="col-lg-6">
     <dashboard-widget>
-      <dashboard-widget-header icon="fa-tasks" title="Front image">
+      <dashboard-widget-header icon="fa-file-image-o" title="Front image">
         <a class="btn btn-info btn-sm"
            data-ng-click="onFrontImgEdit()"
            data-ng-if="!tshirt.editFrontImg">
@@ -41,7 +41,7 @@
 
   <div class="col-lg-6">
     <dashboard-widget>
-      <dashboard-widget-header icon="fa-tasks" title="Back image">
+      <dashboard-widget-header icon="fa-file-image-o" title="Back image">
         <a class="btn btn-info btn-sm"
            data-ng-click="onBackImgEdit()"
            data-ng-if="!tshirt.editBackImg">
@@ -70,7 +70,10 @@
 <div class="row">
   <div class="col-lg-12">
     <dashboard-widget>
-      <dashboard-widget-header icon="fa-tasks" title="Variants">
+      <dashboard-widget-header icon="fa-adjust" title="Variants">
+        <a class="btn btn-info btn-sm" data-ng-click="addTshirtVariant()">
+          New variant
+        </a>
       </dashboard-widget-header>
       <dashboard-widget-body>
         <div class="table-responsive">
@@ -107,18 +110,14 @@
                                         addcolor="addVariantColor">
                 </md-tshirt-color-editor>
               </td>
-              <td data-title="'Actions'" width="150">
+              <td data-title="'Actions'">
                 <a data-ng-if="!variant.$edit" href=""
-                   class="btn btn-primary"
-                   data-ng-click="onVariantEdit(variant)">
-                  <i class="glyphicon glyphicon-edit"></i>
-                </a>
+                   class="undecorated-link fa fa-edit fa-lg"
+                   data-ng-click="onVariantEdit(variant)"/>
                 <a ng-if="variant.$edit"
-                   class="btn btn-primary btn-xs"
-                   data-ng-click="onVariantSave(variant)">Save</a>
-                <a class="btn btn-primary" data-ng-click="onVariantRemove(variant);">
-                  <i class="glyphicon glyphicon-trash"></i>
-                </a>
+                   class="undecorated-link fa fa-save fa-lg"
+                   data-ng-click="onVariantSave(variant)"/>
+                <a class="undecorated-link fa fa-trash-o fa-lg" data-ng-click="onVariantRemove(variant);"/>
               </td>
             </tr>
           </table>
@@ -131,11 +130,17 @@
   </div>
 </div>
 
-<small>
-  <em class="text-muted">
-    Created on
-    <span data-ng-bind="tshirt.created | date:'mediumDate'"></span>
-    by
-    <span data-ng-bind="tshirt.user.displayName"></span>
-  </em>
-</small>
+<div class="row">
+  <div class="col-lg-12">
+    <dashboard-widget>
+      <small>
+        <em class="text-muted">
+          Created on
+          <span data-ng-bind="tshirt.created_at | date:'mediumDate'"></span>
+          by
+          <span data-ng-bind="tshirt.user.displayName"></span>
+        </em>
+      </small>
+    </dashboard-widget>
+  </div>
+</div>
