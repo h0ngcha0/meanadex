@@ -13,6 +13,32 @@ angular.module('dashboard').directive('dashboardGraph', [
       restrict: 'E',
       templateUrl: 'modules/dashboard/views/dashboard-graph.client.view.html',
       link: function(scope, element, attr) {
+        // start is a moment/date
+        var categorizeByDay = function(ts, start, end) {
+          var diff = end.diff(start, 'days');
+          var format = 'DD/MM/YY';
+          var map = _.reduce(
+            _.range(diff+1),
+            function(acc, difference) {
+              var key = start.clone().add(difference, 'days').format(format);
+              acc[key] = 0;
+              return acc;
+            },
+            {}
+          );
+
+          _.each(ts, function(t) {
+            var date = moment(t[0]).format(format);
+            map[date] +=  t[1];
+          });
+
+          return _.map(
+            _.pairs(map),
+            function(m) {
+              return [moment(m[0], format).toDate().getTime(), m[1]];
+            }
+          );
+        };
         scope.today = Date.today();
         scope.toDate = Date.today();
         scope.fromDate = Date.today().addDays(-7); // week ago
@@ -23,10 +49,11 @@ angular.module('dashboard').directive('dashboardGraph', [
 
           scope.loadData()(start, end, function(err, ts){
             if(!err) {
+              var result = categorizeByDay(ts.values, moment(start), moment(end));
               scope.graphData = [
                 {
                   'key': 'Campaigns',
-                  values: ts.values
+                  values: result
                 }
               ];
             }
