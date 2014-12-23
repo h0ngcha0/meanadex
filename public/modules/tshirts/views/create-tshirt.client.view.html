@@ -1,3 +1,13 @@
+<div class="row alerts-container"
+     data-ng-controller="DashboardAlertController"
+     data-ng-show="error">
+  <div class="col-xs-12">
+    <alert type="danger">
+      {{error}}
+    </alert>
+  </div>
+</div>
+
 <div class="row">
   <div class="col-lg-12">
     <dashboard-widget>
@@ -62,11 +72,11 @@
             </tr>
             <tr>
               <td>
-                <input type="text" data-ng-model="name" id="name"
+                <input type="text" data-ng-model="tmpTshirt.name" id="tshirtName"
                        class="form-control" placeholder="Tshirt Name" required>
               </td>
               <td>
-                <input type="text" data-ng-model="tmpVariant.name" id="name"
+                <input type="text" data-ng-model="tmpVariant.name" id="variantName"
                        class="form-control" placeholder="Variant Name" required>
               </td>
               <td>

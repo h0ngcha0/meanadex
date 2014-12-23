@@ -8,6 +8,7 @@ angular.module('tshirts').controller('TshirtsController', [
            $filter, DashboardUtils, $timeout, FileUploader) {
     $scope.authentication = Authentication;
     $scope.tmpVariant = {};
+    $scope.tmpTshirt = {};
 
     // Create new Tshirt
     $scope.create = function() {
@@ -21,6 +22,21 @@ angular.module('tshirts').controller('TshirtsController', [
         return;
       }
 
+      var variantMsgsMap = {
+        currency: 'Variant currency is required',
+        baseCost: 'Variant base cost is required',
+        description: 'Variant description is required',
+        name: 'Variant name is required'
+      };
+
+      Object.keys(variantMsgsMap).forEach(function(key) {
+        if(!$scope.tmpVariant[key]) {
+          $scope.error = variantMsgsMap[key];
+        }
+      });
+
+      if($scope.error) return;
+
       $scope.currentQueueItemFront.onSuccess = function(responseF, statusF, headerF) {
         var frontImgId = responseF._id;
 
@@ -28,7 +44,7 @@ angular.module('tshirts').controller('TshirtsController', [
           var backImgId = responseB._id;
 
           var tshirt = new Tshirts ({
-            name: $scope.name,
+            name: $scope.tmpTshirt.name,
             frontImage: frontImgId,
             backImage: backImgId,
             variants: [$scope.tmpVariant]
@@ -37,10 +53,10 @@ angular.module('tshirts').controller('TshirtsController', [
           // Redirect after save
           tshirt.$save(
             function(response) {
-              $location.path('admin/tshirts/' + response._id);
+              $location.path('dashboard/tshirts/' + response._id);
 
               // Clear form fields
-              $scope.name = '';
+              $scope.tmpTshirt = {};
             },
             function(errorResponse) {
               $scope.error = errorResponse.data.message;
