@@ -5,21 +5,16 @@
 
 // Campaigns controller
 angular.module('orders').controller('OrdersGraphController', [
-  '$scope', 'Orders',
-  function($scope, Orders) {
+  '$scope', 'Dashboard',
+  function($scope, Dashboard) {
     $scope.loadOrdersData = function(fromDate, toDate, callback) {
-      Orders.query(
+      Dashboard.ordersCreated.query(
         {
           startDate: fromDate,
           endDate: toDate
         },
         function(data) {
-          var ts = _.map(data, function(d) {
-                     var dd = moment(Date.parse(d.created_at));
-                     return dd;
-                   });
-
-          callback(null, ts);
+          callback(null, data);
         },
         function(err) {
           callback(err);

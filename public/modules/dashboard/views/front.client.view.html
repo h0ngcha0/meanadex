@@ -10,7 +10,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row" data-ng-init="fetchData()">
   <div class="col-lg-3 col-md-6 col-xs-12">
     <dashboard-widget>
       <dashboard-widget-body>
@@ -28,7 +28,7 @@
         <div class="widget-icon orange pull-left">
           <i class="fa fa-trophy"></i>
         </div>
-        <div class="title">225</div>
+        <div class="title">{{ data.totalOrders.value }}</div>
         <div class="comment">Orders</div>
       </dashboard-widget-body>
     </dashboard-widget>
@@ -39,7 +39,7 @@
         <div class="widget-icon red pull-left">
           <i class="fa fa-tasks"></i>
         </div>
-        <div class="title">16</div>
+        <div class="title">{{ data.totalCampaigns.value }}</div>
         <div class="comment">Total Campaigns</div>
       </dashboard-widget-body>
     </dashboard-widget>
@@ -50,7 +50,7 @@
         <div class="widget-icon blue pull-left">
           <i class="fa fa-tasks"></i>
         </div>
-        <div class="title">7</div>
+        <div class="title">{{ data.activeCampaigns.value }}</div>
         <div class="comment">Active campaigns</div>
       </dashboard-widget-body>
     </dashboard-widget>

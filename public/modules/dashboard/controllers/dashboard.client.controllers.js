@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('dashboard').controller('DashboardController', [
-  '$scope', 'Authentication', '$location', '$state', '$cookieStore',
-  function($scope, Authentication, $location, $state, $cookieStore) {
+  '$scope', 'Authentication', '$location', '$state', '$cookieStore', 'Dashboard',
+  function($scope, Authentication, $location, $state, $cookieStore, Dashboard) {
     $scope.authentication = Authentication;
 
     // check if a user is authenticated
@@ -42,6 +42,13 @@ angular.module('dashboard').controller('DashboardController', [
 
     window.onresize = function() {
         $scope.$apply();
+    };
+
+    $scope.fetchData = function() {
+        $scope.data = {};
+        $scope.data.totalOrders = Dashboard.totalOrders.query();
+        $scope.data.totalCampaigns = Dashboard.totalCampaigns.query();
+        $scope.data.activeCampaigns = Dashboard.activeCampaigns.query();
     };
   }
 ]);
