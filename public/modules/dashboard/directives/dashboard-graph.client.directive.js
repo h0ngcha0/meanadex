@@ -40,8 +40,8 @@ angular.module('dashboard').directive('dashboardGraph', [
         scope.fromDate = Date.today().addDays(-7); // week ago
 
         scope.reloadData = function() {
-            var start = moment(scope.fromDate).startOf('day').toDate();
-            var end = moment(scope.toDate).endOf('day').toDate();
+          var start = moment(scope.fromDate).startOf('day').toDate();
+          var end = moment(scope.toDate).endOf('day').toDate();
 
           scope.loadData()(start, end, function(err, data){
             if(!err) {
@@ -49,7 +49,6 @@ angular.module('dashboard').directive('dashboardGraph', [
                 end.getTime());
               scope.graphData = [
                 {
-                  'key': 'Campaigns',
                   area: true,
                   values: values
                 }
