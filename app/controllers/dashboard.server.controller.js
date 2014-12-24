@@ -16,32 +16,47 @@ var moment = require('moment'),
  */
 exports.readTotalIncome = function(req, res) {
   // Find orders that it's campaign owned by current user
-  var options = {};
-  options.map = function () {
-    emit(this.account, this.goal);
-  };
-  options.reduce = function (key, values) {
-    return Array.sum(values);
-  };
-  options.query = {user: req.user._id};
-
-  Order.count(options.query, function(err, count) {
-    if(err || !count) {
+  Campaign.find({user: req.user._id}).select('_id')
+    .exec(function(err, campaigns) {
+    if(err || !campaigns.length) {
       // TODO: verbose logging
       res.jsonp({
-        total: 0
+        value: 0
       });
-    }
-    else {
-      Order.mapReduce(options, function(err, results) {
-        if(err || !results.length) {
+    } else {
+      var options = {};
+      options.map = function () {
+        emit(this.campaign, this.amount);
+      };
+      options.reduce = function (key, values) {
+        return Array.sum(values);
+      };
+      var getId = function(o) { return o._id; };
+      options.query = {campaign: {$in: campaigns.map(getId)}};
+
+      Order.count(options.query, function(err, count) {
+        if(err || !count) {
           // TODO: verbose logging
           res.jsonp({
-            total: 0
+            value: 0
           });
-        } else {
-          res.jsonp({
-            total: results[0].value
+        }
+        else {
+          Order.mapReduce(options, function(err, results) {
+            if(err || !results.length) {
+              // TODO: verbose logging
+              res.jsonp({
+                value: 0
+              });
+            } else {
+              var value = results.reduce(function(p, c, i, a) {
+                c = p + a[i].value;
+                return c;
+              }, 0);
+              res.jsonp({
+                value: value
+              });
+            }
           });
         }
       });

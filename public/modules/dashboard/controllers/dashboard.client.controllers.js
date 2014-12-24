@@ -46,6 +46,7 @@ angular.module('dashboard').controller('DashboardController', [
 
     $scope.fetchData = function() {
         $scope.data = {};
+        $scope.data.totalIncome = Dashboard.totalIncome.query();
         $scope.data.totalOrders = Dashboard.totalOrders.query();
         $scope.data.totalCampaigns = Dashboard.totalCampaigns.query();
         $scope.data.activeCampaigns = Dashboard.activeCampaigns.query();
