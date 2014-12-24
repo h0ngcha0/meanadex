@@ -16,7 +16,7 @@ var moment = require('moment'),
  */
 exports.readTotalIncome = function(req, res) {
   // Find orders that it's campaign owned by current user
-  Campaign.find({user: req.user._id}).select('_id')
+  Campaign.find({user: req.user._id, state: 'tipped'}).select('_id')
     .exec(function(err, campaigns) {
     if(err || !campaigns.length) {
       // TODO: verbose logging
