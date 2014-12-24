@@ -2,14 +2,29 @@
 
 module.exports = {
   db: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://localhost/meanadex',
+  job: {
+    campaignJob: {
+      start: 'in 1 minutes',
+      frequency: '10 minute'
+    }
+  },
   html5shiv: 'public/lib/html5shiv/dist/html5shiv.min.js',
   assets: {
     lib: {
       css: [
         'public/lib/bootstrap/dist/css/bootstrap.min.css',
-        'public/lib/bootstrap/dist/css/bootstrap-theme.min.css'
+        'public/lib/bootstrap/dist/css/bootstrap-theme.min.css',
+        'public/lib/font-awesome.min.css/font-awesome.min.css',
+        'public/lib/angular-bootstrap-colorpicker.min.css/colorpicker.min.css',
+        'public/lib/ng-table/ng-table.min.css',
+        'public/lib/nvd3/nv.d3.min.css',
+        'public/lib/angular-rangeslider/angular.rangeSlider.css'
       ],
       js: [
+        'public/lib/jquery/jquery.min.js',
+        'public/lib/underscore/underscore.js',
+        'public/lib/async/lib/async.js',
+        'https://checkout.stripe.com/checkout.js',
         'public/lib/angular/angular.min.js',
         'public/lib/angular-resource/angular-resource.js',
         'public/lib/angular-cookies/angular-cookies.js',
@@ -18,7 +33,23 @@ module.exports = {
         'public/lib/angular-sanitize/angular-sanitize.js',
         'public/lib/angular-ui-router/release/angular-ui-router.min.js',
         'public/lib/angular-ui-utils/ui-utils.min.js',
-        'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js'
+        'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
+        'public/lib/fabric/dist/fabric.min.js',
+        'public/lib/bootstrap/dist/js/bootstrap.min.js',
+        'public/lib/textAngular/dist/textAngular-sanitize.min.js',
+        'public/lib/textAngular/dist/textAngular.min.js',
+        'public/lib/datejs/build/date.js', // need to deprecate, prefer momentjs
+        'public/lib/moment/min/moment.min.js',
+        'public/lib/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js',
+        'public/lib/angular-rangeslider/angular.rangeSlider.js',
+        'public/lib/angular-local-storage/angular-local-storage.min.js',
+        'public/lib/ng-table/ng-table.min.js',
+        'public/lib/angular-data/dist/angular-data.min.js',
+        'public/lib/angular-timer/dist/angular-timer.min.js',
+        'public/lib/angular-file-upload/angular-file-upload.min.js',
+        'public/lib/d3/d3.min.js',
+        'public/lib/nvd3/nv.d3.min.js',
+        'public/lib/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.min.js'
       ]
     },
     css: 'public/dist/application.min.css',
@@ -55,8 +86,8 @@ module.exports = {
     callbackURL: 'http://localhost:3000/auth/stripe/callback'
   },
   ssl: {
-    privateKeyPath: process.env.SSL_PATH_PRIVATE_KEY || '',
-    certificatePath: process.env.SSL_PATH_CERTIFICATE || ''
+    privateKeyPath: process.env.SSL_PATH_PRIVATE_KEY || './config/env/ssl/production/key.pem',
+    certificatePath: process.env.SSL_PATH_CERTIFICATE || './config/env/ssl/production/cert.pem'
   },
   // FIXME: in production use S3 or similiar for image uploader
   imageUploaderOptions: {
