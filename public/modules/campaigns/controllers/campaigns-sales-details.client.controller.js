@@ -36,12 +36,12 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
     $scope.launchCampaign = function() {
       var tshirt = CampaignCache.getTshirt(),
           variant = tshirt.currentVariant,
-          now = moment().utc();
+          now = new Date();
 
       var campaign = new Campaigns ({
         name: $scope.campaignTitle,
-        created_at: now.toDate(),
-        ended_at: now.add($scope.currentCampaignLength, 'days').toDate(),
+        created_at: now,
+        ended_at: moment(now).add($scope.currentCampaignLength, 'days').toDate(),
         description: CampaignCache.getDescription(),
         length: CampaignCache.getLength(),
         url: CampaignCache.getUrl(),
