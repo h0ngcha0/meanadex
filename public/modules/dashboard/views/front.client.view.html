@@ -17,7 +17,7 @@
         <div class="widget-icon green pull-left">
           <i class="fa fa-money"></i>
         </div>
-        <div class="title">{{ data.totalIncome.value }}</div>
+        <div class="title">{{ data.totalIncome.value || 0 }}</div>
         <div class="comment">Total income</div>
       </dashboard-widget-body>
     </dashboard-widget>
@@ -28,7 +28,7 @@
         <div class="widget-icon orange pull-left">
           <i class="fa fa-trophy"></i>
         </div>
-        <div class="title">{{ data.totalOrders.value }}</div>
+        <div class="title">{{ data.totalOrders.value || 0 }}</div>
         <div class="comment">Orders</div>
       </dashboard-widget-body>
     </dashboard-widget>
@@ -39,7 +39,7 @@
         <div class="widget-icon red pull-left">
           <i class="fa fa-tasks"></i>
         </div>
-        <div class="title">{{ data.totalCampaigns.value }}</div>
+        <div class="title">{{ data.totalCampaigns.value || 0 }}</div>
         <div class="comment">Total Campaigns</div>
       </dashboard-widget-body>
     </dashboard-widget>
@@ -50,7 +50,7 @@
         <div class="widget-icon blue pull-left">
           <i class="fa fa-tasks"></i>
         </div>
-        <div class="title">{{ data.activeCampaigns.value }}</div>
+        <div class="title">{{ data.activeCampaigns.value || 0 }}</div>
         <div class="comment">Active campaigns</div>
       </dashboard-widget-body>
     </dashboard-widget>
