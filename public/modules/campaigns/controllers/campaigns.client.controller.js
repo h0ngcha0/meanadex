@@ -7,7 +7,6 @@ angular.module('campaigns').controller('CampaignsController', [
   function($scope, $stateParams, $state, $location, Authentication,
            Campaigns, $cookies, $filter, DashboardUtils, $timeout, $http) {
     $scope.authentication = Authentication;
-
     // Remove existing Campaign
     $scope.remove = function( campaign ) {
       if ( campaign ) {
@@ -69,18 +68,36 @@ angular.module('campaigns').controller('CampaignsController', [
 
     $scope.tableParams = DashboardUtils.newTableParams(
       function($defer, params) {
-        var orderedData = params.filter() ?
-          $filter('filter')($scope.campaigns, params.filter()) :
-          $scope.campaigns;
-
-        params.total(orderedData.length);
-        $defer.resolve(orderedData);
+        $defer.resolve($scope.campaigns);
       }
     );
 
+    var fetchedFirstPage = true;
+    $scope.disablePrev = function() {
+      return fetchedFirstPage;
+    }
+
+    $scope.disableNext = function() {
+      return !$scope.campaigns.nextAnchorId;
+    }
+
+    $scope.gotoPage = function(anchorId, disabled) {
+      if(!disabled) {
+        $scope.loadAllCampaignsInTableData(anchorId);
+      }
+    };
+
     // Find a list of Campaigns and load them into campaign table
-    $scope.loadAllCampaignsInTableData = function() {
+    $scope.loadAllCampaignsInTableData = function(anchorId) {
+      var queryOption = anchorId ? {'anchorId': anchorId} : {};
+
+      fetchedFirstPage = anchorId ? false : true;
+
+      // if $scope.campaigns not available, it is the first page.
+      $scope.prevAnchorId = $scope.campaigns ? $scope.campaigns.prevAnchorId : 'FirstPageAnchorId';
+
       $scope.campaigns = Campaigns.query(
+        queryOption,
         function(data) {
           $scope.tableParams.reload();
         });

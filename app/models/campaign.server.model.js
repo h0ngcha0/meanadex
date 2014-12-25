@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
+    mongoosePages = require('mongoose-pages'),
     Schema = mongoose.Schema;
 
 /**
@@ -96,4 +97,5 @@ var CampaignSchema = new Schema({
   }
 });
 
+mongoosePages.anchor(CampaignSchema);
 mongoose.model('Campaign', CampaignSchema);

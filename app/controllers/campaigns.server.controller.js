@@ -164,8 +164,35 @@ exports.list = function(req, res) {
   var populateMap = {
     'user': 'displayName'
   };
+
+  // fetch page 1 if undefined, which is ok
+  var anchorId = req.param('anchorId');
+  var itemsPerPage = 2;
+
   var query = utils.userQuery(req);
-  var results = Campaign.find(query).sort('-created');
+  var results = Campaign.findPaginated(
+    query,
+    function(err, result) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        var objects = result.documents;
+        populateSold(objects, function(err, newObjects) {
+          if(err) {
+            return res.status(400).send({
+              message: errorHandler.getErrorMessage(err)
+            });
+          }
+          else {
+            result.documents = newObjects;
+            console.log(result);
+            res.jsonp(result);
+          }
+        });
+      }
+    }, itemsPerPage, anchorId).sort('-created');
 
   _.each(
     populateMap,
@@ -173,25 +200,6 @@ exports.list = function(req, res) {
       results.populate(key, value);
     }
   );
-
-  results.exec(function(err, objects) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      populateSold(objects, function(err, results) {
-        if(err) {
-          return res.status(400).send({
-            message: errorHandler.getErrorMessage(err)
-          });
-        }
-        else {
-          res.jsonp(results);
-        }
-      });
-    }
-  });
 };
 
 /**
