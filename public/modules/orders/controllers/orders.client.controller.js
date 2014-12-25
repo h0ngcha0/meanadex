@@ -11,30 +11,19 @@ angular.module('orders').controller('OrdersController', [
 
     // Remove existing Order
     $scope.remove = function( order ) {
-      if ( order ) {
-        order.$remove();
-
-        for (var i in $scope.orders ) {
-          if ($scope.orders [i] === order ) {
-            $scope.orders.splice(i, 1);
+      Orders.remove(
+        {orderId: order._id},
+        function(data) {
+          for (var i in $scope.orders.documents ) {
+            if ($scope.orders.documents [i] === order ) {
+              $scope.orders.documents.splice(i, 1);
+            }
           }
+        },
+        function(err) {
+          $scope.error = err.data.message;
         }
-      } else {
-        $scope.order.$remove(function() {
-          $location.path('orders');
-        });
-      }
-    };
-
-    // Update existing Order
-    $scope.update = function() {
-      var order = $scope.order ;
-
-      order.$update(function() {
-        $location.path('orders/' + order._id);
-      }, function(errorResponse) {
-           $scope.error = errorResponse.data.message;
-         });
+      );
     };
 
     // Find a list of Orders
@@ -56,12 +45,7 @@ angular.module('orders').controller('OrdersController', [
 
     $scope.tableParams = DashboardUtils.newTableParams(
       function($defer, params) {
-        var orderedData = params.filter() ?
-          $filter('filter')($scope.orders, params.filter()) :
-          $scope.orders;
-
-        params.total(orderedData.length);
-        $defer.resolve(orderedData);
+        $defer.resolve($scope.orders);
       }
     );
 
