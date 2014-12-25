@@ -1,5 +1,7 @@
 'use strict';
 
+/* global moment */
+
 angular.module('campaigns').controller('CampaignsSalesDetailsController', [
   '$scope', 'Campaigns', 'CampaignCache', 'mdCanvasService', '$location', '$http',
   function($scope, Campaigns, CampaignCache, mdCanvasService, $location, $http) {
@@ -37,12 +39,13 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
 
     $scope.launchCampaign = function() {
       var tshirt = CampaignCache.getTshirt(),
-          variant = tshirt.currentVariant;
+          variant = tshirt.currentVariant,
+          now = moment().utc();
 
       var campaign = new Campaigns ({
         name: $scope.campaignTitle,
-        created_at: Date.today(),
-        ended_at: Date.today().addDays($scope.currentCampaignLength),
+        created_at: now.toDate(),
+        ended_at: now.add($scope.currentCampaignLength, 'days').toDate(),
         description: CampaignCache.getDescription(),
         length: CampaignCache.getLength(),
         url: CampaignCache.getUrl(),
