@@ -29,6 +29,21 @@
                 <a class="undecorated-link fa fa-trash-o fa-lg" data-ng-click="onRemove(order);"/>
               </td>
             </tr>
+            <div>
+              <ul class="nav nav-pills">
+                <li data-ng-class="{disabled: disablePrev()}">
+                  <a class="fa fa-arrow-circle-left fa-lg"
+                     data-ng-click="gotoPage(prevAnchorId, disablePrev())">
+                    Previous
+                  </a>
+                </li>
+                <li data-ng-class="{disabled: disableNext()}">
+                  <a class="fa fa-arrow-circle-right fa-lg"
+                     data-ng-click="gotoPage(orders.nextAnchorId, disableNext())">
+                    Next
+                  </a>
+                </li>
+            </div>
           </table>
         </div>
       </dashboard-widget-body>

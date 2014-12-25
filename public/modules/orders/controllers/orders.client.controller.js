@@ -43,6 +43,21 @@ angular.module('orders').controller('OrdersController', [
       $scope.tableParams.reload();
     };
 
+    var fetchedFirstPage = true;
+    $scope.disablePrev = function() {
+      return fetchedFirstPage;
+    };
+
+    $scope.disableNext = function() {
+      return !$scope.orders.nextAnchorId;
+    };
+
+    $scope.gotoPage = function(anchorId, disabled) {
+      if(!disabled) {
+        $scope.loadAllOrdersInTableData(anchorId);
+      }
+    };
+
     $scope.tableParams = DashboardUtils.newTableParams(
       function($defer, params) {
         $defer.resolve($scope.orders);
@@ -50,8 +65,14 @@ angular.module('orders').controller('OrdersController', [
     );
 
     // Find a list of Orders and load them into order table
-    $scope.loadAllOrdersInTableData = function() {
+    $scope.loadAllOrdersInTableData = function(anchorId) {
+      var queryOption = anchorId ? {'anchorId': anchorId} : {};
+      fetchedFirstPage = anchorId ? false : true;
+
+      $scope.prevAnchorId = $scope.campaigns ? $scope.campaigns.prevAnchorId : undefined;
+
       $scope.orders = Orders.query(
+        queryOption,
         function(data) {
           $scope.tableParams.reload();
         });

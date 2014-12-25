@@ -82,10 +82,8 @@ angular.module('campaigns').controller('CampaignsController', [
     // Find a list of Campaigns and load them into campaign table
     $scope.loadAllCampaignsInTableData = function(anchorId) {
       var queryOption = anchorId ? {'anchorId': anchorId} : {};
-
       fetchedFirstPage = anchorId ? false : true;
 
-      // if $scope.campaigns not available, it is the first page.
       $scope.prevAnchorId = $scope.campaigns ? $scope.campaigns.prevAnchorId : undefined;
 
       $scope.campaigns = Campaigns.query(
