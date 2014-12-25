@@ -160,46 +160,32 @@ var populateSold = function(campaigns, callback) {
 /**
  * List of Campaigns owned by a particular user
  */
-exports.list = function(req, res) {
-  var populateMap = {
+exports.list = utils.listWithUser(
+  Campaign,
+  {
     'user': 'displayName'
-  };
-
-  // fetch page 1 if undefined, which is ok
-  var anchorId = req.param('anchorId');
-  var itemsPerPage = req.param('anchorId') || 5;
-
-  var query = utils.userQuery(req);
-  var results = Campaign.findPaginated(
-    query,
-    function(err, result) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        var objects = result.documents;
-        populateSold(objects, function(err, newObjects) {
-          if(err) {
-            return res.status(400).send({
-              message: errorHandler.getErrorMessage(err)
-            });
-          }
-          else {
-            result.documents = newObjects;
-            res.jsonp(result);
-          }
-        });
-      }
-    }, itemsPerPage, anchorId).sort('-created');
-
-  _.each(
-    populateMap,
-    function(value, key) {
-      results.populate(key, value);
+  },
+  function(req, res, err, result) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      var objects = result.documents;
+      populateSold(objects, function(err, newObjects) {
+        if(err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        }
+        else {
+          result.documents = newObjects;
+          res.jsonp(result);
+        }
+      });
     }
-  );
-};
+  }
+);
 
 /**
  * Campaign middleware
