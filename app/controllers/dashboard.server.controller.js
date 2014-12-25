@@ -7,6 +7,7 @@
  */
 var moment = require('moment'),
     _ = require('lodash'),
+    winston = require('winston'),
     mongoose = require('mongoose'),
     Campaign = mongoose.model('Campaign'),
     Order = mongoose.model('Order');
@@ -19,7 +20,7 @@ exports.readTotalIncome = function(req, res) {
   Campaign.find({user: req.user._id, state: 'tipped'}).select('_id')
     .exec(function(err, campaigns) {
     if(err || !campaigns.length) {
-      // TODO: verbose logging
+      winston.error('Failed to read total income: ' + err);
       res.jsonp({
         value: 0
       });
@@ -35,8 +36,8 @@ exports.readTotalIncome = function(req, res) {
       options.query = {campaign: {$in: campaigns.map(getId)}};
 
       Order.count(options.query, function(err, count) {
-        if(err || !count) {
-          // TODO: verbose logging
+        if(err) {
+          winston.error('Failed to read total income: ' + err);
           res.jsonp({
             value: 0
           });
@@ -44,7 +45,7 @@ exports.readTotalIncome = function(req, res) {
         else {
           Order.mapReduce(options, function(err, results) {
             if(err || !results.length) {
-              // TODO: verbose logging
+              winston.error('Failed to read total income: ' + err);
               res.jsonp({
                 value: 0
               });
@@ -69,8 +70,8 @@ exports.readTotalIncome = function(req, res) {
  */
 exports.readTotalOrders = function(req, res) {
   Order.find({user: req.user._id}).count(function (err, count) {
-    if(err || !count) {
-      // TODO: verbose logging
+    if(err) {
+      winston.error('Failed to read total orders: ' + err);
       res.jsonp({
         value: 0
       });
@@ -88,8 +89,8 @@ exports.readTotalOrders = function(req, res) {
  */
 exports.readTotalCampaigns = function(req, res) {
   Campaign.find({user: req.user._id}).count(function (err, count) {
-    if(err || !count) {
-      // TODO: verbose logging
+    if(err) {
+      winston.error('Failed to read total campaigns: ' + err);
       res.jsonp({
         value: 0
       });
@@ -108,8 +109,8 @@ exports.readTotalCampaigns = function(req, res) {
 exports.readActiveCampaigns = function(req, res) {
   Campaign.find({user: req.user._id, state: {$ne: 'expired'}})
     .count(function (err, count) {
-    if(err || !count) {
-      // TODO: verbose logging
+    if(err) {
+      winston.error('Failed to read active campaigns: ' + err);
       res.jsonp({
         value: 0
       });
@@ -178,8 +179,8 @@ var timeSeriesGenerator = function(model, query, sumBy) {
     };
 
     model.count(query, function(err, count) {
-      if(err || !count) {
-        // TODO: verbose logging
+      if(err) {
+        winston.error('Failed to generate time series data: ' + err);
         res.jsonp({
           total: 0,
           values: []
@@ -194,7 +195,7 @@ var timeSeriesGenerator = function(model, query, sumBy) {
           stages.$sort,
           function(err, results) {
             if(err || !results.length) {
-              // TODO: verbose logging
+              winston.error('Failed to generate time series data: ' + err);
               res.jsonp({
                 total: 0,
                 values: []
