@@ -162,6 +162,7 @@ var timeSeriesGenerator = function(model, query, sumBy) {
       }
     };
     if(sumBy) {
+      stages.$projectOffset.$project[sumBy] = 1;
       stages.$project.$project[sumBy] = 1;
       stages.$group.$group._value.$sum = '$' + sumBy;
     }
