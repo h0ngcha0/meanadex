@@ -35,9 +35,9 @@ angular.module('dashboard').directive('dashboardGraph', [
           );
         };
 
-        scope.today = Date.today();
-        scope.toDate = Date.today();
-        scope.fromDate = Date.today().addDays(-7); // week ago
+        scope.today = new Date();
+        scope.toDate = new Date();
+        scope.fromDate = moment(scope.today).subtract(7, 'd').toDate();
 
         scope.reloadData = function() {
           var start = moment(scope.fromDate).startOf('day').toDate();

@@ -28,13 +28,9 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
     $scope.currentCampaignLength = CampaignCache.getLength() || 7;
     CampaignCache.bindLength($scope);
 
-    var dateAfterDaysFromNow = function(days) {
-      return Date.today().addDays(days).toString().split(' ').slice(0, 3).join(' ');
-    };
-
     $scope.campaignLengths = [3, 5, 7, 10, 14, 21];
     $scope.displayCampaignLength = function(days) {
-      return days.toString() + ' days ' + '(Ending ' + dateAfterDaysFromNow(days) + ')';
+      return days.toString() + ' days ' + '(Ending ' + moment().add(days, 'd').toString() + ')';
     };
 
     $scope.launchCampaign = function() {
