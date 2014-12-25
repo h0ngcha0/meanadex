@@ -12,6 +12,11 @@ angular.module('campaigns').factory('Campaigns', [
         update:
         {
           method: 'PUT'
+        },
+        query:
+        {
+          method: 'GET',
+          isArray: false
         }
       }
     );

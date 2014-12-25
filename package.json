@@ -47,7 +47,8 @@
     "swig": "~1.4.1",
     "winston": "~0.8.1",
     "agenda": "~0.6.25",
-    "moment": "~2.8.4"
+    "moment": "~2.8.4",
+    "mongoose-pages": "0.0.3"
   },
   "devDependencies": {
     "form-data": "~0.1.4",

@@ -10,10 +10,14 @@ var errorHandler = require('./errors'),
  * List of object by query, sorted by create date, populated
  * with user displayName
  */
-exports.listByQuery = function(model, queryFun, populateMap) {
+exports.listByQuery = function(model, queryFun, populateMap, callback) {
   return function(req, res) {
     var query = queryFun(req);
-    var results = model.find(query).sort('-created');
+    var anchorId = req.param('anchorId');
+    var itemsPerPage = req.param('itemsPerPage') || 5;
+    var results = model.findPaginated(query, function(err, result) {
+                    callback(req, res, err, result);
+                  }, itemsPerPage, anchorId).sort('-created');
 
     _.each(
       populateMap,
@@ -21,16 +25,6 @@ exports.listByQuery = function(model, queryFun, populateMap) {
         results.populate(key, value);
       }
     );
-
-    results.exec(function(err, objects) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        res.jsonp(objects);
-      }
-    });
   };
 };
 
@@ -91,9 +85,9 @@ exports.userQuery = function(req) {
  * Return an array of `model` all of which have user id contained
  * in the request. If user is `admin`, then return all.
  */
-exports.listWithUser = function(model, populateMap) {
+exports.listWithUser = function(model, populateMap, callback) {
   if(!populateMap) populateMap = {};
-  return exports.listByQuery(model, exports.userQuery, populateMap);
+  return exports.listByQuery(model, exports.userQuery, populateMap, callback);
 };
 
 /**

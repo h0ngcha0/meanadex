@@ -158,6 +158,15 @@ exports.list = utils.listWithUser(
   {
     'user': 'displayName',
     'campaign': 'name'
+  },
+  function(req, res, err, result) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(result);
+    }
   }
 );
 

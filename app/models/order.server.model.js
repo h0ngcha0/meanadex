@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
+    mongoosePages = require('mongoose-pages'),
     Schema = mongoose.Schema;
 
 /**
@@ -86,5 +87,7 @@ var OrderSchema = new Schema({
     required: 'Payment info is required'
   }
 }, {autoIndex: false});
+
+mongoosePages.anchor(OrderSchema);
 
 mongoose.model('Order', OrderSchema);

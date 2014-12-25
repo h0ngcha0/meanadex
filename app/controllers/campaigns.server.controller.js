@@ -160,39 +160,32 @@ var populateSold = function(campaigns, callback) {
 /**
  * List of Campaigns owned by a particular user
  */
-exports.list = function(req, res) {
-  var populateMap = {
+exports.list = utils.listWithUser(
+  Campaign,
+  {
     'user': 'displayName'
-  };
-  var query = utils.userQuery(req);
-  var results = Campaign.find(query).sort('-created');
-
-  _.each(
-    populateMap,
-    function(value, key) {
-      results.populate(key, value);
-    }
-  );
-
-  results.exec(function(err, objects) {
+  },
+  function(req, res, err, result) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      populateSold(objects, function(err, results) {
+      var objects = result.documents;
+      populateSold(objects, function(err, newObjects) {
         if(err) {
           return res.status(400).send({
             message: errorHandler.getErrorMessage(err)
           });
         }
         else {
-          res.jsonp(results);
+          result.documents = newObjects;
+          res.jsonp(result);
         }
       });
     }
-  });
-};
+  }
+);
 
 /**
  * Campaign middleware
