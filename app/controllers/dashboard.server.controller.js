@@ -125,7 +125,10 @@ exports.readActiveCampaigns = function(req, res) {
 var timeSeriesGenerator = function(model, query, sumBy) {
   return function(req, res) {
     var startDate = new Date(req.query.startDate),
-        endDate = new Date(req.query.endDate);
+        endDate = new Date(req.query.endDate),
+        timezoneOffset = +req.query.offset,
+        // convert timezone offset from minute to millisecond
+        offset = timezoneOffset * 60 * 1000;
     var _query = {
       user: req.user._id,
       created_at: {
@@ -138,11 +141,16 @@ var timeSeriesGenerator = function(model, query, sumBy) {
     stages.$match = {
       $match: _query
     };
+    stages.$projectOffset ={
+      $project: {
+        created_at_offset: {$subtract: ['$created_at', offset]}
+      }
+    };
     stages.$project ={
       $project: {
-        year: {$year: '$created_at'},
-        month: {$month: '$created_at'},
-        day: {$dayOfMonth: '$created_at'}
+        year: {$year: '$created_at_offset'},
+        month: {$month: '$created_at_offset'},
+        day: {$dayOfMonth: '$created_at_offset'}
       }
     };
     stages.$group = {
@@ -164,8 +172,8 @@ var timeSeriesGenerator = function(model, query, sumBy) {
     };
 
     var getTime = function(_id) {
-      return moment([_id.year, _id.month, _id.day].join('-'))
-        .toDate().getTime();
+      return moment.utc([_id.year, _id.month, _id.day].join('-'))
+        .toDate().getTime() + offset;
     };
 
     model.count(query, function(err, count) {
@@ -179,6 +187,7 @@ var timeSeriesGenerator = function(model, query, sumBy) {
       else {
         model.aggregate(
           stages.$match,
+          stages.$projectOffset,
           stages.$project,
           stages.$group,
           stages.$sort,

@@ -11,7 +11,8 @@ angular.module('campaigns').controller('CampaignsGraphController', [
       Dashboard.campaignsCreated.query(
         {
           startDate: fromDate,
-          endDate: toDate
+          endDate: toDate,
+          offset: new Date().getTimezoneOffset()
         },
         function(data) {
           callback(null, data);

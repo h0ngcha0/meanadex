@@ -11,7 +11,8 @@ angular.module('orders').controller('OrdersGraphController', [
       Dashboard.ordersCreated.query(
         {
           startDate: fromDate,
-          endDate: toDate
+          endDate: toDate,
+          offset: new Date().getTimezoneOffset()
         },
         function(data) {
           callback(null, data);
