@@ -9,31 +9,32 @@ angular.module('campaigns').controller('CampaignsController', [
     $scope.authentication = Authentication;
     // Remove existing Campaign
     $scope.remove = function( campaign ) {
-      if ( campaign ) {
-        campaign.$remove();
-
-        for (var i in $scope.campaigns ) {
-          if ($scope.campaigns [i] === campaign ) {
-            $scope.campaigns.splice(i, 1);
+      Campaigns.remove(
+        {campaignId: campaign._id},
+        function(data) {
+          for (var i in $scope.campaigns.documents ) {
+            if ($scope.campaigns.documents [i] === campaign ) {
+              $scope.campaigns.documents.splice(i, 1);
+            }
           }
+        },
+        function(err) {
+          $scope.error = err.data.message;
         }
-      } else {
-        $scope.campaign.$remove(function() {
-          $location.path('campaigns');
-        });
-      }
+      );
     };
 
     // Update existing Campaign
-    $scope.update = function(campaign0) {
-      var campaign = campaign0 || $scope.campaign;
-
-      campaign.$update(
-        function() {
-          // perhaps show successfully updated message
+    $scope.update = function(campaign) {
+      Campaigns.update(
+        {campaignId: campaign._id},
+        campaign,
+        function(data) {
+          console.log(data);
+          // successfully updated.
         },
-        function(errorResponse) {
-          $scope.error = errorResponse.data.message;
+        function(err) {
+          $scope.error = err.data.message;
         }
       );
     };
@@ -41,15 +42,6 @@ angular.module('campaigns').controller('CampaignsController', [
     // Find a list of Campaigns
     $scope.find = function() {
       $scope.campaigns = Campaigns.query();
-    };
-
-    $scope.findBetween = function(start, end) {
-      $scope.campaigns = Campaigns.query(
-        {
-          startDate: start,
-          endDate: end
-        }
-      );
     };
 
     // Find existing Campaign for a particular user
@@ -75,11 +67,11 @@ angular.module('campaigns').controller('CampaignsController', [
     var fetchedFirstPage = true;
     $scope.disablePrev = function() {
       return fetchedFirstPage;
-    }
+    };
 
     $scope.disableNext = function() {
       return !$scope.campaigns.nextAnchorId;
-    }
+    };
 
     $scope.gotoPage = function(anchorId, disabled) {
       if(!disabled) {
@@ -94,7 +86,7 @@ angular.module('campaigns').controller('CampaignsController', [
       fetchedFirstPage = anchorId ? false : true;
 
       // if $scope.campaigns not available, it is the first page.
-      $scope.prevAnchorId = $scope.campaigns ? $scope.campaigns.prevAnchorId : 'FirstPageAnchorId';
+      $scope.prevAnchorId = $scope.campaigns ? $scope.campaigns.prevAnchorId : undefined;
 
       $scope.campaigns = Campaigns.query(
         queryOption,

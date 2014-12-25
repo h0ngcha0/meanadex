@@ -167,7 +167,7 @@ exports.list = function(req, res) {
 
   // fetch page 1 if undefined, which is ok
   var anchorId = req.param('anchorId');
-  var itemsPerPage = 2;
+  var itemsPerPage = req.param('anchorId') || 5;
 
   var query = utils.userQuery(req);
   var results = Campaign.findPaginated(
@@ -187,7 +187,6 @@ exports.list = function(req, res) {
           }
           else {
             result.documents = newObjects;
-            console.log(result);
             res.jsonp(result);
           }
         });
