@@ -51,7 +51,8 @@ module.exports = {
         'public/lib/angular-file-upload/angular-file-upload.js',
         'public/lib/d3/d3.js',
         'public/lib/nvd3/nv.d3.js',
-        'public/lib/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js'
+        'public/lib/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js',
+        'public/lib/bootstrap-autohidingnavbar/dist/jquery.bootstrap-autohidingnavbar.js'
       ]
     },
     css: [

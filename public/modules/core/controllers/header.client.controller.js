@@ -12,6 +12,10 @@ angular.module('core').controller('HeaderController', [
       return active;
     };
 
+    $("div.navbar-fixed-top").autoHidingNavbar({
+      // see next for specifications
+    });
+
     $scope.isAdmin = function() {
       if($scope.authentication.user) {
         return _.contains($scope.authentication.user.roles, 'admin');

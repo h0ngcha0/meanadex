@@ -48,7 +48,8 @@ module.exports = {
         'public/lib/angular-file-upload/angular-file-upload.min.js',
         'public/lib/d3/d3.min.js',
         'public/lib/nvd3/nv.d3.min.js',
-        'public/lib/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.min.js'
+        'public/lib/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.min.js',
+        'public/lib/bootstrap-autohidingnavbar/dist/jquery.bootstrap-autohidingnavbar.min.js'
       ]
     },
     css: 'public/dist/application.min.css',
