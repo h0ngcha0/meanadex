@@ -153,7 +153,7 @@ exports.delete = function(req, res) {
 /**
  * List of Orders
  */
-exports.list = utils.listWithUser(
+exports.list = utils.list(
   Order,
   {
     'user': 'displayName',

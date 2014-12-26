@@ -160,7 +160,7 @@ var populateSold = function(campaigns, callback) {
 /**
  * List of Campaigns owned by a particular user
  */
-exports.list = utils.listWithUser(
+exports.list = utils.list(
   Campaign,
   {
     'user': 'displayName'

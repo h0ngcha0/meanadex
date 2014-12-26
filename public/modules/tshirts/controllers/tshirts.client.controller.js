@@ -72,19 +72,19 @@ angular.module('tshirts').controller('TshirtsController', [
 
     // Remove existing Tshirt
     $scope.remove = function( tshirt ) {
-      if ( tshirt ) {
-        tshirt.$remove();
-
-       for (var i in $scope.tshirts ) {
-         if ($scope.tshirts [i] === tshirt ) {
-           $scope.tshirts.splice(i, 1);
-         }
-       }
-      } else {
-        $scope.tshirt.$remove(function() {
-          $location.path('tshirts');
-        });
-      }
+      Tshirts.remove(
+        {tshirtId: tshirt._id},
+        function(data) {
+          for (var i in $scope.tshirts.documents ) {
+            if ($scope.tshirts.documents [i] === tshirt ) {
+              $scope.tshirts.documents.splice(i, 1);
+            }
+          }
+        },
+        function(err) {
+          $scope.error = err.data.message;
+        }
+      );
     };
 
     // Update existing Tshirt

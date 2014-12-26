@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
     errorHandler = require('./errors'),
     Tshirt = mongoose.model('Tshirt'),
     Images = require('../../app/controllers/images'),
+    utils = require('./utils'),
     _ = require('lodash');
 
 /**
@@ -72,22 +73,23 @@ exports.delete = function(req, res) {
 /**
  * List of Tshirts
  */
-exports.list = function(req, res) {
-  Tshirt.find().
-    sort('-created').
-    populate('user', 'displayName').
-    populate('frontImage', 'url').
-    populate('backImage', 'url').
-    exec(function(err, tshirts) {
+exports.list = utils.list(
+  Tshirt,
+  {
+    'user': 'displayName',
+    'frontImage': 'url',
+    'backImage': 'url'
+  },
+  function(req, res, err, result) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(tshirts);
+      res.jsonp(result);
     }
-  });
-};
+  }
+);
 
 /**
  * Tshirt middleware

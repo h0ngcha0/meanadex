@@ -6,7 +6,7 @@
       <dashboard-widget-header icon="fa-trophy" title="Orders">
         <a href="#">Manage</a>
       </dashboard-widget-header>
-      <dashboard-widget-body classes="medium no-padding">
+      <dashboard-widget-body>
         <div class="table-responsive">
           <table ng-table="tableParams" show-filter="true" class="table table-bordered">
             <tr ng-repeat="order in $data.documents">
@@ -29,22 +29,22 @@
                 <a class="undecorated-link fa fa-trash-o fa-lg" data-ng-click="onRemove(order);"/>
               </td>
             </tr>
-            <div>
-              <ul class="nav nav-pills">
-                <li data-ng-class="{disabled: disablePrev()}">
-                  <a class="fa fa-arrow-circle-left fa-lg"
-                     data-ng-click="gotoPage(prevAnchorId, disablePrev())">
-                    Previous
-                  </a>
-                </li>
-                <li data-ng-class="{disabled: disableNext()}">
-                  <a class="fa fa-arrow-circle-right fa-lg"
-                     data-ng-click="gotoPage(orders.nextAnchorId, disableNext())">
-                    Next
-                  </a>
-                </li>
-            </div>
           </table>
+          <div>
+            <ul class="nav nav-pills">
+              <li data-ng-class="{disabled: disablePrev()}">
+                <a class="fa fa-arrow-circle-left fa-lg"
+                   data-ng-click="gotoPage(prevAnchorId, disablePrev())">
+                  Previous
+                </a>
+              </li>
+              <li data-ng-class="{disabled: disableNext()}">
+                <a class="fa fa-arrow-circle-right fa-lg"
+                   data-ng-click="gotoPage(orders.nextAnchorId, disableNext())">
+                  Next
+                </a>
+              </li>
+          </div>
         </div>
       </dashboard-widget-body>
     </dashboard-widget>

@@ -43,7 +43,7 @@ var unpack = function(obj) {
  * Generate a query that filters on userid, if the role is
  * 'admin', get everything.
  */
-exports.userQuery = function(req) {
+var userQuery = function(req) {
   var query = {},
       userId = req.user._id,
       startDate = unpack(req.param('startDate')),
@@ -85,9 +85,9 @@ exports.userQuery = function(req) {
  * Return an array of `model` all of which have user id contained
  * in the request. If user is `admin`, then return all.
  */
-exports.listWithUser = function(model, populateMap, callback) {
+exports.list = function(model, populateMap, callback) {
   if(!populateMap) populateMap = {};
-  return exports.listByQuery(model, exports.userQuery, populateMap, callback);
+  return exports.listByQuery(model, userQuery, populateMap, callback);
 };
 
 /**
