@@ -19,6 +19,11 @@ angular.module('orders').controller('OrdersController', [
               $scope.orders.documents.splice(i, 1);
             }
           }
+
+          // reload table when the current page is empty
+          if($scope.orders.documents.length === 0) {
+            $scope.loadAllOrdersInTableData();
+          }
         },
         function(err) {
           $scope.error = err.data.message;

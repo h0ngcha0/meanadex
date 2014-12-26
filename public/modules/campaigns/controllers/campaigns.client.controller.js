@@ -17,6 +17,11 @@ angular.module('campaigns').controller('CampaignsController', [
               $scope.campaigns.documents.splice(i, 1);
             }
           }
+
+          // reload table when the current page is empty
+          if($scope.campaigns.documents.length === 0) {
+            $scope.loadAllCampaignsInTableData();
+          }
         },
         function(err) {
           $scope.error = err.data.message;

@@ -80,6 +80,11 @@ angular.module('tshirts').controller('TshirtsController', [
               $scope.tshirts.documents.splice(i, 1);
             }
           }
+
+          // reload table when the current page is empty
+          if($scope.tshirts.documents.length === 0) {
+            $scope.loadAllTshirtInTableData();
+          }
         },
         function(err) {
           $scope.error = err.data.message;
