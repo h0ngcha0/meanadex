@@ -12,6 +12,11 @@ angular.module('tshirts').factory('Tshirts', [
       {
         update: {
           method: 'PUT'
+        },
+        query:
+        {
+          method: 'GET',
+          isArray: false
         }
       });
   }
