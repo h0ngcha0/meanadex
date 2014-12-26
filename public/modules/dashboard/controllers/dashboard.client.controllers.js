@@ -45,11 +45,31 @@ angular.module('dashboard').controller('DashboardController', [
     };
 
     $scope.fetchData = function() {
-        $scope.data = {};
-        $scope.data.totalIncome = Dashboard.totalIncome.query();
-        $scope.data.totalOrders = Dashboard.totalOrders.query();
-        $scope.data.totalCampaigns = Dashboard.totalCampaigns.query();
-        $scope.data.activeCampaigns = Dashboard.activeCampaigns.query();
+      var data = [
+        'totalIncome',
+        'totalOrders',
+        'totalCampaigns',
+        'activeCampaigns'
+      ];
+
+      data.forEach(function(d) {
+        $scope[d] = 0;
+      });
+
+      async.each(data, function(d, c) {
+        Dashboard[d].query(
+          {
+          },
+          function(res) {
+            $scope[d] = res.value;
+            c(null);
+          },
+          function(err) {
+            $scope[d] = 0;
+            c(null);
+          }
+        );
+      });
     };
   }
 ]);
