@@ -7,6 +7,7 @@
              data-ng-change="reloadData()"
              ng-model="fromDate"
              is-open="date.fromOpened"
+             min-date="fromMinDate"
              max-date="toDate"
              data-ng-required="true"
              close-text="Close" />
@@ -30,7 +31,7 @@
              ng-model="toDate"
              is-open="date.toOpened"
              min-date="fromDate"
-             max-date="today"
+             max-date="toMaxDate"
              data-ng-required="true"
              close-text="Close" />
       <span class="input-group-btn">

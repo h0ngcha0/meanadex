@@ -4,8 +4,8 @@
 /* global d3 */
 
 angular.module('dashboard').directive('dashboardGraph', [
-  '$timeout',
-  function($timeout) {
+  '$timeout', 'Authentication',
+  function($timeout, Authentication) {
     return {
       scope: {
         loadData: '&'
@@ -35,13 +35,22 @@ angular.module('dashboard').directive('dashboardGraph', [
           );
         };
 
-        scope.today = new Date();
-        scope.toDate = new Date();
-        scope.fromDate = moment(scope.today).subtract(7, 'd').toDate();
+        scope.user = Authentication.user;
+
+        var today = new Date(),
+            weekAgo = moment(today).subtract(6, 'd').startOf('day').toDate(),
+            fromMinDate = moment(scope.user.created).startOf('day').toDate(),
+            fromDate = weekAgo.getTime() > fromMinDate.getTime() ? weekAgo : fromMinDate,
+            toDate = moment(today).endOf('day').toDate();
+
+        scope.fromDate = fromDate;
+        scope.fromMinDate = fromMinDate;
+        scope.toDate = toDate;
+        scope.toMaxDate = toDate;
 
         scope.reloadData = function() {
-          var start = moment(scope.fromDate).startOf('day').toDate();
-          var end = moment(scope.toDate).endOf('day').toDate();
+          var start = scope.fromDate;
+          var end = scope.toDate;
 
           scope.loadData()(start, end, function(err, data){
             if(!err) {
