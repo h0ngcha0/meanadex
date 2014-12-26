@@ -1,19 +1,6 @@
 /* core css stylesheet */
 /* TODO: Not sure if html and body style should go here.*/
-html{
-  height: 100%;
-  min-height: 100%;
-}
 
-body {
-  height: 100%;
-  min-height: 100%;
-  margin-top: -50px;
-}
-
-.content {
-  margin-top: 50px;
-}
 .undecorated-link:hover {
   text-decoration: none;
 }
