@@ -57,6 +57,10 @@ angular.module('dashboard').directive('dashboardGraph', [
             if(!err) {
               var values = paddingValues(data.values, start.getTime(),
                 end.getTime());
+
+              // total items
+              scope.total = data.total;
+
               scope.graphData = [
                 {
                   area: true,
