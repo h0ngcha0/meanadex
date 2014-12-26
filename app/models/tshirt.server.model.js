@@ -4,7 +4,6 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    mongoosePages = require('mongoose-pages'),
     Schema = mongoose.Schema;
 
 var VariantSchema = new Schema({
@@ -70,5 +69,4 @@ var TshirtSchema = new Schema({
   }
 });
 
-mongoosePages.anchor(TshirtSchema);
 mongoose.model('Tshirt', TshirtSchema);

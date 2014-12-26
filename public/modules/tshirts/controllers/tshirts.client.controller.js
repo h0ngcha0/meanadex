@@ -72,24 +72,19 @@ angular.module('tshirts').controller('TshirtsController', [
 
     // Remove existing Tshirt
     $scope.remove = function( tshirt ) {
-      Tshirts.remove(
-        {tshirtId: tshirt._id},
-        function(data) {
-          for (var i in $scope.tshirts.documents ) {
-            if ($scope.tshirts.documents [i] === tshirt ) {
-              $scope.tshirts.documents.splice(i, 1);
-            }
-          }
+      if ( tshirt ) {
+        tshirt.$remove();
 
-          // reload table when the current page is empty
-          if($scope.tshirts.documents.length === 0) {
-            $scope.loadAllTshirtInTableData();
-          }
-        },
-        function(err) {
-          $scope.error = err.data.message;
-        }
-      );
+       for (var i in $scope.tshirts ) {
+         if ($scope.tshirts [i] === tshirt ) {
+           $scope.tshirts.splice(i, 1);
+         }
+       }
+      } else {
+        $scope.tshirt.$remove(function() {
+          $location.path('tshirts');
+        });
+      }
     };
 
     // Update existing Tshirt
@@ -161,28 +156,8 @@ angular.module('tshirts').controller('TshirtsController', [
       }
     );
 
-    var fetchedFirstPage = true;
-    $scope.disablePrev = function() {
-      return fetchedFirstPage;
-    };
-
-    $scope.disableNext = function() {
-      return !$scope.tshirts.nextAnchorId;
-    };
-
-    $scope.gotoPage = function(anchorId, disabled) {
-      if(!disabled) {
-        $scope.loadAllTshirtInTableData(anchorId);
-      }
-    };
-
     // Find a list of Tshirts and load them into tshirts table
-    $scope.loadAllTshirtInTableData = function(anchorId) {
-      var queryOption = anchorId ? {'anchorId': anchorId} : {};
-      fetchedFirstPage = anchorId ? false : true;
-
-      $scope.prevAnchorId = $scope.tshirts ? $scope.tshirts.prevAnchorId : undefined;
-
+    $scope.loadAllTshirtInTableData = function() {
       $scope.tshirts = Tshirts.query(
         function(data) {
           $scope.tshirtsTableParams.reload();
