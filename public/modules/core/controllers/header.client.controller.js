@@ -12,7 +12,7 @@ angular.module('core').controller('HeaderController', [
       return active;
     };
 
-    $("div.navbar-fixed-top").autoHidingNavbar({
+    $('div.navbar-fixed-top').autoHidingNavbar({
       // see next for specifications
     });
 

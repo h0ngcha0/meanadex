@@ -152,17 +152,32 @@ angular.module('tshirts').controller('TshirtsController', [
 
     $scope.tshirtsTableParams = DashboardUtils.newTableParams(
       function($defer, params) {
-        var orderedData = params.filter() ?
-          $filter('filter')($scope.tshirts, params.filter()) :
-          $scope.tshirts;
-
-        params.total(orderedData.length);
-        $defer.resolve(orderedData);
+        $defer.resolve($scope.tshirts);
       }
     );
 
+    var fetchedFirstPage = true;
+    $scope.disablePrev = function() {
+      return fetchedFirstPage;
+    };
+
+    $scope.disableNext = function() {
+      return !$scope.tshirts.nextAnchorId;
+    };
+
+    $scope.gotoPage = function(anchorId, disabled) {
+      if(!disabled) {
+        $scope.loadAllTshirtInTableData(anchorId);
+      }
+    };
+
     // Find a list of Tshirts and load them into tshirts table
-    $scope.loadAllTshirtInTableData = function() {
+    $scope.loadAllTshirtInTableData = function(anchorId) {
+      var queryOption = anchorId ? {'anchorId': anchorId} : {};
+      fetchedFirstPage = anchorId ? false : true;
+
+      $scope.prevAnchorId = $scope.tshirts ? $scope.tshirts.prevAnchorId : undefined;
+
       $scope.tshirts = Tshirts.query(
         function(data) {
           $scope.tshirtsTableParams.reload();
