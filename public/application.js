@@ -13,6 +13,16 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(
   ]
 );
 
+// Restrict animation to elements
+angular.module(ApplicationConfiguration.applicationModuleName).config(
+  ['$animateProvider',
+    function($animateProvider){
+      // restrict animation to elements with the css class with a regexp.
+      $animateProvider.classNameFilter(/^((?!(navbar-fixed-top)).)*$/);
+    }
+  ]
+);
+
 //Then define the init function for starting up the application
 angular.element(document).ready(function() {
   //Fixing facebook bug with redirect
