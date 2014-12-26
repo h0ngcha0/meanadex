@@ -1,57 +1,63 @@
-<div class="row">
-  <span class="col-lg-5">
-    <p class="input-group">
-      <input type="text"
-             class="form-control"
-             datepicker-popup="yyyy/MM/dd"
-             data-ng-change="reloadData()"
-             ng-model="fromDate"
-             is-open="date.fromOpened"
-             min-date="fromMinDate"
-             max-date="toDate"
-             data-ng-required="true"
-             close-text="Close" />
-      <span class="input-group-btn">
-        <button type="button" class="btn btn-default"
-                ng-click="openFromDate($event)">
-          <i class="glyphicon glyphicon-calendar"></i>
-        </button>
-      </span>
-    </p>
-  </span>
-  <span class="text-center col-lg-2">
-    <i class="fa fa-long-arrow-right fa-2x"/>
-  </span>
-  <span class="col-lg-5">
-    <p class="input-group">
-      <input type="text"
-             class="form-control"
-             datepicker-popup="yyyy/MM/dd"
-             data-ng-change="reloadData()"
-             ng-model="toDate"
-             is-open="date.toOpened"
-             min-date="fromDate"
-             max-date="toMaxDate"
-             data-ng-required="true"
-             close-text="Close" />
-      <span class="input-group-btn">
-        <button type="button" class="btn btn-default"
-                ng-click="openToDate($event)">
-          <i class="glyphicon glyphicon-calendar"></i>
-        </button>
-      </span>
-    </p>
-  </span>
-</div>
+<dashboard-widget>
+  <dashboard-widget-header icon="fa-line-chart"
+                           title="{{title}}"
+                           class="row">
+  </dashboard-widget-header>
+  <div class="row">
+    <span class="col-lg-5">
+      <p class="input-group">
+        <input type="text"
+               class="form-control"
+               datepicker-popup="yyyy/MM/dd"
+               data-ng-change="reloadData()"
+               ng-model="fromDate"
+               is-open="date.fromOpened"
+               min-date="fromMinDate"
+               max-date="toDate"
+               data-ng-required="true"
+               close-text="Close" />
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default"
+                  ng-click="openFromDate($event)">
+            <i class="glyphicon glyphicon-calendar"></i>
+          </button>
+        </span>
+      </p>
+    </span>
+    <span class="text-center col-lg-2">
+      <i class="fa fa-long-arrow-right fa-2x"/>
+    </span>
+    <span class="col-lg-5">
+      <p class="input-group">
+        <input type="text"
+               class="form-control"
+               datepicker-popup="yyyy/MM/dd"
+               data-ng-change="reloadData()"
+               ng-model="toDate"
+               is-open="date.toOpened"
+               min-date="fromDate"
+               max-date="toMaxDate"
+               data-ng-required="true"
+               close-text="Close" />
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default"
+                  ng-click="openToDate($event)">
+            <i class="glyphicon glyphicon-calendar"></i>
+          </button>
+        </span>
+      </p>
+    </span>
+  </div>
 
-<nvd3-line-chart
-   data="graphData"
-   xAxisTickFormat="xformat()"
-   xScale="xscale()"
-   interactive="true"
-   tooltips="true"
-   tooltipcontent="tooltipcontent()"
-   showXAxis="true"
-   showYAxis="true">
-  <svg></svg>
-</nvd3-line-chart>
+  <nvd3-line-chart
+     data="graphData"
+     xAxisTickFormat="xformat()"
+     xScale="xscale()"
+     interactive="true"
+     tooltips="true"
+     tooltipcontent="tooltipcontent()"
+     showXAxis="true"
+     showYAxis="true">
+    <svg></svg>
+  </nvd3-line-chart>
+</dashboard-widget>

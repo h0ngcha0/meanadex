@@ -8,6 +8,7 @@ angular.module('dashboard').directive('dashboardGraph', [
   function($timeout, Authentication) {
     return {
       scope: {
+        title: '@',
         loadData: '&'
       },
       restrict: 'E',
