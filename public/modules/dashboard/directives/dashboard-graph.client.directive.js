@@ -44,17 +44,7 @@ angular.module('dashboard').directive('dashboardGraph', [
             fromDate = weekAgo.getTime() > fromMinDate.getTime() ? weekAgo : fromMinDate,
             toDate = moment(today).endOf('day').toDate();
 
-        scope.period = {
-          fromDate: fromDate,
-          fromMinDate: fromMinDate,
-          toDate: toDate,
-          toMaxDate: toDate
-        };
-
-        scope.reloadData = function() {
-          var start = scope.period.fromDate;
-          var end = scope.period.toDate;
-
+        scope.reloadData = function(start, end) {
           scope.loadData()(start, end, function(err, data){
             if(!err) {
               var values = paddingValues(data.values, start.getTime(),
@@ -83,24 +73,9 @@ angular.module('dashboard').directive('dashboardGraph', [
         };
 
 
-        scope.date = {
-          fromOpened: false,
-          toOpened: false
-        };
-
-        scope.openFromDate = function($event) {
-          $event.preventDefault();
-          $event.stopPropagation();
-
-          scope.date.fromOpened = true;
-        };
-
-        scope.openToDate = function($event) {
-          $event.preventDefault();
-          $event.stopPropagation();
-
-          scope.date.toOpened = true;
-        };
+        scope.$on('dashboard.dates', function(event, dates) {
+          scope.reloadData(dates.from, dates.to);
+        });
 
         scope.xscale = function() {
           return d3.time.scale();
@@ -113,14 +88,9 @@ angular.module('dashboard').directive('dashboardGraph', [
           };
         };
 
-        scope.dateOptions = {
-          formatYear: 'yy',
-          startingDay: 1
-        };
-
         // first time loading data
         $timeout(function() {
-          scope.reloadData();
+          scope.reloadData(fromDate, toDate);
         }, 0);
       }
     };
