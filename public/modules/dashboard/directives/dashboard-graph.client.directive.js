@@ -44,14 +44,16 @@ angular.module('dashboard').directive('dashboardGraph', [
             fromDate = weekAgo.getTime() > fromMinDate.getTime() ? weekAgo : fromMinDate,
             toDate = moment(today).endOf('day').toDate();
 
-        scope.fromDate = fromDate;
-        scope.fromMinDate = fromMinDate;
-        scope.toDate = toDate;
-        scope.toMaxDate = toDate;
+        scope.period = {
+          fromDate: fromDate,
+          fromMinDate: fromMinDate,
+          toDate: toDate,
+          toMaxDate: toDate
+        };
 
         scope.reloadData = function() {
-          var start = scope.fromDate;
-          var end = scope.toDate;
+          var start = scope.period.fromDate;
+          var end = scope.period.toDate;
 
           scope.loadData()(start, end, function(err, data){
             if(!err) {

@@ -11,10 +11,10 @@
                class="form-control"
                datepicker-popup="yyyy/MM/dd"
                data-ng-change="reloadData()"
-               ng-model="fromDate"
+               ng-model="period.fromDate"
                is-open="date.fromOpened"
-               min-date="fromMinDate"
-               max-date="toDate"
+               min-date="period.fromMinDate"
+               max-date="period.toDate"
                data-ng-required="true"
                close-text="Close" />
         <span class="input-group-btn">
@@ -34,10 +34,10 @@
                class="form-control"
                datepicker-popup="yyyy/MM/dd"
                data-ng-change="reloadData()"
-               ng-model="toDate"
+               ng-model="period.toDate"
                is-open="date.toOpened"
-               min-date="fromDate"
-               max-date="toMaxDate"
+               min-date="period.fromDate"
+               max-date="period.toMaxDate"
                data-ng-required="true"
                close-text="Close" />
         <span class="input-group-btn">
