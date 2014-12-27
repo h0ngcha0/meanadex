@@ -59,6 +59,6 @@ angular.module('dashboard').directive('dashboardDates', [
           });
         }, 0);
       }
-    }
+    };
   }
 ]);
