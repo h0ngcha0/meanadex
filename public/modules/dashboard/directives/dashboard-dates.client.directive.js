@@ -3,26 +3,15 @@
 /* global moment */
 
 angular.module('dashboard').directive('dashboardDates', [
-  '$rootScope', 'Authentication', '$timeout',
-  function($rootScope, Authentication, $timeout) {
+  '$rootScope', 'Authentication', '$timeout', 'DashboardUtils',
+  function($rootScope, Authentication, $timeout, DashboardUtils) {
     return {
       scope: {},
       restrict: 'E',
       templateUrl: 'modules/dashboard/views/dashboard-dates.client.view.html',
       link: function(scope, element, attr) {
         scope.user = Authentication.user;
-        var today = new Date(),
-            weekAgo = moment(today).subtract(6, 'd').startOf('day').toDate(),
-            fromMinDate = moment(scope.user.created).startOf('day').toDate(),
-            fromDate = weekAgo.getTime() > fromMinDate.getTime() ? weekAgo : fromMinDate,
-            toDate = moment(today).endOf('day').toDate();
-
-        scope.period = {
-          fromDate: fromDate,
-          fromMinDate: fromMinDate,
-          toDate: toDate,
-          toMaxDate: toDate
-        };
+        scope.period = DashboardUtils.initialCalendarDates();
 
         scope.date = {
           fromOpened: false,
@@ -51,13 +40,6 @@ angular.module('dashboard').directive('dashboardDates', [
             to: to
           });
         };
-
-        $timeout(function() {
-          $rootScope.$emit('dashboard.dates', {
-            from: scope.fromDate,
-            to: scope.toDate
-          });
-        }, 0);
       }
     };
   }

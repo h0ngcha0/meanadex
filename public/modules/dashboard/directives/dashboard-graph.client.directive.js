@@ -4,8 +4,8 @@
 /* global d3 */
 
 angular.module('dashboard').directive('dashboardGraph', [
-  '$timeout', 'Authentication',
-  function($timeout, Authentication) {
+  '$timeout', 'Authentication', 'DashboardUtils',
+  function($timeout, Authentication, DashboardUtils) {
     return {
       scope: {
         title: '@',
@@ -38,11 +38,7 @@ angular.module('dashboard').directive('dashboardGraph', [
 
         scope.user = Authentication.user;
 
-        var today = new Date(),
-            weekAgo = moment(today).subtract(6, 'd').startOf('day').toDate(),
-            fromMinDate = moment(scope.user.created).startOf('day').toDate(),
-            fromDate = weekAgo.getTime() > fromMinDate.getTime() ? weekAgo : fromMinDate,
-            toDate = moment(today).endOf('day').toDate();
+        var period = DashboardUtils.initialCalendarDates();
 
         scope.reloadData = function(start, end) {
           scope.loadData()(start, end, function(err, data){
@@ -72,7 +68,6 @@ angular.module('dashboard').directive('dashboardGraph', [
           };
         };
 
-
         scope.$on('dashboard.dates', function(event, dates) {
           scope.reloadData(dates.from, dates.to);
         });
@@ -90,7 +85,7 @@ angular.module('dashboard').directive('dashboardGraph', [
 
         // first time loading data
         $timeout(function() {
-          scope.reloadData(fromDate, toDate);
+          scope.reloadData(period.fromDate, period.toDate);
         }, 0);
       }
     };
