@@ -32,6 +32,13 @@ angular.module('dashboard').factory('Dashboard', ['$resource',
                     query: {method: 'GET', params: {}, isArray: false}
                 }
             ),
+            incomeCreated: $resource(
+                'dashboard/income_created',
+                {},
+                {
+                    query: {method: 'GET', params: {}, isArray: false}
+                }
+            ),
             campaignsCreated: $resource(
                 'dashboard/campaigns_created',
                 {},

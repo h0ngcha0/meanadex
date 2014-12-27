@@ -19,6 +19,9 @@ module.exports = function (app) {
     app.route('/dashboard/active_campaigns')
         .get(users.requiresLogin, dashboard.readActiveCampaigns);
 
+    app.route('/dashboard/income_created')
+        .get(users.requiresLogin, dashboard.readIncomeCreated);
+
     app.route('/dashboard/campaigns_created')
         .get(users.requiresLogin, dashboard.readCampaignsCreated);
 

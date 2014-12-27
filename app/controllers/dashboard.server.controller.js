@@ -237,6 +237,28 @@ var timeSeriesGenerator = function(model, query, sumBy) {
 };
 
 /**
+ * Show income created.
+ */
+exports.readIncomeCreated = function(req, res) {
+  Campaign.find({user: req.user._id, state: 'tipped'}).select('_id')
+    .exec(function(err, campaigns) {
+    if(err || !campaigns.length) {
+      if(err) {
+        winston.error('Failed to read income created: ' + err);
+      }
+      res.jsonp({
+        total: 0,
+        values: []
+      });
+    } else {
+      var getId = function(o) { return o._id; };
+      var query = {campaign: {$in: campaigns.map(getId)}};
+      timeSeriesGenerator(Order, query, 'amount')(req, res);
+    }
+  });
+};
+
+/**
  * Show campaigns created.
  */
 exports.readCampaignsCreated = timeSeriesGenerator(Campaign);
