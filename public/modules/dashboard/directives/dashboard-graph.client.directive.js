@@ -4,8 +4,8 @@
 /* global d3 */
 
 angular.module('dashboard').directive('dashboardGraph', [
-  '$timeout', 'Authentication', 'DashboardUtils',
-  function($timeout, Authentication, DashboardUtils) {
+  '$timeout', 'DashboardUtils',
+  function($timeout, DashboardUtils) {
     return {
       scope: {
         title: '@',
@@ -35,8 +35,6 @@ angular.module('dashboard').directive('dashboardGraph', [
             }
           );
         };
-
-        scope.user = Authentication.user;
 
         var period = DashboardUtils.initialCalendarDates();
 

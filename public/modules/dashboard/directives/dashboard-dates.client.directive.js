@@ -3,14 +3,13 @@
 /* global moment */
 
 angular.module('dashboard').directive('dashboardDates', [
-  '$rootScope', 'Authentication', '$timeout', 'DashboardUtils',
-  function($rootScope, Authentication, $timeout, DashboardUtils) {
+  '$rootScope', 'DashboardUtils',
+  function($rootScope, DashboardUtils) {
     return {
       scope: {},
       restrict: 'E',
       templateUrl: 'modules/dashboard/views/dashboard-dates.client.view.html',
       link: function(scope, element, attr) {
-        scope.user = Authentication.user;
         scope.period = DashboardUtils.initialCalendarDates();
 
         scope.date = {
