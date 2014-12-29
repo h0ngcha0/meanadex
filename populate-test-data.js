@@ -5,6 +5,7 @@
  */
 var request = require('request'),
     async = require('async'),
+    moment = require('moment'),
     fs = require('fs');
 
 module.exports = function(grunt) {
@@ -106,6 +107,41 @@ module.exports = function(grunt) {
         );
       }
 
+      var createCampaign = function(tshirt, callback) {
+        var now = new Date();
+        var campaignLength = 7;
+        request.post(
+          'http://localhost:3000/campaigns',
+          {
+            form: {
+              name: 'campaign 1',
+              created_at: now,
+              ended_at: moment(now).add(campaignLength, 'days').toDate(),
+              description: 'description 1',
+              length: campaignLength,
+              url: 'random1',
+              goal: 100,
+              tshirt: tshirt,
+              tshirtRef: tshirt._id,
+              price: {
+                value: 100,
+                currency: 'SEK'
+              },
+              color: 'red',
+              design: JSON.stringify({
+                front: {},
+                back: {}
+              })
+            }
+          },
+          function(error, response, body) {
+            var campaign = JSON.parse(body);
+            console.log('Campaign: ' + campaign.name + ' is created');
+            callback(error, campaign);
+          }
+        )
+      };
+
       var resultCallback = function(err, results) {
         if(err) {
           done(false);
@@ -120,7 +156,8 @@ module.exports = function(grunt) {
         createAdminUser,
         createFrontImage,
         createBackImage,
-        createTshirt
+        createTshirt,
+        createCampaign
       ], resultCallback);
     }
   );
