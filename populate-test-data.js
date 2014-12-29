@@ -6,6 +6,7 @@
 var request = require('request'),
     async = require('async'),
     moment = require('moment'),
+    _ = require('lodash'),
     fs = require('fs');
 
 module.exports = function(grunt) {
@@ -107,39 +108,79 @@ module.exports = function(grunt) {
         );
       }
 
-      var createCampaign = function(tshirt, callback) {
+      var pickRandom = function(list) {
+        var index = _.random(0, list.length -1);
+        return list[index];
+      };
+
+      var createCampaignFun = function(name, description, tshirt) {
         var now = new Date();
-        var campaignLength = 7;
-        request.post(
-          'http://localhost:3000/campaigns',
-          {
-            form: {
-              name: 'campaign 1',
-              created_at: now,
-              ended_at: moment(now).add(campaignLength, 'days').toDate(),
-              description: 'description 1',
-              length: campaignLength,
-              url: 'random1',
-              goal: 100,
-              tshirt: tshirt,
-              tshirtRef: tshirt._id,
-              price: {
-                value: 100,
-                currency: 'SEK'
-              },
-              color: 'red',
-              design: JSON.stringify({
-                front: {},
-                back: {}
-              })
+        var campaignLengths = [3, 5, 7, 10, 14, 21];
+        var length = pickRandom(campaignLengths);
+        return function(callback) {
+          request.post(
+            'http://localhost:3000/campaigns',
+            {
+              form: {
+                name: name,
+                created_at: now,
+                ended_at: moment(now).add(length, 'days').toDate(),
+                description: description,
+                length: length,
+                url: 'random1',
+                goal: 100,
+                tshirt: tshirt,
+                tshirtRef: tshirt._id,
+                price: {
+                  value: 100,
+                  currency: 'SEK'
+                },
+                color: 'red',
+                design: JSON.stringify({
+                  front: {},
+                  back: {}
+                })
+              }
+            },
+            function(error, response, body) {
+              var campaign = JSON.parse(body);
+              console.log(error);
+              console.log('Campaign: ' + campaign.name + ' is created');
+              callback(error, campaign);
             }
-          },
-          function(error, response, body) {
-            var campaign = JSON.parse(body);
-            console.log('Campaign: ' + campaign.name + ' is created');
-            callback(error, campaign);
+          )
+        };
+      };
+
+      var createCampaigns = function(tshirt, callback) {
+        var funcs = _.map(
+          [
+            {
+              name: 'campaign 1',
+              description: 'description 1'
+            },
+            {
+              name: 'campaign 2',
+              description: 'description 2'
+            }
+          ],
+          function(spec) {
+            return createCampaignFun(spec.name, spec.description, tshirt);
+          });
+
+
+        async.parallel(
+          funcs,
+          function(err, results) {
+            _.each(results, function(result) {
+              console.log('niux');
+              console.log(result);
+              console.log('Campaign ' + result.name + ' is created.');
+            });
+
+            callback(err, results);
           }
-        )
+        );
       };
 
       var resultCallback = function(err, results) {
@@ -157,7 +198,7 @@ module.exports = function(grunt) {
         createFrontImage,
         createBackImage,
         createTshirt,
-        createCampaign
+        createCampaigns
       ], resultCallback);
     }
   );
