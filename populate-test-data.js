@@ -9,6 +9,11 @@ var request = require('request'),
     _ = require('lodash'),
     fs = require('fs');
 
+
+var options = {
+    numOfCampaigns: 10
+};
+
 module.exports = function(grunt) {
   request = request.defaults({jar: true});
   grunt.task.registerTask(
@@ -115,8 +120,11 @@ module.exports = function(grunt) {
 
       var createCampaignFun = function(name, description, tshirt) {
         var now = new Date();
-        var campaignLengths = [3, 5, 7, 10, 14, 21];
-        var length = pickRandom(campaignLengths);
+        var length = pickRandom([3, 5, 7, 10, 14, 21]);
+        var color = pickRandom(['red', 'yellow', 'blue', 'green']);
+        var goal = pickRandom([10, 50, 100, 200]);
+        var price = pickRandom([40, 70, 85, 91, 100]);
+        var url = Math.random().toString(36).substring(7);
         return function(callback) {
           request.post(
             'http://localhost:3000/campaigns',
@@ -127,15 +135,15 @@ module.exports = function(grunt) {
                 ended_at: moment(now).add(length, 'days').toDate(),
                 description: description,
                 length: length,
-                url: 'random1',
-                goal: 100,
+                url: url,
+                goal: goal,
                 tshirt: tshirt,
                 tshirtRef: tshirt._id,
                 price: {
-                  value: 100,
+                  value: price,
                   currency: 'SEK'
                 },
-                color: 'red',
+                color: color,
                 design: JSON.stringify({
                   front: {},
                   back: {}
@@ -153,21 +161,14 @@ module.exports = function(grunt) {
       };
 
       var createCampaigns = function(tshirt, callback) {
-        var funcs = _.map(
-          [
-            {
-              name: 'campaign 1',
-              description: 'description 1'
-            },
-            {
-              name: 'campaign 2',
-              description: 'description 2'
-            }
-          ],
-          function(spec) {
-            return createCampaignFun(spec.name, spec.description, tshirt);
-          });
-
+        var numOfCampaigns = options.numOfCampaigns || 10;
+        var funcs = _.chain(
+          _.range(1, numOfCampaigns)
+        ).map(function(index) {
+          return { name: 'Campaign ' + index, description: 'Description ' + index};
+        }).map(function(spec) {
+          return createCampaignFun(spec.name, spec.description, tshirt);
+        }).value();
 
         async.parallel(
           funcs,
