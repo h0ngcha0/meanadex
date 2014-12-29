@@ -53,8 +53,18 @@ module.exports = {
     tmpDir: './public/uploads/tmp',
     uploadDir: './public/uploads',
     uploadUrl: '/uploads/',
+    maxPostSize: 500000, // 50MB
+    minFileSize: 1,
+    maxFileSize: 500000, // 50MB
+    imageTypes:  /\.(gif|jpe?g|png)/i,
     storage: {
-      type: 'local'
+      type: 'aws',
+      aws: {
+        accessKeyId: 'AKIAIXDR74RCRQ2VSFLA',
+        secretAccessKey: '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',
+        region: 'eu-west-1',
+        bucketName: 'meanadex-images-test'
+      }
     }
   },
   logging: {

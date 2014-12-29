@@ -50,6 +50,10 @@ module.exports = {
     tmpDir: './public/uploads/tmp',
     uploadDir: './public/uploads',
     uploadUrl: '/uploads/',
+    maxPostSize: 500000, // 50MB
+    minFileSize: 1,
+    maxFileSize: 500000, // 50MB
+    imageTypes:  /\.(gif|jpe?g|png)/i,
     storage: {
       type: 'local'
     }

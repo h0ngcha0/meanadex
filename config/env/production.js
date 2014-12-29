@@ -89,8 +89,23 @@ module.exports = {
     privateKeyPath: process.env.SSL_PATH_PRIVATE_KEY || './config/env/ssl/production/key.pem',
     certificatePath: process.env.SSL_PATH_CERTIFICATE || './config/env/ssl/production/cert.pem'
   },
-  // FIXME: in production use S3 or similiar for image uploader
   imageUploaderOptions: {
+    tmpDir: './public/uploads/tmp',
+    uploadDir: './public/uploads',
+    uploadUrl: '/uploads/',
+    maxPostSize: 500000, // 50MB
+    minFileSize: 1,
+    maxFileSize: 500000, // 50MB
+    imageTypes:  /\.(gif|jpe?g|png)/i,
+    storage: {
+      type: 'aws',
+      aws: {
+        accessKeyId: 'AKIAIXDR74RCRQ2VSFLA',
+        secretAccessKey: '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',
+        region: 'eu-west-1',
+        bucketName: 'meanadex-images-test'
+      }
+    }
   },
   logging: {
     console: {
