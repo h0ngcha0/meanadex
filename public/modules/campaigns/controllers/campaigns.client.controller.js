@@ -35,7 +35,6 @@ angular.module('campaigns').controller('CampaignsController', [
         {campaignId: campaign._id},
         campaign,
         function(data) {
-          console.log(data);
           // successfully updated.
         },
         function(err) {

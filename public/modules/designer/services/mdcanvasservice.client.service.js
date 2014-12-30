@@ -210,7 +210,6 @@ angular.module('designer').service('mdCanvasService', [
     };
 
     this.init = function(canvasId, imageId, tshirtDivId, frontJson, backJson, color) {
-      console.log('initialize...');
       this.imageId = imageId;
       this.tshirtDivId = tshirtDivId;
 

@@ -15,8 +15,6 @@ angular.module('dashboard').controller('DashboardIncomeGraphController', [
           offset: new Date().getTimezoneOffset()
         },
         function(data) {
-          console.log('income data:');
-          console.log(data);
           callback(null, data);
         },
         function(err) {
