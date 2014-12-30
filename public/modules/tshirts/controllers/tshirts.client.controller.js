@@ -3,9 +3,9 @@
 // Tshirts controller
 angular.module('tshirts').controller('TshirtsController', [
   '$scope', '$stateParams', '$location', 'Authentication', 'Tshirts',
-  '$filter', 'DashboardUtils', '$timeout', 'FileUploader',
+  '$filter', 'DashboardUtils', '$timeout', 'FileUploader', 'Images',
   function($scope, $stateParams, $location, Authentication, Tshirts,
-           $filter, DashboardUtils, $timeout, FileUploader) {
+           $filter, DashboardUtils, $timeout, FileUploader, Images) {
     $scope.authentication = Authentication;
     $scope.tmpVariant = {};
     $scope.tmpTshirt = {};
@@ -72,18 +72,19 @@ angular.module('tshirts').controller('TshirtsController', [
 
     // Remove existing Tshirt
     $scope.remove = function( tshirt ) {
-      if ( tshirt ) {
-        tshirt.$remove();
+      var removeImage = function(imageId) {
+        var img = new Images({_id: imageId});
+        img.$remove();
+      };
 
-       for (var i in $scope.tshirts ) {
-         if ($scope.tshirts [i] === tshirt ) {
-           $scope.tshirts.splice(i, 1);
-         }
-       }
-      } else {
-        $scope.tshirt.$remove(function() {
-          $location.path('tshirts');
-        });
+      removeImage(tshirt.frontImage._id);
+      removeImage(tshirt.backImage._id);
+      tshirt.$remove();
+
+      for (var i in $scope.tshirts ) {
+        if ($scope.tshirts [i] === tshirt ) {
+          $scope.tshirts.splice(i, 1);
+        }
       }
     };
 
