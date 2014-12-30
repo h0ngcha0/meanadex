@@ -10,6 +10,7 @@ module.exports = {
   },
   html5shiv: 'public/lib/html5shiv/dist/html5shiv.min.js',
   html5shivPrintshiv: 'public/lib/html5shiv/dist/html5shiv-printshiv.min.js',
+  excanvas: 'public/lib/excanvas/excanvas.js',
   assets: {
     lib: {
       css: [

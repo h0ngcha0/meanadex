@@ -13,6 +13,7 @@ module.exports = {
   sessionCollection: 'sessions',
   html5shiv: 'public/lib/html5shiv/dist/html5shiv.js',
   html5shivPrintshiv: 'public/lib/html5shiv/dist/html5shiv-printshiv.js',
+  excanvas: 'public/lib/excanvas/excanvas.js',
   assets: {
     lib: {
       css: [
