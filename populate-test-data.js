@@ -9,9 +9,13 @@ var request = require('request'),
     _ = require('lodash'),
     fs = require('fs');
 
+var stripe = require("stripe")(
+    "sk_test_POGF3C0J4jmm8rFZNGwLrLaH"
+);
 
 var options = {
-    numOfCampaigns: 10
+    numOfCampaigns: 10,
+    numOfOrders: 100
 };
 
 module.exports = function(grunt) {
@@ -152,8 +156,6 @@ module.exports = function(grunt) {
             },
             function(error, response, body) {
               var campaign = JSON.parse(body);
-              console.log(error);
-              console.log('Campaign: ' + campaign.name + ' is created');
               callback(error, campaign);
             }
           )
@@ -163,7 +165,7 @@ module.exports = function(grunt) {
       var createCampaigns = function(tshirt, callback) {
         var numOfCampaigns = options.numOfCampaigns || 10;
         var funcs = _.chain(
-          _.range(1, numOfCampaigns)
+          _.range(1, numOfCampaigns+1)
         ).map(function(index) {
           return { name: 'Campaign ' + index, description: 'Description ' + index};
         }).map(function(spec) {
@@ -173,10 +175,79 @@ module.exports = function(grunt) {
         async.parallel(
           funcs,
           function(err, results) {
-            _.each(results, function(result) {
-              console.log('niux');
-              console.log(result);
-              console.log('Campaign ' + result.name + ' is created.');
+            _.each(results, function(campaign) {
+              console.log('Campaign ' + campaign.name + ' is created.');
+            });
+
+            callback(err, results);
+          }
+        );
+      };
+
+
+      var createOrderFun = function(campaigns, callback) {
+        var campaign = pickRandom(campaigns);
+        var email = pickRandom(['lbs.lhc@gmail.com', 'monadex@gmail.com']);
+        var quantity = pickRandom([1,2,3,4,5,10]);
+        return function(callback) {
+          stripe.tokens.create(
+            {
+              card: {
+                "number": '4242424242424242',
+                "exp_month": 12,
+                "exp_year": 2015,
+                "cvc": '123'
+              }
+            },
+            function(err, token) {
+              request.post(
+                'http://localhost:3000/orders',
+                {
+                  form: {
+                    campaign: campaign._id,
+                    provider: 'stripe',
+                    email: email,
+                    description: campaign.name,
+                    payment: {id: token.id},
+                    amount: parseInt(campaign.price.value) * quantity,
+                    currency: 'SEK',
+                    quantity: quantity,
+                    shippingAddr: {
+                      name: 'fake name',
+                      street: 'fake street',
+                      roomNum: 'fake rumNum',
+                      city: 'fake city',
+                      zipcode: 'fake zipcode',
+                      country: 'fake country'
+                    }
+                  }
+                },
+                function(error, response, body) {
+                  var order = JSON.parse(body);
+                  console.log('createOrder: ' + order._id);
+                  callback(error, order);
+                }
+              )
+            }
+          );
+        };
+      };
+
+      var createOrders = function(campaigns, callback) {
+        var numOfOrders = options.numOfOrders || 100;
+        var funcs = _.chain(
+          _.range(1, numOfOrders+1)
+        ).map(function(index) {
+          return createOrderFun(campaigns, callback);
+        }).value();
+
+        async.parallel(
+          funcs,
+          function(err, results) {
+            console.log('createOrders: ');
+            console.log(err);
+            _.each(results, function(order) {
+              console.log('Done Creating orders.');
             });
 
             callback(err, results);
@@ -199,7 +270,8 @@ module.exports = function(grunt) {
         createFrontImage,
         createBackImage,
         createTshirt,
-        createCampaigns
+        createCampaigns,
+        createOrders
       ], resultCallback);
     }
   );
