@@ -44,16 +44,16 @@ angular.module('designer').service('mdCanvasService', [
     };
 
     lineL = fabricLineFun(
-      offsetXFun(UpperLeftPoint, 1),
-      offsetXFun(DownLeftPoint, 1)
+      offsetYFun(UpperLeftPoint, 1),
+      offsetYFun(DownLeftPoint, 1)
     );
     lineR = fabricLineFun(
       offsetXFun(UpperRightPoint, 1),
       offsetXFun(DownRightPoint, 1)
     );
     lineU = fabricLineFun(
-      offsetYFun(UpperRightPoint, 1),
-      offsetYFun(UpperLeftPoint, 1)
+      offsetXFun(UpperRightPoint, 1),
+      offsetXFun(UpperLeftPoint, 1)
     );
     lineD = fabricLineFun(
       offsetYFun(DownLeftPoint, 1),
@@ -156,8 +156,8 @@ angular.module('designer').service('mdCanvasService', [
       fabric.Object.prototype._drawControl = function(control, ctx, methodName, left, top) {
         var degreesToRadians = fabric.util.degreesToRadians,
             isVML = typeof G_vmlCanvasManager !== 'undefined';
-        var sizeX = this.cornerSize / this.scaleX,
-            sizeY = this.cornerSize / this.scaleY,
+        var sizeX = this.cornerSize,
+            sizeY = this.cornerSize,
             img   = new Image();
 
         if (this.isControlVisible(control)) {
