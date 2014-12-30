@@ -1,5 +1,7 @@
 'use strict';
 
+/* global async */
+
 // Tshirts controller
 angular.module('tshirts').controller('TshirtsController', [
   '$scope', '$stateParams', '$location', 'Authentication', 'Tshirts',
@@ -37,11 +39,24 @@ angular.module('tshirts').controller('TshirtsController', [
 
       if($scope.error) return;
 
-      $scope.currentQueueItemFront.onSuccess = function(responseF, statusF, headerF) {
-        var frontImgId = responseF._id;
+      var uploadImage = function (queue, callback) {
+        return function(callback) {
+          queue.onSuccess = function(response, status, header) {
+            var imageId = response._id;
+            callback(null, imageId);
+          };
+          queue.upload();
+        };
+      };
 
-        $scope.currentQueueItemBack.onSuccess = function(responseB, statusB, headerB) {
-          var backImgId = responseB._id;
+      async.parallel(
+        [
+          uploadImage($scope.currentQueueItemFront),
+          uploadImage($scope.currentQueueItemBack)
+        ],
+        function(err, imageIds) {
+          var frontImgId = imageIds[0];
+          var backImgId = imageIds[1];
 
           var tshirt = new Tshirts ({
             name: $scope.tmpTshirt.name,
@@ -62,12 +77,8 @@ angular.module('tshirts').controller('TshirtsController', [
               $scope.error = errorResponse.data.message;
             }
           );
-        };
-
-        $scope.currentQueueItemBack.upload();
-      };
-
-      $scope.currentQueueItemFront.upload();
+        }
+      );
     };
 
     // Remove existing Tshirt
