@@ -38,6 +38,7 @@ exports.create = function(req, res) {
       },
       function(err, customer) {
         if (err) {
+          logger.error('error creating customer: ', err);
           res.status(400).send({
             message: err.message
           });
