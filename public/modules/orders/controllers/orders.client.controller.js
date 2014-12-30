@@ -74,7 +74,7 @@ angular.module('orders').controller('OrdersController', [
       var queryOption = anchorId ? {'anchorId': anchorId} : {};
       fetchedFirstPage = anchorId ? false : true;
 
-      $scope.prevAnchorId = $scope.campaigns ? $scope.campaigns.prevAnchorId : undefined;
+      $scope.prevAnchorId = $scope.orders ? $scope.orders.prevAnchorId : undefined;
 
       $scope.orders = Orders.query(
         queryOption,
