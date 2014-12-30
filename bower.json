@@ -32,6 +32,6 @@
     "moment": "~2.8.4",
     "angularjs-nvd3-directives": "cardinfolink/angularjs-nvd3-directives#cs",
     "bootstrap-autohidingnavbar": "~1.0.0",
-    "excanvas": "~1.0.0"
+    "excanvas": "*"
   }
 }
