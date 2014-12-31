@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
     errorHandler = require('./errors'),
     Tshirt = mongoose.model('Tshirt'),
     Images = require('../../app/controllers/images'),
+    logger = require('../lib/logger.server.lib.js'),
     _ = require('lodash');
 
 /**
@@ -18,6 +19,8 @@ exports.create = function(req, res) {
 
   tshirt.save(function(err) {
     if (err) {
+      logger.error('Error saving tshirt.', err);
+
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
@@ -43,6 +46,7 @@ exports.update = function(req, res) {
 
   tshirt.save(function(err) {
     if (err) {
+      logger.error('Error updating tshirt.', tshirt._id, err);
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
@@ -60,6 +64,8 @@ exports.delete = function(req, res) {
 
   tshirt.remove(function(err) {
     if (err) {
+      logger.error('Error deleting tshirt.', tshirt._id, err);
+
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
@@ -80,6 +86,8 @@ exports.list = function(req, res) {
     populate('backImage', 'url').
     exec(function(err, tshirts) {
     if (err) {
+      logger.error('Error listing tshirt.', err);
+
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });

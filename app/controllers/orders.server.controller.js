@@ -38,7 +38,6 @@ exports.create = function(req, res) {
       },
       function(err, customer) {
         if (err) {
-          logger.error('error creating customer: ', err);
           res.status(400).send({
             message: err.message
           });
@@ -96,7 +95,7 @@ exports.create = function(req, res) {
 
   var logging = function(err, results) {
     if (err) {
-      logger.error('error while creating order: ', err);
+      logger.error('Error while creating order: ', err);
     }
   };
 
@@ -125,6 +124,8 @@ exports.update = function(req, res) {
 
   order.save(function(err) {
     if (err) {
+      logger.error('Error updating order.', order._id, err);
+
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
@@ -142,6 +143,8 @@ exports.delete = function(req, res) {
 
   order.remove(function(err) {
     if (err) {
+      logger.error('Error deleting order.', order._id, err);
+
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
@@ -162,6 +165,8 @@ exports.list = utils.list(
   },
   function(req, res, err, result) {
     if (err) {
+      logger.error('Error listing order.', err);
+
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });

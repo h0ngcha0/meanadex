@@ -15,8 +15,7 @@ var logger = new (winston.Logger)({
           date.toTimeString().substr(0,5) + ' [' + global.process.pid + ']';
       },
       level: config.logging.console.level
-    }
-                                    ),
+    }),
     new (winston.transports.File)(
       {
         filename: config.logging.file.debug.filename,

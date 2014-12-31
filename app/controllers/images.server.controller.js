@@ -27,6 +27,7 @@ exports.create = function(req, res) {
 
     image.save(function(err) {
       if (err) {
+        logger.error('Error saving image.', imageUrl, err);
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)
         });
@@ -77,6 +78,8 @@ exports.delete = function(req, res) {
 
   var resultCallback = function(err, results) {
     if(err) {
+      logger.error('Fail to delete image.', err);
+
       res.status(400).send({
         message: errorHandler.getErrorMessage(err.message)
       });
@@ -138,8 +141,7 @@ exports.deleteById = function(id) {
 
   var resultCallback = function(err, results) {
     if(err) {
-      logger.error('error deleting id %s', id, err);
-      console.log(err);
+      logger.error('Error deleting image.', id, err);
     }
   };
 
@@ -157,6 +159,7 @@ exports.list = function(req, res) {
   Img.find().sort('-created').populate('user', 'displayName').exec(
     function(err, images) {
       if (err) {
+        logger.error('Error listing images.', err);
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)
         });
