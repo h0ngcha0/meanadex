@@ -27,6 +27,8 @@ exports.create = function(req, res) {
 
   campaign.save(function(err) {
     if (err) {
+      logger.error('save campaign failed.', err);
+
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
@@ -72,6 +74,12 @@ exports.read = function(req, res) {
     else {
       Order.mapReduce(options, function(err, results) {
         if(err) {
+          logger.error(
+            'Error computing sold count for campaign.',
+            campaign._id,
+            err
+          );
+
           return res.status(400).send({
             message: errorHandler.getErrorMessage(err)
           });
@@ -94,6 +102,8 @@ exports.update = function(req, res) {
 
   campaign.save(function(err) {
     if (err) {
+      logger.error('Error updating campaign.', campaign._id, err);
+
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
@@ -111,6 +121,8 @@ exports.delete = function(req, res) {
 
   campaign.remove(function(err) {
     if (err) {
+      logger.error('Error deleting campaign.', campaign._id, err);
+
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
@@ -174,6 +186,8 @@ exports.list = utils.list(
       var objects = result.documents;
       populateSold(objects, function(err, newObjects) {
         if(err) {
+          logger.error('Error populating sold field for campaigns.', err);
+
           return res.status(400).send({
             message: errorHandler.getErrorMessage(err)
           });
