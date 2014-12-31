@@ -27,7 +27,7 @@ module.exports = {
       ],
       js: [
         'public/lib/jquery/jquery.js',
-        'public/lib/underscore/underscore.js',
+        'public/lib/lodash/dist/lodash.underscore.js',
         'public/lib/async/lib/async.js',
         'https://checkout.stripe.com/checkout.js',
         'public/lib/angular/angular.js',
