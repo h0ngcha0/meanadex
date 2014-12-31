@@ -5,7 +5,6 @@
  */
 var fs = require('fs'),
     https = require('https'),
-    http = require('http'),
     express = require('express'),
     morgan = require('morgan'),
     bodyParser = require('body-parser'),
@@ -154,9 +153,7 @@ module.exports = function(db) {
     });
   });
 
-  if (app.locals.secure === true) {
-    console.log('https server');
-
+  if (app.locals.secure) {
     // Load SSL key and certificate
     var privateKey = fs.readFileSync('./config/sslcerts/key.pem', 'utf8');
     var certificate = fs.readFileSync('./config/sslcerts/cert.pem', 'utf8');
@@ -169,10 +166,7 @@ module.exports = function(db) {
 
     // Return HTTPS server instance
     return httpsServer;
-  } else {
-    console.log('http server');
-
-    var httpServer = http.createServer(app);
-    return httpServer;
   }
+
+  return app;
 };

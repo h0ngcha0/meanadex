@@ -35,4 +35,4 @@ app.listen(config.port);
 exports = module.exports = app;
 
 // Logging initialization
-console.log('Meanadex started on port ' + config.port);
+console.log('Meanadex started on http port ' + config.port);
