@@ -83,10 +83,6 @@ module.exports = {
     clientSecret: process.env.GITHUB_SECRET || 'APP_SECRET',
     callbackURL: 'http://localhost:3001/auth/github/callback'
   },
-  ssl: {
-    privateKeyPath: process.env.SSL_PATH_PRIVATE_KEY || './config/env/ssl/development/key.pem',
-    certificatePath: process.env.SSL_PATH_CERTIFICATE || './config/env/ssl/development/cert.pem'
-  },
   stripe: {
     clientID: process.env.STRIPE_ID || 'ca_53emHeHCgJWdAOPGsIp4uIdFCCEXkdal',
     clientSecret: process.env.STRIPE_SECRET || 'sk_test_POGF3C0J4jmm8rFZNGwLrLaH',

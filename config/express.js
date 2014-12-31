@@ -3,7 +3,9 @@
 /**
  * Module dependencies.
  */
-var express = require('express'),
+var fs = require('fs'),
+    https = require('https'),
+    express = require('express'),
     morgan = require('morgan'),
     bodyParser = require('body-parser'),
     session = require('express-session'),
@@ -42,6 +44,9 @@ module.exports = function(db) {
   app.locals.jsFiles = config.getJavaScriptAssets();
   app.locals.cssFiles = config.getCSSAssets();
   app.locals.html5shiv = config.html5shiv.replace('public/', '');
+  app.locals.html5shivPrintshiv = config.html5shivPrintshiv.replace('public/', '');
+  app.locals.excanvas = config.excanvas.replace('public/', '');
+  app.locals.secure = config.secure;
 
   // Passing the request url to environment locals
   app.use(function(req, res, next) {
@@ -147,6 +152,21 @@ module.exports = function(db) {
       error: 'Not Found'
     });
   });
+
+  if (app.locals.secure) {
+    // Load SSL key and certificate
+    var privateKey = fs.readFileSync('./config/sslcerts/key.pem', 'utf8');
+    var certificate = fs.readFileSync('./config/sslcerts/cert.pem', 'utf8');
+
+    // Create HTTPS Server
+    var httpsServer = https.createServer({
+      key: privateKey,
+      cert: certificate
+    }, app);
+
+    // Return HTTPS server instance
+    return httpsServer;
+  }
 
   return app;
 };

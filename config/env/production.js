@@ -89,10 +89,6 @@ module.exports = {
     publishableKey: process.env.PUBLISHABLE_KEY || 'pk_test_WMSaxecz5HSTGZxlFbuxdF7B',
     callbackURL: 'http://127.0.0.1:3000/auth/stripe/callback'
   },
-  ssl: {
-    privateKeyPath: process.env.SSL_PATH_PRIVATE_KEY || './config/env/ssl/production/key.pem',
-    certificatePath: process.env.SSL_PATH_CERTIFICATE || './config/env/ssl/production/cert.pem'
-  },
   imageUploaderOptions: {
     tmpDir: './public/uploads/tmp',
     uploadDir: './public/uploads',

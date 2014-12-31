@@ -180,7 +180,7 @@ module.exports = function(grunt) {
       development: {
         constants: {
           ENV: {
-            stripeImage: 'https://localhost:4000/modules/core/img/brand/favicon.ico',
+            stripeImage: 'https://localhost:3000/modules/core/img/brand/favicon.ico',
             stripePublicKey: 'pk_test_WMSaxecz5HSTGZxlFbuxdF7B'
           }
         }
@@ -188,7 +188,7 @@ module.exports = function(grunt) {
       test: {
         constants: {
           ENV: {
-            stripeImage: 'https://localhost:4000/modules/core/img/brand/favicon.ico',
+            stripeImage: 'https://localhost:3000/modules/core/img/brand/favicon.ico',
             stripePublicKey: 'pk_test_WMSaxecz5HSTGZxlFbuxdF7B'
           }
         }
