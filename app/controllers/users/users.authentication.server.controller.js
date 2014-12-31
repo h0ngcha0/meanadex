@@ -7,6 +7,7 @@ var _ = require('lodash'),
     errorHandler = require('../errors'),
     mongoose = require('mongoose'),
     passport = require('passport'),
+    logger = require('../../lib/logger.server.lib.js'),
     User = mongoose.model('User');
 
 /**
@@ -27,6 +28,8 @@ exports.signup = function(req, res) {
   // Then save the user
   user.save(function(err) {
     if (err) {
+      logger.error('Error saving user.', user, err);
+
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
@@ -60,6 +63,7 @@ exports.signin = function(req, res, next) {
 
       req.login(user, function(err) {
         if (err) {
+          logger.error('Error signin.', user._id, err);
           res.status(400).send(err);
         } else {
           res.jsonp(user);
@@ -88,6 +92,8 @@ exports.oauthCallback = function(strategy) {
       }
       req.login(user, function(err) {
         if (err) {
+          logger.error('Error during oauth callback.', user._id, err);
+
           return res.redirect('/#!/signin');
         }
 

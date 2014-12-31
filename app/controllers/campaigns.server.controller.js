@@ -27,7 +27,7 @@ exports.create = function(req, res) {
 
   campaign.save(function(err) {
     if (err) {
-      logger.error('save campaign failed.', err);
+      logger.error('Save campaign failed.', err);
 
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
