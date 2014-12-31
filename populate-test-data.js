@@ -13,6 +13,8 @@ var stripe = require("stripe")(
     "sk_test_POGF3C0J4jmm8rFZNGwLrLaH"
 );
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
 var options = {
     numOfCampaigns: 10,
     numOfOrders: 100
@@ -27,7 +29,7 @@ module.exports = function(grunt) {
       var done = this.async();
       var createAdminUser = function(callback) {
         request.post(
-          'http://localhost:3000/auth/signup',
+          'https://localhost:3000/auth/signup',
           {
             form: {
               firstName: 'admin',
@@ -47,7 +49,7 @@ module.exports = function(grunt) {
 
       var createImage = function(path, callback) {
         request.post(
-          'http://localhost:3000/images',
+          'https://localhost:3000/images',
           {
             formData: {
               file: fs.createReadStream(
@@ -85,7 +87,7 @@ module.exports = function(grunt) {
 
       var createTshirt = function(frontImgId, backImgId, callback) {
         request.post(
-          'http://localhost:3000/tshirts',
+          'https://localhost:3000/tshirts',
           {
             form: {
               name: 'Meanadex signature Tee',
@@ -131,7 +133,7 @@ module.exports = function(grunt) {
         var url = Math.random().toString(36).substring(7);
         return function(callback) {
           request.post(
-            'http://localhost:3000/campaigns',
+            'https://localhost:3000/campaigns',
             {
               form: {
                 name: name,
@@ -201,7 +203,7 @@ module.exports = function(grunt) {
             },
             function(err, token) {
               request.post(
-                'http://localhost:3000/orders',
+                'https://localhost:3000/orders',
                 {
                   form: {
                     campaign: campaign._id,
