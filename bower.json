@@ -29,7 +29,7 @@
     "angular-timer": "~1.1.7",
     "html5shiv": "~3.7.2",
     "moment": "~2.8.4",
-    "angularjs-nvd3-directives": "cardinfolink/angularjs-nvd3-directives#cs",
+    "angularjs-nvd3-directives": "hudayou/angularjs-nvd3-directives#md",
     "bootstrap-autohidingnavbar": "~1.0.0",
     "excanvas": "*",
     "lodash": "~2.4.1"
