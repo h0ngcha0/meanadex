@@ -47,7 +47,7 @@ angular.module('dashboard').directive('dashboardGraph', [
               // total items
               scope.total = data.total;
 
-              scope.ydomain = function() {
+              scope.yaxisdomain = function() {
                 var max = d3.max(values, function(v) { return v[1];});
                 return [
                   0,
@@ -65,7 +65,7 @@ angular.module('dashboard').directive('dashboardGraph', [
             else {
               scope.total = 0;
               scope.graphData = [];
-              scope.ydomain = function() {
+              scope.yaxisdomain = function() {
                 return [0, 1];
               };
             }
