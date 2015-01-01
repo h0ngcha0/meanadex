@@ -43,6 +43,7 @@ module.exports = {
     }
   },
   imageUploaderOptions: {
+    useSSL: true,
     tmpDir: './public/uploads/tmp',
     uploadDir: './public/uploads',
     uploadUrl: '/uploads/',
