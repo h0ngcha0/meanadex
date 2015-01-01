@@ -57,6 +57,7 @@ angular.module('dashboard').directive('dashboardGraph', [
 
               scope.graphData = [
                 {
+                  key: scope.title,
                   area: true,
                   values: values
                 }
@@ -74,7 +75,13 @@ angular.module('dashboard').directive('dashboardGraph', [
 
         scope.xformat = function(){
           return function(d){
-            return d3.time.format('%x')(new Date(d));
+            return d3.time.format('%Y-%m-%d')(new Date(d));
+          };
+        };
+
+        scope.yformat = function() {
+          return function(d){
+            return d3.format(',g')(d);
           };
         };
 
