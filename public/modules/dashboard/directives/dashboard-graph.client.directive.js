@@ -47,6 +47,14 @@ angular.module('dashboard').directive('dashboardGraph', [
               // total items
               scope.total = data.total;
 
+              scope.ydomain = function() {
+                var max = d3.max(values, function(v) { return v[1];});
+                return [
+                  0,
+                  max ? max : 1
+                ];
+              };
+
               scope.graphData = [
                 {
                   area: true,
@@ -55,7 +63,11 @@ angular.module('dashboard').directive('dashboardGraph', [
               ];
             }
             else {
+              scope.total = 0;
               scope.graphData = [];
+              scope.ydomain = function() {
+                return [0, 1];
+              };
             }
           });
         };
