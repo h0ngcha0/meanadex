@@ -30,7 +30,11 @@ module.exports = function(grunt) {
         files: watchFiles.serverViews,
         options: {
           spawn: false,
-          livereload: true
+          livereload: {
+            port: 35728,
+            key: grunt.file.read('config/sslcerts/key.pem'),
+            cert: grunt.file.read('config/sslcerts/cert.pem')
+          }
         }
       },
       serverJS: {
@@ -38,14 +42,22 @@ module.exports = function(grunt) {
         tasks: ['jshint'],
         options: {
           spawn: false,
-          livereload: true
+          livereload: {
+            port: 35728,
+            key: grunt.file.read('config/sslcerts/key.pem'),
+            cert: grunt.file.read('config/sslcerts/cert.pem')
+          }
         }
       },
       clientViews: {
         files: watchFiles.clientViews,
         options: {
           spawn: false,
-          livereload: true
+          livereload: {
+            port: 35728,
+            key: grunt.file.read('config/sslcerts/key.pem'),
+            cert: grunt.file.read('config/sslcerts/cert.pem')
+          }
         }
       },
       clientJS: {
@@ -53,7 +65,11 @@ module.exports = function(grunt) {
         tasks: ['jshint'],
         options: {
           spawn: false,
-          livereload: true
+          livereload: {
+            port: 35728,
+            key: grunt.file.read('config/sslcerts/key.pem'),
+            cert: grunt.file.read('config/sslcerts/cert.pem')
+          }
         }
       },
       clientCSS: {
@@ -61,21 +77,33 @@ module.exports = function(grunt) {
         tasks: ['csslint'],
         options: {
           spawn: false,
-          livereload: true
+          livereload: {
+            port: 35728,
+            key: grunt.file.read('config/sslcerts/key.pem'),
+            cert: grunt.file.read('config/sslcerts/cert.pem')
+          }
         }
       },
       clientSCSS: {
         files: watchFiles.clientSCSS,
         tasks: ['sass', 'csslint'],
         options: {
-          livereload: true
+          livereload: {
+            port: 35728,
+            key: grunt.file.read('config/sslcerts/key.pem'),
+            cert: grunt.file.read('config/sslcerts/cert.pem')
+          }
         }
       },
       clientLESS: {
         files: watchFiles.clientLESS,
         tasks: ['less', 'csslint'],
         options: {
-          livereload: true
+          livereload: {
+            port: 35728,
+            key: grunt.file.read('config/sslcerts/key.pem'),
+            cert: grunt.file.read('config/sslcerts/cert.pem')
+          }
         }
       }
     },
