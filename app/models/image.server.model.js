@@ -10,10 +10,14 @@ var mongoose = require('mongoose'),
  * Image Schema
  */
 var ImageSchema = new Schema({
+  name: {
+    type: String,
+    default: '',
+    trim: true
+  },
   url: {
     type: String,
     default: '',
-    required: 'Please fill Image url',
     trim: true
   },
   created: {
@@ -23,6 +27,10 @@ var ImageSchema = new Schema({
   user: {
     type: Schema.ObjectId,
     ref: 'User'
+  },
+  tags: {
+    type: [String],
+    default: ['tshirt']
   }
 });
 

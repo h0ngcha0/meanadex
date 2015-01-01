@@ -1,22 +1,35 @@
-<div class="container" data-ng-controller="ImagesController" data-ng-init="find()">
-  <section>
-    <div class="page-header">
-      <h1>Images</h1>
-    </div>
-    <div class="list-group">
-      <a data-ng-repeat="image in images" data-ng-href="#!/images/{{image._id}}" class="list-group-item">
-        <img data-ng-src="{{image.url}}" height=100>
-        <h4 class="list-group-item-heading" data-ng-bind="image.url"></h4>
-        <small class="list-group-item-text">
-	  Posted on
-	  <span data-ng-bind="image.created | date:'medium'"></span>
-	  by
-	  <span data-ng-bind="image.user.displayName"></span>
-        </small>
-      </a>
-    </div>
-    <div class="alert alert-warning text-center" data-ng-hide="!images.$resolved || images.length">
-      No Images yet, why don't you <a href="/#!/images/create">create one</a>?
-    </div>
-  </section>
+<div id="list-all-orders" class="row" data-ng-init="find()">
+  <div class="col-lg-12">
+    <dashboard-widget>
+      <dashboard-widget-header icon="fa-trophy" title="Images">
+        <a ui-sref="dashboard.createImage">Add image</a>
+      </dashboard-widget-header>
+      <dashboard-widget-body>
+        <div class="row cardContainer show-hide-animation">
+          <div class="col-sm-6 col-md-4 col-lg-3"
+               data-ng-repeat="image in images"
+               data-ng-href="#!/images/{{image._id}}">
+            <div class="card">
+              <button class="btn close cardClose"
+                      data-ng-click="remove(image)">
+                &times;
+              </button>
+              <div class="cardHeader">niux</div>
+              <div class="cardBody">
+                <div class="clearfix">
+                  <a data-ng-href="{{image.url}}">
+                    <img data-ng-src="{{image.url}}" height=150></img>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </dashboard-widget-body>
+    </dashboard-widget>
+  </div>
+</div>
+<div class="alert alert-warning text-center" data-ng-hide="!images.$resolved || images.length">
+  No Images yet, why don't you <a href="/#!/images/create">create one</a>?
+</div>
 </div>

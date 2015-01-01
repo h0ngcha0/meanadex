@@ -73,6 +73,24 @@ angular.module('dashboard').config([
             controller: 'OrdersController'
           }
         }
+      }).
+      state('dashboard.createImage', {
+        url: '/images/create',
+        views: {
+          'dashboardPanel': {
+            templateUrl: 'modules/images/views/create-image.client.view.html',
+            controller: 'ImagesController'
+          }
+        }
+      }).
+      state('dashboard.images', {
+        url: '/images',
+        views: {
+          'dashboardPanel': {
+            templateUrl: 'modules/images/views/list-images.client.view.html',
+            controller: 'ImagesController'
+          }
+        }
       });
   }
 ]);

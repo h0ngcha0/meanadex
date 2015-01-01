@@ -1,0 +1,63 @@
+/* #592727 RED */
+/* #2f5927 GREEN */
+/* #30426a BLUE (default)*/
+
+/* Sidebar background color */
+@sidebarBaseColor: #30426a;
+/* Sidebar header and footer color */
+@sidebarHeaderColor: darken(@sidebarBaseColor, 2%);
+/* Sidebar title text colour */
+@sidebarTitleColor:  lighten(@sidebarBaseColor, 30%);
+/* Sidebar menu item hover color */
+@sidebarMenuItemHover: #e99d1a;
+
+.drop-zone { border: dotted 3px lightgray; }
+
+.card {
+    background-color:#fff;
+    border: 1px solid #d4d4d4;
+    height:200px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.cardHeader {
+    background-color: @sidebarBaseColor;
+    font-size:14pt;
+    color: darkgrey;
+    padding:5px;
+    width:100%;
+}
+
+.cardClose {
+    color: white;
+    font-weight:bold;
+    margin-right:5px;
+}
+
+.cardContainer {
+    width:85%;
+}
+
+.cardBody {
+    padding-top: 10px;
+    padding-left: 5px;
+}
+
+.cardBodyLeft {
+    margin-top: -5px;
+}
+
+.cardBodyRight {
+    margin-left: 20px;
+    margin-top: 2px;
+}
+
+.cardBodyContent {
+    width: 100px;
+}
+
+.cardImage {
+    height:50px;width:50px;margin-top:10px;
+
+}
