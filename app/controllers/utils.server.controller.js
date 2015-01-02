@@ -104,3 +104,19 @@ exports.sendMail = function(emailHTML, subject, email, callback) {
 
   smtpTransport.sendMail(mailOptions, callback);
 };
+
+exports.head = function(elem) {
+  if(_.isArray(elem)) {
+    return _.head(elem);
+  } else {
+    return elem;
+  }
+};
+
+exports.tail = function(elem) {
+  if(_.isArray(elem)) {
+    return _.tail(elem);
+  } else {
+    return [];
+  }
+};

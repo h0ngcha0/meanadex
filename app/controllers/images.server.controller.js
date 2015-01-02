@@ -10,6 +10,7 @@ var mongoose = require('mongoose'),
     async = require('async'),
     logger = require('../lib/logger.server.lib.js'),
     config = require('../../config/config'),
+    utils = require('./utils'),
     _ = require('lodash');
 
 var uploader = require('blueimp-file-upload-expressjs')(
@@ -21,8 +22,17 @@ var uploader = require('blueimp-file-upload-expressjs')(
  */
 exports.create = function(req, res) {
   uploader.post(req, res, function (obj) {
-    var imageUrl = _.head(obj.files).url;
-    var image = new Img({url: imageUrl});
+    var imageObj = _.head(obj.files),
+        imageUrl = imageObj.url,
+        imageName = imageObj.name;
+
+    var image = new Img(
+      {
+        name: imageName,
+        url: imageUrl
+      }
+    );
+
     image.user = req.user;
 
     image.save(function(err) {
@@ -174,21 +184,42 @@ exports.deleteById = function(id) {
   ], resultCallback);
 };
 
+var searchTags = function(tags) {
+  if(tags) {
+    var tagHead = utils.head(tags);
+    var tagTail = utils.tail(tags);
+    var searchObj = Img.find({
+      tags: tagHead
+    });
+
+    return _.foldl(tagTail, function(acc, tag) {
+      return acc.where({tags: tag});
+    }, searchObj);
+  } else {
+    return Img.find();
+  }
+};
+
 /**
  * List of Images
  */
 exports.list = function(req, res) {
-  Img.find().sort('-created').populate('user', 'displayName').exec(
-    function(err, images) {
-      if (err) {
-        logger.error('Error listing images.', err);
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        res.jsonp(images);
+  var tags = req.param('tags');
+  searchTags(tags)
+    .sort('-created')
+    .populate('user', 'displayName')
+    .exec(
+      function(err, images) {
+        if (err) {
+          logger.error('Error listing images.', err);
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          res.jsonp(images);
+        }
       }
-    });
+    );
 };
 
 /**
