@@ -10,11 +10,10 @@
                data-ng-repeat="image in images"
                data-ng-href="#!/images/{{image._id}}">
             <div class="card">
-              <button class="btn close cardClose"
+              <a class="close fa fa-times-circle-o fa-2x"
                       data-ng-click="remove(image)">
-                &times;
-              </button>
-              <div class="cardHeader">niux</div>
+              </a>
+              <div class="cardHeader" data-ng-bind="image.name || 'Anonymous'"></div>
               <div class="cardBody">
                 <div class="clearfix">
                   <a data-ng-href="{{image.url}}">

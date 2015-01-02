@@ -3,11 +3,11 @@
 /* #30426a BLUE (default)*/
 
 /* Sidebar background color */
-@cardBaseColor: #30426a;
+@cardBaseColor: white;
 /* Sidebar header and footer color */
-@cardHeaderColor: darken(@cardBaseColor, 2%);
+@cardHeaderColor: darken(@cardBaseColor, 10%);
 /* Sidebar title text colour */
-@cardTitleColor:  lighten(@cardBaseColor, 30%);
+@cardTitleColor:  darken(@cardBaseColor, 30%);
 
 .drop-zone { border: dotted 3px lightgray; }
 
@@ -20,20 +20,21 @@
 }
 
 .cardHeader {
-    background-color: @cardBaseColor;
-    font-size:14pt;
+    background-color: @cardHeaderColor;
+    font-size:10pt;
     color: @cardTitleColor;
     padding:5px;
     width:100%;
 }
 
 .cardClose {
-    color: white;
+    color: @cardTitleColor;
     font-weight:bold;
     margin-right:5px;
 }
 
 .cardContainer {
+    padding-bottom: 5px;
     width:85%;
 }
 
