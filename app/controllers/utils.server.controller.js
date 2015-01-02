@@ -107,7 +107,7 @@ exports.sendMail = function(emailHTML, subject, email, callback) {
 
 exports.head = function(elem) {
   if(_.isArray(elem)) {
-    return _.head(elem)
+    return _.head(elem);
   } else {
     return elem;
   }
@@ -115,7 +115,7 @@ exports.head = function(elem) {
 
 exports.tail = function(elem) {
   if(_.isArray(elem)) {
-    return _.tail(elem)
+    return _.tail(elem);
   } else {
     return [];
   }

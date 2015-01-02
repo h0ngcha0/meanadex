@@ -175,13 +175,17 @@ exports.deleteById = function(id) {
   ], resultCallback);
 };
 
-var search = function(tags) {
+var searchTags = function(tags) {
   if(tags) {
-    var tag = utils.head(tags);
-
-    return Img.find({
-      tags: tag
+    var tagHead = utils.head(tags);
+    var tagTail = utils.tail(tags);
+    var searchObj = Img.find({
+      tags: tagHead
     });
+
+    return _.foldl(tagTail, function(acc, tag) {
+      return acc.where({tags: tag});
+    }, searchObj);
   } else {
     return Img.find();
   }
@@ -192,21 +196,21 @@ var search = function(tags) {
  */
 exports.list = function(req, res) {
   var tags = req.param('tags');
-  if(tags) {
-    var tag = utils.head(tags);
-  }
-  console.log(tags);
-  search(tags).sort('-created').populate('user', 'displayName').exec(
-    function(err, images) {
-      if (err) {
-        logger.error('Error listing images.', err);
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        res.jsonp(images);
+  searchTags(tags)
+    .sort('-created')
+    .populate('user', 'displayName')
+    .exec(
+      function(err, images) {
+        if (err) {
+          logger.error('Error listing images.', err);
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          res.jsonp(images);
+        }
       }
-    });
+    );
 };
 
 /**

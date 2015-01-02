@@ -61,7 +61,7 @@ angular.module('images').controller('ImagesController', [
 
     // Find a list of Images
     $scope.find = function(tags) {
-      var queryTags = undefined;
+      var queryTags;
       if(tags) {
         if(_.isArray(tags)) {
           queryTags = _.map(tags, function(tag) {
