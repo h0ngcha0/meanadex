@@ -46,6 +46,28 @@ exports.read = function(req, res) {
 };
 
 /**
+ * Update an Image, only meta data, not the actual
+ * image
+ */
+exports.update = function(req, res) {
+  var image = req.image;
+
+  image = _.extend(image, req.body);
+
+  image.save(function(err) {
+    if (err) {
+      logger.error('Error updating image.', image._id, err);
+
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(image);
+    }
+  });
+};
+
+/**
  * Delete an Image
  */
 exports.delete = function(req, res) {

@@ -17,7 +17,8 @@ module.exports = {
         'public/lib/angular-bootstrap-colorpicker.min.css/colorpicker.min.css',
         'public/lib/ng-table/ng-table.min.css',
         'public/lib/nvd3/nv.d3.min.css',
-        'public/lib/angular-rangeslider/angular.rangeSlider.css'
+        'public/lib/angular-rangeslider/angular.rangeSlider.css',
+        'public/lib/ng-tags-input/ng-tags-input.min.css'
       ],
       js: [
         'public/lib/jquery/jquery.min.js',
@@ -48,7 +49,8 @@ module.exports = {
         'public/lib/d3/d3.min.js',
         'public/lib/nvd3/nv.d3.min.js',
         'public/lib/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.min.js',
-        'public/lib/bootstrap-autohidingnavbar/dist/jquery.bootstrap-autohidingnavbar.min.js'
+        'public/lib/bootstrap-autohidingnavbar/dist/jquery.bootstrap-autohidingnavbar.min.js',
+        'public/lib/ng-tags-input/ng-tags-input.min.js'
       ]
     },
     css: 'public/dist/application.min.css',

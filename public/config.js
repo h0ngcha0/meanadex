@@ -23,7 +23,8 @@ var ApplicationConfiguration = (
       'angular-data.DS',
       'angularFileUpload',
       'timer',
-      'nvd3ChartDirectives'
+      'nvd3ChartDirectives',
+      'ngTagsInput'
     ];
 
     // Add a new vertical module

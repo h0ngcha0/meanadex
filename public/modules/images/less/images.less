@@ -3,13 +3,11 @@
 /* #30426a BLUE (default)*/
 
 /* Sidebar background color */
-@sidebarBaseColor: #30426a;
+@cardBaseColor: #30426a;
 /* Sidebar header and footer color */
-@sidebarHeaderColor: darken(@sidebarBaseColor, 2%);
+@cardHeaderColor: darken(@cardBaseColor, 2%);
 /* Sidebar title text colour */
-@sidebarTitleColor:  lighten(@sidebarBaseColor, 30%);
-/* Sidebar menu item hover color */
-@sidebarMenuItemHover: #e99d1a;
+@cardTitleColor:  lighten(@cardBaseColor, 30%);
 
 .drop-zone { border: dotted 3px lightgray; }
 
@@ -22,9 +20,9 @@
 }
 
 .cardHeader {
-    background-color: @sidebarBaseColor;
+    background-color: @cardBaseColor;
     font-size:14pt;
-    color: darkgrey;
+    color: @cardTitleColor;
     padding:5px;
     width:100%;
 }
@@ -40,7 +38,6 @@
 }
 
 .cardBody {
-    padding-top: 10px;
     padding-left: 5px;
 }
 
@@ -58,6 +55,7 @@
 }
 
 .cardImage {
-    height:50px;width:50px;margin-top:10px;
-
+    height:150px;
+    width:150px;
+    margin-top:10px;
 }

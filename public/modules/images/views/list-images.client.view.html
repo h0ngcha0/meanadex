@@ -18,18 +18,20 @@
               <div class="cardBody">
                 <div class="clearfix">
                   <a data-ng-href="{{image.url}}">
-                    <img data-ng-src="{{image.url}}" height=150></img>
+                    <img data-ng-src="{{image.url}}" class="cardImage"></img>
                   </a>
                 </div>
               </div>
+              <tags-input ng-model="image.tags"
+                          on-tag-added="update(image)"
+                          on-tag-removed="update(image)"></tags-input>
             </div>
           </div>
+        </div>
+        <div class="alert alert-warning text-center" data-ng-hide="!images.$resolved || images.length">
+          No Images yet
         </div>
       </dashboard-widget-body>
     </dashboard-widget>
   </div>
-</div>
-<div class="alert alert-warning text-center" data-ng-hide="!images.$resolved || images.length">
-  No Images yet, why don't you <a href="/#!/images/create">create one</a>?
-</div>
 </div>
