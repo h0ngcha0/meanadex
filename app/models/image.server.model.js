@@ -6,14 +6,24 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
+var TagSchema = new Schema({
+  text: {
+    type: String
+  }
+});
+
 /**
  * Image Schema
  */
 var ImageSchema = new Schema({
+  name: {
+    type: String,
+    default: '',
+    trim: true
+  },
   url: {
     type: String,
     default: '',
-    required: 'Please fill Image url',
     trim: true
   },
   created: {
@@ -23,6 +33,10 @@ var ImageSchema = new Schema({
   user: {
     type: Schema.ObjectId,
     ref: 'User'
+  },
+  tags: {
+    type: [TagSchema],
+    default: [{text: 'Tshirts'}]
   }
 });
 

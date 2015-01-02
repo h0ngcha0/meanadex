@@ -32,6 +32,7 @@
     "angularjs-nvd3-directives": "hudayou/angularjs-nvd3-directives#md",
     "bootstrap-autohidingnavbar": "~1.0.0",
     "excanvas": "*",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "ng-tags-input": "~2.1.1"
   }
 }

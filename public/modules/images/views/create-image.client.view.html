@@ -1,75 +1,82 @@
-<div class="container" data-ng-controller="ImagesController">
-  <section >
-    <div class="col-md-3">
-      <h3>Select image</h3>
+<div class="row" data-ng-controller="ImagesController">
+  <div class="col-lg-12">
+    <dashboard-widget>
+      <dashboard-widget-header icon="fa-image" title="Images">
+      </dashboard-widget-header>
+      <dashboard-widget-body>
+        <div class="row">
+          <div class="col-md-3">
+            <div ng-show="uploader.isHTML5">
 
-      <div ng-show="uploader.isHTML5">
+              <div nv-file-drop="" uploader="uploader"
+                   options="{ url: '/images' }">
+                <div nv-file-over="" uploader="uploader"
+                     class="well drop-zone">
+                  Drop image here
+                </div>
+              </div>
+            </div>
 
-        <div nv-file-drop="" uploader="uploader"
-             options="{ url: '/images' }">
-          <div nv-file-over="" uploader="uploader"
-               class="well drop-zone">
-            Drop image here
+            <input type="file" nv-file-select="" uploader="uploader" multiple />
+            <br/>
           </div>
-        </div>
-      </div>
 
-      <input type="file" nv-file-select="" uploader="uploader" multiple />
-      <br/>
-    </div>
+          <div class="col-md-9" style="margin-bottom: 40px">
+            <div data-ng-if="currentQueueItem">
+              <strong>{{ currentQueueItem.file.name }}</strong>
+              <!--auto width-->
+              <div ng-show="uploader.isHTML5">
+                <md-image-thumb file="currentQueueItem._file" width=200>
+                </md-image-thumb>
+              </div>
 
-    <div class="col-md-9" style="margin-bottom: 40px">
-      <div data-ng-if="currentQueueItem">
-        <strong>{{ currentQueueItem.file.name }}</strong>
-        <!--auto width-->
-        <div ng-show="uploader.isHTML5">
-          <md-image-thumb file="currentQueueItem._file" width=200>
-          </md-image-thumb>
-        </div>
+              <div ng-show="uploader.isHTML5" nowrap>
+                {{ currentQueueItem.file.size/1024/1024|number:2 }} MB
+              </div>
+              <div ng-show="uploader.isHTML5">
+                <div class="progress" style="margin-bottom: 0;">
+                  <div class="progress-bar"
+                       role="progressbar"
+                       ng-style="{ 'width': currentQueueItem.progress + '%' }">
+                  </div>
+                </div>
+              </div>
 
-        <div ng-show="uploader.isHTML5" nowrap>
-              {{ currentQueueItem.file.size/1024/1024|number:2 }} MB
-        </div>
-        <div ng-show="uploader.isHTML5">
-          <div class="progress" style="margin-bottom: 0;">
-            <div class="progress-bar"
-                 role="progressbar"
-                 ng-style="{ 'width': currentQueueItem.progress + '%' }">
+              <div class="text-center">
+                <span ng-show="currentQueueItem.isSuccess">
+                  <i class="glyphicon glyphicon-ok"></i>
+                </span>
+                <span ng-show="currentQueueItem.isCancel">
+                  <i class="glyphicon glyphicon-ban-circle"></i>
+                </span>
+                <span ng-show="currentQueueItem.isError">
+                  <i class="glyphicon glyphicon-remove"></i>
+                </span>
+              </div>
+
+              <div nowrap>
+                <button type="button" class="btn btn-success btn-xs"
+                        ng-click="uploadItem(currentQueueItem)"
+                        ng-disabled="currentQueueItem.isReady || currentQueueItem.isUploading || currentQueueItem.isSuccess">
+                  <span class="glyphicon glyphicon-upload"></span>
+                  Upload
+                </button>
+                <button type="button" class="btn btn-warning btn-xs"
+                        ng-click="currentQueueItem.cancel()"
+                        ng-disabled="!currentQueueItem.isUploading">
+                  <span class="glyphicon glyphicon-ban-circle"></span>
+                  Cancel
+                </button>
+                <button type="button" class="btn btn-danger btn-xs"
+                        ng-click="removeCurrentItem()">
+                  <span class="glyphicon glyphicon-trash"></span>
+                  Remove
+                </button>
+              </div>
             </div>
           </div>
         </div>
-
-        <div class="text-center">
-          <span ng-show="currentQueueItem.isSuccess">
-            <i class="glyphicon glyphicon-ok"></i>
-          </span>
-          <span ng-show="currentQueueItem.isCancel">
-            <i class="glyphicon glyphicon-ban-circle"></i>
-          </span>
-          <span ng-show="currentQueueItem.isError">
-            <i class="glyphicon glyphicon-remove"></i>
-          </span>
-        </div>
-
-        <div nowrap>
-          <button type="button" class="btn btn-success btn-xs"
-                  ng-click="uploadItem(currentQueueItem)"
-                  ng-disabled="currentQueueItem.isReady || currentQueueItem.isUploading || currentQueueItem.isSuccess">
-            <span class="glyphicon glyphicon-upload"></span>
-            Upload
-          </button>
-          <button type="button" class="btn btn-warning btn-xs"
-                  ng-click="currentQueueItem.cancel()"
-                  ng-disabled="!currentQueueItem.isUploading">
-            <span class="glyphicon glyphicon-ban-circle"></span>
-            Cancel
-          </button>
-          <button type="button" class="btn btn-danger btn-xs"
-                  ng-click="removeCurrentItem()">
-            <span class="glyphicon glyphicon-trash"></span>
-            Remove
-          </button>
-        </div>
-      </div>
-  </section>
+      </dashboard-widget-body>
+    </dashboard-widget>
+  </div>
 </div>

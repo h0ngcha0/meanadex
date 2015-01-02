@@ -42,14 +42,14 @@ angular.module('images').controller('ImagesController', [
     };
 
     // Update existing Image
-    $scope.update = function() {
-      var image = $scope.image ;
-
-      image.$update(function() {
-        $location.path('images/' + image._id);
-      }, function(errorResponse) {
-           $scope.error = errorResponse.data.message;
-         });
+    $scope.update = function(image) {
+      image.$update(
+        function() {
+        },
+        function(errorResponse) {
+          $scope.error = errorResponse.data.message;
+        }
+      );
     };
 
     // Find a list of Images
@@ -72,7 +72,7 @@ angular.module('images').controller('ImagesController', [
 
     $scope.uploadItem = function(item) {
       item.onSuccess = function(response, status, header) {
-        $location.path('images/' + response._id);
+        $location.path('dashboard/images');
       };
 
       item.upload();
