@@ -15,17 +15,15 @@
             <tags-input ng-model="image.tags"
                         on-tag-added="update(image)"
                         on-tag-removed="update(image)"></tags-input>
+            <small>
+              <em class="text-muted">
+                Posted on
+                <span data-ng-bind="image.created | date:'mediumDate'"></span>
+                by
+                <span data-ng-bind="image.user.displayName"></span>
+              </em>
+            </small>
           </div>
-        </div>
-        <div class="row">
-          <small>
-            <em class="text-muted">
-              Posted on
-              <span data-ng-bind="image.created | date:'mediumDate'"></span>
-              by
-              <span data-ng-bind="image.user.displayName"></span>
-            </em>
-          </small>
         </div>
       </dashboard-widget-body>
     </dashboard-widget>
