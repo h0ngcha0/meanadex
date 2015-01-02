@@ -8,13 +8,14 @@
 @cardHeaderColor: darken(@cardBaseColor, 10%);
 /* Sidebar title text colour */
 @cardTitleColor:  darken(@cardBaseColor, 30%);
+@cardBorderColor:  darken(@cardBaseColor, 40%);
 
 .drop-zone { border: dotted 3px lightgray; }
 
 .card {
     background-color:#fff;
-    border: 1px solid #d4d4d4;
-    height:200px;
+    border: 1px solid @cardBorderColor;
+    height:100%;
     margin-bottom: 20px;
     position: relative;
 }
