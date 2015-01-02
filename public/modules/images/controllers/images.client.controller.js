@@ -72,7 +72,7 @@ angular.module('images').controller('ImagesController', [
 
     $scope.uploadItem = function(item) {
       item.onSuccess = function(response, status, header) {
-        $location.path('images/' + response._id);
+        $location.path('dashboard/images');
       };
 
       item.upload();
