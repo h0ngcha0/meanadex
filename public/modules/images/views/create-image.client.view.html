@@ -2,10 +2,11 @@
   <div class="col-lg-12">
     <dashboard-widget>
       <dashboard-widget-header icon="fa-image" title="Images">
+        <a ui-sref="dashboard.images">All Images</a>
       </dashboard-widget-header>
       <dashboard-widget-body>
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-md-5">
             <div ng-show="uploader.isHTML5">
 
               <div nv-file-drop="" uploader="uploader"
@@ -21,7 +22,7 @@
             <br/>
           </div>
 
-          <div class="col-md-9" style="margin-bottom: 40px">
+          <div class="col-md-7" style="margin-bottom: 40px">
             <div data-ng-if="currentQueueItem">
               <strong>{{ currentQueueItem.file.name }}</strong>
               <!--auto width-->
@@ -57,7 +58,9 @@
               <div nowrap>
                 <button type="button" class="btn btn-success btn-xs"
                         ng-click="uploadItem(currentQueueItem)"
-                        ng-disabled="currentQueueItem.isReady || currentQueueItem.isUploading || currentQueueItem.isSuccess">
+                        ng-disabled="currentQueueItem.isReady ||
+                                     currentQueueItem.isUploading ||
+                                     currentQueueItem.isSuccess">
                   <span class="glyphicon glyphicon-upload"></span>
                   Upload
                 </button>

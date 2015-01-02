@@ -19,10 +19,13 @@
               <a class="close fa fa-times-circle-o fa-2x"
                       data-ng-click="remove(image)">
               </a>
-              <div class="cardHeader" data-ng-bind="image.name || 'Anonymous'"></div>
+              <div class="cardHeader">
+                {{ image.name || 'Anonymous' | limitTo: 15 }}
+                {{ image.name > 15 ? '...' : ''}}
+              </div>
               <div class="cardBody">
                 <div class="clearfix">
-                  <a data-ng-href="{{image.url}}">
+                  <a ui-sref="dashboard.viewImage({imageId: image._id})">
                     <img data-ng-src="{{image.url}}" class="cardImage"></img>
                   </a>
                 </div>

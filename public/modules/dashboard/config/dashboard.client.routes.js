@@ -83,6 +83,15 @@ angular.module('dashboard').config([
           }
         }
       }).
+      state('dashboard.viewImage', {
+        url: '/images/:imageId',
+        views: {
+          'dashboardPanel': {
+            templateUrl: 'modules/images/views/view-image.client.view.html',
+            controller: 'ImagesController'
+          }
+        }
+      }).
       state('dashboard.images', {
         url: '/images',
         views: {

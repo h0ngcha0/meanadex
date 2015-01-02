@@ -5,7 +5,6 @@ angular.module('images').controller('ImagesController', [
   '$scope', '$stateParams', '$location', 'Authentication', 'Images', 'FileUploader',
   function($scope, $stateParams, $location, Authentication, Images, FileUploader) {
     $scope.authentication = Authentication;
-
     // Create new Image
     $scope.create = function() {
       // Create new Image object
@@ -34,10 +33,8 @@ angular.module('images').controller('ImagesController', [
             $scope.images.splice(i, 1);
           }
         }
-      } else {
-        $scope.image.$remove(function() {
-          $location.path('images');
-        });
+
+        $location.path('dashboard/images');
       }
     };
 
@@ -71,8 +68,6 @@ angular.module('images').controller('ImagesController', [
           queryTags = [tags.text];
         }
       }
-
-      console.log(queryTags);
 
       $scope.images = Images.query({tags: queryTags});
     };

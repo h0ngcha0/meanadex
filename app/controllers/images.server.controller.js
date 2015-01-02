@@ -22,8 +22,17 @@ var uploader = require('blueimp-file-upload-expressjs')(
  */
 exports.create = function(req, res) {
   uploader.post(req, res, function (obj) {
-    var imageUrl = _.head(obj.files).url;
-    var image = new Img({url: imageUrl});
+    var imageObj = _.head(obj.files),
+        imageUrl = imageObj.url,
+        imageName = imageObj.name;
+
+    var image = new Img(
+      {
+        name: imageName,
+        url: imageUrl
+      }
+    );
+
     image.user = req.user;
 
     image.save(function(err) {
