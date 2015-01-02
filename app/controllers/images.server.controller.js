@@ -10,6 +10,7 @@ var mongoose = require('mongoose'),
     async = require('async'),
     logger = require('../lib/logger.server.lib.js'),
     config = require('../../config/config'),
+    utils = require('./utils'),
     _ = require('lodash');
 
 var uploader = require('blueimp-file-upload-expressjs')(
@@ -174,11 +175,28 @@ exports.deleteById = function(id) {
   ], resultCallback);
 };
 
+var search = function(tags) {
+  if(tags) {
+    var tag = utils.head(tags);
+
+    return Img.find({
+      tags: tag
+    });
+  } else {
+    return Img.find();
+  }
+};
+
 /**
  * List of Images
  */
 exports.list = function(req, res) {
-  Img.find().sort('-created').populate('user', 'displayName').exec(
+  var tags = req.param('tags');
+  if(tags) {
+    var tag = utils.head(tags);
+  }
+  console.log(tags);
+  search(tags).sort('-created').populate('user', 'displayName').exec(
     function(err, images) {
       if (err) {
         logger.error('Error listing images.', err);

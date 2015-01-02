@@ -43,6 +43,13 @@ angular.module('images').controller('ImagesController', [
 
     // Update existing Image
     $scope.update = function(image) {
+      image.tags = _.map(image.tags, function(tag) {
+                     if(_.isObject(tag)) {
+                       return tag.text;
+                     } else {
+                       return tag;
+                     }
+                   });
       image.$update(
         function() {
         },
@@ -53,8 +60,21 @@ angular.module('images').controller('ImagesController', [
     };
 
     // Find a list of Images
-    $scope.find = function() {
-      $scope.images = Images.query();
+    $scope.find = function(tags) {
+      var queryTags = undefined;
+      if(tags) {
+        if(_.isArray(tags)) {
+          queryTags = _.map(tags, function(tag) {
+            return tag.text;
+          });
+        } else {
+          queryTags = [tags.text];
+        }
+      }
+
+      console.log(queryTags);
+
+      $scope.images = Images.query({tags: queryTags});
     };
 
     // Find existing Image

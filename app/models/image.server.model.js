@@ -6,12 +6,6 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-var TagSchema = new Schema({
-  text: {
-    type: String
-  }
-});
-
 /**
  * Image Schema
  */
@@ -35,8 +29,8 @@ var ImageSchema = new Schema({
     ref: 'User'
   },
   tags: {
-    type: [TagSchema],
-    default: [{text: 'Tshirts'}]
+    type: [String],
+    default: ['Tshirts']
   }
 });
 

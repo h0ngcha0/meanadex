@@ -6,6 +6,12 @@
       </dashboard-widget-header>
       <dashboard-widget-body>
         <div class="row cardContainer show-hide-animation">
+          <div class="col-sm-12 col-md-12 col-lg-12">
+            <tags-input data-ng-model="searchTags"
+                        placeholder="Search Tags"
+                        on-tag-added="find(searchTags)"
+                        on-tag-removed="find(searchTags)"/>
+          </div>
           <div class="col-sm-6 col-md-4 col-lg-3"
                data-ng-repeat="image in images"
                data-ng-href="#!/images/{{image._id}}">
