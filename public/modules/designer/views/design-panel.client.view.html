@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="tab-pane" id="art-pane">
-      <div class="well">
+      <div class="well" data-ng-hide="inUploadPage">
         <button type="button"
                 class="btn btn-md btn-primary center"
                 data-animation="am-fade-and-scale"
@@ -30,13 +30,20 @@
         <br/>
 
         <button type="button"
-                class="btn btn-md btn-primary center">
+                class="btn btn-md btn-primary btn-file center">
+          <input nv-file-select="" type="file" uploader="uploader" multiple>
           Upload your own
+          </input>
         </button>
-      </div>
-      <div class="well">
-        <div ng-show="uploader.isHTML5">
 
+        <div class="clearfix"></div>
+        <br/>
+        <div style="text-align: center;">
+          <span>Or</span>
+        </div>
+        <br/>
+
+        <div ng-show="uploader.isHTML5">
           <div nv-file-drop="" uploader="uploader"
                options="{ url: '/foo' }">
             <div nv-file-over="" uploader="uploader"
@@ -45,16 +52,6 @@
             </div>
           </div>
         </div>
-
-        Or
-
-        <span class="btn btn-default btn-file">
-          <input nv-file-select="" type="file" uploader="uploader" multiple>
-          Upload image
-          </input>
-
-        </span>
-
       </div>
     </div>
   </div>
