@@ -24,7 +24,8 @@ var ApplicationConfiguration = (
       'angularFileUpload',
       'timer',
       'nvd3ChartDirectives',
-      'ngTagsInput'
+      'ngTagsInput',
+      'mgcrea.ngStrap'
     ];
 
     // Add a new vertical module

@@ -9,7 +9,7 @@ angular.module('designer').controller('DesignerController', [
 
     $scope.ensureEnoughData = function() {
       if(!allTshirts || (allTshirts.length === 0)) {
-        $location.path('admin/tshirts');
+        $location.path('dashboard/tshirts');
       }
     };
 
@@ -66,13 +66,17 @@ angular.module('designer').controller('DesignerController', [
       };
     }
 
-    $scope.images = [
-      {src: 'modules/designer/img/avatar/avatar-1.jpeg'},
-      {src: 'modules/designer/img/avatar/avatar-2.png'},
-      {src: 'modules/designer/img/avatar/avatar-3.png'},
-      {src: 'modules/designer/img/avatar/avatar-4.png'},
-      {src: 'modules/designer/img/avatar/avatar-5.png'}
-    ];
+    $scope.addCanvasBorder = function() {
+      mdCanvasService.addCanvasBorder();
+    };
+
+    $scope.removeCanvasBorder = function() {
+      mdCanvasService.removeCanvasBorder();
+    };
+
+    $scope.addImage = function(imgSrc) {
+      mdCanvasService.addImage(imgSrc);
+    };
 
     $scope.fonts = [
       {name: 'Arial', class: 'Arial'},
@@ -92,50 +96,5 @@ angular.module('designer').controller('DesignerController', [
     ];
 
     $scope.currentFont = {name: 'Arial' , class: 'Arial'};
-
-    $scope.fontColor = '#000000';
-    $scope.inputText = '';
-
-    $scope.changeToBoldText = function() {
-      mdCanvasService.toggleActiveTextBold();
-    };
-
-    $scope.changeToItalicText = function() {
-      mdCanvasService.toggleActiveTextItalic();
-    };
-
-    $scope.changeToUnderlineText = function() {
-      mdCanvasService.toggleActiveTextUnderline();
-    };
-
-    $scope.changeFontFamily = function() {
-      mdCanvasService.changeTextFontFamily($scope.currentFont.name);
-    };
-
-    $scope.changeColorText = function() {
-      mdCanvasService.renderActiveTextFontColor($scope.fontColor);
-    };
-
-    $scope.addOrEditText = function() {
-      if(mdCanvasService.activeTextP()) {
-        mdCanvasService.renderActiveTextContent($scope.inputText);
-      } else if ($scope.inputText !== '') {
-        mdCanvasService.addTextWhenNoActiveText(
-          $scope.inputText, $scope.fontColor, $scope.currentFont.name);
-        mdCanvasService.setTheLastObjActive();
-      }
-    };
-
-    $scope.addCanvasBorder = function() {
-      mdCanvasService.addCanvasBorder();
-    };
-
-    $scope.removeCanvasBorder = function() {
-      mdCanvasService.removeCanvasBorder();
-    };
-
-    $scope.addImage = function(imgSrc) {
-      mdCanvasService.addImage(imgSrc);
-    };
   }
 ]);

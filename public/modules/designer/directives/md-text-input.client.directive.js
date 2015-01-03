@@ -7,6 +7,39 @@ angular.module('designer').directive('mdTextInput', [
       restrict: 'E',
       templateUrl: 'modules/designer/views/text-input.client.view.html',
       link: function(scope, element, attrs) {
+        scope.fontColor = '#000000';
+        scope.inputText = '';
+
+        scope.changeFontFamily = function() {
+          mdCanvasService.changeTextFontFamily(scope.currentFont.name);
+        };
+
+        scope.changeToBoldText = function() {
+          mdCanvasService.toggleActiveTextBold();
+        };
+
+        scope.changeToItalicText = function() {
+          mdCanvasService.toggleActiveTextItalic();
+        };
+
+        scope.changeToUnderlineText = function() {
+          mdCanvasService.toggleActiveTextUnderline();
+        };
+
+        scope.changeColorText = function() {
+          mdCanvasService.renderActiveTextFontColor(scope.fontColor);
+        };
+
+        scope.addOrEditText = function() {
+          if(mdCanvasService.activeTextP()) {
+            mdCanvasService.renderActiveTextContent(scope.inputText);
+          } else if (scope.inputText !== '') {
+            mdCanvasService.addTextWhenNoActiveText(
+              scope.inputText, scope.fontColor, scope.currentFont.name);
+            mdCanvasService.setTheLastObjActive();
+          }
+        };
+
         $timeout(function() {
           // FIXME: need to figure out a way to communicate the set the
           // currentFont, fontColor and inputText from here

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('dashboard').controller('DashboardController', [
-  '$scope', 'Authentication', '$location', '$state', '$cookieStore', 'Dashboard',
-  function($scope, Authentication, $location, $state, $cookieStore, Dashboard) {
+  '$scope', 'Authentication', '$state', '$cookieStore', 'Dashboard',
+  function($scope, Authentication, $state, $cookieStore, Dashboard) {
     $scope.authentication = Authentication;
 
     // check if a user is authenticated

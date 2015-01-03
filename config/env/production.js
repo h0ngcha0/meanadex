@@ -32,6 +32,8 @@ module.exports = {
         'public/lib/angular-resource/angular-resource.min.js',
         'public/lib/angular-cookies/angular-cookies.min.js',
         'public/lib/angular-animate/angular-animate.min.js',
+        'public/lib/angular-strap/dist/angular-strap.min.js',
+        'public/lib/angular-strap/dist/angular-strap.tpl.min.js',
         'public/lib/angular-touch/angular-touch.min.js',
         'public/lib/angular-sanitize/angular-sanitize.min.js',
         'public/lib/angular-ui-router/release/angular-ui-router.min.js',
