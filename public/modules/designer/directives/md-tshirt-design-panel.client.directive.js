@@ -6,6 +6,9 @@ angular.module('designer').directive('mdTshirtDesignPanel', [
       restrict: 'E',
       templateUrl: 'modules/designer/views/design-panel.client.view.html',
       link: function(scope, element) {
+        scope.modal = {
+          title: 'Title'
+        };
       }
     };
   }

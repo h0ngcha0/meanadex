@@ -13,7 +13,14 @@
     </div>
     <div class="tab-pane" id="art-pane">
       <div class="well">
-        <md-image-page></md-image-page>
+        <button type="button"
+                class="btn btn-md btn-primary"
+                data-animation="am-fade-and-scale"
+                data-placement="center"
+                data-template="modules/designer/views/image-page.client.view.html"
+                bs-modal="modal">
+          Click to toggle modal
+        </button>
       </div>
       <div class="well">
         <div ng-show="uploader.isHTML5">
