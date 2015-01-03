@@ -1,4 +1,4 @@
-<div class="modal" role="dialog">
+<div class="modal" role="dialog" data-ng-init="loadImages()">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -27,8 +27,8 @@
                ng-repeat="img in images | filter:query">
             <img style="cursor:pointer;"
                  class="img-thumbnail"
-                 data-ng-src="{{img.src}}"
-                 data-ng-click="addImage(img.src)">
+                 data-ng-src="{{img.url}}"
+                 data-ng-click="addImage(img.url)">
           </div>
         </div>
       </div>

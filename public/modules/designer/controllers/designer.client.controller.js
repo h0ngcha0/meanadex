@@ -2,9 +2,9 @@
 
 angular.module('designer').controller('DesignerController', [
   '$scope', 'mdCanvasService', 'allTshirts', 'CampaignCache',
-  'FileUploader', '$window', '$location', 'ImagesUtils',
+  'FileUploader', '$window', '$location', 'ImagesUtils', 'Images',
   function($scope, mdCanvasService, allTshirts, CampaignCache,
-           FileUploader, $window, $location, ImagesUtils) {
+           FileUploader, $window, $location, ImagesUtils, Images) {
     $scope.enableEdit = true;
 
     $scope.ensureEnoughData = function() {
@@ -97,13 +97,21 @@ angular.module('designer').controller('DesignerController', [
       }
     ];
 
-    $scope.images = [
-      {src: 'modules/designer/img/avatar/avatar-1.jpeg'},
-      {src: 'modules/designer/img/avatar/avatar-2.png'},
-      {src: 'modules/designer/img/avatar/avatar-3.png'},
-      {src: 'modules/designer/img/avatar/avatar-4.png'},
-      {src: 'modules/designer/img/avatar/avatar-5.png'}
-    ];
+    // Find a list of Images
+    $scope.loadImages = function(tags) {
+      var queryTags;
+      if(tags) {
+        if(_.isArray(tags)) {
+          queryTags = _.map(tags, function(tag) {
+            return tag.text;
+          });
+        } else {
+          queryTags = [tags.text];
+        }
+      }
+
+      $scope.images = Images.query({tags: queryTags});
+    };
 
     $scope.fonts = [
       {name: 'Arial', class: 'Arial'},
