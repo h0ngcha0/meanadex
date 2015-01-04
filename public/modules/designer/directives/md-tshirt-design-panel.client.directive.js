@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('designer').directive('mdTshirtDesignPanel', [
-  'Images', 'Tags',
-  function(Images, Tags) {
+  'Images', 'Tags', 'mdCanvasService',
+  function(Images, Tags, mdCanvasService) {
     return {
       restrict: 'E',
       templateUrl: 'modules/designer/views/design-panel.client.view.html',
@@ -35,6 +35,10 @@ angular.module('designer').directive('mdTshirtDesignPanel', [
           }
 
           scope.images = Images.query({tags: queryTags});
+        };
+
+        scope.addImage = function(imgSrc) {
+          mdCanvasService.addImage(imgSrc);
         };
       }
     };

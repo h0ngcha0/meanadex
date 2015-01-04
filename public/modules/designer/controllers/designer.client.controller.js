@@ -65,17 +65,5 @@ angular.module('designer').controller('DesignerController', [
         }
       };
     }
-
-    $scope.addCanvasBorder = function() {
-      mdCanvasService.addCanvasBorder();
-    };
-
-    $scope.removeCanvasBorder = function() {
-      mdCanvasService.removeCanvasBorder();
-    };
-
-    $scope.addImage = function(imgSrc) {
-      mdCanvasService.addImage(imgSrc);
-    };
   }
 ]);

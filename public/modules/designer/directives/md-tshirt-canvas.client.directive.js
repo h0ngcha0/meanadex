@@ -8,6 +8,14 @@ angular.module('designer').directive('mdTshirtCanvas', [
       restrict: 'E',
       templateUrl: 'modules/designer/views/canvas.client.view.html',
       link: function(scope, element, attrs) {
+        scope.addCanvasBorder = function() {
+          mdCanvasService.addCanvasBorder();
+        };
+
+        scope.removeCanvasBorder = function() {
+          mdCanvasService.removeCanvasBorder();
+        };
+
         if(scope.campaign) {
           scope.campaign.$promise.then
           (
