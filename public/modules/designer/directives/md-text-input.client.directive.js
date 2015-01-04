@@ -5,10 +5,30 @@ angular.module('designer').directive('mdTextInput', [
   function($timeout, mdCanvasService){
     return {
       restrict: 'E',
+      scope: {},
       templateUrl: 'modules/designer/views/text-input.client.view.html',
       link: function(scope, element, attrs) {
         scope.fontColor = '#000000';
         scope.inputText = '';
+
+        scope.fonts = [
+          {name: 'Arial', class: 'Arial'},
+          {name: 'Helvetica', class: 'Helvetica'},
+          {name: 'Myriad Pro', class: 'MyriadPro'},
+          {name: 'Delicious', class: 'Delicious'},
+          {name: 'Verdana', class: 'Verdana'},
+          {name: 'Georgia', class: 'Georgia'},
+          {name: 'Courier', class: 'Courier'},
+          {name: 'Comic Sans MS', class: 'ComicSansMS'},
+          {name: 'Impact', class: 'Impact'},
+          {name: 'Monaco', class: 'Monaco'},
+          {name: 'Optima', class: 'Optima'},
+          {name: 'Hoefler Text', class: 'Hoefler Text'},
+          {name: 'Plaster', class: 'Plaster'},
+          {name: 'Engagement', class: 'Engagement'}
+        ];
+
+        scope.currentFont = scope.fonts[0];
 
         scope.changeFontFamily = function() {
           mdCanvasService.changeTextFontFamily(scope.currentFont.name);

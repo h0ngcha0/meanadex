@@ -77,24 +77,5 @@ angular.module('designer').controller('DesignerController', [
     $scope.addImage = function(imgSrc) {
       mdCanvasService.addImage(imgSrc);
     };
-
-    $scope.fonts = [
-      {name: 'Arial', class: 'Arial'},
-      {name: 'Helvetica', class: 'Helvetica'},
-      {name: 'Myriad Pro', class: 'MyriadPro'},
-      {name: 'Delicious', class: 'Delicious'},
-      {name: 'Verdana', class: 'Verdana'},
-      {name: 'Georgia', class: 'Georgia'},
-      {name: 'Courier', class: 'Courier'},
-      {name: 'Comic Sans MS', class: 'ComicSansMS'},
-      {name: 'Impact', class: 'Impact'},
-      {name: 'Monaco', class: 'Monaco'},
-      {name: 'Optima', class: 'Optima'},
-      {name: 'Hoefler Text', class: 'Hoefler Text'},
-      {name: 'Plaster', class: 'Plaster'},
-      {name: 'Engagement', class: 'Engagement'}
-    ];
-
-    $scope.currentFont = {name: 'Arial' , class: 'Arial'};
   }
 ]);

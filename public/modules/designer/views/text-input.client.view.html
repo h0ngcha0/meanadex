@@ -15,7 +15,6 @@
 <br>
 <!-- TODO: set the style of the list -->
 <select class="font-family-picker form-control"
-        ng-init="currentFont=fonts[0]"
         ng-model="currentFont"
         ng-change="changeFontFamily()"
         ng-options="font.name for font in fonts">
