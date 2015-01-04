@@ -2,9 +2,9 @@
 
 angular.module('designer').controller('DesignerController', [
   '$scope', 'mdCanvasService', 'allTshirts', 'CampaignCache',
-  'FileUploader', '$window', '$location', 'ImagesUtils', 'Images',
+  'FileUploader', '$location', 'ImagesUtils', 'Images', 'Tags',
   function($scope, mdCanvasService, allTshirts, CampaignCache,
-           FileUploader, $window, $location, ImagesUtils, Images) {
+           FileUploader, $location, ImagesUtils, Images, Tags) {
     $scope.enableEdit = true;
 
     $scope.ensureEnoughData = function() {
@@ -78,24 +78,21 @@ angular.module('designer').controller('DesignerController', [
       mdCanvasService.addImage(imgSrc);
     };
 
-
-    $scope.icons = [
-      {
-        value: 'Gear',
-        label: '<i class="fa fa-gear"></i> Gear'
+    // load tags
+    Tags.query(
+      {},
+      function(data) {
+        $scope.tags = _.map(data, function(d) {
+          return {
+            value: d,
+            label: '<i class="fa fa-circle-o"></i> ' + d
+          };
+        });
       },
-      {
-        value: 'Globe',
-        label: '<i class="fa fa-globe"></i> Globe'
-      },
-      { value: 'Heart',
-        label: '<i class="fa fa-heart"></i> Heart'
-      },
-      {
-        value: 'Camera',
-        label: '<i class="fa fa-camera"></i> Camera'
+      function(err) {
+        $scope.tags = [];
       }
-    ];
+    );
 
     // Find a list of Images
     $scope.loadImages = function(tags) {

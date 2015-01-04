@@ -19,7 +19,7 @@ exports.delete = function(req, res) {
  * List of Tags
  */
 exports.list = function(req, res) {
-  Img.query().select('tags').exec(
+  Img.find().select('tags').exec(
     function(err, Images) {
       if(err) {
         logger.error('Error querying image tags', err);

@@ -6,13 +6,13 @@
           <button type="button" class="close" ng-click="$hide()">&times;</button>
           <div class="input-group col-lg-5">
             <input type="text"
-                   ng-model="selectedIcon"
+                   ng-model="selectedTag"
                    class="form-control"
                    data-min-length="0"
                    data-html="1"
                    data-animation="am-flip-x"
                    data-backdrop="true"
-                   ng-options="icon as icon.label for icon in icons"
+                   ng-options="tag as tag.label for tag in tags"
                    placeholder="Artwork Types" bs-typeahead>
             <span class="input-group-btn">
               <button class="btn btn-primary btn-md">Search</button>
