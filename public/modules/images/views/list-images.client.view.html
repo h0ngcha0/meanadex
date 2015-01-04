@@ -34,7 +34,9 @@
               </div>
               <tags-input ng-model="image.tags"
                           on-tag-added="update(image)"
-                          on-tag-removed="update(image)"></tags-input>
+                          on-tag-removed="update(image)">
+                <auto-complete source="loadTags()"/>
+              </tags-input>
             </div>
           </div>
         </div>
