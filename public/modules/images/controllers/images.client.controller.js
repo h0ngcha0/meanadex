@@ -2,8 +2,10 @@
 
 // Images controller
 angular.module('images').controller('ImagesController', [
-  '$scope', '$stateParams', '$location', 'Authentication', 'Images', 'FileUploader',
-  function($scope, $stateParams, $location, Authentication, Images, FileUploader) {
+  '$scope', '$stateParams', '$location', 'Authentication',
+  'Images', 'FileUploader', '$http',
+  function($scope, $stateParams, $location, Authentication,
+           Images, FileUploader, $http) {
     $scope.authentication = Authentication;
     // Create new Image
     $scope.create = function() {
@@ -100,6 +102,11 @@ angular.module('images').controller('ImagesController', [
 
     $scope.uploader.onAfterAddingFile = function(item) {
       $scope.currentQueueItem = item;
+    };
+
+    // load tags
+    $scope.loadTags = function() {
+      return $http.get('/tags');
     };
   }
 ]);
