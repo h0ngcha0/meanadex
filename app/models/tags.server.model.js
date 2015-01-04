@@ -10,9 +10,10 @@ var mongoose = require('mongoose'),
  * Tags Schema
  */
 var TagsSchema = new Schema({
-  tags: {
-    type: [String],
-    default: []
+  name: {
+    type: String,
+    required: 'name is required',
+    trim: true
   }
 });
 
