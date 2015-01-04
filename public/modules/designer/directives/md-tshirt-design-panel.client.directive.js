@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('designer').directive('mdTshirtDesignPanel', [
-  'Images', 'Tags', 'mdCanvasService',
-  function(Images, Tags, mdCanvasService) {
+  'Images', 'Tags', 'mdCanvasService', 'ImagesUtils',
+  function(Images, Tags, mdCanvasService, ImagesUtils) {
     return {
       restrict: 'E',
       templateUrl: 'modules/designer/views/design-panel.client.view.html',
@@ -39,6 +39,17 @@ angular.module('designer').directive('mdTshirtDesignPanel', [
 
         scope.addImage = function(imgSrc) {
           mdCanvasService.addImage(imgSrc);
+        };
+
+        scope.uploader.onAfterAddingFile = function(queueItem) {
+          if(ImagesUtils.isFile(queueItem.file) || ImagesUtils.isImage(queueItem.file)) {
+            var reader = new FileReader();
+            reader.onload = function(event) {
+              var imgUrl = event.target.result;
+              scope.addImage(imgUrl);
+            };
+            reader.readAsDataURL(queueItem._file);
+          }
         };
       }
     };

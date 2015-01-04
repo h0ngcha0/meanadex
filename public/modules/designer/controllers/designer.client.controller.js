@@ -2,9 +2,9 @@
 
 angular.module('designer').controller('DesignerController', [
   '$scope', 'mdCanvasService', 'allTshirts', 'CampaignCache',
-  'FileUploader', '$location', 'ImagesUtils',
+  'FileUploader', '$location',
   function($scope, mdCanvasService, allTshirts, CampaignCache,
-           FileUploader, $location, ImagesUtils) {
+           FileUploader, $location) {
     $scope.enableEdit = true;
 
     $scope.ensureEnoughData = function() {
@@ -53,17 +53,6 @@ angular.module('designer').controller('DesignerController', [
 
           CampaignCache.setTshirt($scope.currentTshirt);
         });
-
-      $scope.uploader.onAfterAddingFile = function(queueItem) {
-        if(ImagesUtils.isFile(queueItem.file) || ImagesUtils.isImage(queueItem.file)) {
-          var reader = new FileReader();
-          reader.onload = function(event) {
-            var imgUrl = event.target.result;
-            $scope.addImage(imgUrl);
-          };
-          reader.readAsDataURL(queueItem._file);
-        }
-      };
     }
   }
 ]);
