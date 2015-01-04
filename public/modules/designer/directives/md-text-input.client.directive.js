@@ -12,20 +12,20 @@ angular.module('designer').directive('mdTextInput', [
         scope.inputText = '';
 
         scope.fonts = [
-          {name: 'Arial', class: 'Arial'},
-          {name: 'Helvetica', class: 'Helvetica'},
-          {name: 'Myriad Pro', class: 'MyriadPro'},
-          {name: 'Delicious', class: 'Delicious'},
-          {name: 'Verdana', class: 'Verdana'},
-          {name: 'Georgia', class: 'Georgia'},
-          {name: 'Courier', class: 'Courier'},
-          {name: 'Comic Sans MS', class: 'ComicSansMS'},
-          {name: 'Impact', class: 'Impact'},
-          {name: 'Monaco', class: 'Monaco'},
-          {name: 'Optima', class: 'Optima'},
-          {name: 'Hoefler Text', class: 'Hoefler Text'},
-          {name: 'Plaster', class: 'Plaster'},
-          {name: 'Engagement', class: 'Engagement'}
+          {name: 'Arial', label: '<font face="Arial">Arial<font>'},
+          {name: 'Helvetica', label: '<font face="Helvetica">Helvetica<font>'},
+          {name: 'Myriad Pro', label: '<font face="MyriadPro">MyriadPro<font>'},
+          {name: 'Delicious', label: '<font face="Delicious">Delicious<font>'},
+          {name: 'Verdana', label: '<font face="Verdana">Verdana<font>'},
+          {name: 'Georgia', label: '<font face="Georgia">Georgia<font>'},
+          {name: 'Courier', label: '<font face="Courier">Courier<font>'},
+          {name: 'Comic Sans MS', label: '<font face="ComicSansMS">ComicSansMS<font>'},
+          {name: 'Impact', label: '<font face="Impact">Impact<font>'},
+          {name: 'Monaco', label: '<font face="Monaco">Monaco<font>'},
+          {name: 'Optima', label: '<font face="Optima">Optima<font>'},
+          {name: 'Hoefler Text', label: '<font face="Hoefler Text">Hoefler Text<font>'},
+          {name: 'Plaster', label: '<font face="Plaster">Plaster<font>'},
+          {name: 'Engagement', label: '<font face="Engagement">Engagement<font>'}
         ];
 
         scope.currentFont = scope.fonts[0];
@@ -64,11 +64,6 @@ angular.module('designer').directive('mdTextInput', [
           // FIXME: need to figure out a way to communicate the set the
           // currentFont, fontColor and inputText from here
           scope.$on('mdeTextObjectSelected', function(event, props) {
-            var index = _.indexOf(_.map(scope.fonts, function(font) {
-                                    return font.name.toLowerCase();
-                                  }), props.fontFamily.toLowerCase()) || 0;
-
-            element.find('.font-family-picker').val(index);
             element.find('#text-string').val(props.text);
           });
 

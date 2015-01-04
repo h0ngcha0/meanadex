@@ -14,11 +14,16 @@
 <b>Choose a font</b>
 <br>
 <!-- TODO: set the style of the list -->
-<select class="font-family-picker form-control"
-        ng-model="currentFont"
-        ng-change="changeFontFamily()"
-        ng-options="font.name for font in fonts">
-</select>
+<div class="input-group">
+  <button ng-model="currentFont"
+          data-html="1"
+          ng-change="changeFontFamily()"
+          type="button"
+          class="btn btn-default"
+          ng-options="font as font.label for font in fonts"
+          bs-select>
+  </button>
+</div>
 <br>
 
 <b>Text color</b>
