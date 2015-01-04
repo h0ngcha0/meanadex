@@ -94,22 +94,6 @@ angular.module('designer').controller('DesignerController', [
       }
     );
 
-    // Find a list of Images
-    $scope.loadImages = function(tags) {
-      var queryTags;
-      if(tags) {
-        if(_.isArray(tags)) {
-          queryTags = _.map(tags, function(tag) {
-            return tag.text;
-          });
-        } else {
-          queryTags = [tags.text];
-        }
-      }
-
-      $scope.images = Images.query({tags: queryTags});
-    };
-
     $scope.fonts = [
       {name: 'Arial', class: 'Arial'},
       {name: 'Helvetica', class: 'Helvetica'},
