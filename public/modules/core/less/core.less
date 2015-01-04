@@ -1,5 +1,6 @@
 /* core css stylesheet */
 /* TODO: Not sure if html and body style should go here.*/
+@import (reference) "../../../lib/bootstrap/less/mixins.less";
 
 .undecorated-link:hover {
   text-decoration: none;
@@ -284,4 +285,9 @@ footer .footer-col {
 footer .footer-below {
   padding: 25px 0;
   background-color: #005b99;
+}
+
+.monadex-btn-success {
+  // .button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border);
+  .button-variant(#005b99; #fcd116; #fcd116);
 }
