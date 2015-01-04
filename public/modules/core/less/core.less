@@ -1,6 +1,7 @@
 /* core css stylesheet */
 /* TODO: Not sure if html and body style should go here.*/
 @import (reference) "../../../lib/bootstrap/less/mixins.less";
+@import "variables.less";
 
 .undecorated-link:hover {
   text-decoration: none;
@@ -65,7 +66,7 @@
   -o-transition: all .3s;
   -moz-transition: all .3s;
   transition: all .3s;
-  color: #fcd116;
+  color: @baseColor;
 }
 
 .navbar-fixed-top .navbar-brand-img {
@@ -76,7 +77,7 @@
 }
 
 .navbar-fixed-top .navbar-link {
-  color: #fcd116;
+  color: @baseColor;
   text-decoration: underline
 }
 
@@ -92,7 +93,7 @@
   font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-weight: 700;
-  background: #005b99;
+  background: @faceColor;
 }
 
 .navbar .navbar-nav {
@@ -100,19 +101,19 @@
 }
 
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus {
-  color: #fcd116;
-  border: 1px dashed #fcd116;
-  background-color: #005b99;
+  color: @baseColor;
+  border: 1px dashed @baseColor;
+  background-color: @faceColor;
 }
 
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
-  color: #fcd116;
-  border: 1px dashed #fcd116;
-  background: #005b99;
+  color: @baseColor;
+  border: 1px dashed @baseColor;
+  background: @faceColor;
 }
 
 .navbar-nav > li > .dropdown-menu {
-  background-color: #005b99;
+  background-color: @faceColor;
 }
 
 .navbar-default, .navbar-inverse {
@@ -128,8 +129,8 @@
 
 header {
   text-align: center;
-  background: #005b99; /* swedish blue */
-  color: #fcd116;
+  background: @faceColor; /* swedish blue */
+  color: @baseColor;
   overflow: auto;
 }
 
@@ -195,7 +196,7 @@ hr.star-light:after {
 }
 
 header hr.star-light:after {
-  background-color: #005b99;
+  background-color: @faceColor;
 }
 
 section hr.star-light:after {
@@ -221,12 +222,12 @@ section h2 {
 }
 
 section.success {
-  background: #005b99; /* swedish blue */
-  color: #fcd116;
+  background: @faceColor; /* swedish blue */
+  color: @baseColor;
 }
 
 section.success h2 a{
-  color: #fcd116; /* swedish blue */
+  color: @baseColor; /* swedish blue */
   text-decoration: underline
 }
 
@@ -266,28 +267,28 @@ section.success h2 a{
 }
 
 footer {
-  background: #005b99; /* swedish blue */
-  color: #fcd116;
+  background: @faceColor; /* swedish blue */
+  color: @baseColor;
 }
 footer h3 {
   margin-bottom: 30px;
-  color: #fcd116;
+  color: @baseColor;
 }
 footer .footer-above {
   padding-top: 50px;
-  background-color: #005b99;
+  background-color: @faceColor;
 }
 
 footer .footer-col {
   margin-bottom: 50px;
-  color: #fcd116;
+  color: @baseColor;
 }
 footer .footer-below {
   padding: 25px 0;
-  background-color: #005b99;
+  background-color: @faceColor;
 }
 
-.monadex-btn-success {
+.monadex-btn-primary {
   // .button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border);
-  .button-variant(#005b99; #fcd116; #fcd116);
+  .button-variant(@faceColor; @baseColor; @baseColor);
 }
