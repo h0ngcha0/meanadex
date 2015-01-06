@@ -3,9 +3,9 @@
 // Images controller
 angular.module('images').controller('ImagesController', [
   '$scope', '$stateParams', '$location', 'Authentication',
-  'Images', 'FileUploader', '$http',
+  'Images', 'FileUploader', '$http', '$alert',
   function($scope, $stateParams, $location, Authentication,
-           Images, FileUploader, $http) {
+           Images, FileUploader, $http, $alert) {
     $scope.authentication = Authentication;
     // Create new Image
     $scope.create = function() {
@@ -88,11 +88,26 @@ angular.module('images').controller('ImagesController', [
     });
 
     $scope.uploadItem = function(item) {
-      item.onSuccess = function(image, status, header) {
-        $location.path('dashboard/images/' + image._id);
-      };
+      var maxSize = 5000000, // 5MB
+          imgSize = item.file.size,
+          AlertDuration = 2; // 2sec
 
-      item.upload();
+      if(imgSize > maxSize) {
+        $alert({
+          title: 'Warning:',
+          content: 'max image size is 5MB',
+          duration: AlertDuration,
+          type: 'danger',
+          animation: 'am-fade-and-slide-top',
+          container: '.imageAlert'
+        });
+      } else {
+        item.onSuccess = function(image, status, header) {
+          $location.path('dashboard/images/' + image._id);
+        };
+
+        item.upload();
+      }
     };
 
     $scope.removeCurrentItem = function() {
