@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('designer').directive('mdTshirtDesignPanel', [
-  'Images', 'Tags', 'mdCanvasService', 'ImagesUtils',
-  function(Images, Tags, mdCanvasService, ImagesUtils) {
+  'Images', 'Tags', 'mdCanvasService', 'ImagesUtils', '$alert',
+  function(Images, Tags, mdCanvasService, ImagesUtils, $alert) {
     return {
       restrict: 'E',
       templateUrl: 'modules/designer/views/design-panel.client.view.html',
@@ -42,13 +42,27 @@ angular.module('designer').directive('mdTshirtDesignPanel', [
         };
 
         scope.uploader.onAfterAddingFile = function(queueItem) {
+          var maxSize = 5000000; // 5MB
+
           if(ImagesUtils.isFile(queueItem.file) || ImagesUtils.isImage(queueItem.file)) {
-            var reader = new FileReader();
-            reader.onload = function(event) {
-              var imgUrl = event.target.result;
-              scope.addImage(imgUrl);
-            };
-            reader.readAsDataURL(queueItem._file);
+            var imgSize = queueItem.file.size;
+
+            if(imgSize > maxSize) {
+              $alert({
+                'title': 'Warning:',
+                'content': 'max image size is 5MB',
+                'type': 'danger',
+                'container': '.imageAlert',
+                'show': true
+              });
+            } else {
+              var reader = new FileReader();
+              reader.onload = function(event) {
+                var imgUrl = event.target.result;
+                scope.addImage(imgUrl);
+              };
+              reader.readAsDataURL(queueItem._file);
+            }
           }
         };
       }
