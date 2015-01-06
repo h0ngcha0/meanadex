@@ -61,9 +61,7 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
         verifyEmptyFun(obj);
       });
 
-      if(status === 'not_ok') {
-        // Nothing
-      } else {
+      if(status !== 'not_ok') {
         $scope.launchCampaign();
       }
     };
