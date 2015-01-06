@@ -5,7 +5,11 @@
   <input id="campaignTitleInput" ng-model="campaignTitle">
   <br/>
   <small>Summarize your campaign in 40 characters or less</small>
-  <p id="titleWarning" class="bg-danger hide"> Campaign title can not be empty. </p>
+  <p id="titleWarning"
+     data-ng-hide="hideWarning.campaignTitle"
+     class="bg-danger">
+    Campaign title can not be empty.
+  </p>
 
   <hr/>
   <h4>Description</h4>
@@ -15,7 +19,11 @@
   My awesome campaign.
   </text-angular>
 
-  <p id="descriptionWarning" class="bg-danger hide"> Description can not be empty. </p>
+  <p id="descriptionWarning"
+     data-ng-hide="hideWarning.campaignDescription"
+     class="bg-danger">
+    Description can not be empty.
+  </p>
 
   <hr/>
 
@@ -35,20 +43,24 @@
 
   <small>This is where you will send buyers to view your campaign</small>
 
-  <p id="urlWarning" class="bg-danger hide">
+  <p id="urlWarning"
+     data-ng-hide="hideWarning.campaignUrl"
+     class="bg-danger">
     A correct URL needs to be entered
   </p>
 
   <hr/>
   <div class="checkbox">
     <label>
-      <input id="tosCheckbox" type="checkbox" value=""/>
+      <input id="tosCheckbox" type="checkbox" data-ng-model="tosChecked"/>
       <p>I have read and agreed to the terms of service (TOS) and can
         confirm that the images, slogans, and content used in my campaign
         do not infringe upon the rights of any third party.</p>
     </label>
   </div>
-  <p id="tosWarning" class="bg-danger hide">
+  <p id="tosWarning"
+     data-ng-hide="hideWarning.tosChecked"
+     class="bg-danger">
     Please agree to the terms of service before proceeding.
   </p>
 
@@ -57,6 +69,7 @@
   <a id="campaignDetailNextStep"
      type="button"
      class="btn btn-lg btn-block btn-success"
+     data-ng-click="saveDetails()"
      name="campaignDetailNextStep">
     Launch your campaign
     <i class="fa fa-arrow-circle-o-right fa-lg"></i>

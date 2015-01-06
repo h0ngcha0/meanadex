@@ -7,47 +7,41 @@ angular.module('campaigns').directive('mdCampaignDetailsPanel', [
       restrict: 'E',
       templateUrl: 'modules/campaigns/views/campaign-details-panel.client.view.html',
       link: function(scope, element, attrs) {
-        $timeout(function() {
-          element.find('#campaignDetailNextStep').click(function(e) {
-            var status = 'ok';
+        scope.hideWarning = {
+          campaignTitle: true,
+          campaignDescription: true,
+          campaignUrl: true,
+          tosChecked: true
+        };
 
-            var verifyEmptyFun = function(field, warningId) {
-              if(!field) {
-                element.find(warningId).removeClass('hide');
-                status = 'not_ok';
-              } else {
-                element.find(warningId).addClass('hide');
-              }
-            };
+        scope.saveDetails = function() {
+          var status = 'ok';
 
-            [
-              {
-                field: scope.campaignTitle,
-                warningId: '#titleWarning'
-              },
-              {
-                field: scope.campaignDescription ,
-                warningId: '#descriptionWarning'
-              },
-              {
-                field: scope.campaignUrl ,
-                warningId: '#urlWarning'
-              },
-              {
-                field: element.find('#tosCheckbox').prop('checked'),
-                warningId: '#tosWarning'
-              }
-            ].forEach(function(obj) {
-              verifyEmptyFun(obj.field, obj.warningId);
-            });
-
-            if(status === 'not_ok') {
-              e.preventDefault();
+          var verifyEmptyFun = function(field, hideErrVar) {
+            if(!scope[field]) {
+              scope.hideWarning[field] = false;
+              status = 'not_ok';
             } else {
-              scope.launchCampaign();
+              scope.hideWarning[field] = true;
             }
+          };
+
+          [
+            'campaignTitle',
+            'campaignDescription',
+            'campaignUrl',
+            'tosChecked'
+          ].forEach(function(obj) {
+            verifyEmptyFun(obj);
           });
-        }, 0);
+
+          console.log(scope.hideWarning);
+
+          if(status === 'not_ok') {
+          } else {
+            scope.launchCampaign();
+          }
+        };
       }
     };
   }
