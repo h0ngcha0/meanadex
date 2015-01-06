@@ -364,7 +364,13 @@ angular.module('designer').service('mdCanvasService', [
         return Math.random() * (max - min) + min;
       })(0.5, 1);
 
+
       fabric.Image.fromURL(ImgSrc, function(image) {
+        var scaleX = 100 / image.width,
+            scaleY = 200 / image.height;
+
+        var scale = Math.min(scaleX, scaleY);
+
         image.set(
           {
             left: left,
@@ -372,6 +378,8 @@ angular.module('designer').service('mdCanvasService', [
             angle: 0,
             padding: 10,
             cornersize: 10,
+            scaleX: scale,
+            scaleY: scale,
             hasRotatingPoint:true
           }
         );
