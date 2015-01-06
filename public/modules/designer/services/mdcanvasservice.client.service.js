@@ -355,19 +355,20 @@ angular.module('designer').service('mdCanvasService', [
 
     this.addImage = function(ImgSrc) {
       /*temp code*/
-      var offset = 50;
-      var left = fabric.util.getRandomInt(0 + offset, 200 - offset);
-      var top = fabric.util.getRandomInt(0 + offset, 400 - offset);
-      var angle = fabric.util.getRandomInt(-20, 40);
-      var width = fabric.util.getRandomInt(30, 50);
-      var opacity = (function(min, max){
-        return Math.random() * (max - min) + min;
-      })(0.5, 1);
-
+      var offsetH = 50;
+      var offsetV = 100;
+      var left = fabric.util.getRandomInt(
+        offsetH,
+        DrawAreaWidth - offsetH
+      );
+      var top = fabric.util.getRandomInt(
+        offsetV,
+        DrawAreaHeight - offsetV
+      );
 
       fabric.Image.fromURL(ImgSrc, function(image) {
-        var scaleX = 100 / image.width,
-            scaleY = 200 / image.height;
+        var scaleX = DrawAreaWidth / 2 / image.width,
+            scaleY = DrawAreaHeight / 2 / image.height;
 
         var scale = Math.min(scaleX, scaleY);
 
