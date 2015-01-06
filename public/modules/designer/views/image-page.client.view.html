@@ -3,7 +3,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="container-fluid row">
-          <button type="button" class="close" ng-click="$hide()">&times;</button>
+          <button type="button" class="close" ng-click="$hide()">
+            &times;
+          </button>
           <div class="input-group col-lg-5">
             <input type="text"
                    ng-model="selectedTag"
@@ -27,7 +29,7 @@
         <div class="container-fluid row">
           <div id="avatarlist"
                class="avatarlist col-lg-3 col-md-4 col-sm-6"
-               ng-repeat="img in images | filter:query">
+               data-ng-repeat="img in images | filter:query">
             <img style="cursor:pointer;"
                  class="img-thumbnail"
                  data-ng-src="{{img.url}}"
@@ -38,7 +40,7 @@
       <div class="modal-footer">
         <button type="button"
                 class="btn btn-primary"
-                ng-click="$hide()">
+                data-ng-click="$hide()">
           Close
         </button>
       </div>

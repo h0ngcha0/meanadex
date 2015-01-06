@@ -33,36 +33,12 @@
   <h4 id="baseCostLabel">
     Base cost @ {{ currentTshirt.currentVariant.baseCost }} {{ currentTshirt.currentVariant.currency }}
   </h4>
-  <a href="#!/campaign_sales_goal"
-    type="button"
-    class="btn btn-lg btn-block btn-success"
-    name="designNextStep"
-    id="designNextStep">
+  <a type="button"
+     class="btn btn-lg btn-block btn-success"
+     name="designNextStep"
+     data-ng-click="saveDesign()"
+     id="designNextStep">
     Next step
-    <i class="glyphicon glyphicon-chevron-right glyphicon-white"></i>
+    <i class="fa fa-arrow-circle-o-right fa-lg"></i>
   </a>
-
-  <div class="modal fade" id="emptyCanvasModal" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">
-            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-          </button>
-          <h4 class="modal-title center text-center">Your need to create a design.</h4>
-        </div>
-        <div class="modal-body text-center">
-          <small>Unfortunately, you can't sell a blank item. You need
-            to add text or art before you can continue.</small>
-        </div>
-        <div class="modal-footer">
-          <button type="button"
-            class="btn btn-primary center-block"
-            data-dismiss="modal">
-            Go back to designer
-          </button>
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
 </div>
