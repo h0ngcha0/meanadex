@@ -42,18 +42,20 @@ angular.module('designer').directive('mdTshirtDesignPanel', [
         };
 
         scope.uploader.onAfterAddingFile = function(queueItem) {
-          var maxSize = 5000000; // 5MB
+          var maxSize = 5000000, // 5MB
+              AlertDuration = 2; // 2sec
 
           if(ImagesUtils.isFile(queueItem.file) || ImagesUtils.isImage(queueItem.file)) {
             var imgSize = queueItem.file.size;
 
             if(imgSize > maxSize) {
               $alert({
-                'title': 'Warning:',
-                'content': 'max image size is 5MB',
-                'type': 'danger',
-                'container': '.imageAlert',
-                'show': true
+                title: 'Warning:',
+                content: 'max image size is 5MB',
+                duration: AlertDuration,
+                type: 'danger',
+                animation: 'am-fade-and-slide-top',
+                container: '.imageAlert'
               });
             } else {
               var reader = new FileReader();

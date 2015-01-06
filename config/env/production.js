@@ -21,7 +21,8 @@ module.exports = {
         'public/lib/ng-table/ng-table.min.css',
         'public/lib/nvd3/nv.d3.min.css',
         'public/lib/angular-rangeslider/angular.rangeSlider.css',
-        'public/lib/ng-tags-input/ng-tags-input.min.css'
+        'public/lib/ng-tags-input/ng-tags-input.min.css',
+        'public/lib/angular-motion/dist/angular-motion.min.css'
       ],
       js: [
         'public/lib/jquery/jquery.min.js',

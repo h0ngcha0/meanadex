@@ -24,7 +24,8 @@ module.exports = {
         'public/lib/ng-table/ng-table.css',
         'public/lib/nvd3/nv.d3.css',
         'public/lib/angular-rangeslider/angular.rangeSlider.css',
-        'public/lib/ng-tags-input/ng-tags-input.css'
+        'public/lib/ng-tags-input/ng-tags-input.css',
+        'public/lib/angular-motion/dist/angular-motion.css'
       ],
       js: [
         'public/lib/jquery/jquery.js',
@@ -32,9 +33,9 @@ module.exports = {
         'public/lib/async/lib/async.js',
         'https://checkout.stripe.com/checkout.js',
         'public/lib/angular/angular.js',
+        'public/lib/angular-animate/angular-animate.js',
         'public/lib/angular-resource/angular-resource.js',
         'public/lib/angular-cookies/angular-cookies.js',
-        'public/lib/angular-animate/angular-animate.js',
         'public/lib/angular-strap/dist/angular-strap.js',
         'public/lib/angular-strap/dist/angular-strap.tpl.js',
         'public/lib/angular-touch/angular-touch.js',
