@@ -2,7 +2,54 @@
   <section>
     <div class="span12">
       <div class="col-lg-4">
-        <md-sales-goal-panel></md-sales-goal-panel>
+        <!--Select types of the T-Shirts-->
+        <div class="well">
+          <h4>Sales goal</h4>
+
+          <div range-slider
+               min="20"
+               max="400"
+               model-max="tshirtsSalesGoal"
+               pin-handle="min">
+          </div>
+
+          <hr/>
+
+          <h4>Estimated Profit</h4>
+          <h3>
+            <span class="priceTag">
+              <span id="estimatedProfitTag">
+                {{ estimatedProfitFun() }}
+              </span>
+              {{ currency }}
+            </span>
+          </h3>
+
+          <hr/>
+
+          <h4>Set price</h4>
+          <p>
+            Set the selling price of your shirt to determine your profit.
+            Current base cost is
+            <span id="baseCostTag" class="priceTag">
+              {{ cost }} {{ currency }}
+            </span>
+          </p>
+          <input id="priceOfTshirtInput" ng-model="tshirtPrice">
+          <span class="priceTag"><span id="profitPerTshirt"> </span>{{ currency }} profit/sale</span>
+
+          <hr/>
+
+          <a id="salesGoalNextStep"
+             href="#!/campaign_details"
+             type="button"
+             class="btn btn-lg btn-block btn-success"
+             name="salesGoalNextStep"
+             data-ng-click="setSalesGoal()">
+            Next step
+            <i class="fa fa-arrow-circle-o-right fa-lg"></i>
+          </a>
+        </div>
       </div>
       <div class="col-lg-8">
         <md-tshirt-canvas></md-tshirt-canvas>
