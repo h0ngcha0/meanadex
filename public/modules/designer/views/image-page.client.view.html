@@ -15,7 +15,10 @@
                    ng-options="tag as tag.label for tag in tags"
                    placeholder="Artwork Types" bs-typeahead>
             <span class="input-group-btn">
-              <button class="btn btn-primary btn-md">Search</button>
+              <button class="btn btn-primary btn-md"
+                      data-ng-click="loadImages(selectedTag)">
+                Search
+              </button>
             </span>
           </div>
         </div>

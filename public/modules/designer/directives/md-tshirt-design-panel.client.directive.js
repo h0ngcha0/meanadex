@@ -27,10 +27,10 @@ angular.module('designer').directive('mdTshirtDesignPanel', [
           if(tags) {
             if(_.isArray(tags)) {
               queryTags = _.map(tags, function(tag) {
-                            return tag.text;
+                            return tag.value;
                           });
             } else {
-              queryTags = [tags.text];
+              queryTags = [tags.value];
             }
           }
 
