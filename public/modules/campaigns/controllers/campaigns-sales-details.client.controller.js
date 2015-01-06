@@ -33,6 +33,41 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
       return days.toString() + ' days ' + '(Ending ' + moment().add(days, 'd').toString() + ')';
     };
 
+    $scope.hideWarning = {
+      campaignTitle: true,
+      campaignDescription: true,
+      campaignUrl: true,
+      tosChecked: true
+    };
+
+    $scope.saveDetails = function() {
+      var status = 'ok';
+
+      var verifyEmptyFun = function(field, hideErrVar) {
+        if(!$scope[field]) {
+          $scope.hideWarning[field] = false;
+          status = 'not_ok';
+        } else {
+          $scope.hideWarning[field] = true;
+        }
+      };
+
+      [
+        'campaignTitle',
+        'campaignDescription',
+        'campaignUrl',
+        'tosChecked'
+      ].forEach(function(obj) {
+        verifyEmptyFun(obj);
+      });
+
+      if(status === 'not_ok') {
+        // Nothing
+      } else {
+        $scope.launchCampaign();
+      }
+    };
+
     $scope.launchCampaign = function() {
       var tshirt = CampaignCache.getTshirt(),
           variant = tshirt.currentVariant,
