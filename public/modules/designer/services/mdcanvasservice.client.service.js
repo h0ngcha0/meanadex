@@ -354,17 +354,10 @@ angular.module('designer').service('mdCanvasService', [
     };
 
     this.addImage = function(ImgSrc) {
-      /*temp code*/
-      var offsetH = 50;
-      var offsetV = 100;
-      var left = fabric.util.getRandomInt(
-        offsetH,
-        DrawAreaWidth - offsetH
-      );
-      var top = fabric.util.getRandomInt(
-        offsetV,
-        DrawAreaHeight - offsetV
-      );
+      var offsetH = 50,
+          offsetV = 50,
+          left = offsetH,
+          top = offsetV;
 
       fabric.Image.fromURL(ImgSrc, function(image) {
         var scaleX = DrawAreaWidth / 2 / image.width,
