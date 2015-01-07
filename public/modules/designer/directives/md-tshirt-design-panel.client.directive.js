@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('designer').directive('mdTshirtDesignPanel', [
-  'Images', 'Tags', 'mdCanvasService', 'ImagesUtils', '$alert',
-  function(Images, Tags, mdCanvasService, ImagesUtils, $alert) {
+  'Images', 'Tags', 'mdCanvasService', 'ImagesUtils',
+  function(Images, Tags, mdCanvasService, ImagesUtils) {
     return {
       restrict: 'E',
       templateUrl: 'modules/designer/views/design-panel.client.view.html',
@@ -42,22 +42,10 @@ angular.module('designer').directive('mdTshirtDesignPanel', [
         };
 
         scope.uploader.onAfterAddingFile = function(queueItem) {
-          var maxSize = 5000000, // 5MB
-              AlertDuration = 2; // 2sec
-
-          if(ImagesUtils.isFile(queueItem.file) || ImagesUtils.isImage(queueItem.file)) {
-            var imgSize = queueItem.file.size;
-
-            if(imgSize > maxSize) {
-              $alert({
-                title: 'Warning:',
-                content: 'max image size is 5MB',
-                duration: AlertDuration,
-                type: 'danger',
-                animation: 'am-fade-and-slide-top',
-                container: '.imageAlert'
-              });
-            } else {
+          ImagesUtils.validateImage(
+            queueItem.file,
+            '.imageAlert',
+            function() {
               var reader = new FileReader();
               reader.onload = function(event) {
                 var imgUrl = event.target.result;
@@ -65,7 +53,7 @@ angular.module('designer').directive('mdTshirtDesignPanel', [
               };
               reader.readAsDataURL(queueItem._file);
             }
-          }
+          );
         };
       }
     };
