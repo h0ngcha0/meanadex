@@ -71,5 +71,16 @@ angular.module('dashboard').controller('DashboardController', [
         );
       });
     };
+
+    $scope.userDropdown = [
+      {
+        text: 'Go to designer',
+        href: '/#!/'
+      },
+      {
+        text: 'Signout',
+        href: '/auth/signout'
+      }
+    ];
   }
 ]);
