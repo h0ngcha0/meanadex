@@ -12,8 +12,8 @@
                data-date-format="yyyy-MM-dd"
                data-ng-change="reloadData()"
                ng-model="period.fromDate"
-               data-min-date="period.fromMinDate"
-               data-max-date="period.toDate"
+               min-date="{{period.fromMinDate}}"
+               max-date="{{period.toDate}}"
                data-ng-required="true"
                bs-datepicker />
         <span class="input-group-btn">
@@ -34,8 +34,8 @@
                data-date-format="yyyy-MM-dd"
                data-ng-change="reloadData()"
                ng-model="period.toDate"
-               min-date="period.fromDate"
-               max-date="period.toMaxDate"
+               min-date="{{period.fromDate}}"
+               max-date="{{period.toMaxDate}}"
                data-ng-required="true"
                bs-datepicker />
         <span class="input-group-btn">
