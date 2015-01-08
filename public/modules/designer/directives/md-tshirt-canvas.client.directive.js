@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('designer').directive('mdTshirtCanvas', [
-  '$timeout', 'mdCanvasService',
-  function($timeout, mdCanvasService) {
+  '$timeout', 'mdCanvasService', 'Images',
+  function($timeout, mdCanvasService, Images) {
     var canvas;
     return {
       restrict: 'E',
@@ -22,6 +22,9 @@ angular.module('designer').directive('mdTshirtCanvas', [
             // promise successful
             function(campaign) {
               var design = JSON.parse(campaign.design);
+              var tshirt = campaign.tshirt;
+              scope.frontImage = Images.get({_id: tshirt.frontImage});
+              scope.backImage = Images.get({_id: tshirt.backImage});
               mdCanvasService.init(
                 'tcanvas',
                 '#tshirtFacing',
