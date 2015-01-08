@@ -1,5 +1,7 @@
 'use strict';
 
+/* global async */
+
 angular.module('designer').directive('mdTshirtCanvas', [
   '$timeout', 'mdCanvasService', 'Images',
   function($timeout, mdCanvasService, Images) {
@@ -17,30 +19,87 @@ angular.module('designer').directive('mdTshirtCanvas', [
         };
 
         if(scope.campaign) {
-          scope.campaign.$promise.then
-          (
-            // promise successful
-            function(campaign) {
-              var design = JSON.parse(campaign.design);
+          var getCampaign = function(callback) {
+            scope.campaign.$promise.then(
+              function(campaign) {
+                callback(null, campaign);
+              },
+              function(err) {
+                callback(err);
+              }
+            );
+          };
+
+          var getFrontImage = function(campaign) {
+            return function(callback) {
               var tshirt = campaign.tshirt;
-              scope.frontImagePromise = Images.get({imageId: tshirt.frontImage}).$promise;
-              scope.backImagePromise = Images.get({imageId: tshirt.backImage}).$promise;
+              Images.get({imageId: tshirt.frontImage}).$promise.then(
+                function(frontImage) {
+                  callback(null, frontImage.url);
+                },
+                function(err) {
+                  callback(err);
+                }
+              );
+            };
+          };
+
+          var getBackImage = function(campaign) {
+            return function(callback) {
+              var tshirt = campaign.tshirt;
+              Images.get({imageId: tshirt.backImage}).$promise.then(
+                function(backImage) {
+                  callback(null, backImage.url);
+                },
+                function(err) {
+                  callback(err);
+                }
+              );
+            };
+          };
+
+          var getImages = function(campaign, callback) {
+            async.parallel([
+              getFrontImage(campaign),
+              getBackImage(campaign)
+            ], function(err, images) {
+                 callback(err, campaign, images);
+               });
+          };
+
+          var initialize = function(err, campaign, images) {
+            if(err) {
+              // promise fail
+              mdCanvasService.init('tcanvas', '#tshirtFacing', '#shirtDiv');
+            } else {
+              var design = JSON.parse(campaign.design);
+              var frontImage = images[0];
+              var backImage = images[1];
               mdCanvasService.init(
                 'tcanvas',
                 '#tshirtFacing',
                 '#shirtDiv',
+                frontImage,
+                backImage,
                 design.front,
                 design.back,
                 campaign.color
               );
-            },
-            // promise fail
-            function(err) {
-              mdCanvasService.init('tcanvas', '#tshirtFacing', '#shirtDiv');
             }
-          );
+          };
+
+          async.waterfall([
+            getCampaign,
+            getImages
+          ], initialize);
         } else {
-          mdCanvasService.init('tcanvas', '#tshirtFacing', '#shirtDiv');
+          mdCanvasService.init(
+            'tcanvas',
+            '#tshirtFacing',
+            '#shirtDiv',
+            scope.currentTshirt.frontImage.url,
+            scope.currentTshirt.backImage.url
+          );
         }
 
         if(scope.enableEdit) {

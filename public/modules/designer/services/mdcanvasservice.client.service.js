@@ -209,9 +209,12 @@ angular.module('designer').service('mdCanvasService', [
       return canvas;
     };
 
-    this.init = function(canvasId, imageId, tshirtDivId, frontJson, backJson, color) {
+    this.init = function(canvasId, imageId, tshirtDivId, frontImageUrl,
+                         backImageUrl,frontJson, backJson, color) {
       this.imageId = imageId;
       this.tshirtDivId = tshirtDivId;
+      this.frontImageUrl = frontImageUrl;
+      this.backImageUrl = backImageUrl;
 
       if(frontJson) this.frontCanvas = frontJson;
       if(backJson) this.backCanvas = backJson;
@@ -277,7 +280,8 @@ angular.module('designer').service('mdCanvasService', [
 
     this.restoreCanvas = function() {
       // restore the canvas if possible
-      var frontImg = 'modules/designer/img/canvas/crew_front.png';
+      var frontImg = this.frontImageUrl;
+
       this.renderCanvas(frontImg, this.frontCanvas);
       this.currentSide = 'front';
 
@@ -424,7 +428,8 @@ angular.module('designer').service('mdCanvasService', [
     };
 
     this.flipBack = function() {
-      var backImg = 'modules/designer/img/canvas/crew_back.png';
+      var backImg = this.backImageUrl;
+
       this.frontCanvas = JSON.stringify(canvas);
       this.renderCanvas(backImg, this.backCanvas);
       this.currentSide = 'back';
@@ -432,7 +437,8 @@ angular.module('designer').service('mdCanvasService', [
     };
 
     this.flipFront = function() {
-      var frontImg = 'modules/designer/img/canvas/crew_front.png';
+      var frontImg = this.frontImageUrl;
+
       this.backCanvas = JSON.stringify(canvas);
       this.renderCanvas(frontImg, this.frontCanvas);
       this.currentSide = 'front';
