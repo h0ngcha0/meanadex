@@ -12,25 +12,6 @@ angular.module('dashboard').directive('dashboardDates', [
       link: function(scope, element, attr) {
         scope.period = DashboardUtils.initialCalendarDates();
 
-        scope.date = {
-          fromOpened: false,
-          toOpened: false
-        };
-
-        scope.openFromDate = function($event) {
-          $event.preventDefault();
-          $event.stopPropagation();
-
-          scope.date.fromOpened = true;
-        };
-
-        scope.openToDate = function($event) {
-          $event.preventDefault();
-          $event.stopPropagation();
-
-          scope.date.toOpened = true;
-        };
-
         scope.reloadData = function() {
           var from = scope.period.fromDate;
           var to = scope.period.toDate;

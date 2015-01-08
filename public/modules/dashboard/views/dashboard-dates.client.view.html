@@ -8,17 +8,16 @@
       <p class="input-group">
         <input type="text"
                class="form-control"
-               datepicker-popup="yyyy-MM-dd"
+               autoclose="true"
+               data-date-format="yyyy-MM-dd"
                data-ng-change="reloadData()"
                ng-model="period.fromDate"
-               is-open="date.fromOpened"
-               min-date="period.fromMinDate"
-               max-date="period.toDate"
+               data-min-date="period.fromMinDate"
+               data-max-date="period.toDate"
                data-ng-required="true"
-               close-text="Close" />
+               bs-datepicker />
         <span class="input-group-btn">
-          <button type="button" class="btn btn-default"
-                  ng-click="openFromDate($event)">
+          <button type="button" class="btn btn-default">
             <i class="glyphicon glyphicon-calendar"></i>
           </button>
         </span>
@@ -31,17 +30,16 @@
       <p class="input-group">
         <input type="text"
                class="form-control"
-               datepicker-popup="yyyy-MM-dd"
+               autoclose="true"
+               data-date-format="yyyy-MM-dd"
                data-ng-change="reloadData()"
                ng-model="period.toDate"
-               is-open="date.toOpened"
                min-date="period.fromDate"
                max-date="period.toMaxDate"
                data-ng-required="true"
-               close-text="Close" />
+               bs-datepicker />
         <span class="input-group-btn">
-          <button type="button" class="btn btn-default"
-                  ng-click="openToDate($event)">
+          <button type="button" class="btn btn-default">
             <i class="glyphicon glyphicon-calendar"></i>
           </button>
         </span>
