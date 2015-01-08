@@ -3,8 +3,8 @@
 /* global async */
 
 angular.module('designer').directive('mdTshirtCanvas', [
-  '$timeout', 'mdCanvasService', 'Images',
-  function($timeout, mdCanvasService, Images) {
+  '$timeout', 'mdCanvasService', 'Images', 'CampaignCache',
+  function($timeout, mdCanvasService, Images, CampaignCache) {
     var canvas;
     return {
       restrict: 'E',
@@ -18,6 +18,7 @@ angular.module('designer').directive('mdTshirtCanvas', [
           mdCanvasService.removeCanvasBorder();
         };
 
+        // has campaign
         if(scope.campaign) {
           var getCampaign = function(callback) {
             scope.campaign.$promise.then(
@@ -33,7 +34,7 @@ angular.module('designer').directive('mdTshirtCanvas', [
           var getFrontImage = function(campaign) {
             return function(callback) {
               var tshirt = campaign.tshirt;
-              Images.get({imageId: tshirt.frontImage}).$promise.then(
+              Images.get({imageId: tshirt.frontImage._id}).$promise.then(
                 function(frontImage) {
                   callback(null, frontImage.url);
                 },
@@ -47,7 +48,7 @@ angular.module('designer').directive('mdTshirtCanvas', [
           var getBackImage = function(campaign) {
             return function(callback) {
               var tshirt = campaign.tshirt;
-              Images.get({imageId: tshirt.backImage}).$promise.then(
+              Images.get({imageId: tshirt.backImage._id}).$promise.then(
                 function(backImage) {
                   callback(null, backImage.url);
                 },
@@ -93,12 +94,14 @@ angular.module('designer').directive('mdTshirtCanvas', [
             getImages
           ], initialize);
         } else {
+          // not in campaign page
+          var tshirt = CampaignCache.getTshirt();
           mdCanvasService.init(
             'tcanvas',
             '#tshirtFacing',
             '#shirtDiv',
-            scope.currentTshirt.frontImage.url,
-            scope.currentTshirt.backImage.url
+            tshirt.frontImage.url,
+            tshirt.backImage.url
           );
         }
 
