@@ -23,8 +23,8 @@ angular.module('designer').directive('mdTshirtCanvas', [
             function(campaign) {
               var design = JSON.parse(campaign.design);
               var tshirt = campaign.tshirt;
-              scope.frontImage = Images.get({_id: tshirt.frontImage});
-              scope.backImage = Images.get({_id: tshirt.backImage});
+              scope.frontImagePromise = Images.get({imageId: tshirt.frontImage}).$promise;
+              scope.backImagePromise = Images.get({imageId: tshirt.backImage}).$promise;
               mdCanvasService.init(
                 'tcanvas',
                 '#tshirtFacing',
