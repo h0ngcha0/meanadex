@@ -5,8 +5,6 @@ angular.module('designer').controller('DesignerController', [
   'FileUploader', '$location',
   function($scope, mdCanvasService, allTshirts, CampaignCache,
            FileUploader, $location) {
-    $scope.enableEdit = true;
-
     $scope.ensureEnoughData = function() {
       if(!allTshirts || (allTshirts.length === 0)) {
         $location.path('dashboard/tshirts');
@@ -23,6 +21,8 @@ angular.module('designer').controller('DesignerController', [
     $scope.setVariant = function(variant) {
       $scope.currentTshirt.currentVariant = variant;
     };
+
+    $scope.interactiveCanvas = true;
 
     if(allTshirts && (allTshirts.length !== 0)) {
       // set the currentVariant to the first of all variants

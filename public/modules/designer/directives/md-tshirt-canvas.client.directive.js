@@ -71,12 +71,18 @@ angular.module('designer').directive('mdTshirtCanvas', [
           var initialize = function(err, campaign, images) {
             if(err) {
               // promise fail
-              mdCanvasService.init('tcanvas', '#tshirtFacing', '#shirtDiv');
+              mdCanvasService.init(
+                scope.interactiveCanvas,
+                'tcanvas',
+                '#tshirtFacing',
+                '#shirtDiv'
+              );
             } else {
               var design = JSON.parse(campaign.design);
               var frontImage = images[0];
               var backImage = images[1];
               mdCanvasService.init(
+                scope.interactiveCanvas,
                 'tcanvas',
                 '#tshirtFacing',
                 '#shirtDiv',
@@ -97,18 +103,13 @@ angular.module('designer').directive('mdTshirtCanvas', [
           // not in campaign page
           var tshirt = CampaignCache.getTshirt();
           mdCanvasService.init(
+            scope.interactiveCanvas,
             'tcanvas',
             '#tshirtFacing',
             '#shirtDiv',
             tshirt.frontImage.url,
             tshirt.backImage.url
           );
-        }
-
-        if(scope.enableEdit) {
-          mdCanvasService.enableEdit();
-        } else {
-          mdCanvasService.disableEdit();
         }
 
         $timeout(function() {

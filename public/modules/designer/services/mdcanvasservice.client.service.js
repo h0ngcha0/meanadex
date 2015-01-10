@@ -26,8 +26,6 @@ angular.module('designer').service('mdCanvasService', [
 
     // Position for the newly added text
     var newTextTop = 50;
-    // Edit switch
-    var enableEdit = true;
     // background color
     var bgColor = null;
 
@@ -209,8 +207,8 @@ angular.module('designer').service('mdCanvasService', [
       return canvas;
     };
 
-    this.init = function(canvasId, imageId, tshirtDivId, frontImageUrl,
-                         backImageUrl,frontJson, backJson, color) {
+    this.init = function(interactiveCanvas, canvasId, imageId, tshirtDivId,
+                         frontImageUrl, backImageUrl,frontJson, backJson, color) {
       this.imageId = imageId;
       this.tshirtDivId = tshirtDivId;
       this.frontImageUrl = frontImageUrl;
@@ -220,9 +218,10 @@ angular.module('designer').service('mdCanvasService', [
       if(backJson) this.backCanvas = backJson;
       if(color) bgColor = color;
 
-      canvas = new fabric.Canvas(canvasId, {
-        selectionBorderColor:'blue',
-        selection: enableEdit ? true : false
+      var CanvasField = interactiveCanvas ? 'Canvas' : 'StaticCanvas';
+
+      canvas = new fabric[CanvasField](canvasId, {
+        selectionBorderColor:'blue'
       });
 
       canvas.on({
@@ -297,24 +296,6 @@ angular.module('designer').service('mdCanvasService', [
 
     this.isEmptyCanvas = function() {
       return isCanvasEmpty(this.frontCanvas) && isCanvasEmpty(this.backCanvas);
-    };
-
-    this.disableEdit = function() {
-      if(canvas) {
-        canvas.getObjects().forEach(function(obj) {
-          obj.set('selectable', false);
-        });
-      }
-      enableEdit = false;
-    };
-
-    this.enableEdit = function() {
-      if(canvas) {
-        canvas.getObjects().forEach(function(obj) {
-          obj.set('selectable', true);
-        });
-      }
-      enableEdit = true;
     };
 
     var addText = function(text, fontColor, fontFamily) {
@@ -410,12 +391,6 @@ angular.module('designer').service('mdCanvasService', [
           tshirtCanvas,
           canvas.renderAll.bind(canvas)
         );
-      }
-
-      if(enableEdit) {
-        this.enableEdit();
-      } else {
-        this.disableEdit();
       }
     };
 
