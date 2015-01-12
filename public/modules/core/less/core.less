@@ -305,37 +305,48 @@ section.success h2 a{
   color: #fff;
   font-size: 20px;
   border: solid 2px #fff;
-  background: 0 0;
+  background: @faceColor;
   transition: all .3s ease-in-out;
   margin-top: 15px;
 }
 
 .btn-outline:hover, .btn-outline:focus, .btn-outline:active, .btn-outline.active {
-  color: #18bc9c;
-  background: #fff;
+  color: @baseColor;
   border: solid 2px #fff;
 }
 
 footer {
-  background: @faceColor; /* swedish blue */
-  color: @baseColor;
+  background: @baseColor; /* swedish blue */
+  color: @faceColor;
 }
 footer h3 {
   margin-bottom: 30px;
-  color: @baseColor;
+  color: @faceColor;
 }
 footer .footer-above {
   padding-top: 50px;
-  background-color: @faceColor;
+  background-color: @baseColor;
 }
 
 footer .footer-col {
   margin-bottom: 50px;
-  color: @baseColor;
+  color: @faceColor;
 }
+
+footer .footer-col p {
+  text-align: left;
+  font-size: 1.2em;
+  text-transform: uppercase;
+}
+
+footer .footer-col .copyright {
+  text-align: left;
+  font-size: 0.8em;
+}
+
 footer .footer-below {
   padding: 25px 0;
-  background-color: @faceColor;
+  background-color: @baseColor;
 }
 
 .monadex-btn-primary {
