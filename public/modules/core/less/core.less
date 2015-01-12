@@ -1,7 +1,17 @@
 /* core css stylesheet */
-/* TODO: Not sure if html and body style should go here.*/
 @import (reference) "../../../lib/bootstrap/less/mixins.less";
 @import "variables.less";
+
+html{
+  height: 100%;
+  min-height: 100%;
+}
+
+body {
+  background-color: white;
+  height: 100%;
+  min-height: 100%;
+}
 
 .undecorated-link:hover {
   text-decoration: none;
@@ -152,6 +162,7 @@ header .intro-text .name {
   font-size: 2em;
 }
 header .intro-text .skills {
+  color: white;
   font-size: 1.25em;
   font-weight: 300;
 }
