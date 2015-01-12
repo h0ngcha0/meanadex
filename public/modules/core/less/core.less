@@ -164,18 +164,23 @@ body {
   border: 0;
 }
 
-.full-screen {
+.app-entrance {
+  background-color: white;
   height: 100%;
   min-height: 100%;
 }
 
 /* landing css */
 
-header {
+header.face-section {
   text-align: center;
-  background: @faceColor; /* swedish blue */
+  background-color: @faceColor; /* swedish blue */
   color: @baseColor;
   overflow: auto;
+}
+
+header.face-section .container{
+  background: @faceColor; /* swedish blue */
 }
 
 header .container {
