@@ -9,7 +9,6 @@ html{
 
 body {
   background-color: white;
-  height: 100%;
   min-height: 100%;
 }
 
@@ -71,12 +70,17 @@ body {
 }
 
 .navbar-fixed-top .navbar-brand {
+  text-transform: uppercase;
   font-size: 1.5em;
   -webkit-transition: all .3s;
   -o-transition: all .3s;
   -moz-transition: all .3s;
   transition: all .3s;
   color: @baseColor;
+}
+
+.navbar-fixed-top .navbar-brand:hover {
+  color: @baseColorDark;
 }
 
 .navbar-fixed-top .navbar-brand-img {
@@ -101,7 +105,6 @@ body {
 
 .navbar {
   font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  text-transform: uppercase;
   font-weight: 700;
   background: @faceColor;
 }
@@ -110,20 +113,51 @@ body {
   letter-spacing: 1px;
 }
 
-.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus {
+.navbar-default .navbar-nav > .dropdown > a {
   color: @baseColor;
-  border: 1px dashed @baseColor;
+  border: @baseColor;
+  text-decoration: underline;
+  background-color: @faceColor;
+}
+
+.navbar-default .navbar-nav > .dropdown > a:hover {
+  color: @baseColorDark;
+  border: @baseColor;
+  background-color: @faceColor;
+}
+
+.navbar-default .navbar-nav > .signup > a {
+  color: @baseColor;
+  border: @baseColor;
+  text-decoration: underline;
+  background-color: @faceColor;
+}
+
+.navbar-default .navbar-nav > .signup > a:hover {
+  color: @baseColorDark;
+  border: @baseColor;
+  background-color: @faceColor;
+}
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus {
+  color: @baseColorDark;
+  border: @baseColor;
   background-color: @faceColor;
 }
 
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
   color: @baseColor;
-  border: 1px dashed @baseColor;
+  border: @baseColor;
   background: @faceColor;
 }
 
 .navbar-nav > li > .dropdown-menu {
+  color: @baseColor;
   background-color: @faceColor;
+}
+
+.navbar-nav > .open > .dropdown-menu {
+  background-color: @baseColor;
 }
 
 .navbar-default, .navbar-inverse {
