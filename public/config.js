@@ -24,7 +24,8 @@ var ApplicationConfiguration = (
       'timer',
       'nvd3ChartDirectives',
       'ngTagsInput',
-      'mgcrea.ngStrap'
+      'mgcrea.ngStrap',
+      'ncy-angular-breadcrumb'
     ];
 
     // Add a new vertical module

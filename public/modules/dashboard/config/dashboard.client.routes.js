@@ -12,7 +12,10 @@ angular.module('dashboard').config([
       state('dashboard', {
         url: '/dashboard',
         templateUrl: 'modules/dashboard/views/dashboard.client.view.html',
-        controller: 'DashboardController'
+        controller: 'DashboardController',
+        ncyBreadcrumb: {
+          label: 'Dashboard'
+        }
       }).
       state('dashboard.front', {
         url: '/front',
@@ -21,7 +24,11 @@ angular.module('dashboard').config([
             templateUrl: 'modules/dashboard/views/front.client.view.html',
             controller: 'DashboardController'
           }
-        }}).
+        },
+        ncyBreadcrumb: {
+          label: 'Home'
+        }
+      }).
       state('dashboard.profile', {
         url: '/profile',
         views: {
@@ -29,7 +36,11 @@ angular.module('dashboard').config([
             templateUrl: 'modules/dashboard/views/profile.client.view.html',
             controller: 'DashboardController'
           }
-        }}).
+        },
+        ncyBreadcrumb: {
+          label: 'Profile'
+        }
+      }).
       state('dashboard.tshirts', {
         url: '/tshirts',
         views: {
@@ -37,7 +48,11 @@ angular.module('dashboard').config([
             templateUrl: 'modules/tshirts/views/list-tshirts.client.view.html',
             controller: 'TshirtsController'
           }
-        }}).
+        },
+        ncyBreadcrumb: {
+          label: 'Tshirts'
+        }
+      }).
       state('dashboard.tshirtCreate', {
         url: '/tshirts/create',
         views: {
@@ -45,6 +60,9 @@ angular.module('dashboard').config([
             templateUrl: 'modules/tshirts/views/create-tshirt.client.view.html',
             controller: 'TshirtsController'
           }
+        },
+        ncyBreadcrumb: {
+          label: 'Create Tshirt'
         }
       }).
       state('dashboard.tshirtDetail', {
@@ -54,6 +72,9 @@ angular.module('dashboard').config([
             templateUrl: 'modules/tshirts/views/view-tshirt.client.view.html',
             controller: 'TshirtsController'
           }
+        },
+        ncyBreadcrumb: {
+          label: 'View Tshirt'
         }
       }).
       state('dashboard.campaigns', {
@@ -63,6 +84,9 @@ angular.module('dashboard').config([
             templateUrl: 'modules/campaigns/views/list-campaigns.client.view.html',
             controller: 'CampaignsController'
           }
+        },
+        ncyBreadcrumb: {
+          label: 'Campaigns'
         }
       }).
       state('dashboard.orders', {
@@ -72,6 +96,9 @@ angular.module('dashboard').config([
             templateUrl: 'modules/orders/views/list-orders.client.view.html',
             controller: 'OrdersController'
           }
+        },
+        ncyBreadcrumb: {
+          label: 'Orders'
         }
       }).
       state('dashboard.createImage', {
@@ -81,6 +108,9 @@ angular.module('dashboard').config([
             templateUrl: 'modules/images/views/create-image.client.view.html',
             controller: 'ImagesController'
           }
+        },
+        ncyBreadcrumb: {
+          label: 'Create Image'
         }
       }).
       state('dashboard.viewImage', {
@@ -90,6 +120,9 @@ angular.module('dashboard').config([
             templateUrl: 'modules/images/views/view-image.client.view.html',
             controller: 'ImagesController'
           }
+        },
+        ncyBreadcrumb: {
+          label: 'View Image'
         }
       }).
       state('dashboard.images', {
@@ -99,6 +132,9 @@ angular.module('dashboard').config([
             templateUrl: 'modules/images/views/list-images.client.view.html',
             controller: 'ImagesController'
           }
+        },
+        ncyBreadcrumb: {
+          label: 'Images'
         }
       });
   }
