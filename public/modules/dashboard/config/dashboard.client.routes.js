@@ -14,7 +14,7 @@ angular.module('dashboard').config([
         templateUrl: 'modules/dashboard/views/dashboard.client.view.html',
         controller: 'DashboardController',
         ncyBreadcrumb: {
-          label: 'Dashboard'
+          label: 'Home'
         }
       }).
       state('dashboard.front', {
@@ -26,7 +26,7 @@ angular.module('dashboard').config([
           }
         },
         ncyBreadcrumb: {
-          label: 'Home'
+          label: 'Dashboard'
         }
       }).
       state('dashboard.profile', {
