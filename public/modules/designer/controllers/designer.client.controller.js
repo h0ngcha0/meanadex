@@ -24,6 +24,21 @@ angular.module('designer').controller('DesignerController', [
 
     $scope.interactiveCanvas = true;
 
+    $scope.variantClass = function(variant) {
+      if ($scope.currentTshirt.currentVariant === variant) {
+        return 'active';
+      } else {
+        return '';
+      }
+    };
+
+    $scope.changeTshirt = function() {
+      var color = $scope.currentTshirt.currentVariant.colors[0];
+      $scope.setCanvasBgColor(color);
+
+      CampaignCache.setTshirt($scope.currentTshirt);
+    };
+
     if(allTshirts && (allTshirts.length !== 0)) {
       // set the currentVariant to the first of all variants
       $scope.allTshirts = _.map(
@@ -40,19 +55,6 @@ angular.module('designer').controller('DesignerController', [
 
       $scope.tshirtColor = $scope.currentTshirt.currentVariant.colors[0];
       $scope.setCanvasBgColor($scope.tshirtColor);
-
-      $scope.$watch(
-        'currentTshirt',
-        function(newVal, _oldVal) {
-          var color;
-
-          $scope.currentTshirt = newVal;
-          $scope.currentTshirt.currentVariant = newVal.variants[0];
-          color = $scope.currentTshirt.currentVariant.colors[0];
-          $scope.setCanvasBgColor(color);
-
-          CampaignCache.setTshirt($scope.currentTshirt);
-        });
     }
   }
 ]);
