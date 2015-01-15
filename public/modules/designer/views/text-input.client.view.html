@@ -17,10 +17,11 @@
 <div class="input-group">
   <button ng-model="currentFont"
           data-html="1"
-          ng-change="changeFontFamily()"
+          data-ng-options="font as font.label for font in fonts"
+          data-ng-change="changeFontFamily()"
           type="button"
           class="btn btn-default"
-          ng-options="font as font.label for font in fonts"
+          data-animation="am-flip-x"
           bs-select>
   </button>
 </div>

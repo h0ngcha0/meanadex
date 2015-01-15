@@ -4,8 +4,9 @@
   <button id="tshirt-type-selector"
           data-ng-model="currentTshirt"
           data-ng-change="changeTshirt()"
+          data-ng-options="tshirt as tshirt.name for tshirt in allTshirts"
           class="btn monadex-btn-primary"
-          ng-options="tshirt as tshirt.name for tshirt in allTshirts"
+          data-animation="am-flip-x"
           bs-select/>
   <br/>
   <br/>
