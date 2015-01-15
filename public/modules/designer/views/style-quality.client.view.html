@@ -1,46 +1,56 @@
-<div class="well">
-  <h3>Style & quality</h3>
-  <!--Select T-Shirts-->
-  <button id="tshirt-type-selector"
-          data-ng-model="currentTshirt"
-          data-ng-change="changeTshirt()"
-          data-ng-options="tshirt as tshirt.name for tshirt in allTshirts"
-          class="btn monadex-btn-primary"
-          data-animation="am-flip-x"
-          bs-select/>
-  <br/>
-  <br/>
-
-  <ul class="list-group">
-    <a class="list-group-item tshirt-variant"
-       data-ng-class="variantClass(variant)"
-       data-ng-click="setVariant(variant)"
-       data-ng-repeat="variant in currentTshirt.variants" tabindex="-1">
-      {{variant.name}}
-      <br>
-      <small>{{variant.description}}</small>
-    </a>
+<div class="tabbable"> <!-- Only required for left/right tabs -->
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" class="tab-link">Choose tshirts</a></li>
   </ul>
 
-  <div class="clearfix">
-    <div class="btn-group inline pull-left">
-      <a class="color-preview btn monadex-btn-primary"
-         style="background-color:{{color}};"
-         data-ng-mouseover="setCanvasBgColor(color)"
-         data-ng-repeat="color in currentTshirt.currentVariant.colors">
-      </a>
+  <br>
+  <div class="tab-content">
+    <div class="tab-pane active">
+      <div class="well">
+        <!--Select T-Shirts-->
+        <button id="tshirt-type-selector"
+                data-ng-model="currentTshirt"
+                data-ng-change="changeTshirt()"
+                data-ng-options="tshirt as tshirt.name for tshirt in allTshirts"
+                class="btn monadex-btn-primary"
+                data-animation="am-flip-x"
+                bs-select/>
+        <br/>
+        <br/>
+
+        <ul class="list-group">
+          <a class="list-group-item tshirt-variant"
+             data-ng-class="variantClass(variant)"
+             data-ng-click="setVariant(variant)"
+             data-ng-repeat="variant in currentTshirt.variants" tabindex="-1">
+            {{variant.name}}
+            <br>
+            <small>{{variant.description}}</small>
+          </a>
+        </ul>
+
+        <div class="clearfix">
+          <div class="btn-group inline pull-left">
+            <a class="color-preview btn monadex-btn-primary"
+               style="background-color:{{color}};"
+               data-ng-mouseover="setCanvasBgColor(color)"
+               data-ng-repeat="color in currentTshirt.currentVariant.colors">
+            </a>
+          </div>
+        </div>
+
+        <h4 id="baseCostLabel">
+          Base cost @ {{ currentTshirt.currentVariant.baseCost }} {{ currentTshirt.currentVariant.currency }}
+        </h4>
+        <a type="button"
+           class="btn btn-lg btn-block monadex-btn-primary"
+           name="designNextStep"
+           data-ng-click="saveDesign()"
+           id="designNextStep">
+          Next step
+          <i class="fa fa-arrow-circle-o-right fa-lg"></i>
+        </a>
+      </div>
     </div>
   </div>
-
-  <h4 id="baseCostLabel">
-    Base cost @ {{ currentTshirt.currentVariant.baseCost }} {{ currentTshirt.currentVariant.currency }}
-  </h4>
-  <a type="button"
-     class="btn btn-lg btn-block monadex-btn-primary"
-     name="designNextStep"
-     data-ng-click="saveDesign()"
-     id="designNextStep">
-    Next step
-    <i class="fa fa-arrow-circle-o-right fa-lg"></i>
-  </a>
 </div>
