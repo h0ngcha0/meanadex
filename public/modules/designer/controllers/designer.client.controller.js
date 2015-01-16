@@ -19,7 +19,9 @@ angular.module('designer').controller('DesignerController', [
     };
 
     $scope.setVariant = function(variant) {
+      var color = variant.colors[0];
       $scope.currentTshirt.currentVariant = variant;
+      $scope.setCanvasBgColor(color);
     };
 
     $scope.interactiveCanvas = true;
