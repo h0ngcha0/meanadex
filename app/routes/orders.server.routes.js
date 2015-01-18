@@ -6,12 +6,12 @@ module.exports = function(app) {
 
   // Orders Routes
   app.route('/orders')
-     .get(orders.list)
+     .get(oauth2.authorise, orders.list)
      .post(oauth2.authorise, orders.create);
 
   app.route('/orders/:orderId')
-     .get(orders.read)
-     .put(oauth2.authorise, orders.hasAuthorization, orders.update)
+     .get(oauth2.authorise, orders.read)
+     .post(oauth2.authorise, orders.hasAuthorization, orders.update)
      .delete(oauth2.authorise, orders.hasAuthorization, orders.delete);
 
   // Finish by binding the Order middleware

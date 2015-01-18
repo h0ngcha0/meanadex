@@ -2,11 +2,10 @@
 
 // Images controller
 angular.module('images').controller('ImagesController', [
-  '$scope', '$stateParams', '$location', 'Authentication',
+  '$scope', '$stateParams', '$location',
   'Images', 'FileUploader', '$http', 'ImagesUtils',
-  function($scope, $stateParams, $location, Authentication,
+  function($scope, $stateParams, $location,
            Images, FileUploader, $http, ImagesUtils) {
-    $scope.authentication = Authentication;
     // Create new Image
     $scope.create = function() {
       // Create new Image object

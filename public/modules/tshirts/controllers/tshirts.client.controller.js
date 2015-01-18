@@ -4,11 +4,10 @@
 
 // Tshirts controller
 angular.module('tshirts').controller('TshirtsController', [
-  '$scope', '$stateParams', '$location', 'Authentication', 'Tshirts',
+  '$scope', '$stateParams', '$location', 'Tshirts',
   '$filter', 'DashboardUtils', '$timeout', 'FileUploader', 'Images',
-  function($scope, $stateParams, $location, Authentication, Tshirts,
+  function($scope, $stateParams, $location, Tshirts,
            $filter, DashboardUtils, $timeout, FileUploader, Images) {
-    $scope.authentication = Authentication;
     $scope.tmpVariant = {};
     $scope.tmpTshirt = {};
 

@@ -2,11 +2,10 @@
 
 // Campaigns controller
 angular.module('campaigns').controller('CampaignsController', [
-  '$scope', '$stateParams', '$state', '$location', 'Authentication',
+  '$scope', '$stateParams', '$state', '$location',
   'Campaigns', '$cookies', '$filter', 'DashboardUtils', '$timeout', '$http',
-  function($scope, $stateParams, $state, $location, Authentication,
+  function($scope, $stateParams, $state, $location,
            Campaigns, $cookies, $filter, DashboardUtils, $timeout, $http) {
-    $scope.authentication = Authentication;
     // Remove existing Campaign
     $scope.remove = function( campaign ) {
       Campaigns.remove(

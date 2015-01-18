@@ -1,18 +1,8 @@
 'use strict';
 
 angular.module('dashboard').controller('DashboardController', [
-  '$scope', 'Authentication', '$state', '$cookieStore', 'Dashboard',
-  function($scope, Authentication, $state, $cookieStore, Dashboard) {
-    $scope.authentication = Authentication;
-
-    // check if a user is authenticated
-    $scope.ensureAuthenticated = Authentication.ensureAuthenticated;
-
-    $scope.isAdmin = function() {
-      var roles = $scope.authentication.user.roles;
-      return _.contains(roles, 'admin');
-    };
-
+  '$scope', '$state', '$cookieStore', 'Dashboard',
+  function($scope, $state, $cookieStore, Dashboard) {
     /**
      * Sidebar Toggle & Cookie Control
      */
@@ -79,7 +69,7 @@ angular.module('dashboard').controller('DashboardController', [
       },
       {
         text: 'Signout',
-        href: '/auth/signout'
+        href: '#!/auth/deauthorize'
       }
     ];
   }

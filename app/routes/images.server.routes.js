@@ -11,7 +11,7 @@ module.exports = function(app) {
 
   app.route('/images/:imageId')
      .get(images.read)
-     .put(oauth2.authorise, images.hasAuthorization, images.update)
+     .post(oauth2.authorise, images.hasAuthorization, images.update)
      .delete(oauth2.authorise, images.hasAuthorization, images.delete);
 
   // Finish by binding the Image middleware

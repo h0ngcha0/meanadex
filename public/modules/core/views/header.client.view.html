@@ -6,9 +6,9 @@
   </div>
   <nav class="collapse navbar-collapse" role="navigation">
     <ul class="nav navbar-nav"
-      data-ng-if="menu.shouldRender(authentication.user);">
+      data-ng-if="menu.shouldRender(isLoggedIn);">
       <li data-ng-repeat="item in menu.items | orderBy: 'position'"
-        data-ng-if="item.shouldRender(authentication.user);"
+        data-ng-if="item.shouldRender(isLoggedIn);"
         ng-switch="item.menuItemType" ui-route="{{item.uiRoute}}"
         class="{{item.menuItemClass}}" ng-class="{active: ($uiRoute)}"
         dropdown="item.menuItemType === 'dropdown'">
@@ -18,7 +18,7 @@
         </a>
         <ul ng-switch-when="dropdown" class="dropdown-menu">
           <li data-ng-repeat="subitem in item.items | orderBy: 'position'"
-            data-ng-if="subitem.shouldRender(authentication.user);"
+            data-ng-if="subitem.shouldRender(isLoggedIn);"
             ui-route="{{subitem.uiRoute}}" ng-class="{active: $uiRoute}">
             <a href="/#!/{{subitem.link}}" data-ng-bind="subitem.title"></a>
           </li>
@@ -30,19 +30,21 @@
     </ul>
 
     <ul class="nav navbar-nav navbar-right navbar-brand"
-        data-ng-hide="authentication.user">
-      <a href="/#!/signup"
+        data-ng-hide="isLoggedIn">
+      <a href="/#!/auth/signup"
          class="btn btn-sm monadex-btn-primary-revert">
         Login or Register
       </a>
     </ul>
     <ul class="nav navbar-nav navbar-right"
-        data-ng-show="authentication.user">
+        data-ng-show="isLoggedIn">
       <li class="dropdown">
         <a href="/#!/"
            class="dropdown-toggle"
            data-toggle="dropdown">
-          <span data-ng-bind="authentication.user.displayName"></span>
+           <span data-ng-show="currentUser.$resolved">
+             {{currentUser.username}}
+           </span>
           <b class="caret"></b>
         </a>
         <ul class="dropdown-menu">
@@ -50,7 +52,7 @@
             <a href="/#!/dashboard">Open dashboard</a>
           </li>
           <li>
-            <a href="/auth/signout">Signout</a>
+            <a href="#!/auth/deauthorize">Signout</a>
           </li>
         </ul>
       </li>

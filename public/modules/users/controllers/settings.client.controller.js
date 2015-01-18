@@ -1,12 +1,9 @@
 'use strict';
 
 angular.module('users').controller('SettingsController', [
-  '$scope', '$http', '$location', 'Users', 'Authentication',
-  function($scope, $http, $location, Users, Authentication) {
-    $scope.user = Authentication.user;
-
-    // If user is not signed in then redirect back home
-    if (!$scope.user) $location.path('signin');
+  '$scope', '$http', '$location', 'Users', 'currentUser',
+  function($scope, $http, $location, Users, currentUser) {
+    $scope.user = currentUser;
 
     // Update a user profile
     $scope.updateUserProfile = function() {
@@ -15,7 +12,6 @@ angular.module('users').controller('SettingsController', [
       user.$update(
         function(response) {
           $scope.success = true;
-          Authentication.user = response;
         },
         function(response) {
           $scope.error = response.data.message;

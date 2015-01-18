@@ -2,8 +2,8 @@
 
 // Setting up route
 angular.module('users').config([
-  '$stateProvider', '$urlRouterProvider',
-  function($stateProvider, $urlRouterProvider) {
+  '$stateProvider', '$urlRouterProvider', 'SessionResolver',
+  function($stateProvider, $urlRouterProvider, SessionResolver) {
     $urlRouterProvider
       .when('/user', '/user/campaigns');
 
@@ -16,6 +16,10 @@ angular.module('users').config([
       }).
       state('user.password', {
         url: '/settings/password',
+        resolve: {
+          isLoggedIn: SessionResolver.requireLoggedIn,
+          currentUser: SessionResolver.requireCurrentUser
+        },
         views: {
           'userPanel': {
             templateUrl: 'modules/users/views/settings/change-password.client.view.html',

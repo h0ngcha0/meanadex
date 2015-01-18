@@ -11,7 +11,7 @@ module.exports = function(app) {
 
   app.route('/campaigns/:campaignId')
   .get(campaigns.read)
-  .put(oauth2.authorise, campaigns.hasAuthorization, campaigns.update)
+  .post(oauth2.authorise, campaigns.hasAuthorization, campaigns.update)
   .delete(oauth2.authorise, campaigns.hasAuthorization, campaigns.delete);
 
   app.route('/campaign/url').get(campaigns.url);

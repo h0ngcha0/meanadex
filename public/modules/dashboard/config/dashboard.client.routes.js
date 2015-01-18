@@ -2,14 +2,18 @@
 
 //Setting up route
 angular.module('dashboard').config([
-  '$stateProvider', '$urlRouterProvider',
-  function($stateProvider, $urlRouterProvider) {
+  '$stateProvider', '$urlRouterProvider', 'SessionResolver',
+  function($stateProvider, $urlRouterProvider, SessionResolver) {
     $urlRouterProvider
       .when('/dashboard', '/dashboard/front');
 
     // Dashboard state routing
     $stateProvider.
       state('dashboard', {
+        resolve: {
+          isLoggedIn: SessionResolver.requireLoggedIn,
+          currentUser: SessionResolver.requireCurrentUser
+        },
         url: '/dashboard',
         templateUrl: 'modules/dashboard/views/dashboard.client.view.html',
         controller: 'DashboardController',
@@ -31,10 +35,14 @@ angular.module('dashboard').config([
       }).
       state('dashboard.profile', {
         url: '/profile',
+        resolve: {
+          isLoggedIn: SessionResolver.requireLoggedIn,
+          currentUser: SessionResolver.requireCurrentUser
+        },
         views: {
           'dashboardPanel': {
             templateUrl: 'modules/dashboard/views/profile.client.view.html',
-            controller: 'DashboardController'
+            controller: 'SettingsController'
           }
         },
         ncyBreadcrumb: {
@@ -103,6 +111,10 @@ angular.module('dashboard').config([
       }).
       state('dashboard.createImage', {
         url: '/images/create',
+        resolve: {
+          isLoggedIn: SessionResolver.requireLoggedIn,
+          currentUser: SessionResolver.requireCurrentUser
+        },
         views: {
           'dashboardPanel': {
             templateUrl: 'modules/images/views/create-image.client.view.html',

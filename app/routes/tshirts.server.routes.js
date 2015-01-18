@@ -11,7 +11,7 @@ module.exports = function(app) {
 
   app.route('/tshirts/:tshirtId')
      .get(tshirts.read)
-     .put(oauth2.authorise, tshirts.hasAuthorization, tshirts.update)
+     .post(oauth2.authorise, tshirts.hasAuthorization, tshirts.update)
      .delete(oauth2.authorise, tshirts.hasAuthorization, tshirts.delete);
 
   // Finish by binding the Tshirt middleware

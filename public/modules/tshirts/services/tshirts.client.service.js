@@ -11,7 +11,7 @@ angular.module('tshirts').factory('Tshirts', [
       },
       {
         update: {
-          method: 'PUT'
+          method: 'POST'
         }
       });
   }

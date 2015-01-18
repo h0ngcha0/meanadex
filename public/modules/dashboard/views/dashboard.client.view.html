@@ -1,6 +1,6 @@
 <div class="page-wrapper"
      data-ng-class="{'open': toggle}"
-     data-ng-init="ensureAuthenticated()"
+     data-ng-init="isLoggedIn"
      ng-cloak>
     <!-- Sidebar -->
     <div class="sidebar-wrapper">
@@ -20,7 +20,7 @@
             <span class="menu-icon fa fa-user"></span>
           </a>
         </li>
-        <li class="sidebar-list" data-ng-show="isAdmin()">
+        <li class="sidebar-list">
           <a ui-sref="dashboard.tshirts">
             Tshirts
             <span class="menu-icon fa fa-circle-o-notch"></span>
@@ -38,7 +38,7 @@
             <span class="menu-icon fa fa-trophy"></span>
           </a>
         </li>
-        <li class="sidebar-list" data-ng-show="isAdmin()">
+        <li class="sidebar-list">
           <a ui-sref="dashboard.images">
             Images
             <span class="menu-icon fa fa-image"></span>
