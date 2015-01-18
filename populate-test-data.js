@@ -130,6 +130,21 @@ module.exports = function(grunt) {
         );
       }
 
+      var fetchTshirt = function(access_token, tshirt, callback) {
+        request.get(
+          {
+            url: 'https://localhost:3000/tshirts/' + tshirt._id,
+            qs: {
+              access_token: access_token
+            },
+            json: true
+          },
+          function(error, response, body) {
+            callback(error, access_token, body);
+          }
+        );
+      }
+
       var pickRandom = function(list) {
         var index = _.random(0, list.length -1);
         return list[index];
@@ -291,6 +306,7 @@ module.exports = function(grunt) {
         createFrontImage,
         createBackImage,
         createTshirt,
+        fetchTshirt,
         createCampaigns,
         createOrders
       ], resultCallback);
