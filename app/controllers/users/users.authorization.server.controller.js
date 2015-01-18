@@ -22,13 +22,6 @@ exports.userByID = function(req, res, next, id) {
 };
 
 /**
- * Require login routing middleware
- */
-exports.requiresLogin = function(req, res, next) {
-  next();
-};
-
-/**
  * User authorizations routing middleware
  */
 exports.hasAuthorization = function(roles) {

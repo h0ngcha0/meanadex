@@ -25,6 +25,9 @@ var db = mongoose.connect(
 // Init the express application
 var app = require('./config/express')(db);
 
+// Import oauth clients
+require('./import-oauth-client')();
+
 // Start the app by listening on <port>
 app.listen(config.port);
 

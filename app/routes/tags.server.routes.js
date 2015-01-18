@@ -1,9 +1,9 @@
 'use strict';
 
 module.exports = function(app) {
-  var users = require('../../app/controllers/users');
+  var oauth2 = require('../../app/controllers/oauth2');
   var tags = require('../../app/controllers/tags');
 
   app.route('/tags')
-     .get(users.requiresLogin, tags.list);
+     .get(oauth2.authorise, tags.list);
 };

@@ -100,6 +100,9 @@ module.exports = function(db) {
     require(path.resolve(routePath))(app);
   });
 
+  var oauth2 = require('../app/controllers/oauth2.server.controller');
+  app.use(oauth2.errorHandler);
+
   // Assume 'not found' in the error msgs is a 404. this is somewhat silly,
   // but valid, you can do whatever you like, set properties, use instanceof etc.
 

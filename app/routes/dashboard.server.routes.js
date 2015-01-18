@@ -4,27 +4,27 @@
  * Module dependencies.
  */
 var dashboard = require('../../app/controllers/dashboard'),
-    users = require('../../app/controllers/users');
+    oauth2 = require('../../app/controllers/oauth2');
 
 module.exports = function (app) {
     app.route('/dashboard/total_income')
-        .get(users.requiresLogin, dashboard.readTotalIncome);
+        .get(oauth2.authorise, dashboard.readTotalIncome);
 
     app.route('/dashboard/total_orders')
-        .get(users.requiresLogin, dashboard.readTotalOrders);
+        .get(oauth2.authorise, dashboard.readTotalOrders);
 
     app.route('/dashboard/total_campaigns')
-        .get(users.requiresLogin, dashboard.readTotalCampaigns);
+        .get(oauth2.authorise, dashboard.readTotalCampaigns);
 
     app.route('/dashboard/active_campaigns')
-        .get(users.requiresLogin, dashboard.readActiveCampaigns);
+        .get(oauth2.authorise, dashboard.readActiveCampaigns);
 
     app.route('/dashboard/income_created')
-        .get(users.requiresLogin, dashboard.readIncomeCreated);
+        .get(oauth2.authorise, dashboard.readIncomeCreated);
 
     app.route('/dashboard/campaigns_created')
-        .get(users.requiresLogin, dashboard.readCampaignsCreated);
+        .get(oauth2.authorise, dashboard.readCampaignsCreated);
 
     app.route('/dashboard/orders_created')
-        .get(users.requiresLogin, dashboard.readOrdersCreated);
+        .get(oauth2.authorise, dashboard.readOrdersCreated);
 };

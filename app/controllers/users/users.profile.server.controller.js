@@ -19,6 +19,9 @@ exports.update = function(req, res) {
   // For security measurement we remove the roles from the req.body object
   delete req.body.roles;
 
+  // Disable update of username
+  delete req.body.username;
+
   if (user) {
     // Merge existing user
     user = _.extend(user, req.body);

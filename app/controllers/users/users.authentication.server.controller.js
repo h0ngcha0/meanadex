@@ -12,7 +12,7 @@ var _ = require('lodash'),
 /**
  * Signup
  */
-exports.signup = function(req, res) {
+exports.signup = function(req, res, next) {
   // For security measurement we remove the roles from the req.body object
   delete req.body.roles;
 
@@ -32,11 +32,7 @@ exports.signup = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      // Remove sensitive data before login
-      user.password = undefined;
-      user.salt = undefined;
-
-      res.jsonp(user);
+      next();
     }
   });
 };
