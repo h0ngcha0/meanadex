@@ -13,7 +13,7 @@ var ApplicationConfiguration = (
       'ngTouch',
       'ngSanitize',
       'ui.router',
-      'ui.bootstrap',
+      'ui.bootstrap.modal',
       'ui.utils',
       'textAngular',
       'colorpicker.module',
