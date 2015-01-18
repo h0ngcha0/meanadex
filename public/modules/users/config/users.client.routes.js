@@ -23,16 +23,6 @@ angular.module('users').config([
           }
         }
       }).
-      state('signup', {
-        url: '/signup',
-        templateUrl: 'modules/users/views/authentication/signup.client.view.html',
-        controller: 'AuthenticationController'
-      }).
-      state('signin', {
-        url: '/signin',
-        templateUrl: 'modules/users/views/authentication/signin.client.view.html',
-        controller: 'AuthenticationController'
-      }).
       state('user.forgot', {
         url: '/password/forgot',
         views: {
