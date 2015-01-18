@@ -113,9 +113,11 @@ module.exports = function(db) {
     // Log it
     console.error(err.stack);
 
+    delete err.stack;
+
     // Error page
     res.status(500).send({
-      error: err.stack
+      error: err
     });
   });
 
