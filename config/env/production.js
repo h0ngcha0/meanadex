@@ -39,6 +39,7 @@ module.exports = {
         'public/lib/angular-sanitize/angular-sanitize.min.js',
         'public/lib/angular-ui-router/release/angular-ui-router.min.js',
         'public/lib/angular-ui-utils/ui-utils.min.js',
+        'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
         'public/lib/fabric/dist/fabric.min.js',
         'public/lib/bootstrap/dist/js/bootstrap.min.js',
         'public/lib/textAngular/dist/textAngular-sanitize.min.js',
