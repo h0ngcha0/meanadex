@@ -20,12 +20,9 @@ var user, campaign, order;
 describe('Order Model Currency Tests:', function() {
   beforeEach(function(done) {
     user = new User({
-      firstName: 'Full',
-      lastName: 'Name',
-      displayName: 'Full Name',
-      email: 'test@test.com',
-      username: 'username',
-      password: 'password'
+      username: 'test@test.com',
+      password: 'password',
+      provider: 'local'
     });
 
     campaign = new Campaign({

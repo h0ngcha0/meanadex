@@ -6,7 +6,6 @@
 var _ = require('lodash'),
     errorHandler = require('../errors'),
     mongoose = require('mongoose'),
-    passport = require('passport'),
     User = mongoose.model('User');
 
 /**
@@ -24,7 +23,6 @@ exports.update = function(req, res) {
     // Merge existing user
     user = _.extend(user, req.body);
     user.updated = Date.now();
-    user.displayName = user.firstName + ' ' + user.lastName;
 
     user.save(function(err) {
       if (err) {
@@ -32,13 +30,7 @@ exports.update = function(req, res) {
           message: errorHandler.getErrorMessage(err)
         });
       } else {
-        req.login(user, function(err) {
-          if (err) {
-            res.status(400).send(err);
-          } else {
-            res.jsonp(user);
-          }
-        });
+        res.jsonp(user);
       }
     });
   } else {

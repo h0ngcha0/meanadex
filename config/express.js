@@ -8,16 +8,9 @@ var fs = require('fs'),
     express = require('express'),
     morgan = require('morgan'),
     bodyParser = require('body-parser'),
-    session = require('express-session'),
     compress = require('compression'),
     methodOverride = require('method-override'),
-    cookieParser = require('cookie-parser'),
     helmet = require('helmet'),
-    passport = require('passport'),
-    mongoStore = require('connect-mongo')({
-      session: session
-    }),
-    flash = require('connect-flash'),
     config = require('./config'),
     consolidate = require('consolidate'),
     path = require('path');
@@ -40,7 +33,6 @@ module.exports = function(db) {
   app.locals.title = config.app.title;
   app.locals.description = config.app.description;
   app.locals.keywords = config.app.keywords;
-  app.locals.facebookAppId = config.facebook.clientID;
   app.locals.jsFiles = config.getJavaScriptAssets();
   app.locals.cssFiles = config.getCSSAssets();
   app.locals.html5shiv = config.html5shiv.replace('public/', '');
@@ -92,27 +84,6 @@ module.exports = function(db) {
 
   // Enable jsonp
   app.enable('jsonp callback');
-
-  // CookieParser should be above session
-  app.use(cookieParser());
-
-  // Express MongoDB session storage
-  app.use(session({
-    saveUninitialized: true,
-    resave: true,
-    secret: config.sessionSecret,
-    store: new mongoStore({
-      db: db.connection.db,
-      collection: config.sessionCollection
-    })
-  }));
-
-  // use passport session
-  app.use(passport.initialize());
-  app.use(passport.session());
-
-  // connect flash for flash messages
-  app.use(flash());
 
   // Use helmet to secure Express headers
   app.use(helmet.xframe());

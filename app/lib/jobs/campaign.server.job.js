@@ -13,7 +13,7 @@ var listAllOrders = function(campaign) {
     var query = Order
       .find({'campaign': campaign._id})
       .sort('-created')
-      .populate('user', 'displayName')
+      .populate('user', 'username')
       .populate('campaign', 'name');
     query.lean().exec(function(err, campaignOrders) {
       if(err) {

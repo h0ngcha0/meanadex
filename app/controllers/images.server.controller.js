@@ -207,7 +207,7 @@ exports.list = function(req, res) {
   var tags = req.param('tags');
   searchTags(tags)
     .sort('-created')
-    .populate('user', 'displayName')
+    .populate('user', 'username')
     .exec(
       function(err, images) {
         if (err) {
@@ -226,7 +226,7 @@ exports.list = function(req, res) {
  * Image middleware
  */
 exports.imageByID = function(req, res, next, id) {
-  Img.findById(id).populate('user', 'displayName').exec(
+  Img.findById(id).populate('user', 'username').exec(
     function(err, image) {
       if (err) return next(err);
       if (! image) return next(new Error('Failed to load Image ' + id));

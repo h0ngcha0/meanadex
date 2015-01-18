@@ -175,7 +175,7 @@ var populateSold = function(campaigns, callback) {
 exports.list = utils.list(
   Campaign,
   {
-    'user': 'displayName'
+    'user': 'username'
   },
   function(req, res, err, result) {
     if (err) {
@@ -205,7 +205,7 @@ exports.list = utils.list(
  * Campaign middleware
  */
 exports.campaignByID = function(req, res, next, id) {
-  Campaign.findById(id).populate('user', 'displayName').exec(function(err, campaign) {
+  Campaign.findById(id).populate('user', 'username').exec(function(err, campaign) {
     if (err) return next(err);
     req.campaign = campaign;
     next();
