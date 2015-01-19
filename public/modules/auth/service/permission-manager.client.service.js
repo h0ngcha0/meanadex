@@ -41,7 +41,7 @@ angular.module('auth').factory('PermissionManager',
         } else {
           CurrentUser.resolve().then(
             function (user) {
-              permCache[permName] = user[permName];
+              permCache[permName] = _.contains(user.roles, permName);
               deferred.resolve(permCache[permName]);
             },
             function (error) {
