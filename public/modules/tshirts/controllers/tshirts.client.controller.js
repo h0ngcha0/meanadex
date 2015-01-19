@@ -4,9 +4,9 @@
 
 // Tshirts controller
 angular.module('tshirts').controller('TshirtsController', [
-  '$scope', '$stateParams', '$location', 'Tshirts',
+  '$scope', '$stateParams', '$location', 'Tshirts', 'AccessToken',
   '$filter', 'DashboardUtils', '$timeout', 'FileUploader', 'Images',
-  function($scope, $stateParams, $location, Tshirts,
+  function($scope, $stateParams, $location, Tshirts, AccessToken,
            $filter, DashboardUtils, $timeout, FileUploader, Images) {
     $scope.tmpVariant = {};
     $scope.tmpTshirt = {};
@@ -241,9 +241,15 @@ angular.module('tshirts').controller('TshirtsController', [
       $scope.variantsTableParams.reload();
     };
 
+    var url = '/images',
+        token = AccessToken.getAccessToken();
+    if (!!token) {
+      url += '?access_token=' + token;
+    }
+
     // front image upload
     $scope.frontUploader = new FileUploader({
-      url: '/images'
+      url: url
     });
 
     $scope.frontUploader.onAfterAddingFile = function(item) {
@@ -252,7 +258,7 @@ angular.module('tshirts').controller('TshirtsController', [
 
     // back image uploader
     $scope.backUploader = new FileUploader({
-      url: '/images'
+      url: url
     });
 
     $scope.backUploader.onAfterAddingFile = function(item) {
