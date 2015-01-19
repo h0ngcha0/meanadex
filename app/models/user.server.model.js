@@ -71,8 +71,8 @@ UserSchema.pre('save', function(next) {
 
   var env = process.env.NODE_ENV;
   if(env === 'development') {
-    if (this.username === 'admin') {
-      this.roles = ['admin'];
+    if (this.username === 'admin@meanadex.com') {
+      this.roles.push('admin');
     }
   }
 
