@@ -59,7 +59,8 @@ module.exports = {
         'public/lib/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js',
         'public/lib/bootstrap-autohidingnavbar/dist/jquery.bootstrap-autohidingnavbar.js',
         'public/lib/ng-tags-input/ng-tags-input.js',
-        'public/lib/angular-breadcrumb/dist/angular-breadcrumb.js'
+        'public/lib/angular-breadcrumb/dist/angular-breadcrumb.js',
+        'public/lib/jquery-nicescroll/jquery.nicescroll.js'
       ]
     },
     css: [

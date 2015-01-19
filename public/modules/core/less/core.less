@@ -2,15 +2,6 @@
 @import (reference) "../../../lib/bootstrap/less/mixins.less";
 @import "variables.less";
 
-html{
-  height: 100%;
-  min-height: 100%;
-}
-
-body {
-  min-height: 100%;
-}
-
 .undecorated-link:hover {
   text-decoration: none;
 }
@@ -54,158 +45,14 @@ body {
 }
 
 
-.footer {
-  padding: 70px 0;
-  margin-top: 70px;
-  border-top: 1px solid #E5E5E5;
-  background-color: whiteSmoke;
-}
-
-.navbar-fixed-top {
-  -webkit-transition: padding .3s;
-  -o-transition: padding .3s;
-  -moz-transition: padding .3s;
-  transition: padding .3s;
-}
-
-.navbar-fixed-top .navbar-brand {
-  text-transform: uppercase;
-  font-size: 1.5em;
-  -webkit-transition: all .3s;
-  -o-transition: all .3s;
-  -moz-transition: all .3s;
-  transition: all .3s;
-  color: @baseColor;
-}
-
-.navbar-fixed-top .navbar-brand:hover {
-  color: @baseColorDark;
-}
-
-.navbar-fixed-top .navbar-brand-img {
-  width: 30px;
-  height: 30px;
-  margin-top: -6px;
-  border-radius: 1px;
-}
-
-.navbar-fixed-top .navbar-link {
-  color: @baseColor;
-  text-decoration: none;
-}
-
-.navbar-fixed-top.navbar-shrink {
-  padding: 10px 0;
-}
-
-.navbar-fixed-top.navbar-shrink .navbar-brand {
-  font-size: 1em;
-}
-
-.navbar {
-  font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 700;
-  background: @faceColor;
-}
-
-.navbar .navbar-nav {
-  letter-spacing: 1px;
-}
-
-.navbar-default .navbar-nav > .dropdown > a {
-  color: @baseColor;
-  background-color: @faceColor;
-}
-
-.navbar-default .navbar-nav > .dropdown > a:hover {
-  color: @baseColorDark;
-  border: @baseColor;
-  background-color: @faceColor;
-}
-
-.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus {
-  color: @baseColorDark;
-  border: @baseColor;
-  background-color: @faceColor;
-}
-
-.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
-  color: @baseColor;
-  border: @baseColor;
-  background: @faceColor;
-}
-
-.navbar-nav > li > .dropdown-menu {
-  color: @baseColor;
-  background-color: @faceColor;
-}
-
-.navbar-nav > .open > .dropdown-menu {
-  background-color: @baseColor;
-}
-
-.navbar-nav > .open > .dropdown-menu > li > a:hover {
-  color: @baseColor;
-  background: @faceColor;
-}
-
-.navbar-default, .navbar-inverse {
-  border: 0;
-}
-
-.app-entrance {
-  background-color: white;
-  height: 100%;
-  min-height: 100%;
-}
+//.footer {
+//  padding: 70px 0;
+//  margin-top: 70px;
+//  border-top: 1px solid #E5E5E5;
+//  background-color: whiteSmoke;
+//}
 
 /* landing css */
-
-header.face-section {
-  text-align: center;
-  background-color: @faceColor; /* swedish blue */
-  color: @baseColor;
-  overflow: auto;
-}
-
-header.face-section .container{
-  background: @faceColor; /* swedish blue */
-}
-
-header .container {
-  padding-top: 100px;
-  padding-bottom: 50px;
-}
-
-header img {
-  display: block;
-  margin: 0 auto 20px;
-}
-
-header .intro-text .name {
-  display: block;
-  font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 2em;
-}
-header .intro-text .skills {
-  color: white;
-  font-size: 1.25em;
-  font-weight: 300;
-}
-
-@media (min-width:768px) {
-  header .container {
-    padding: 200px 0 100px;
-  }
-  header .intro-text .name {
-    font-size: 5em;
-  }
-  header .intro-text .skills {
-    font-size: 1.75em;
-  }
-}
 
 hr.star-light, hr.star-primary {
   padding: 0;
@@ -234,7 +81,7 @@ hr.star-light:after {
   color: #fff;
 }
 
-header hr.star-light:after {
+section.face-section hr.star-light:after {
   background-color: @faceColor;
 }
 
@@ -251,14 +98,14 @@ hr.star-primary:after {
   color: #2c3e50;
 }
 
-section {
-  padding: 100px 0;
-}
-
-section h2 {
-  margin: 0;
-  font-size: 3em;
-}
+//section {
+//  padding: 100px 0;
+//}
+//
+//section h2 {
+//  margin: 0;
+//  font-size: 3em;
+//}
 
 section.success {
   background: @faceColor; /* swedish blue */
@@ -303,35 +150,6 @@ section.success h2 a{
   color: @baseColor;
   background-color: green;
   border: solid 2px #fff;
-}
-
-footer {
-  background: @baseColor; /* swedish blue */
-  color: @faceColor;
-}
-footer h3 {
-  margin-bottom: 30px;
-  color: @faceColor;
-}
-footer .footer-above {
-  padding-top: 50px;
-  background-color: @baseColor;
-}
-
-footer .footer-col {
-  margin-bottom: 50px;
-  color: @faceColor;
-}
-
-footer .footer-col p {
-  text-align: center;
-  font-size: 1.3em;
-}
-
-footer .footer-below {
-  padding: 25px 0;
-  background-color: @baseColor;
-  font-size: 0.8em;
 }
 
 .monadex-btn-major {

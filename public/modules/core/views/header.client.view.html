@@ -1,59 +1,74 @@
-<div class="navbar navbar-fixed-top navbar-default" ng-hide="isActive()" class="container" data-ng-controller="HeaderController">
-  <div class="navbar-header page-scroll">
-    <a href="/#!/" class="navbar-brand navbar-left">
-      Monadex
-    </a>
-  </div>
-  <nav class="collapse navbar-collapse" role="navigation">
-    <ul class="nav navbar-nav"
-      data-ng-if="menu.shouldRender(authentication.user);">
-      <li data-ng-repeat="item in menu.items | orderBy: 'position'"
-        data-ng-if="item.shouldRender(authentication.user);"
-        ng-switch="item.menuItemType" ui-route="{{item.uiRoute}}"
-        class="{{item.menuItemClass}}" ng-class="{active: ($uiRoute)}"
-        dropdown="item.menuItemType === 'dropdown'">
-        <a ng-switch-when="dropdown" class="dropdown-toggle">
-          <span data-ng-bind="item.title"></span>
-          <b class="caret"></b>
-        </a>
-        <ul ng-switch-when="dropdown" class="dropdown-menu">
-          <li data-ng-repeat="subitem in item.items | orderBy: 'position'"
-            data-ng-if="subitem.shouldRender(authentication.user);"
-            ui-route="{{subitem.uiRoute}}" ng-class="{active: $uiRoute}">
-            <a href="/#!/{{subitem.link}}" data-ng-bind="subitem.title"></a>
-          </li>
-        </ul>
-        <a ng-switch-default href="/#!/{{item.link}}"
-          data-ng-bind="item.title">
-        </a>
-      </li>
-    </ul>
-
-    <ul class="nav navbar-nav navbar-right navbar-brand"
-        data-ng-hide="authentication.user">
-      <a href="/#!/signup"
-         class="btn btn-sm monadex-btn-primary-revert">
-        Login or Register
-      </a>
-    </ul>
-    <ul class="nav navbar-nav navbar-right"
-        data-ng-show="authentication.user">
-      <li class="dropdown">
-        <a href="/#!/"
-           class="dropdown-toggle"
-           data-toggle="dropdown">
-          <span data-ng-bind="authentication.user.displayName"></span>
-          <b class="caret"></b>
-        </a>
-        <ul class="dropdown-menu">
-          <li>
-            <a href="/#!/dashboard">Open dashboard</a>
+<!-- HEADER -->
+<header data-ng-controller="HeaderController" ng-hide="isActive()">
+  <!-- SLIDESHOW -->
+  <section class="slideshow">
+    <div class="container-fluid">
+      <div class="r1 row">
+        <div class="c1 col-md-12">
+          <div class="carousel slide" id="slideshow-carousel-1" data-ride="carousel">
+            <!-- Wrapper for Slides -->
+            <div class="carousel-inner">
+              <!-- Slide 2 -->
+              <div class="item item-2 active parallax" data-speed="2">
+                <div class="carousel-caption">
+                  <div class="c2 hidden-xs col-sm-5 col-md-5">
+                    <img class="img-responsive center-block" src="images/slideshow/phone.png" alt="Image">
+                  </div>
+                  <div class="c3 col-xs-12 col-sm-7 col-md-7">
+                    <h2 class="title">On the web there are several solutions...but only one is right for your company.<br><small class="subtitle">MOS<span>7</span></small></h2>
+                    <a class="btn btn-lg btn-danger" href="#" target="_blank"><i class="fa fa-apple"></i>App Store</a>
+                    <a class="btn btn-lg btn-danger" href="#" target="_blank"><i class="fa fa-android"></i>Google Play</a>
+                  </div>
+                </div>
+              </div><!-- End Slide 2 -->
+            </div><!-- End Wrapper for Slides -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section><!-- END SLIDESHOW -->
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+      <!-- Brand and Toggle -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#anch-top">MOS<span>7</span></a>
+      </div><!-- End Brand and Toggle -->
+      <!-- Menu -->
+      <div class="collapse navbar-collapse" id="navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active">
+            <a href="#anch-top">Home</a>
           </li>
           <li>
-            <a href="/auth/signout">Signout</a>
+            <a href="#anch-features">Features</a>
+          </li>
+          <li>
+            <a href="#anch-overview">Overview</a>
+          </li>
+          <li>
+            <a href="#anch-gallery">Gallery</a>
+          </li>
+          <li>
+            <a href="#anch-testimonials">Testimonials</a>
+          </li>
+          <li>
+            <a href="#anch-pricing">Pricing</a>
+          </li>
+          <li>
+            <a href="#anch-download">Download</a>
+          </li>
+          <li>
+            <a href="#anch-contact">Contact</a>
           </li>
         </ul>
-      </li>
-    </ul>
-  </nav>
-</div>
+      </div><!-- End Menu -->
+    </div>
+  </nav><!-- END NAVBAR -->
+</header><!-- END HEADER -->

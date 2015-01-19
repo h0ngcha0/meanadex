@@ -1,0 +1,124 @@
+/*------------------------------------------------------------------
+Project:  Mos7 - Responsive Bootstrap 3 App Landing Page Template
+Version:  1.3
+Last change:  29/12/2014
+Design by:  TemplatesPRO.com.br
+
+Component (line):
+1) FEATURES (13)
+    - Section Content (48)
+-------------------------------------------------------------------*/
+
+/********************************************************************
+ 1) FEATURES
+ **********/
+
+.features { padding: 50px 0 30px; }
+@media (min-width: 768px) {
+  .features { padding: 50px 0 90px; }
+}
+.features .section-header { margin: 0 0 120px; }
+@media (min-width: 768px) {
+  .features .section-header { margin: 0 0 130px; }
+}
+.features .c2,
+.features .c3,
+.features .c4 { margin-top: 30px; }
+@media (min-width: 768px) {
+  .features .c2 { margin-top: 0; }
+  .features .c3,
+  .features .c4 { margin-top: 80px; }
+}
+@media (min-width: 992px) {
+  .features .c2,
+  .features .c3,
+  .features .c4 { margin-top: 0; }
+}
+.features .features-wrapper {
+  padding: 40px 10px 50px;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .features .features-wrapper { padding: 70px 10px 0; }
+}
+@media (min-width: 992px) {
+  .features .features-content { font-size: 115%; }
+}
+
+/* Section Content */
+.features .features-icon {
+  position: absolute;
+  left: 0;
+  top: -50px;
+  right: 0;
+  margin: auto;
+  width: 80px;
+  height: 80px;
+  font-size: 2.6em;
+  color: #d9534f;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px #7a8691;
+  -webkit-transition: all 0.2s ease;
+     -moz-transition: all 0.2s ease;
+      -ms-transition: all 0.2s ease;
+       -o-transition: all 0.2s ease;
+          transition: all 0.2s ease;
+}
+@media (min-width: 768px) {
+  .features .features-icon {
+    width: 100px;
+    height: 100px;
+    font-size: 3.2em;
+  }
+}
+.features .features-wrapper:hover .features-icon {
+  color: #fff;
+  background-color: #d9534f;
+  box-shadow: 0 0 0 1px #2b3e50;
+}
+.features .features-icon:after {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: -4px;
+  right: 0;
+  margin: auto;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px #7a8691;
+  opacity: 0;
+  -webkit-transform: scale(.8);
+     -moz-transform: scale(.8);
+      -ms-transform: scale(.8);
+       -o-transform: scale(.8);
+          transform: scale(.8);
+  -webkit-transition: all 0.2s ease;
+     -moz-transition: all 0.2s ease;
+      -ms-transition: all 0.2s ease;
+       -o-transition: all 0.2s ease;
+          transition: all 0.2s ease;
+}
+@media (min-width: 768px) {
+  .features .features-icon:after {
+    width: 108px;
+    height: 108px;
+  }
+}
+.features .features-wrapper:hover .features-icon:after {
+  opacity: 1;
+  -webkit-transform: scale(1);
+     -moz-transform: scale(1);
+      -ms-transform: scale(1);
+       -o-transform: scale(1);
+          transform: scale(1);
+}
+.features .features-icon .glyphicon { line-height: 80px; }
+@media (min-width: 768px) {
+  .features .features-icon .glyphicon { line-height: 100px; }
+}
+.features .features-content .title {
+  margin-top: 8px;
+  font-size: 2em;
+  color: #d9534f;
+}

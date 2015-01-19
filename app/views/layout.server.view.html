@@ -1,66 +1,233 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <title>{{title}}</title>
+  <head>
+    <title>{{title}}</title>
 
-  <!-- General META -->
-  <meta charset="utf-8">
-  <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!-- General META -->
+    <meta charset="utf-8">
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
 
-  <!-- Semantic META -->
-  <meta name="keywords" content="{{keywords}}">
-  <meta name="description" content="{{description}}">
+    <!-- Semantic META -->
+    <meta name="keywords" content="{{keywords}}">
+    <meta name="description" content="{{description}}">
 
-  <!-- Facebook META -->
-  <meta property="fb:app_id" content="{{facebookAppId}}">
-  <meta property="og:site_name" content="{{title}}">
-  <meta property="og:title" content="{{title}}">
-  <meta property="og:description" content="{{description}}">
-  <meta property="og:url" content="{{url}}">
-  <meta property="og:image" content="/img/brand/logo.png">
-  <meta property="og:type" content="website">
+    <!-- Facebook META -->
+    <meta property="fb:app_id" content="{{facebookAppId}}">
+    <meta property="og:site_name" content="{{title}}">
+    <meta property="og:title" content="{{title}}">
+    <meta property="og:description" content="{{description}}">
+    <meta property="og:url" content="{{url}}">
+    <meta property="og:image" content="/img/brand/logo.png">
+    <meta property="og:type" content="website">
 
-  <!-- Twitter META -->
-  <meta name="twitter:title" content="{{title}}">
-  <meta name="twitter:description" content="{{description}}">
-  <meta name="twitter:url" content="{{url}}">
-  <meta name="twitter:image" content="/img/brand/logo.png">
+    <!-- Twitter META -->
+    <meta name="twitter:title" content="{{title}}">
+    <meta name="twitter:description" content="{{description}}">
+    <meta name="twitter:url" content="{{url}}">
+    <meta name="twitter:image" content="/img/brand/logo.png">
 
-  <!-- Fav Icon -->
-  <link href="/modules/core/img/brand/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <!-- Fav Icon -->
+    <link href="/modules/core/img/brand/favicon.ico" rel="shortcut icon" type="image/x-icon">
 
-  <!--Application CSS Files-->
-  {% for cssFile in cssFiles %}<link rel="stylesheet" href="{{cssFile}}">
-  {% endfor %}
+    <!--Application CSS Files-->
+    {% for cssFile in cssFiles %}<link rel="stylesheet" href="{{cssFile}}">
+    {% endfor %}
 
-  <!-- HTML5 Shim -->
-  <!--[if lt IE 9]>
-  <script src="{{html5shiv}}"></script>
-  <script src="{{html5shivPrintshiv}}"></script>
-  <script src="{{excanvas}}"></script>
-  <![endif]-->
-</head>
-<body class="ng-cloak">
-  <div data-ng-include="'/modules/core/views/header.client.view.html'">
-  </div>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
 
-  {% block content %}{% endblock %}
+    <!-- HTML5 Shim -->
+    <!--[if lt IE 9]>
+    <script src="{{html5shiv}}"></script>
+    <script src="{{html5shivPrintshiv}}"></script>
+    <script src="{{excanvas}}"></script>
+    <![endif]-->
+       </head>
+  <body class="pag-home ng-cloak"
+        id="anch-top"
+        data-spy="scroll"
+        data-target=".navbar">
 
-  <!--Embedding The User Object-->
-  <script type="text/javascript">
-    var user = {{ user | json | safe }};
-  </script>
+    <div class="layout">
+      <!-- HEADER -->
+      <div>
+        <!-- Preloader -->
+        <div id="preloader">
+          <div id="status"></div>
+        </div><!-- End Preloader -->
 
-  <!--Application JavaScript Files-->
-  {% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>
-  {% endfor %}
+        <header data-ng-controller="HeaderController" ng-hide="isActive()">
+          <!-- SLIDESHOW -->
+          <section class="slideshow">
+            <div class="container-fluid">
+              <div class="r1 row">
+                <div class="c1 col-md-12">
+                  <div class="carousel slide" id="slideshow-carousel-1" data-ride="carousel">
+                    <!-- Wrapper for Slides -->
+                    <div class="carousel-inner">
+                      <!-- Slide 2 -->
+                      <div class="item active parallax" data-speed="2">
+                        <div class="carousel-caption">
+                          <div class="c3 col-xs-12 col-sm-12 col-md-12">
+                            <div class="c2 hidden-xs col-sm-12 col-md-12 main-img">
+                              <img class="img-responsive center-block" src="modules/core/img/moose.jpg" alt="Image">
+                            </div>
+                            <h2 class="title">
+                              <small class="subtitle">Design your own t-shirts</small>
+                              <br>
+                              And sell to the rest of the world.
+                            </h2>
+                            <a class="btn btn-sm monadex-btn-major" href="#" target="_blank">
+                              Get started now!
+                            </a>
+                          </div>
+                        </div>
+                      </div><!-- End Slide 2 -->
+                    </div><!-- End Wrapper for Slides -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section><!-- END SLIDESHOW -->
+          <!-- NAVBAR -->
+          <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+              <!-- Brand and Toggle -->
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#anch-top"><span>Monadex</span></a>
+              </div><!-- End Brand and Toggle -->
+              <!-- Menu -->
+              <div class="collapse navbar-collapse" id="navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <li class="active">
+                    <a href="#anch-top">Home</a>
+                  </li>
+                  <li>
+                    <a href="#anch-features">Features</a>
+                  </li>
+                </ul>
+              </div><!-- End Menu -->
+            </div>
+          </nav><!-- END NAVBAR -->
+        </header><!-- END HEADER -->
+        <div class="main">
+          <!-- FEATURES -->
+          <section class="features" id="anch-features">
+            <div class="container">
+              <!-- Section Header -->
+              <div class="section-header">
+                <h2 class="section-title">Meet</h2>
+                <h3 class="section-subtitle">Lorem ipsum per fames turpis tempor elementum felis venenatis, odio vivamus sagittis massa platea</h3>
+              </div><!-- End Section Header -->
+              <!-- Section Content -->
+              <div class="r1 row">
+                <!-- Block 1 -->
+                <div class="c1 col-sm-6 col-md-3 animateblock ltr-2 speed-2">
+                  <div class="features-wrapper">
+                    <div class="features-icon"><span class="glyphicon glyphicon-tint"></span>
+                    </div>
+                    <div class="features-content">
+                      <h3 class="title">Clean & Simple Design</h3>
+                      <p class="description">Lorem ipsum consectetur ultrices ac facilisis est neque fames, eget vel libero egestas viverra lacinia facilisis, augue dictum curabitur inceptos potenti justo fusce.</p>
+                    </div>
+                  </div>
+                </div><!-- End Block 1 -->
+                <!-- Block 2 -->
+                <div class="c2 col-sm-6 col-md-3 animateblock ltr-1 speed-1">
+                  <div class="features-wrapper">
+                    <div class="features-icon"><span class="glyphicon glyphicon-fullscreen"></span>
+                    </div>
+                    <div class="features-content">
+                      <h3 class="title">Fully Responsive</h3>
+                      <p class="description">Lorem ipsum consectetur ultrices ac facilisis est neque fames, eget vel libero egestas viverra lacinia facilisis, augue dictum curabitur inceptos potenti justo fusce.</p>
+                    </div>
+                  </div>
+                </div><!-- End Block 2 -->
+                <!-- Block 3 -->
+                <div class="c3 col-sm-6 col-md-3 animateblock rtl-1 speed-1">
+                  <div class="features-wrapper">
+                    <div class="features-icon"><span class="glyphicon glyphicon-flag"></span>
+                    </div>
+                    <div class="features-content">
+                      <h3 class="title">Crossbrowser Compatible</h3>
+                      <p class="description">Lorem ipsum consectetur ultrices ac facilisis est neque fames, eget vel libero egestas viverra lacinia facilisis, augue dictum curabitur inceptos potenti justo fusce.</p>
+                    </div>
+                  </div>
+                </div><!-- End Block 3 -->
+                <!-- Block 4 -->
+                <div class="c4 col-sm-6 col-md-3 animateblock rtl-2 speed-2">
+                  <div class="features-wrapper">
+                    <div class="features-icon"><span class="glyphicon glyphicon-gift"></span>
+                    </div>
+                    <div class="features-content">
+                      <h3 class="title">Over 670 Font Icons</h3>
+                      <p class="description">Lorem ipsum consectetur ultrices ac facilisis est neque fames, eget vel libero egestas viverra lacinia facilisis, augue dictum curabitur inceptos potenti justo fusce.</p>
+                    </div>
+                  </div>
+                </div><!-- End Block 4 -->
+              </div><!-- End Section Content -->
+            </div>
+          </section><!-- END FEATURES -->
+        </div> <!-- END MAIN -->
+        <!-- FOOTER -->
+        <footer class="footer">
+          <div class="container">
+            <div class="r1 row">
+              <div class="c1 col-md-12">
+                <h1 class="footer-logo">
+                  <div class="container-fluid">
+                    <img class="img-responsive center-block" src="modules/core/img/brand/favicon.ico" alt="Image">
+                  </div>
+                </h1>
+                <!-- Social Buttons -->
+                <section class="social-icons">
+                  <h3 class="hide">Social Buttons</h3>
+                  <a class="btn-social facebook" data-toggle="tooltip" data-placement="top" data-original-title="Facebook" href="#" title=""><i class="fa fa-facebook"></i></a>
+                  <a class="btn-social twitter" data-toggle="tooltip" data-placement="top" data-original-title="Twitter" href="#" title=""><i class="fa fa-twitter"></i></a>
+                  <a class="btn-social google-plus" data-toggle="tooltip" data-placement="top" data-original-title="Google+" href="#" title=""><i class="fa fa-google-plus"></i></a>
+                </section><!-- End Social Buttons -->
+              </div>
+            </div>
+          </div>
+          <div class="copyright">
+            <div class="container">
+              <div class="r1 row">
+                <div class="c1 col-md-12">
+                  <p>&copy; 2015 - Monadex. All rights reserved.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer><!-- END FOOTER -->
+        <a class="go-top" href="#anch-top"><i class="fa fa-chevron-up"></i></a>
+      </div>
+    </div>
+    <!--
+    {% block content %}{% endblock %}
+    -->
+</div> <!-- END LAYOUT -->
 
-  {% if process.env.NODE_ENV === 'development' %}
-  <!--Livereload script rendered -->
-  <script type="text/javascript" src="https://localhost:35728/livereload.js"></script>
-  {% endif %}
+<!--Embedding The User Object-->
+<script type="text/javascript">
+  var user = {{ user | json | safe }};
+</script>
+
+<!--Application JavaScript Files-->
+{% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>
+{% endfor %}
+
+{% if process.env.NODE_ENV === 'development' %}
+<!--Livereload script rendered -->
+<script type="text/javascript" src="https://localhost:35728/livereload.js"></script>
+{% endif %}
 </body>
 
 </html>
