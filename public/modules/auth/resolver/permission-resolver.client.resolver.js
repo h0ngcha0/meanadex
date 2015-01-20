@@ -11,27 +11,29 @@ angular.module('auth').constant('PermissionResolver',
     requirePermission: function (permName, requiredValue) {
       'use strict';
 
-      return function ($q, $log, PermissionManager) {
-        var deferred = $q.defer();
+      return ['$q', '$log', 'PermissionManager',
+        function ($q, $log, PermissionManager) {
+          var deferred = $q.defer();
 
-        PermissionManager.resolve(permName).then(
-          function (value) {
-            $log.debug('permission:', permName, requiredValue,
-              value);
-            if (value === requiredValue) {
-              deferred.resolve(value);
-            } else {
-              deferred.reject(value);
+          PermissionManager.resolve(permName).then(
+            function (value) {
+              $log.debug('permission:', permName, requiredValue,
+                value);
+              if (value === requiredValue) {
+                deferred.resolve(value);
+              } else {
+                deferred.reject(value);
+              }
+            },
+            function (error) {
+              $log.debug('permission:', error);
+              deferred.reject(error);
             }
-          },
-          function (error) {
-            $log.debug('permission:', error);
-            deferred.reject(error);
-          }
-        );
+          );
 
-        return deferred.promise;
-      };
+          return deferred.promise;
+        }
+      ];
 
     },
 
@@ -41,20 +43,22 @@ angular.module('auth').constant('PermissionResolver',
     resolvePermission: function (permName) {
       'use strict';
 
-      return function ($q, $log, PermissionManager) {
-        var deferred = $q.defer();
+      return ['$q', '$log', 'PermissionManager',
+        function ($q, $log, PermissionManager) {
+          var deferred = $q.defer();
 
-        PermissionManager.resolve(permName).then(
-          function (value) {
-            deferred.resolve(value);
-          },
-          function () {
-            deferred.resolve(false);
-          }
-        );
+          PermissionManager.resolve(permName).then(
+            function (value) {
+              deferred.resolve(value);
+            },
+            function () {
+              deferred.resolve(false);
+            }
+          );
 
-        return deferred.promise;
-      };
+          return deferred.promise;
+        }
+      ];
 
     }
   }

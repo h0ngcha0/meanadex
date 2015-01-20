@@ -27,74 +27,82 @@ angular.module('auth').constant('SessionResolver',
        * This resolver simply checks to see whether a user is logged
        * in or not, and returns the session state.
        */
-      resolveSessionState: function ($q, $log, Session, SessionState) {
-        var deferred = $q.defer();
+      resolveSessionState: ['$q', '$log', 'Session', 'SessionState',
+        function ($q, $log, Session, SessionState) {
+          var deferred = $q.defer();
 
-        $log.debug('Resolving session state...');
-        Session.resolveSessionState().then(
-          function (sessionState) {
-            deferred.resolve(sessionState);
-          },
-          function (error) {
-            $log.error(error);
-            deferred.resolve(SessionState.LOGGED_OUT);
-          }
-        );
+          $log.debug('Resolving session state...');
+          Session.resolveSessionState().then(
+            function (sessionState) {
+              deferred.resolve(sessionState);
+            },
+            function (error) {
+              $log.error(error);
+              deferred.resolve(SessionState.LOGGED_OUT);
+            }
+          );
 
-        return deferred.promise;
-      },
+          return deferred.promise;
+        }
+      ],
 
       /**
        * This resolver asserts that the user is logged
        * out before allowing a route. Otherwise it fails.
        */
-      requireLoggedOut: function ($q, $log, Session, SessionState) {
+      requireLoggedOut: ['$q', '$log', 'Session', 'SessionState',
+        function ($q, $log, Session, SessionState) {
 
-        $log.debug('Resolving logged-out-only route...');
-        var deferred = $q.defer();
-        var resolveLoggedOut = resolveSessionState(deferred,
-          SessionState.LOGGED_OUT, Session);
+          $log.debug('Resolving logged-out-only route...');
+          var deferred = $q.defer();
+          var resolveLoggedOut = resolveSessionState(deferred,
+            SessionState.LOGGED_OUT, Session);
 
-        // Do we have to wait for state resolution?
-        if (Session.getSessionState() === SessionState.PENDING) {
-          Session.resolveSessionState().then(resolveLoggedOut);
-        } else {
-          resolveLoggedOut();
+          // Do we have to wait for state resolution?
+          if (Session.getSessionState() === SessionState.PENDING) {
+            Session.resolveSessionState().then(resolveLoggedOut);
+          } else {
+            resolveLoggedOut();
+          }
+
+          return deferred.promise;
         }
-
-        return deferred.promise;
-      },
+      ],
 
       /**
        * This resolver asserts that the user is logged
        * in before allowing a route. Otherwise it fails.
        */
-      requireLoggedIn: function ($q, $log, Session, $rootScope,
-        SessionState) {
+      requireLoggedIn: ['$q', '$log', 'Session', '$rootScope', 'SessionState',
+        function ($q, $log, Session, $rootScope,
+          SessionState) {
 
-        $log.debug('Resolving logged-in-only route...');
-        var deferred = $q.defer();
-        var resolveLoggedIn = resolveSessionState(deferred,
-          SessionState.LOGGED_IN, Session);
+          $log.debug('Resolving logged-in-only route...');
+          var deferred = $q.defer();
+          var resolveLoggedIn = resolveSessionState(deferred,
+            SessionState.LOGGED_IN, Session);
 
-        // Do we have to wait for state resolution?
-        if (Session.getSessionState() === SessionState.PENDING) {
-          Session.resolveSessionState().then(resolveLoggedIn);
-        } else {
-          resolveLoggedIn();
+          // Do we have to wait for state resolution?
+          if (Session.getSessionState() === SessionState.PENDING) {
+            Session.resolveSessionState().then(resolveLoggedIn);
+          } else {
+            resolveLoggedIn();
+          }
+
+          return deferred.promise;
         }
-
-        return deferred.promise;
-      },
+      ],
 
       /**
        * This resolver ensures that the currentUser has been resolved
        * before the route resolves.
        */
-      requireCurrentUser: function ($q, $log, CurrentUser) {
-        $log.debug('Resolving current user...');
-        return CurrentUser.resolve();
-      }
+      requireCurrentUser: ['$q', '$log', 'CurrentUser',
+        function ($q, $log, CurrentUser) {
+          $log.debug('Resolving current user...');
+          return CurrentUser.resolve();
+        }
+      ]
     };
   })()
 );
