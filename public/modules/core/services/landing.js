@@ -47,16 +47,16 @@ $(document).ready(function () {
   /********************************************************************
    2) ScrollBar
    ************/
-  $("html").niceScroll({
-    cursorcolor: "#777",
-    cursoropacitymax: 0.7,
-    cursorwidth: "9",
-    cursorborder: "none",
-    cursorborderradius: "10px",
-    background: "#ccc",
-    zindex: "9999999",
-    touchbehavior: false
-  });
+//  $("html").niceScroll({
+//    cursorcolor: "#777",
+//    cursoropacitymax: 0.7,
+//    cursorwidth: "9",
+//    cursorborder: "none",
+//    cursorborderradius: "10px",
+//    background: "#ccc",
+//    zindex: "9999999",
+//    touchbehavior: false
+//  });
 
 //  $('#contact-collapse-1').on('hidden.bs.collapse', function () {
 //    $("html").getNiceScroll().resize();
@@ -195,9 +195,9 @@ $(document).ready(function () {
   /********************************************************************
    5) Component Slideshow - Carousel
    *********************************/
-//  $('#slideshow-carousel-1').carousel({
-//    interval: 15000
-//  });
+  $('#slideshow-carousel-1').carousel({
+    interval: 15000
+  });
 
   /********************************************************************
    6) Navbar Fixed to Top
@@ -251,9 +251,9 @@ $(document).ready(function () {
   /********************************************************************
    9) Component Testimonials - Carousel
    ************************************/
-//  $('#testimonials-carousel-1').carousel({
-//    interval: 10000
-//  });
+  $('#testimonials-carousel-1').carousel({
+    interval: 10000
+  });
 
   /********************************************************************
    10) Animations and Component Stats - Circle Stats
@@ -411,10 +411,10 @@ $(document).ready(function () {
 //  });
 
   //reset previously set border colors and hide all message on .keyup()
-//  $(".contact-form input[required=true], .contact-form textarea[required=true]").keyup(function () {
-//    $(this).css('border-color', '');
-//    $(".slideshow .item").slideUp();
-//  });
+  $(".contact-form input[required=true], .contact-form textarea[required=true]").keyup(function () {
+    $(this).css('border-color', '');
+    $(".slideshow .item").slideUp();
+  });
 
   /********************************************************************
    12) Social Buttons - Tooltips

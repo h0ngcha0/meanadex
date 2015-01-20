@@ -44,7 +44,7 @@
     <script src="{{html5shivPrintshiv}}"></script>
     <script src="{{excanvas}}"></script>
     <![endif]-->
-       </head>
+  </head>
   <body class="pag-home ng-cloak"
         id="anch-top"
         data-spy="scroll"
@@ -58,7 +58,7 @@
           <div id="status"></div>
         </div><!-- End Preloader -->
 
-        <header data-ng-controller="HeaderController" ng-hide="isActive()">
+        <header data-ng-controller="HeaderController" ng-hide="!isNotLanding()">
           <!-- SLIDESHOW -->
           <section class="slideshow">
             <div class="container-fluid">
@@ -79,7 +79,7 @@
                               <br>
                               And sell to the rest of the world.
                             </h2>
-                            <a class="btn btn-lg monadex-btn-major" href="#" target="_blank">
+                            <a class="btn btn-lg monadex-btn-major" href="#!/designer" target="_blank">
                               Get started now!
                             </a>
                           </div>
@@ -118,6 +118,7 @@
             </div>
           </nav><!-- END NAVBAR -->
         </header><!-- END HEADER -->
+
         <div class="main">
           <!-- FEATURES -->
           <section class="features" id="anch-features">
@@ -177,6 +178,9 @@
             </div>
           </section><!-- END FEATURES -->
         </div> <!-- END MAIN -->
+
+        {% block content %}{% endblock %}
+
         <!-- FOOTER -->
         <footer class="footer">
           <div class="container">
@@ -210,9 +214,6 @@
         <a class="go-top" href="#anch-top"><i class="fa fa-chevron-up"></i></a>
       </div>
     </div>
-    <!--
-    {% block content %}{% endblock %}
-    -->
 </div> <!-- END LAYOUT -->
 
 <!--Embedding The User Object-->

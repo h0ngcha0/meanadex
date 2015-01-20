@@ -12,6 +12,11 @@ angular.module('core').controller('HeaderController', [
       return active;
     };
 
+    $scope.isNotLanding = function() {
+      var active = /^\/landing/.test($location.path());
+      return active;
+    };
+
     $('div.navbar-fixed-top').autoHidingNavbar({
       // see next for specifications
     });
