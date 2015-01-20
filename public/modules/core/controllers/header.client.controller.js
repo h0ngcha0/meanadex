@@ -7,14 +7,18 @@ angular.module('core').controller('HeaderController', [
     $scope.isCollapsed = false;
     $scope.menu = Menus.getMenu('topbar');
 
-    $scope.isActive = function() {
+    $scope.isDashboard = function() {
       var active = /^\/dashboard/.test($location.path());
       return active;
     };
 
-    $scope.isNotLanding = function() {
+    $scope.isLanding = function() {
       var active = /^\/landing/.test($location.path());
       return active;
+    };
+
+    $scope.isMainApp = function() {
+      return !$scope.isDashboard() && !$scope.isLanding();
     };
 
     $('div.navbar-fixed-top').autoHidingNavbar({

@@ -44,23 +44,23 @@
     <script src="{{html5shivPrintshiv}}"></script>
     <script src="{{excanvas}}"></script>
     <![endif]-->
-  </head>
+       </head>
   <body class="pag-home ng-cloak"
         id="anch-top"
         data-spy="scroll"
+        data-ng-controller="HeaderController"
         data-target=".navbar">
 
     <div class="layout">
-      <!-- HEADER -->
-      <div>
-        <!-- Preloader -->
-        <div id="preloader">
-          <div id="status"></div>
-        </div><!-- End Preloader -->
-
-        <header data-ng-controller="HeaderController" ng-hide="!isNotLanding()">
+      <!-- Preloader -->
+      <div id="preloader">
+        <div id="status"></div>
+      </div><!-- End Preloader -->
+      <!-- Layout -->
+      <div ng-show="isLanding() || isMainApp()">
+        <header>
           <!-- SLIDESHOW -->
-          <section class="slideshow">
+          <section class="slideshow" ng-show="isLanding()">
             <div class="container-fluid">
               <div class="r1 row">
                 <div class="c1 col-md-12">
@@ -92,7 +92,33 @@
             </div>
           </section><!-- END SLIDESHOW -->
           <!-- NAVBAR -->
-          <nav class="navbar navbar-default" role="navigation">
+          <nav class="landing navbar navbar-default" ng-show="isLanding()" role="navigation">
+            <div class="container-fluid">
+              <!-- Brand and Toggle -->
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#anch-top"><span>Monadex</span></a>
+              </div><!-- End Brand and Toggle -->
+              <!-- Menu -->
+              <div class="collapse navbar-collapse" id="navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <li class="active">
+                    <a href="#anch-top">Home</a>
+                  </li>
+                  <li>
+                    <a href="#anch-features">Features</a>
+                  </li>
+                </ul>
+              </div><!-- End Menu -->
+            </div>
+          </nav><!-- END NAVBAR -->
+          <!-- NAVBAR -->
+          <nav class="main navbar navbar-default" ng-show="isMainApp()" role="navigation">
             <div class="container-fluid">
               <!-- Brand and Toggle -->
               <div class="navbar-header">
@@ -119,14 +145,14 @@
           </nav><!-- END NAVBAR -->
         </header><!-- END HEADER -->
 
-        <div class="main">
+        <div class="main" ng-show="isLanding()">
           <!-- FEATURES -->
           <section class="features" id="anch-features">
             <div class="container">
               <!-- Section Header -->
               <div class="section-header">
-                <h2 class="section-title">Meet</h2>
-                <h3 class="section-subtitle">Lorem ipsum per fames turpis tempor elementum felis venenatis, odio vivamus sagittis massa platea</h3>
+                <h2 class="section-title">How it works</h2>
+                <h3 class="section-subtitle">Bla</h3>
               </div><!-- End Section Header -->
               <!-- Section Content -->
               <div class="r1 row">
@@ -179,10 +205,12 @@
           </section><!-- END FEATURES -->
         </div> <!-- END MAIN -->
 
-        {% block content %}{% endblock %}
+        <div ng-show="isMainApp()">
+          {% block content %}{% endblock %}
+        </div>
 
         <!-- FOOTER -->
-        <footer class="footer">
+        <footer class="footer" ng-show="isLanding()">
           <div class="container">
             <div class="r1 row">
               <div class="c1 col-md-12">
@@ -213,22 +241,25 @@
         </footer><!-- END FOOTER -->
         <a class="go-top" href="#anch-top"><i class="fa fa-chevron-up"></i></a>
       </div>
-    </div>
-</div> <!-- END LAYOUT -->
 
-<!--Embedding The User Object-->
-<script type="text/javascript">
-  var user = {{ user | json | safe }};
-</script>
+      <div ng-show="isDashboard()">
+        {% block content %}{% endblock %}
+      </div>
 
-<!--Application JavaScript Files-->
-{% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>
-{% endfor %}
+    </div> <!-- END LAYOUT -->
 
-{% if process.env.NODE_ENV === 'development' %}
-<!--Livereload script rendered -->
-<script type="text/javascript" src="https://localhost:35728/livereload.js"></script>
-{% endif %}
-</body>
+    <!--Embedding The User Object-->
+    <script type="text/javascript">
+      var user = {{ user | json | safe }};
+    </script>
 
+    <!--Application JavaScript Files-->
+    {% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>
+    {% endfor %}
+
+    {% if process.env.NODE_ENV === 'development' %}
+    <!--Livereload script rendered -->
+    <script type="text/javascript" src="https://localhost:35728/livereload.js"></script>
+    {% endif %}
+  </body>
 </html>
