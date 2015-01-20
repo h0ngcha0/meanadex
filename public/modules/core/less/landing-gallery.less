@@ -9,6 +9,7 @@ Component (line):
     - Thumbnail (30)
     - Modal (147)
 -------------------------------------------------------------------*/
+@import "variables.less";
 
 /********************************************************************
  1) GALLERY
@@ -73,7 +74,7 @@ Component (line):
 .gallery .link-modal:hover:before {
   width: 240px;
   height: 442px;
-  background-color: #333;
+  background-color: @faceColor;
   background-color: rgba(0,0,0,.3);
   opacity: 1;
 }
@@ -142,11 +143,4 @@ Component (line):
   color: #1d2b37;
   font-size: 16px;
   opacity: 0.5;
-}
-
-/* Modal */
-.gallery .blueimp-gallery>.prev,
-.gallery .blueimp-gallery>.next {
-  border: none;
-  background: none;
 }
