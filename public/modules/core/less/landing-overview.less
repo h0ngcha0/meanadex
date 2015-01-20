@@ -1,0 +1,373 @@
+/*------------------------------------------------------------------
+Project:  Mos7 - Responsive Bootstrap 3 App Landing Page Template
+Version:  1.3
+Last change:  29/12/2014
+Design by:  TemplatesPRO.com.br
+
+Component (line):
+1) OVERVIEW (21)
+    - Section Content (34)
+    - Tab 1 (52)
+    - Tab 2 (79)
+    - Tab 3 (106)
+    - Tab Content (119)
+    - Animation Images Tab 1 (206)
+    - Animation Images Tab 2 (277)
+    - Animation Images Tab 3 (305)
+    - Progress Bars (353)
+-------------------------------------------------------------------*/
+
+/********************************************************************
+ 1) OVERVIEW
+ **********/
+
+.overview {
+  padding: 50px 0 90px;
+  background-color: white;
+}
+.overview .section-header { margin-bottom: 60px; }
+@media (min-width: 768px) {
+  .overview .section-header { margin-bottom: 70px; }
+}
+.overview .tab-pane { padding: 40px 0 0; }
+
+/* Section Content */
+.overview .overview-wrapper {
+  position: relative;
+  padding: 0;
+}
+.overview .overview-wrapper + .overview-wrapper { margin-top: 30px; }
+.overview .overview-content {
+  padding-top: 0;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .overview .overview-content { padding-top: 60px; }
+}
+@media (min-width: 992px) {
+  .overview .overview-content {
+    font-size: 115%;
+  }
+}
+/* Tab 1 */
+.overview #overview-tab-1 .c1 { min-height: 290px; }
+@media (min-width: 390px) {
+  .overview #overview-tab-1 .c1 { min-height: 372px; }
+}
+@media (min-width: 768px) {
+  .overview #overview-tab-1 .c1 {
+    padding-left: 0;
+    min-height: 454px;
+  }
+}
+@media (min-width: 992px) {
+  .overview #overview-tab-1 .c1 { min-height: 516px; }
+}
+.overview #overview-tab-1 .c2 .overview-content { padding-top: 0; }
+@media (min-width: 768px) {
+  .overview #overview-tab-1 .c2 .overview-content {
+    padding-right: 20px;
+    text-align: right;
+  }
+}
+@media (min-width: 992px) {
+  .overview #overview-tab-1 .c2 .overview-content { padding-right: 50px; }
+}
+@media (min-width: 1200px) {
+  .overview #overview-tab-1 .c2 .overview-content { padding-right: 80px; }
+}
+/* Tab 2 */
+.overview #overview-tab-2 .c1 { min-height: 372px; }
+.overview #overview-tab-2 .c2 { margin: 30px 0; }
+@media (min-width: 768px) {
+  .overview #overview-tab-2 .c2 { margin: 0; }
+}
+@media (min-width: 768px) {
+  .overview #overview-tab-2 .c2 .overview-content {
+    padding-top: 0;
+    padding-right: 0;
+    text-align: right;
+  }
+}
+@media (min-width: 992px) {
+  .overview #overview-tab-2 .c2 .overview-content { padding-right: 80px; }
+}
+
+@media (min-width: 768px) {
+  .overview #overview-tab-2 .c3 .overview-content {
+    padding-top: 0;
+    padding-left: 0;
+    text-align: left;
+  }
+}
+@media (min-width: 992px) {
+  .overview #overview-tab-2 .c3 .overview-content { padding-left: 80px; }
+}
+/* Tab 3 */
+.overview #overview-tab-3 .c1 { min-height: 372px; }
+.overview #overview-tab-3 .c2 .overview-content { padding-top: 30px; }
+@media (min-width: 768px) {
+  .overview #overview-tab-3 .c1 { min-height: 454px; }
+  .overview #overview-tab-3 .c2 .overview-content {
+    padding-top: 0;
+    text-align: left;
+  }
+}
+@media (min-width: 992px) {
+  .overview #overview-tab-3 .c1 { min-height: 516px; }
+}
+/* Tab Content */
+.overview .title {
+  margin-top: 8px;
+  font-size: 1.8em;
+  color: #d9534f;
+}
+@media (min-width: 992px) {
+  .overview .title {  font-size: 2em; }
+}
+.overview .subtitle {
+  font-size: 70%;
+  font-weight: lighter;
+  color: #7a8691;
+}
+.overview .overview-icon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: auto;
+  margin: auto;
+  display: none;
+  width: 60px;
+  height: 60px;
+  font-size: 2.2em;
+  text-align: center;
+  color: #d9534f;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px #7a8691;
+  -webkit-transition: all 0.2s ease;
+     -moz-transition: all 0.2s ease;
+      -ms-transition: all 0.2s ease;
+       -o-transition: all 0.2s ease;
+          transition: all 0.2s ease;
+}
+@media (min-width: 768px) {
+  .overview .overview-icon { display: block; }
+}
+.overview .overview-wrapper:hover .overview-icon {
+  color: #fff;
+  background-color: #d9534f;
+  box-shadow: 0 0 0 1px #2b3e50;
+}
+.overview .overview-icon:after {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: -4px;
+  right: 0;
+  bottom: auto;
+  margin: auto;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px #7a8691;
+  opacity: 0;
+  -webkit-transform: scale(.8);
+     -moz-transform: scale(.8);
+      -ms-transform: scale(.8);
+       -o-transform: scale(.8);
+          transform: scale(.8);
+  -webkit-transition: all 0.2s ease;
+     -moz-transition: all 0.2s ease;
+      -ms-transition: all 0.2s ease;
+       -o-transition: all 0.2s ease;
+          transition: all 0.2s ease;
+}
+.overview .overview-wrapper:hover .overview-icon:after {
+  opacity: 1;
+  -webkit-transform: scale(1);
+     -moz-transform: scale(1);
+      -ms-transform: scale(1);
+       -o-transform: scale(1);
+          transform: scale(1);
+}
+@media (min-width: 768px) {
+  .overview .c1 .overview-icon {
+    left: auto;
+    right: 0;
+  }
+  .overview .c3 .overview-icon {
+    left: 0;
+    right: auto;
+  }
+}
+.overview .overview-icon .glyphicon { line-height: 60px; }
+
+/* Animation Images Tab 1 */
+.overview .img-perspective {
+  position: relative;
+  margin: 0 auto;
+  width: 270px;
+}
+@media (min-width: 390px) {
+  .overview .img-perspective { width: 360px; }
+}
+@media (min-width: 992px) {
+  .overview .img-perspective {
+    margin-top: 70px;
+    width: 100%;
+  }
+}
+@media (min-width: 1200px) {
+  .overview .img-perspective { margin-top: 0; }
+}
+.overview .img-1,
+.overview .img-2,
+.overview .img-3 {
+  position: absolute;
+  left: 10%;
+  margin-top: 10%;
+  width: 210px;
+  -webkit-transition: all 0.7s ease;
+     -moz-transition: all 0.7s ease;
+      -ms-transition: all 0.7s ease;
+       -o-transition: all 0.7s ease;
+          transition: all 0.7s ease;
+}
+@media (min-width: 390px) {
+  .overview .img-1,
+  .overview .img-2,
+  .overview .img-3 { width: 280px; }
+}
+@media (min-width: 992px) {
+  .overview .img-1,
+  .overview .img-2,
+  .overview .img-3 { width: 374px; }
+}
+@media (min-width: 1200px) {
+  .overview .img-1,
+  .overview .img-2,
+  .overview .img-3 { width: 400px; }
+}
+.overview .tab-pane.in .img-1 {
+  left: 0;
+  margin-top: 20%;
+}
+.overview .tab-pane.in .img-3 {
+  left: 20%;
+  margin-top: 0;
+}
+@media (min-width: 768px) {
+  .overview .img-1,
+  .overview .img-2,
+  .overview .img-3 { margin-top: 40%; }
+  .overview .tab-pane.in .img-1 { margin-top: 50%; }
+  .overview .tab-pane.in .img-2 { margin-top: 40%; }
+  .overview .tab-pane.in .img-3 { margin-top: 30%; }
+}
+@media (min-width: 992px) {
+  .overview .img-1,
+  .overview .img-2,
+  .overview .img-3 { margin-top: 10%; }
+  .overview .tab-pane.in .img-1 { margin-top: 20%; }
+  .overview .tab-pane.in .img-2 { margin-top: 10%; }
+  .overview .tab-pane.in .img-3 { margin-top: 0; }
+}
+
+/* Animation Images Tab 2 */
+.overview .img-wireframe { position: relative; }
+.overview .img-4,
+.overview .img-5 {
+  width: 180px;
+  -webkit-transition: all 0.7s ease;
+     -moz-transition: all 0.7s ease;
+      -ms-transition: all 0.7s ease;
+       -o-transition: all 0.7s ease;
+          transition: all 0.6s ease;
+
+}
+@media (min-width: 768px) {
+  .overview .img-4,
+  .overview .img-5 { width: 250px; }
+}
+.overview .img-5 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  margin: auto;
+}
+.overview .img-4,
+.overview .img-wireframe:hover .img-5 { opacity: 0; }
+.overview .img-5,
+.overview .img-wireframe:hover .img-4 { opacity: 1; }
+
+/* Animation Images Tab 3 */
+.overview .img-slide {
+  position: relative;
+  margin: 0 auto;
+  width: 300px;
+}
+@media (min-width: 390px) {
+  .overview .img-slide { width: 360px; }
+}
+@media (min-width: 992px) {
+  .overview .img-slide { width: 100%; }
+}
+.overview .img-6,
+.overview .img-7 {
+  position: absolute;
+  left: 35%;
+  -webkit-transition: all 0.7s ease;
+     -moz-transition: all 0.7s ease;
+      -ms-transition: all 0.7s ease;
+       -o-transition: all 0.7s ease;
+          transition: all 0.6s ease;
+}
+.overview .img-6 {
+  margin-top: 50px;
+  width: 130px;
+}
+.overview .img-7 { width: 180px; }
+.overview .tab-pane.in .img-6 { left: 5%; }
+@media (min-width: 390px) {
+  .overview .img-6,
+  .overview .img-7 { left: 40%;}
+  .overview .tab-pane.in .img-6 { left: 10%; }
+}
+@media (min-width: 768px) {
+  .overview .img-6 {
+    margin-top: 50px;
+    width: 150px;
+  }
+  .overview .img-7 { width: 200px; }
+}
+@media (min-width: 992px) {
+  .overview .img-6 {
+    margin-top: 50px;
+    width: 200px;
+  }
+  .overview .img-7 { width: 250px; }
+}
+
+/* Progress Bars */
+.overview #overview-tab-3 label>small { font-size: 110%; }
+.overview .progress-bar { width: 0; }
+.overview .tab-pane.in .progress-bar {
+  -webkit-transition: width 0.7s ease;
+     -moz-transition: width 0.7s ease;
+      -ms-transition: width 0.7s ease;
+       -o-transition: width 0.7s ease;
+          transition: width 0.7s ease;
+}
+.overview .tab-pane.in .progress-bar-10 { width:10%; }
+.overview .tab-pane.in .progress-bar-20 { width:20%; }
+.overview .tab-pane.in .progress-bar-30 { width:30%; }
+.overview .tab-pane.in .progress-bar-40 { width:40%; }
+.overview .tab-pane.in .progress-bar-50 { width:50%; }
+.overview .tab-pane.in .progress-bar-60 { width:60%; }
+.overview .tab-pane.in .progress-bar-70 { width:70%; }
+.overview .tab-pane.in .progress-bar-80 { width:80%; }
+.overview .tab-pane.in .progress-bar-90 { width:90%; }
+.overview .tab-pane.in .progress-bar-100 { width:100%; }
+.overview .progress-last { margin-bottom: 0; }

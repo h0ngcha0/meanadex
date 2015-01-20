@@ -14,7 +14,10 @@ Component (line):
  1) FEATURES
  **********/
 
-.features { padding: 50px 0 30px; }
+.features {
+  background-color: @faceColor;
+  padding: 50px 0 30px;
+}
 @media (min-width: 768px) {
   .features { padding: 50px 0 90px; }
 }
@@ -22,6 +25,20 @@ Component (line):
 @media (min-width: 768px) {
   .features .section-header { margin: 0 0 130px; }
 }
+
+.features .section-title {
+  color: @baseColor;
+  border-bottom: 1px solid @baseColor;
+}
+
+.features .section-subtitle {
+  color: white;
+}
+
+.features .section-subtitle::after {
+  background-color: white;
+}
+
 .features .c2,
 .features .c3,
 .features .c4 { margin-top: 30px; }
@@ -56,10 +73,10 @@ Component (line):
   width: 80px;
   height: 80px;
   font-size: 2.6em;
-  color: @baseColor;
-  background-color: @faceColor;
+  color: @faceColor;
+  background-color: @baseColor;
   border-radius: 50%;
-  box-shadow: 0 0 0 1px @baseColorDark;
+  box-shadow: 0 0 0 1px @faceColorDark;
   -webkit-transition: all 0.2s ease;
      -moz-transition: all 0.2s ease;
       -ms-transition: all 0.2s ease;
@@ -74,9 +91,9 @@ Component (line):
   }
 }
 .features .features-wrapper:hover .features-icon {
-  color: @faceColor;
-  background-color: @baseColor;
-  box-shadow: 0 0 0 1px @baseColorDark;
+  color: @baseColor;
+  background-color: @faceColor;
+  box-shadow: 0 0 0 1px @faceColorDark;
 }
 .features .features-icon:after {
   content: "";
@@ -88,7 +105,7 @@ Component (line):
   width: 88px;
   height: 88px;
   border-radius: 50%;
-  box-shadow: 0 0 0 4px @faceColor;
+  box-shadow: 0 0 0 4px @baseColor;
   opacity: 0;
   -webkit-transform: scale(.8);
      -moz-transform: scale(.8);
@@ -115,12 +132,18 @@ Component (line):
        -o-transform: scale(1);
           transform: scale(1);
 }
+
 .features .features-icon .glyphicon { line-height: 80px; }
 @media (min-width: 768px) {
   .features .features-icon .glyphicon { line-height: 100px; }
 }
+
 .features .features-content .title {
   margin-top: 8px;
   font-size: 2em;
-  color: @faceColor;
+  color: @baseColor;
+}
+
+.features .features-content .description {
+  color: white;
 }
