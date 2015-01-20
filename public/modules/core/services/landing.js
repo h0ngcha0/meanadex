@@ -112,86 +112,6 @@ $(document).ready(function () {
   bgSlideshow();
   $(window).on('load', bgSlideshow);
 
-  /* Component Stats */
-//  function bgStats() {
-//    var imgStats = new Image();
-//    imgStats.src = $(".stats").css("background-image").replace(/"/g,"").replace(/url\(|\)$/ig, "");
-//
-//    var imgWidth = imgStats.width;
-//    var imgHeight = imgStats.height;
-//    var widthStats = $(".stats").width();
-//    var heightStats = $(".stats").height();
-//    /* Step 1 - Get the ratio of the div + the image */
-//    var imgRatio = imgWidth/imgHeight;
-//    var divRatio = widthStats/heightStats;
-//
-//    /* Step 2 - Work out which ratio is greater */
-//    if (imgRatio >= divRatio) {
-//      /* The Height is our constant */
-//      var divHeight = heightStats;
-//      var scale = (divHeight / imgHeight);
-//      var divWidth = imgWidth * scale;
-//      if (navigator.userAgent.match(/iPhone/i)) {
-//        var cover = divWidth * 1.3 + 'px ' + divHeight * 1.3 + 'px';
-//        $(".stats").css('background-size', cover);
-//      } else if (navigator.userAgent.match(/iPad/i)) {
-//        var cover = divWidth * 2.4 + 'px ' + divHeight * 2.4 + 'px';
-//        $(".stats").css('background-size', cover);
-//      }
-//    } else {
-//      /* The Width is our constant */
-//      var divWidth = widthStats;
-//      var scale = (divWidth / imgWidth);
-//      var divHeight = imgHeight * scale;
-//      if (navigator.userAgent.match(/iPad/i)) {
-//        var cover = divWidth * 1.7 + 'px ' + divHeight * 1.7 + 'px';
-//        $(".stats").css('background-size', cover);
-//      }
-//    }
-//  }
-//  bgStats();
-//  $(window).on('load', bgStats);
-
-  /* Component Call to Action */
-//  function bgCalltoaction() {
-//    var imgCalltoaction = new Image();
-//    imgCalltoaction.src = $(".calltoaction").css("background-image").replace(/"/g,"").replace(/url\(|\)$/ig, "");
-//
-//    var imgWidth = imgCalltoaction.width;
-//    var imgHeight = imgCalltoaction.height;
-//    var widthCalltoaction = $(".calltoaction").width();
-//    var heightCalltoaction = $(".calltoaction").height();
-//    /* Step 1 - Get the ratio of the div + the image */
-//    var imgRatio = imgWidth/imgHeight;
-//    var divRatio = widthCalltoaction/heightCalltoaction;
-//
-//    /* Step 2 - Work out which ratio is greater */
-//    if (imgRatio >= divRatio) {
-//      /* The Height is our constant */
-//      var divHeight = heightCalltoaction;
-//      var scale = (divHeight / imgHeight);
-//      var divWidth = imgWidth * scale;
-//      if (navigator.userAgent.match(/iPhone/i)) {
-//        var cover = divWidth * 1.3 + 'px ' + divHeight * 1.3 + 'px';
-//        $(".calltoaction").css('background-size', cover);
-//      } else if (navigator.userAgent.match(/iPad/i)) {
-//        var cover = divWidth * 2.4 + 'px ' + divHeight * 2.4 + 'px';
-//        $(".calltoaction").css('background-size', cover);
-//      }
-//    } else {
-//      /* The Width is our constant */
-//      var divWidth = widthCalltoaction;
-//      var scale = (divWidth / imgWidth);
-//      var divHeight = imgHeight * scale;
-//      if (navigator.userAgent.match(/iPad/i)) {
-//        var cover = divWidth * 1.7 + 'px ' + divHeight * 1.7 + 'px';
-//        $(".calltoaction").css('background-size', cover);
-//      }
-//    }
-//  }
-//  bgCalltoaction();
-//  $(window).on('load', bgCalltoaction);
-
   /********************************************************************
    5) Component Slideshow - Carousel
    *********************************/
@@ -224,29 +144,29 @@ $(document).ready(function () {
   /********************************************************************
    8) Component Gallery - Carousel
    *******************************/
-//  $('#gallery-carousel-1').slick({
-//    dots: true,
-//    infinite: true,
-//    speed: 700,
-//    slidesToShow: 4,
-//    slidesToScroll: 4,
-//    responsive: [
-//      {
-//        breakpoint: 992,
-//        settings: {
-//          slidesToShow: 3,
-//          slidesToScroll: 3
-//        }
-//      },
-//      {
-//        breakpoint: 768,
-//        settings: {
-//          slidesToShow: 1,
-//          slidesToScroll: 1
-//        }
-//      }
-//    ]
-//  });
+  $('#gallery-carousel-1').slick({
+    dots: true,
+    infinite: true,
+    speed: 700,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    responsive: [
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  });
 
   /********************************************************************
    9) Component Testimonials - Carousel
