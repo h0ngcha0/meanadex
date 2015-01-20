@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 var _ = require('lodash'),
+    path = require('path'),
     errorHandler = require('../errors'),
     mongoose = require('mongoose'),
     User = mongoose.model('User');
@@ -47,5 +48,10 @@ exports.update = function(req, res) {
  * Send User
  */
 exports.me = function(req, res) {
-  res.jsonp(req.user || null);
+  if (req.user.id !== path.basename(req.path)) {
+    return res.status(403).send('User is not authorized');
+  }
+  else {
+    res.jsonp(req.user || null);
+  }
 };
