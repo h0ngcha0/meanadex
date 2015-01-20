@@ -55,7 +55,7 @@
       <!-- Preloader -->
       <div id="preloader">
         <div id="status"></div>
-      </div><!-- End Preloader -->
+      </div>
       <!-- Layout -->
       <div ng-show="isLanding() || isMainApp()">
         <header>
@@ -205,8 +205,12 @@
           </section><!-- END FEATURES -->
         </div> <!-- END MAIN -->
 
-        <div ng-show="isMainApp()">
+        <div class="main-app" ng-show="isMainApp()">
+          <!--FIXME: this is a hack-->
+          <br/><br/><br/><br/><br/>
+          <div class="container-fluid">
           {% block content %}{% endblock %}
+          </div>
         </div>
 
         <!-- FOOTER -->
