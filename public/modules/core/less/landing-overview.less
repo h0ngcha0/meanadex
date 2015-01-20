@@ -16,6 +16,7 @@ Component (line):
     - Animation Images Tab 3 (305)
     - Progress Bars (353)
 -------------------------------------------------------------------*/
+@import "variables.less";
 
 /********************************************************************
  1) OVERVIEW
@@ -120,7 +121,7 @@ Component (line):
 .overview .title {
   margin-top: 8px;
   font-size: 1.8em;
-  color: #d9534f;
+  color: @faceColor;
 }
 @media (min-width: 992px) {
   .overview .title {  font-size: 2em; }
@@ -142,7 +143,8 @@ Component (line):
   height: 60px;
   font-size: 2.2em;
   text-align: center;
-  color: #d9534f;
+  color: @baseColor;
+  background-color: @faceColor;
   border-radius: 50%;
   box-shadow: 0 0 0 1px #7a8691;
   -webkit-transition: all 0.2s ease;
@@ -155,9 +157,9 @@ Component (line):
   .overview .overview-icon { display: block; }
 }
 .overview .overview-wrapper:hover .overview-icon {
-  color: #fff;
-  background-color: #d9534f;
-  box-shadow: 0 0 0 1px #2b3e50;
+  color: @faceColor;
+  background-color: @baseColor;
+  box-shadow: 0 0 0 1px @baseColor;
 }
 .overview .overview-icon:after {
   content: "";
