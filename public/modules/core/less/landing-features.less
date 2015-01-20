@@ -8,6 +8,7 @@ Component (line):
 1) FEATURES (13)
     - Section Content (48)
 -------------------------------------------------------------------*/
+@import "variables.less";
 
 /********************************************************************
  1) FEATURES
@@ -55,9 +56,10 @@ Component (line):
   width: 80px;
   height: 80px;
   font-size: 2.6em;
-  color: #d9534f;
+  color: @baseColor;
+  background-color: @faceColor;
   border-radius: 50%;
-  box-shadow: 0 0 0 1px #7a8691;
+  box-shadow: 0 0 0 1px @baseColorDark;
   -webkit-transition: all 0.2s ease;
      -moz-transition: all 0.2s ease;
       -ms-transition: all 0.2s ease;
@@ -72,9 +74,9 @@ Component (line):
   }
 }
 .features .features-wrapper:hover .features-icon {
-  color: #fff;
-  background-color: #d9534f;
-  box-shadow: 0 0 0 1px #2b3e50;
+  color: @faceColor;
+  background-color: @baseColor;
+  box-shadow: 0 0 0 1px @baseColorDark;
 }
 .features .features-icon:after {
   content: "";
@@ -86,7 +88,7 @@ Component (line):
   width: 88px;
   height: 88px;
   border-radius: 50%;
-  box-shadow: 0 0 0 4px #7a8691;
+  box-shadow: 0 0 0 4px @faceColor;
   opacity: 0;
   -webkit-transform: scale(.8);
      -moz-transform: scale(.8);
@@ -120,5 +122,5 @@ Component (line):
 .features .features-content .title {
   margin-top: 8px;
   font-size: 2em;
-  color: #d9534f;
+  color: @faceColor;
 }

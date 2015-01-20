@@ -57,7 +57,7 @@
         <div id="status"></div>
       </div>
       <!-- Layout -->
-      <div ng-show="isLanding() || isMainApp()">
+      <div ng-show="isLanding() || isMainApp()" class="main-app">
         <header>
           <!-- SLIDESHOW -->
           <section class="slideshow" ng-show="isLanding()">
@@ -91,17 +91,11 @@
               </div>
             </div>
           </section><!-- END SLIDESHOW -->
-          <!-- NAVBAR -->
+          <!-- NAVBAR for landing -->
           <nav class="landing navbar navbar-default" ng-show="isLanding()" role="navigation">
             <div class="container-fluid">
               <!-- Brand and Toggle -->
               <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                </button>
                 <a class="navbar-brand" href="#anch-top"><span>Monadex</span></a>
               </div><!-- End Brand and Toggle -->
               <!-- Menu -->
@@ -111,23 +105,17 @@
                     <a href="#anch-top">Home</a>
                   </li>
                   <li>
-                    <a href="#anch-features">Features</a>
+                    <a href="#anch-features">How</a>
                   </li>
                 </ul>
               </div><!-- End Menu -->
             </div>
           </nav><!-- END NAVBAR -->
-          <!-- NAVBAR -->
+          <!-- NAVBAR for main app-->
           <nav class="main navbar navbar-default" ng-show="isMainApp()" role="navigation">
             <div class="container-fluid">
               <!-- Brand and Toggle -->
               <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                </button>
                 <a class="navbar-brand" href="#!/landing"><span>Monadex</span></a>
               </div><!-- End Brand and Toggle -->
             </div>
@@ -141,60 +129,61 @@
               <!-- Section Header -->
               <div class="section-header">
                 <h2 class="section-title">How it works</h2>
-                <h3 class="section-subtitle">Bla</h3>
               </div><!-- End Section Header -->
               <!-- Section Content -->
               <div class="r1 row">
                 <!-- Block 1 -->
-                <div class="c1 col-sm-6 col-md-3 animateblock ltr-2 speed-2">
+                <div class="c1 col-sm-6 col-md-4 animateblock ltr-2 speed-2">
                   <div class="features-wrapper">
-                    <div class="features-icon"><span class="glyphicon glyphicon-tint"></span>
+                    <div class="features-icon"><span class="glyphicon glyphicon-edit"></span>
                     </div>
                     <div class="features-content">
-                      <h3 class="title">Clean & Simple Design</h3>
-                      <p class="description">Lorem ipsum consectetur ultrices ac facilisis est neque fames, eget vel libero egestas viverra lacinia facilisis, augue dictum curabitur inceptos potenti justo fusce.</p>
+                      <h3 class="title">Design</h3>
+                      <p class="description">
+                        Design your tshirts with texts and thousands of built-in
+                        images. You can even upload your own artwork.
+                      </p>
                     </div>
                   </div>
                 </div><!-- End Block 1 -->
                 <!-- Block 2 -->
-                <div class="c2 col-sm-6 col-md-3 animateblock ltr-1 speed-1">
+                <div class="c2 col-sm-6 col-md-4 animateblock ltr-1 speed-1">
                   <div class="features-wrapper">
-                    <div class="features-icon"><span class="glyphicon glyphicon-fullscreen"></span>
+                    <div class="features-icon"><span class="glyphicon glyphicon-check"></span>
                     </div>
                     <div class="features-content">
-                      <h3 class="title">Fully Responsive</h3>
-                      <p class="description">Lorem ipsum consectetur ultrices ac facilisis est neque fames, eget vel libero egestas viverra lacinia facilisis, augue dictum curabitur inceptos potenti justo fusce.</p>
+                      <h3 class="title">Set a goal</h3>
+                      <p class="description">
+                        Set a price and sales goal for your
+                        tshirt. No upfront cost, no guessing of
+                        demands. We will print and ship your tshirt to
+                        your customers if the goal is reached.
+                      </p>
                     </div>
                   </div>
                 </div><!-- End Block 2 -->
                 <!-- Block 3 -->
-                <div class="c3 col-sm-6 col-md-3 animateblock rtl-1 speed-1">
+                <div class="c3 col-sm-6 col-md-4 animateblock rtl-1 speed-1">
                   <div class="features-wrapper">
-                    <div class="features-icon"><span class="glyphicon glyphicon-flag"></span>
+                    <div class="features-icon"><span class="glyphicon glyphicon-thumbs-up"></span>
                     </div>
                     <div class="features-content">
-                      <h3 class="title">Crossbrowser Compatible</h3>
-                      <p class="description">Lorem ipsum consectetur ultrices ac facilisis est neque fames, eget vel libero egestas viverra lacinia facilisis, augue dictum curabitur inceptos potenti justo fusce.</p>
+                      <h3 class="title">Ready to sell!</h3>
+                      <p class="description">
+                        It is ready to sell! Share your tshirt on your social
+                        network or your website and let the world know
+                        how awesome a designer you are. We will transfer the
+                        profit directly to your account.
+                      </p>
                     </div>
                   </div>
                 </div><!-- End Block 3 -->
-                <!-- Block 4 -->
-                <div class="c4 col-sm-6 col-md-3 animateblock rtl-2 speed-2">
-                  <div class="features-wrapper">
-                    <div class="features-icon"><span class="glyphicon glyphicon-gift"></span>
-                    </div>
-                    <div class="features-content">
-                      <h3 class="title">Over 670 Font Icons</h3>
-                      <p class="description">Lorem ipsum consectetur ultrices ac facilisis est neque fames, eget vel libero egestas viverra lacinia facilisis, augue dictum curabitur inceptos potenti justo fusce.</p>
-                    </div>
-                  </div>
-                </div><!-- End Block 4 -->
               </div><!-- End Section Content -->
             </div>
           </section><!-- END FEATURES -->
         </div> <!-- END MAIN -->
 
-        <div class="main-app" ng-show="isMainApp()">
+        <div data-ng-show="isMainApp()">
           <!--FIXME: this is a hack-->
           <br/><br/><br/><br/><br/>
           <div class="container-fluid">
@@ -203,7 +192,7 @@
         </div>
 
         <!-- FOOTER -->
-        <footer class="footer" ng-show="isLanding()">
+        <footer class="footer">
           <div class="container">
             <div class="r1 row">
               <div class="c1 col-md-12">
