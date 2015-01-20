@@ -36,8 +36,7 @@ angular.module('auth').controller('AuthSignupController', [
         },
         function (error) {
           Session.destroySession();
-          $state.go('auth.error', error);
-          // $scope.error = error.error_description;
+          $scope.error = error.error_description;
         }
       );
     };

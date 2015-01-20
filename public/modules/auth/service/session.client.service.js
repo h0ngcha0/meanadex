@@ -7,9 +7,9 @@
 angular.module('auth').factory('Session',
   [
     'SessionState', 'AccessToken', '$rootScope', '$log', '$q', '$state',
-    'User', 'RefreshManager', 'Notification', 'Severity',
+    'User', 'RefreshManager', 'Notification', 'Severity', '$stateParams',
     function (SessionState, AccessToken, $rootScope, $log, $q, $state, User,
-      RefreshManager, Notification, Severity) {
+      RefreshManager, Notification, Severity, $stateParams) {
 
       /**
        * The current session state.
@@ -90,7 +90,9 @@ angular.module('auth').factory('Session',
       function destroySession() {
         AccessToken.clear();
         updateSessionState(SessionState.LOGGED_OUT);
-        $state.reload();
+        $state.transitionTo($state.current, $stateParams, {
+          reload: false, inherit: false, notify: true
+        });
       }
 
       /**
