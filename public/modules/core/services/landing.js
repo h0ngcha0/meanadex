@@ -1,76 +1,50 @@
-/*------------------------------------------------------------------
-Project:  Mos7 - Responsive Bootstrap 3 App Landing Page Template
-Version:  1.3
-Last change:  29/12/2014
-Design by:  TemplatesPRO.com.br
-
-Script (line):
-- WINDOW.LOAD (32)
-  1) Preloader (36)
-
-- DOCUMENT.READY (44)
-  2) Scrollbar (48)
-  3) Slideshow Heigth (69)
-  4) Background-size iOS - fix (80)
-    - Component Slideshow (82)
-    - Component Stats (115)
-    - Component Call to Action (155)
-  5) Component Slideshow - Carousel (196)
-  6) Navbar Fixed to Top (203)
-  7) ScrollTo - Navigation (212)
-  8) Component Gallery - Carousel (225)
-  9) Component Testimonials - Carousel (252)
-  10) Animations and Component Stats - Circle Stats (259)
-  11) Component Contact - Send Ajax (366)
-  12) Social Buttons - Tooltips (420)
-
-- WINDOW.SCROLL (427)
-  13) Parallax Effect (431)
-  14) Go Top - Scroll (441)
--------------------------------------------------------------------*/
+'use strict';
 
 $(window).load(function () {
-  "use strict";
 
   /********************************************************************
    1) Preloader
    ************/
-  $("#status").fadeOut(); // will first fade out the loading animation
-  $("#preloader").delay(350).fadeOut("slow"); // will fade out the white DIV that covers the website.
+  // will first fade out the loading animation
+  $('#status').fadeOut();
+
+  // will fade out the white DIV that covers the website.
+  $('#preloader')
+    .delay(350)
+    .fadeOut('slow');
 
 });
 
 
 $(document).ready(function () {
-  "use strict";
 
   /********************************************************************
    2) ScrollBar
    ************/
-//  $("html").niceScroll({
-//    cursorcolor: "#777",
-//    cursoropacitymax: 0.7,
-//    cursorwidth: "9",
-//    cursorborder: "none",
-//    cursorborderradius: "10px",
-//    background: "#ccc",
-//    zindex: "9999999",
-//    touchbehavior: false
-//  });
+  $('html').niceScroll({
+    cursorcolor: '#777',
+    cursoropacitymax: 0.7,
+    cursorwidth: '9',
+    cursorborder: 'none',
+    cursorborderradius: '10px',
+    background: '#ccc',
+    zindex: '9999999',
+    touchbehavior: false
+  });
 
-//  $('#contact-collapse-1').on('hidden.bs.collapse', function () {
-//    $("html").getNiceScroll().resize();
-//  })
-//  $('#contact-collapse-1').on('shown.bs.collapse', function () {
-//    $("html").getNiceScroll().resize();
-//  })
+  $('#contact-collapse-1').on('hidden.bs.collapse', function () {
+    $('html').getNiceScroll().resize();
+  })
+  $('#contact-collapse-1').on('shown.bs.collapse', function () {
+    $('html').getNiceScroll().resize();
+  })
 
   /********************************************************************
    3) Slideshow Heigth
    *******************/
   function maxHeight() {
     var slideshowheight = $(window).height();
-    $(".slideshow .item").css('min-height', slideshowheight - 46);
+    $('.slideshow .item').css('min-height', slideshowheight - 46);
   }
 
   maxHeight();
@@ -82,12 +56,12 @@ $(document).ready(function () {
   /* Component Slideshow */
   function bgSlideshow() {
     var imgSlideshow = new Image();
-    imgSlideshow.src = $(".slideshow .item").css("background-image").replace(/"/g,"").replace(/url\(|\)$/ig, "");
+    imgSlideshow.src = $('.slideshow .item').css('background-image').replace(/'/g,'').replace(/url\(|\)$/ig, '');
 
     var imgWidth = imgSlideshow.width;
     var imgHeight = imgSlideshow.height;
-    var widthSlideshow = $(".slideshow .item").width();
-    var heightSlideshow = $(".slideshow .item").height();
+    var widthSlideshow = $('.slideshow .item').width();
+    var heightSlideshow = $('.slideshow .item').height();
     /* Step 1 - Get the ratio of the div + the image */
     var imgRatio = imgWidth/imgHeight;
     var divRatio = widthSlideshow/heightSlideshow;
@@ -106,7 +80,7 @@ $(document).ready(function () {
     }
     var cover = divWidth + 'px ' + divHeight + 'px';
     if (navigator.userAgent.match(/iPhone|iPad/i)) {
-      $(".slideshow .item").css('background-size', cover);
+      $('.slideshow .item').css('background-size', cover);
     }
   }
   bgSlideshow();
@@ -276,7 +250,7 @@ $(document).ready(function () {
     } // end animate_elems()
 
     $(window).scroll(function () {
-      $("html").getNiceScroll().resize();
+      $('html').getNiceScroll().resize();
       animate_elems();
     });
 
@@ -285,55 +259,11 @@ $(document).ready(function () {
   /********************************************************************
    11) Component Contact - Send Ajax
    *********************************/
-//  $(".submit-form").on('click', function () {
-//    var proceed = true;
-//    //simple validation at client's end
-//    //loop through each field and we simply change border color to red for invalid fields
-//    $(".contact-form input[required=true], .contact-form textarea[required=true]").each(function () {
-//      $(this).css('border-color', '');
-//      if (!$.trim($(this).val())) { //if this field is empty
-//        $(this).css('border-color', '#d9534f'); //change border color to red
-//        proceed = false; //set do not proceed flag
-//      }
-//      //check invalid email
-//      var email_reg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-//      if ($(this).attr("type") === "email" && !email_reg.test($.trim($(this).val()))) {
-//        $(this).css('border-color', '#d9534f'); //change border color to red
-//        proceed = false; //set do not proceed flag
-//      }
-//    });
-//
-//    if (proceed) { //everything looks good! proceed...
-//      //get input field values data to be sent to server
-//      var post_data = {
-//        'user_fname'     : $('input[name=fname]').val(),
-//        'user_lname'     : $('input[name=lname]').val(),
-//        'user_email'     : $('input[name=email]').val(),
-//        'user_phone'     : $('input[name=phone]').val(),
-//        'user_company'   : $('input[name=company]').val(),
-//        'user_website'   : $('input[name=website]').val(),
-//        'subject'        : $('input[name=subject]').val(),
-//        'msg'            : $('textarea[name=message]').val()
-//      };
-//
-//      //Ajax post data to server
-//      $.post('contact.php', post_data, function (response) {
-//        if (response.type === 'error') { //load json data from server and output message
-//          var output = '<div class="alert alert-danger alert-dismissible" role="alert"><button class="close" data-dismiss="alert" type="button"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><strong>Error:&nbsp;&nbsp;</strong>' + response.text + '</div>';
-//        } else {
-//          var output = '<div class="alert alert-success alert-dismissible" role="alert"><button class="close" data-dismiss="alert" type="button"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><strong>Success!&nbsp;&nbsp;</strong>' + response.text + '</div>';
-//          //reset values in all input fields
-//          $(".contact-form input, .contact-form textarea").val('');
-//        }
-//        $(".alerts").hide().html(output).slideDown();
-//      }, 'json');
-//    }
-//  });
 
   //reset previously set border colors and hide all message on .keyup()
-  $(".contact-form input[required=true], .contact-form textarea[required=true]").keyup(function () {
+  $('.contact-form input[required=true], .contact-form textarea[required=true]').keyup(function () {
     $(this).css('border-color', '');
-    $(".slideshow .item").slideUp();
+    $('.slideshow .item').slideUp();
   });
 
   /********************************************************************
@@ -345,7 +275,6 @@ $(document).ready(function () {
 
 
 $(window).scroll(function () {
-  "use strict";
 
   /********************************************************************
    13) Parallax Effect
