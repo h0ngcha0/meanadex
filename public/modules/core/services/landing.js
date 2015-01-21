@@ -8,10 +8,10 @@ $(window).load(function () {
    1) Preloader
    ************/
   // will first fade out the loading animation
-  $('#status').fadeOut();
+  $('div.preloader-status').fadeOut();
 
   // will fade out the white DIV that covers the website.
-  $('#preloader')
+  $('div.preloader')
     .delay(350)
     .fadeOut('slow');
 

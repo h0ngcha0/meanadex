@@ -50,73 +50,38 @@ Component (line):
     font-size: 115%;
   }
 }
-/* Tab 1 */
-.overview #overview-tab-1 .c1 { min-height: 290px; }
-@media (min-width: 390px) {
-  .overview #overview-tab-1 .c1 { min-height: 372px; }
-}
-@media (min-width: 768px) {
-  .overview #overview-tab-1 .c1 {
-    padding-left: 0;
-    min-height: 454px;
-  }
-}
-@media (min-width: 992px) {
-  .overview #overview-tab-1 .c1 { min-height: 516px; }
-}
-.overview #overview-tab-1 .c2 .overview-content { padding-top: 0; }
-@media (min-width: 768px) {
-  .overview #overview-tab-1 .c2 .overview-content {
-    padding-right: 20px;
-    text-align: right;
-  }
-}
-@media (min-width: 992px) {
-  .overview #overview-tab-1 .c2 .overview-content { padding-right: 50px; }
-}
-@media (min-width: 1200px) {
-  .overview #overview-tab-1 .c2 .overview-content { padding-right: 80px; }
-}
+
 /* Tab 2 */
-.overview #overview-tab-2 .c1 { min-height: 372px; }
-.overview #overview-tab-2 .c2 { margin: 30px 0; }
+.overview .overview-tab-2 .c1 { min-height: 372px; }
+.overview .overview-tab-2 .c2 { margin: 30px 0; }
+
 @media (min-width: 768px) {
-  .overview #overview-tab-2 .c2 { margin: 0; }
+  .overview .overview-tab-2 .c2 { margin: 0; }
 }
+
 @media (min-width: 768px) {
-  .overview #overview-tab-2 .c2 .overview-content {
+  .overview .overview-tab-2 .c2 .overview-content {
     padding-top: 0;
     padding-right: 0;
     text-align: right;
   }
 }
 @media (min-width: 992px) {
-  .overview #overview-tab-2 .c2 .overview-content { padding-right: 80px; }
+  .overview .overview-tab-2 .c2 .overview-content { padding-right: 80px; }
 }
 
 @media (min-width: 768px) {
-  .overview #overview-tab-2 .c3 .overview-content {
+  .overview .overview-tab-2 .c3 .overview-content {
     padding-top: 0;
     padding-left: 0;
     text-align: left;
   }
 }
+
 @media (min-width: 992px) {
-  .overview #overview-tab-2 .c3 .overview-content { padding-left: 80px; }
+  .overview .overview-tab-2 .c3 .overview-content { padding-left: 80px; }
 }
-/* Tab 3 */
-.overview #overview-tab-3 .c1 { min-height: 372px; }
-.overview #overview-tab-3 .c2 .overview-content { padding-top: 30px; }
-@media (min-width: 768px) {
-  .overview #overview-tab-3 .c1 { min-height: 454px; }
-  .overview #overview-tab-3 .c2 .overview-content {
-    padding-top: 0;
-    text-align: left;
-  }
-}
-@media (min-width: 992px) {
-  .overview #overview-tab-3 .c1 { min-height: 516px; }
-}
+
 /* Tab Content */
 .overview .title {
   margin-top: 8px;
@@ -353,7 +318,6 @@ Component (line):
 }
 
 /* Progress Bars */
-.overview #overview-tab-3 label>small { font-size: 110%; }
 .overview .progress-bar { width: 0; }
 .overview .tab-pane.in .progress-bar {
   -webkit-transition: width 0.7s ease;
