@@ -23,7 +23,8 @@ module.exports = {
         'public/lib/nvd3/nv.d3.css',
         'public/lib/angular-rangeslider/angular.rangeSlider.css',
         'public/lib/ng-tags-input/ng-tags-input.css',
-        'public/lib/angular-motion/dist/angular-motion.css'
+        'public/lib/angular-motion/dist/angular-motion.css',
+        'public/lib/slick-carousel/slick/slick.css'
       ],
       js: [
         'public/lib/jquery/jquery.js',
@@ -58,7 +59,9 @@ module.exports = {
         'public/lib/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js',
         'public/lib/bootstrap-autohidingnavbar/dist/jquery.bootstrap-autohidingnavbar.js',
         'public/lib/ng-tags-input/ng-tags-input.js',
-        'public/lib/angular-breadcrumb/dist/angular-breadcrumb.js'
+        'public/lib/angular-breadcrumb/dist/angular-breadcrumb.js',
+        'public/lib/jquery-nicescroll/jquery.nicescroll.js',
+        'public/lib/slick-carousel/slick/slick.js'
       ]
     },
     css: [

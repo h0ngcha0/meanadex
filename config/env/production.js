@@ -22,7 +22,8 @@ module.exports = {
         'public/lib/nvd3/nv.d3.min.css',
         'public/lib/angular-rangeslider/angular.rangeSlider.css',
         'public/lib/ng-tags-input/ng-tags-input.min.css',
-        'public/lib/angular-motion/dist/angular-motion.min.css'
+        'public/lib/angular-motion/dist/angular-motion.min.css',
+        'public/lib/slick-carousel/slick/slick.css'
       ],
       js: [
         'public/lib/jquery/jquery.min.js',
@@ -57,7 +58,9 @@ module.exports = {
         'public/lib/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.min.js',
         'public/lib/bootstrap-autohidingnavbar/dist/jquery.bootstrap-autohidingnavbar.min.js',
         'public/lib/ng-tags-input/ng-tags-input.min.js',
-        'public/lib/angular-breadcrumb/dist/angular-breadcrumb.min.js'
+        'public/lib/angular-breadcrumb/dist/angular-breadcrumb.min.js',
+        'public/lib/jquery-nicescroll/jquery.nicescroll.min.js',
+        'public/lib/slick-carousel/slick/slick.min.js'
       ]
     },
     css: 'public/dist/application.min.css',

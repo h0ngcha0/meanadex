@@ -26,9 +26,18 @@ angular.module('core').controller('HeaderController', [
      */
     $scope.currentUser = null;
 
-    $scope.isActive = function() {
+    $scope.isDashboard = function() {
       var active = /^\/dashboard/.test($location.path());
       return active;
+    };
+
+    $scope.isLanding = function() {
+      var active = /^\/landing/.test($location.path());
+      return active;
+    };
+
+    $scope.isMainApp = function() {
+      return !$scope.isDashboard() && !$scope.isLanding();
     };
 
     $('div.navbar-fixed-top').autoHidingNavbar({

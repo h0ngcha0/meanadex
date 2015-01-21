@@ -1,0 +1,66 @@
+@import "variables.less";
+
+/********************************************************************
+ 1) CONTACT
+ *********/
+
+.contact { padding-top: 50px; }
+.contact .container-fluid .c1 { padding: 0; }
+
+/* Section Content */
+.contact .collapse {
+  display: block;
+  height: 1px !important;
+  background-color: #2b3e50;
+}
+.contact .collapse .panel-body { display: none; }
+.contact .collapsing .panel-body { padding: 0; }
+.contact .collapse.in {
+  display: block;
+  height: auto !important;
+  background-color: #2b3e50;
+}
+.contact .collapse.in .panel-body {
+  padding: 0;
+  display: block;
+}
+@media (min-width: 992px) {
+  .contact .collapse {
+    display: none;
+    height: 0 !important;
+  }
+}
+
+/* Form */
+.contact .r1 .c2,
+.contact .r2 .c2,
+.contact .r3 .c2,
+.contact .r3 .c3,
+.contact .r4 .c2 { margin-top: 15px; }
+@media (min-width: 768px) {
+  .contact .r1 .c2,
+  .contact .r2 .c2,
+  .contact .r3 .c2,
+  .contact .r3 .c3,
+  .contact .r4 .c2 { margin-top: 0; }
+}
+.contact .section-header { margin-bottom: 120px; }
+.contact .alert { margin: 40px 0 -20px; }
+.contact .alerts-xs .alert { margin: 0; }
+.contact .contact-form { margin-top: 40px; }
+.contact legend { display: none; }
+.contact .btn {
+  display: block;
+  margin:0 auto 10px;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .contact .btn { width: auto; }
+}
+.contact .btn:before {
+  content: "\e171";
+  position: relative;
+  top: 2px;
+  margin-right: 10px;
+  font-family: 'Glyphicons Halflings';
+}
