@@ -1,18 +1,18 @@
 'use strict';
 
 module.exports = function(app) {
-  var users = require('../../app/controllers/users');
+  var oauth2 = require('../../app/controllers/oauth2');
   var campaigns = require('../../app/controllers/campaigns');
 
   // Campaigns Routes
   app.route('/campaigns')
-  .get(users.requiresLogin, campaigns.list)
-  .post(users.requiresLogin, campaigns.create);
+  .get(oauth2.authorise, campaigns.list)
+  .post(oauth2.authorise, campaigns.create);
 
   app.route('/campaigns/:campaignId')
   .get(campaigns.read)
-  .put(users.requiresLogin, campaigns.hasAuthorization, campaigns.update)
-  .delete(users.requiresLogin, campaigns.hasAuthorization, campaigns.delete);
+  .post(oauth2.authorise, campaigns.hasAuthorization, campaigns.update)
+  .delete(oauth2.authorise, campaigns.hasAuthorization, campaigns.delete);
 
   app.route('/campaign/url').get(campaigns.url);
 

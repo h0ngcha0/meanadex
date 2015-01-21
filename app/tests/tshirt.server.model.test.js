@@ -19,13 +19,10 @@ var user, tshirt;
  */
 describe('Tshirt Model Currency Tests:', function() {
   beforeEach(function(done) {
-    var user = new User({
-      firstName: 'Full',
-      lastName: 'Name',
-      displayName: 'Full Name',
-      email: 'test@test.com',
-      username: 'username',
-      password: 'password'
+    user = new User({
+      username: 'test@test.com',
+      password: 'password',
+      provider: 'local'
     });
 
     var frontImg = new Img({

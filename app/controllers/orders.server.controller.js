@@ -73,7 +73,7 @@ exports.create = function(req, res) {
     res.render(
       'templates/order-finish-confirm-email',
       {
-        name: req.user.displayName,
+        name: req.user.username,
         appName: config.app.title,
         campaign_name: orderReq.description,
         campaign_url: urlPrefix + '/#!/campaigns/' + orderReq.campaign
@@ -160,7 +160,7 @@ exports.delete = function(req, res) {
 exports.list = utils.list(
   Order,
   {
-    'user': 'displayName',
+    'user': 'username',
     'campaign': 'name'
   },
   function(req, res, err, result) {
@@ -185,7 +185,7 @@ exports.listByCampaign = function(campaignId) {
   }).sort(
     '-created'
   ).populate(
-    'user', 'displayName'
+    'user', 'username'
   ).populate(
     'campaign', 'name'
   );
@@ -196,7 +196,7 @@ exports.listByCampaign = function(campaignId) {
  */
 exports.orderByID = function(req, res, next, id) {
   Order.findById(id).
-    populate('user', 'displayName').
+    populate('user', 'username').
     populate('campaign', 'name').
     exec(function(err, order) {
     if (err) return next(err);

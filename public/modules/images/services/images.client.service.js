@@ -11,7 +11,7 @@ angular.module('images').factory('Images', [
       },
       {
         update: {
-          method: 'PUT'
+          method: 'POST'
         }
       });
   }

@@ -8,16 +8,9 @@ var fs = require('fs'),
     express = require('express'),
     morgan = require('morgan'),
     bodyParser = require('body-parser'),
-    session = require('express-session'),
     compress = require('compression'),
     methodOverride = require('method-override'),
-    cookieParser = require('cookie-parser'),
     helmet = require('helmet'),
-    passport = require('passport'),
-    mongoStore = require('connect-mongo')({
-      session: session
-    }),
-    flash = require('connect-flash'),
     config = require('./config'),
     consolidate = require('consolidate'),
     path = require('path');
@@ -40,7 +33,6 @@ module.exports = function(db) {
   app.locals.title = config.app.title;
   app.locals.description = config.app.description;
   app.locals.keywords = config.app.keywords;
-  app.locals.facebookAppId = config.facebook.clientID;
   app.locals.jsFiles = config.getJavaScriptAssets();
   app.locals.cssFiles = config.getCSSAssets();
   app.locals.html5shiv = config.html5shiv.replace('public/', '');
@@ -93,27 +85,6 @@ module.exports = function(db) {
   // Enable jsonp
   app.enable('jsonp callback');
 
-  // CookieParser should be above session
-  app.use(cookieParser());
-
-  // Express MongoDB session storage
-  app.use(session({
-    saveUninitialized: true,
-    resave: true,
-    secret: config.sessionSecret,
-    store: new mongoStore({
-      db: db.connection.db,
-      collection: config.sessionCollection
-    })
-  }));
-
-  // use passport session
-  app.use(passport.initialize());
-  app.use(passport.session());
-
-  // connect flash for flash messages
-  app.use(flash());
-
   // Use helmet to secure Express headers
   app.use(helmet.xframe());
   app.use(helmet.xssFilter());
@@ -129,6 +100,9 @@ module.exports = function(db) {
     require(path.resolve(routePath))(app);
   });
 
+  var oauth2 = require('../app/controllers/oauth2.server.controller');
+  app.use(oauth2.errorHandler);
+
   // Assume 'not found' in the error msgs is a 404. this is somewhat silly,
   // but valid, you can do whatever you like, set properties, use instanceof etc.
 
@@ -139,15 +113,17 @@ module.exports = function(db) {
     // Log it
     console.error(err.stack);
 
+    delete err.stack;
+
     // Error page
-    res.status(500).render('500', {
-      error: err.stack
+    res.status(500).send({
+      error: err
     });
   });
 
   // Assume 404 since no middleware responded
   app.use(function(req, res) {
-    res.status(404).render('404', {
+    res.status(404).send({
       url: req.originalUrl,
       error: 'Not Found'
     });

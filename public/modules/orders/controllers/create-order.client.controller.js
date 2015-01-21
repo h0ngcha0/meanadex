@@ -2,13 +2,10 @@
 
 // Orders controller
 angular.module('orders').controller('CreateOrderController', [
-  '$scope', '$stateParams', '$state', '$location', 'Authentication', 'Orders',
+  '$scope', '$stateParams', '$state', '$location', 'Orders',
   'ENV',
-  function($scope, $stateParams, $state, $location, Authentication, Orders,
+  function($scope, $stateParams, $state, $location, Orders,
            ENV) {
-
-    $scope.authentication = Authentication;
-
     $scope.orderedCampaign = JSON.parse($stateParams.campaign);
     $scope.sizes = ['S', 'M', 'L'];
     $scope.tshirtSize = 'M';

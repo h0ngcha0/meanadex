@@ -2,13 +2,10 @@
 
 // Orders controller
 angular.module('orders').controller('OrdersController', [
-  '$scope', '$stateParams', '$location', 'Authentication', 'Orders',
+  '$scope', '$stateParams', '$location', 'Orders',
   '$filter', 'DashboardUtils',
-  function($scope, $stateParams, $location, Authentication, Orders,
+  function($scope, $stateParams, $location, Orders,
            $filter, DashboardUtils) {
-
-    $scope.authentication = Authentication;
-
     // Remove existing Order
     $scope.remove = function( order ) {
       Orders.remove(

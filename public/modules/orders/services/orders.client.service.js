@@ -11,7 +11,7 @@ angular.module('orders').factory('Orders', [
       },
       {
         update: {
-          method: 'PUT'
+          method: 'POST'
         },
         query:
         {

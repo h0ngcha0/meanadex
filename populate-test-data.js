@@ -29,28 +29,32 @@ module.exports = function(grunt) {
       var done = this.async();
       var createAdminUser = function(callback) {
         request.post(
-          'https://localhost:3000/auth/signup',
           {
+            url: 'https://localhost:3000/auth/signup',
             form: {
-              firstName: 'admin',
-              lastName: 'gustav',
-              email: 'admin@meanadex.com',
-              username: 'admin',
-              password: 'password'
-            }
+              username: 'admin@meanadex.com',
+              password: 'password',
+              grant_type: 'password',
+              client_id: 'meanadex',
+              client_secret: 'meanadex'
+            },
+            json: true
           },
           function(error, response, body) {
-            var user = JSON.parse(body);
-            console.log('Created admin user: ' + user.displayName);
-            callback(error, user);
+            console.log('Created admin user');
+            var access_token = body.access_token;
+            callback(error, access_token);
           }
         );
       };
 
-      var createImage = function(path, callback) {
+      var createImage = function(access_token, path, callback) {
         request.post(
-          'https://localhost:3000/images',
           {
+            url: 'https://localhost:3000/images',
+            qs: {
+              access_token: access_token
+            },
             formData: {
               file: fs.createReadStream(
                 __dirname + path
@@ -61,34 +65,41 @@ module.exports = function(grunt) {
         );
       };
 
-      var createFrontImage = function(user, callback) {
+      var createFrontImage = function(access_token, callback) {
+        console.log(access_token);
         createImage(
+          access_token,
           '/public/modules/designer/img/canvas/crew_front.png',
           function(error, response, body) {
             var img = JSON.parse(body),
                 frontImgId = img._id;
             console.log('Uploaded front image: ' + img.url);
-            callback(error, frontImgId);
+            callback(error, access_token, frontImgId);
           }
         );
       };
 
-      var createBackImage = function(frontImgId, callback) {
+      var createBackImage = function(access_token, frontImgId, callback) {
         createImage(
+          access_token,
           '/public/modules/designer/img/canvas/crew_back.png',
           function(error, response, body) {
             var img = JSON.parse(body),
                 backImgId = img._id;
             console.log('Uploaded back image: ' + img.url);
-            callback(error, frontImgId, backImgId);
+            callback(error, access_token, frontImgId, backImgId);
           }
         );
       };
 
-      var createTshirt = function(frontImgId, backImgId, callback) {
+      var createTshirt = function(access_token, frontImgId, backImgId,
+        callback) {
         request.post(
-          'https://localhost:3000/tshirts',
           {
+            url: 'https://localhost:3000/tshirts',
+            qs: {
+              access_token: access_token
+            },
             form: {
               name: 'Meanadex signature Tee',
               frontImage: frontImgId,
@@ -114,7 +125,22 @@ module.exports = function(grunt) {
           function(error, response, body) {
             var tshirt = JSON.parse(body);
             console.log('Tshirt: ' + tshirt.name + ' is created');
-            callback(error, tshirt);
+            callback(error, access_token, tshirt);
+          }
+        );
+      }
+
+      var fetchTshirt = function(access_token, tshirt, callback) {
+        request.get(
+          {
+            url: 'https://localhost:3000/tshirts/' + tshirt._id,
+            qs: {
+              access_token: access_token
+            },
+            json: true
+          },
+          function(error, response, body) {
+            callback(error, access_token, body);
           }
         );
       }
@@ -124,7 +150,8 @@ module.exports = function(grunt) {
         return list[index];
       };
 
-      var createCampaignFun = function(name, description, tshirt) {
+      var createCampaignFun = function(name, description, access_token,
+        tshirt) {
         var now = new Date();
         var length = pickRandom([3, 5, 7, 10, 14, 21]);
         var color = pickRandom(['red', 'yellow', 'blue', 'green']);
@@ -133,8 +160,11 @@ module.exports = function(grunt) {
         var url = Math.random().toString(36).substring(7);
         return function(callback) {
           request.post(
-            'https://localhost:3000/campaigns',
             {
+              url: 'https://localhost:3000/campaigns',
+              qs: {
+                access_token: access_token
+              },
               form: {
                 name: name,
                 created_at: now,
@@ -164,14 +194,15 @@ module.exports = function(grunt) {
         };
       };
 
-      var createCampaigns = function(tshirt, callback) {
+      var createCampaigns = function(access_token, tshirt, callback) {
         var numOfCampaigns = options.numOfCampaigns || 10;
         var funcs = _.chain(
           _.range(1, numOfCampaigns+1)
         ).map(function(index) {
           return { name: 'Campaign ' + index, description: 'Description ' + index};
         }).map(function(spec) {
-          return createCampaignFun(spec.name, spec.description, tshirt);
+          return createCampaignFun(spec.name, spec.description, access_token,
+            tshirt);
         }).value();
 
         async.parallel(
@@ -181,13 +212,13 @@ module.exports = function(grunt) {
               console.log('Campaign ' + campaign.name + ' is created.');
             });
 
-            callback(err, results);
+            callback(err, access_token, results);
           }
         );
       };
 
 
-      var createOrderFun = function(campaigns, callback) {
+      var createOrderFun = function(access_token, campaigns, callback) {
         var campaign = pickRandom(campaigns);
         var email = pickRandom(['lbs.lhc@gmail.com', 'monadex@gmail.com']);
         var quantity = pickRandom([1,2,3,4,5,10]);
@@ -203,8 +234,11 @@ module.exports = function(grunt) {
             },
             function(err, token) {
               request.post(
-                'https://localhost:3000/orders',
                 {
+                  url: 'https://localhost:3000/orders',
+                  qs: {
+                    access_token: access_token
+                  },
                   form: {
                     campaign: campaign._id,
                     provider: 'stripe',
@@ -235,12 +269,12 @@ module.exports = function(grunt) {
         };
       };
 
-      var createOrders = function(campaigns, callback) {
+      var createOrders = function(access_token, campaigns, callback) {
         var numOfOrders = options.numOfOrders || 100;
         var funcs = _.chain(
           _.range(1, numOfOrders+1)
         ).map(function(index) {
-          return createOrderFun(campaigns, callback);
+          return createOrderFun(access_token, campaigns, callback);
         }).value();
 
         async.parallel(
@@ -272,6 +306,7 @@ module.exports = function(grunt) {
         createFrontImage,
         createBackImage,
         createTshirt,
+        fetchTshirt,
         createCampaigns,
         createOrders
       ], resultCallback);

@@ -9,7 +9,7 @@
           <a class="col-lg-8" data-ng-href="{{image.url}}">
             <img data-ng-src="{{image.url}}" height=300/>
           </a>
-          <div class="col-lg-4" data-ng-show="authentication.user._id == image.user._id">
+          <div class="col-lg-4" data-ng-show="currentUser._id == image.user._id">
             <a class="undecorated-link fa fa-trash fa-2x" data-ng-click="remove(image);">
             </a>
             <tags-input ng-model="image.tags"
@@ -20,7 +20,7 @@
                 Posted on
                 <span data-ng-bind="image.created | date:'mediumDate'"></span>
                 by
-                <span data-ng-bind="image.user.displayName"></span>
+                <span data-ng-bind="image.user.username"></span>
               </em>
             </small>
           </div>

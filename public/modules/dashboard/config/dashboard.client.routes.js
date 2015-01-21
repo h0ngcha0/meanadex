@@ -2,14 +2,20 @@
 
 //Setting up route
 angular.module('dashboard').config([
-  '$stateProvider', '$urlRouterProvider',
-  function($stateProvider, $urlRouterProvider) {
+  '$stateProvider', '$urlRouterProvider', 'SessionResolver',
+  'PermissionResolver',
+  function($stateProvider, $urlRouterProvider, SessionResolver,
+    PermissionResolver) {
     $urlRouterProvider
       .when('/dashboard', '/dashboard/front');
 
     // Dashboard state routing
     $stateProvider.
       state('dashboard', {
+        resolve: {
+          isLoggedIn: SessionResolver.requireLoggedIn,
+          currentUser: SessionResolver.requireCurrentUser
+        },
         url: '/dashboard',
         templateUrl: 'modules/dashboard/views/dashboard.client.view.html',
         controller: 'DashboardController',
@@ -31,10 +37,14 @@ angular.module('dashboard').config([
       }).
       state('dashboard.profile', {
         url: '/profile',
+        resolve: {
+          isLoggedIn: SessionResolver.requireLoggedIn,
+          currentUser: SessionResolver.requireCurrentUser
+        },
         views: {
           'dashboardPanel': {
             templateUrl: 'modules/dashboard/views/profile.client.view.html',
-            controller: 'DashboardController'
+            controller: 'SettingsController'
           }
         },
         ncyBreadcrumb: {
@@ -43,6 +53,9 @@ angular.module('dashboard').config([
       }).
       state('dashboard.tshirts', {
         url: '/tshirts',
+        resolve: {
+          isAdmin: PermissionResolver.requirePermission('admin', true)
+        },
         views: {
           'dashboardPanel': {
             templateUrl: 'modules/tshirts/views/list-tshirts.client.view.html',
@@ -55,6 +68,9 @@ angular.module('dashboard').config([
       }).
       state('dashboard.tshirtCreate', {
         url: '/tshirts/create',
+        resolve: {
+          isAdmin: PermissionResolver.requirePermission('admin', true)
+        },
         views: {
           'dashboardPanel': {
             templateUrl: 'modules/tshirts/views/create-tshirt.client.view.html',
@@ -67,6 +83,9 @@ angular.module('dashboard').config([
       }).
       state('dashboard.tshirtDetail', {
         url: '/tshirts/:tshirtId',
+        resolve: {
+          isAdmin: PermissionResolver.requirePermission('admin', true)
+        },
         views: {
           'dashboardPanel': {
             templateUrl: 'modules/tshirts/views/view-tshirt.client.view.html',
@@ -103,6 +122,11 @@ angular.module('dashboard').config([
       }).
       state('dashboard.createImage', {
         url: '/images/create',
+        resolve: {
+          isLoggedIn: SessionResolver.requireLoggedIn,
+          currentUser: SessionResolver.requireCurrentUser,
+          isAdmin: PermissionResolver.requirePermission('admin', true)
+        },
         views: {
           'dashboardPanel': {
             templateUrl: 'modules/images/views/create-image.client.view.html',
@@ -115,6 +139,9 @@ angular.module('dashboard').config([
       }).
       state('dashboard.viewImage', {
         url: '/images/:imageId',
+        resolve: {
+          isAdmin: PermissionResolver.requirePermission('admin', true)
+        },
         views: {
           'dashboardPanel': {
             templateUrl: 'modules/images/views/view-image.client.view.html',
@@ -127,6 +154,9 @@ angular.module('dashboard').config([
       }).
       state('dashboard.images', {
         url: '/images',
+        resolve: {
+          isAdmin: PermissionResolver.requirePermission('admin', true)
+        },
         views: {
           'dashboardPanel': {
             templateUrl: 'modules/images/views/list-images.client.view.html',

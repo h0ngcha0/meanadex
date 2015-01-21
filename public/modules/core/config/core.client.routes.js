@@ -9,7 +9,7 @@ angular.module('core').config([
 
     // Home state routing
     $stateProvider.
-      state('home', {
+      state('index', {
         url: '/landing',
         templateUrl: 'modules/core/views/home.client.view.html',
         controller: 'HomeController'

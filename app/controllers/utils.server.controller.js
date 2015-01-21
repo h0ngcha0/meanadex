@@ -8,7 +8,7 @@ var errorHandler = require('./errors'),
 
 /**
  * List of object by query, sorted by create date, populated
- * with user displayName
+ * with user username
  */
 exports.listByQuery = function(model, queryFun, populateMap, callback) {
   return function(req, res) {

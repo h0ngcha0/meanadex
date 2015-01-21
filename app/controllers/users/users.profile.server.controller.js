@@ -4,9 +4,9 @@
  * Module dependencies.
  */
 var _ = require('lodash'),
+    path = require('path'),
     errorHandler = require('../errors'),
     mongoose = require('mongoose'),
-    passport = require('passport'),
     User = mongoose.model('User');
 
 /**
@@ -20,11 +20,13 @@ exports.update = function(req, res) {
   // For security measurement we remove the roles from the req.body object
   delete req.body.roles;
 
+  // Disable update of username
+  delete req.body.username;
+
   if (user) {
     // Merge existing user
     user = _.extend(user, req.body);
     user.updated = Date.now();
-    user.displayName = user.firstName + ' ' + user.lastName;
 
     user.save(function(err) {
       if (err) {
@@ -32,13 +34,7 @@ exports.update = function(req, res) {
           message: errorHandler.getErrorMessage(err)
         });
       } else {
-        req.login(user, function(err) {
-          if (err) {
-            res.status(400).send(err);
-          } else {
-            res.jsonp(user);
-          }
-        });
+        res.jsonp(user);
       }
     });
   } else {
@@ -52,5 +48,10 @@ exports.update = function(req, res) {
  * Send User
  */
 exports.me = function(req, res) {
-  res.jsonp(req.user || null);
+  if (req.user.id !== path.basename(req.path)) {
+    return res.status(403).send('User is not authorized');
+  }
+  else {
+    res.jsonp(req.user || null);
+  }
 };

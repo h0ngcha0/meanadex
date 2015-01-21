@@ -2,11 +2,10 @@
 
 // Images controller
 angular.module('images').controller('ImagesController', [
-  '$scope', '$stateParams', '$location', 'Authentication',
+  '$scope', '$stateParams', '$location', 'AccessToken',
   'Images', 'FileUploader', '$http', 'ImagesUtils',
-  function($scope, $stateParams, $location, Authentication,
+  function($scope, $stateParams, $location, AccessToken,
            Images, FileUploader, $http, ImagesUtils) {
-    $scope.authentication = Authentication;
     // Create new Image
     $scope.create = function() {
       // Create new Image object
@@ -82,9 +81,15 @@ angular.module('images').controller('ImagesController', [
     };
 
 
+    var url = '/images',
+        token = AccessToken.getAccessToken();
+    if (!!token) {
+      url += '?access_token=' + token;
+    }
+
     // file upload
     $scope.uploader = new FileUploader({
-      url: '/images'
+      url: url
     });
 
     $scope.uploadItem = function(item) {

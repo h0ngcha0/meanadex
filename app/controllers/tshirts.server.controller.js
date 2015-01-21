@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
 exports.list = function(req, res) {
   Tshirt.find().
     sort('-created').
-    populate('user', 'displayName').
+    populate('user', 'username').
     populate('frontImage', 'url').
     populate('backImage', 'url').
     exec(function(err, tshirts) {
@@ -102,7 +102,7 @@ exports.list = function(req, res) {
  */
 exports.tshirtByID = function(req, res, next, id) {
   Tshirt.findById(id).
-    populate('user', 'displayName').
+    populate('user', 'username').
     populate('frontImage', 'url').
     populate('backImage', 'url').
     exec(function(err, tshirt) {
