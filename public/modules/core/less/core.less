@@ -127,15 +127,6 @@ section.success h2 a{
   text-decoration: none;
 }
 
-//@media (max-width:767px) {
-//  section {
-//    padding: 75px 0;
-//  }
-//  section.first {
-//    padding-top: 75px;
-//  }
-//}
-
 .btn-social {
   display: inline-block;
   height: 50px;
@@ -163,12 +154,14 @@ section.success h2 a{
 }
 
 .monadex-btn-major {
-  // .button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border);
   .button-variant(@faceColor; @baseColor; @baseColor);
 }
 
+.monadex-btn-major-reverse {
+  .button-variant(@baseColor; @faceColor; @baseColor);
+}
+
 .monadex-btn-primary {
-  // .button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border);
   .button-variant(@faceColor; white; lightgrey);
 }
 
@@ -185,4 +178,32 @@ section.success h2 a{
 .input-group > button {
    background: white;
    border: solid 1px lightgrey;
+}
+
+header img {
+  display: block;
+  margin: 0 auto 20px;
+}
+
+header .intro-text .caption {
+  display: block;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 2em;
+  color: @baseColor;
+}
+
+header .intro-text .sub-caption {
+  color: white;
+  font-size: 1.25em;
+  font-weight: 300;
+}
+
+@media (min-width:768px) {
+  header .intro-text .caption {
+    font-size: 5em;
+  }
+  header .intro-text .sub-caption {
+    font-size: 1.75em;
+  }
 }
