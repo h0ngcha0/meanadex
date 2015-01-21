@@ -165,6 +165,10 @@ section.success h2 a{
   .button-variant(@faceColor; white; lightgrey);
 }
 
+.monadex-btn-primary-revert {
+  .button-variant(@baseColor; transparent; @baseColor);
+}
+
 .well{
    background: white;
    border: solid 1px lightgrey;
@@ -206,4 +210,41 @@ header .intro-text .sub-caption {
   header .intro-text .sub-caption {
     font-size: 1.75em;
   }
+}
+
+.navbar-default .navbar-nav > .dropdown > a {
+  color: @baseColor;
+  background-color: @faceColor;
+}
+
+.navbar-default .navbar-nav > .dropdown > a:hover {
+  color: @baseColorDark;
+  border: @baseColor;
+  background-color: @faceColor;
+}
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus {
+  color: @baseColorDark;
+  border: @baseColor;
+  background-color: @faceColor;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
+  color: @faceColor;
+  border: @baseColor;
+  background: @faceColor;
+}
+
+.navbar-nav > li > .dropdown-menu {
+  color: @baseColor;
+  background-color: @faceColor;
+}
+
+.navbar-nav > .open > .dropdown-menu {
+  background-color: @baseColor;
+}
+
+.navbar-nav > .open > .dropdown-menu > li > a:hover {
+  color: @baseColor;
+  background: @faceColor;
 }

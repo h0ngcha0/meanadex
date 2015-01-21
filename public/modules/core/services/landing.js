@@ -7,13 +7,13 @@ $(window).load(function () {
   /********************************************************************
    1) Preloader
    ************/
-  // will first fade out the loading animation
-  $('div.preloader-status').fadeOut();
-
-  // will fade out the white DIV that covers the website.
-  $('div.preloader')
-    .delay(350)
-    .fadeOut('slow');
+  //// will first fade out the loading animation
+  //$('div.preloader-status').fadeOut();
+  //
+  //// will fade out the white DIV that covers the website.
+  //$('div.preloader')
+  //  .delay(10)
+  //  .fadeOut('slow');
 
 });
 

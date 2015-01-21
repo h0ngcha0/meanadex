@@ -62,9 +62,9 @@
                               <span class="sub-caption">And Sale To The Rest Of The World!</span>
                             </div>
                             <br/>
-                            <button href="#!/designer" type="button" class="btn monadex-btn-major-reverse">
+                            <a href="#!/designer" type="button" class="btn monadex-btn-major-reverse">
                               Get Started Now!
-                            </button>
+                            </a>
                           </div>
                         </div>
                       </div><!-- End Slide 2 -->
@@ -100,6 +100,34 @@
                     <a href="#anch-contact">Contact</a>
                   </li>
                 </ul>
+                <ul class="nav navbar-nav navbar-right navbar-brand">
+                  <a href="/#!/auth/signup"
+                     class="btn btn-sm monadex-btn-primary-revert"
+                     data-ng-hide="isLoggedIn">
+                    Login or Register
+                  </a>
+                </ul>
+                <ul class="nav navbar-nav navbar-right"
+                    data-ng-show="isLoggedIn">
+                  <li class="dropdown">
+                    <a href="/#!/"
+                       class="dropdown-toggle"
+                       data-toggle="dropdown">
+                      <span data-ng-show="currentUser.$resolved">
+                        {{currentUser.username}}
+                      </span>
+                      <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <a href="/#!/dashboard">Open dashboard</a>
+                      </li>
+                      <li>
+                        <a href="#!/auth/deauthorize">Signout</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
               </div><!-- End Menu -->
             </div>
           </nav><!-- END NAVBAR -->
@@ -110,6 +138,37 @@
               <div class="navbar-header">
                 <a class="navbar-brand" href="#!/landing"><span>Monadex</span></a>
               </div><!-- End Brand and Toggle -->
+              <!-- Menu -->
+              <div class="collapse navbar-collapse" id="navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right navbar-brand">
+                  <a href="/#!/auth/signup"
+                     class="btn btn-sm monadex-btn-primary-revert"
+                     data-ng-hide="isLoggedIn">
+                    Login or Register
+                  </a>
+                </ul>
+                <ul class="nav navbar-nav navbar-right"
+                    data-ng-show="isLoggedIn">
+                  <li class="dropdown">
+                    <a href="/#!/"
+                       class="dropdown-toggle"
+                       data-toggle="dropdown">
+                      <span data-ng-show="currentUser.$resolved">
+                        {{currentUser.username}}
+                      </span>
+                      <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <a href="/#!/dashboard">Open dashboard</a>
+                      </li>
+                      <li>
+                        <a href="#!/auth/deauthorize">Signout</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div><!-- End Menu -->
             </div>
           </nav><!-- END NAVBAR -->
         </header><!-- END HEADER -->
