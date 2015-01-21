@@ -1,5 +1,7 @@
 'use strict';
 
+/* global Circles */
+
 $(window).load(function () {
 
   /********************************************************************
@@ -34,10 +36,11 @@ $(document).ready(function () {
 
   $('#contact-collapse-1').on('hidden.bs.collapse', function () {
     $('html').getNiceScroll().resize();
-  })
+  });
+
   $('#contact-collapse-1').on('shown.bs.collapse', function () {
     $('html').getNiceScroll().resize();
-  })
+  });
 
   /********************************************************************
    3) Slideshow Heigth
@@ -66,17 +69,19 @@ $(document).ready(function () {
     var imgRatio = imgWidth/imgHeight;
     var divRatio = widthSlideshow/heightSlideshow;
 
+    var divWidth, scale, divHeight;
+
     /* Step 2 - Work out which ratio is greater */
     if (imgRatio >= divRatio) {
       /* The Height is our constant */
-      var divHeight = heightSlideshow;
-      var scale = (divHeight / imgHeight);
-      var divWidth = imgWidth * scale;
+      divHeight = heightSlideshow;
+      scale = (divHeight / imgHeight);
+      divWidth = imgWidth * scale;
     } else {
       /* The Width is our constant */
-      var divWidth = widthSlideshow;
-      var scale = (divWidth / imgWidth);
-      var divHeight = imgHeight * scale;
+      divWidth = widthSlideshow;
+      scale = (divWidth / imgWidth);
+      divHeight = imgHeight * scale;
     }
     var cover = divWidth + 'px ' + divHeight + 'px';
     if (navigator.userAgent.match(/iPhone|iPad/i)) {
