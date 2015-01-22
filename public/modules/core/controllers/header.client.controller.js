@@ -3,18 +3,21 @@
 angular.module('core').controller('HeaderController', [
   '$scope', 'Menus', '$location', 'Notification', 'CurrentUser',
   'SessionState', 'Priority',
-  function($scope, Menus, $location, Notification, CurrentUser, SessionState,
-    Priority) {
+  function($scope, Menus, $location, Notification,
+           CurrentUser, SessionState, Priority) {
     $scope.isCollapsed = false;
     $scope.menu = Menus.getMenu('topbar');
 
+    // This is an anti-pattern but we have to use jquery
+    // here to set user name because nav header is outside of
+    // angular ui-view right now.
     function resolveCurrentUser() {
       CurrentUser.resolve().then(
         function (user) {
-          $scope.currentUser = user;
+          $('#username').text(user.username);
         },
         function () {
-          $scope.currentUser = null;
+          $('#username').text('hello');
         }
       );
     }
