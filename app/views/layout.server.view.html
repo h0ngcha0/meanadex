@@ -442,7 +442,7 @@
           </section><!-- END CONTACT -->
         </div> <!-- END MAIN -->
 
-        <div data-ng-show="isMainApp()">
+        <div data-ng-if="isMainApp()">
           <!--FIXME: this is a hack-->
           <br/><br/><br/><br/><br/>
           <div class="container-fluid">
@@ -483,7 +483,7 @@
         <a class="go-top" href="#anch-top"><i class="fa fa-chevron-up"></i></a>
       </div>
 
-      <div ng-show="isDashboard()">
+      <div data-ng-if="isDashboard()">
         {% block content %}{% endblock %}
       </div>
 
