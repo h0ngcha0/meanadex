@@ -466,11 +466,6 @@
 
     </div> <!-- END LAYOUT -->
 
-    <!--Embedding The User Object-->
-    <script type="text/javascript">
-      var user = {{ user | json | safe }};
-    </script>
-
     <!--Application JavaScript Files-->
     {% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>
     {% endfor %}
