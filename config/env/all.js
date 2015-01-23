@@ -61,7 +61,8 @@ module.exports = {
         'public/lib/ng-tags-input/ng-tags-input.js',
         'public/lib/angular-breadcrumb/dist/angular-breadcrumb.js',
         'public/lib/jquery-nicescroll/jquery.nicescroll.js',
-        'public/lib/slick-carousel/slick/slick.js'
+        'public/lib/slick-carousel/slick/slick.js',
+        'public/lib/angular-elastic/elastic.js'
       ]
     },
     css: [

@@ -1,12 +1,13 @@
 <h5>Enter text below</h5>
 <div class="input-group">
-  <input autocomplete="off"
-         id="text-string"
-         class="form-control"
-         type="text"
-         ng-model="inputText"
-         ng-keyup="addOrEditText()"
-         placeholder="Add your text here">
+  <textarea autocomplete="off"
+    id="text-string"
+    class="form-control"
+    ng-model="inputText"
+    msd-elastic
+    ng-keyup="addOrEditText()"
+    placeholder="Add your text here">
+  </textarea>
 </div>
 <br>
 

@@ -33,6 +33,17 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(
   ]
 );
 
+// Configure monospaced.elastic
+angular.module(ApplicationConfiguration.applicationModuleName).config(
+  ['msdElasticConfig',
+    function(msdElasticConfig){
+      // Globally set an additional amount of whitespace to the end of our
+      // textarea elastic resizing.
+      msdElasticConfig.append = '\n';
+    }
+  ]
+);
+
 //Then define the init function for starting up the application
 angular.element(document).ready(function() {
   //Fixing facebook bug with redirect

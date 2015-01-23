@@ -26,7 +26,8 @@ var ApplicationConfiguration = (
       'nvd3ChartDirectives',
       'ngTagsInput',
       'mgcrea.ngStrap',
-      'ncy-angular-breadcrumb'
+      'ncy-angular-breadcrumb',
+      'monospaced.elastic'
     ];
 
     // Add a new vertical module

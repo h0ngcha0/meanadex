@@ -60,7 +60,8 @@ module.exports = {
         'public/lib/ng-tags-input/ng-tags-input.min.js',
         'public/lib/angular-breadcrumb/dist/angular-breadcrumb.min.js',
         'public/lib/jquery-nicescroll/jquery.nicescroll.min.js',
-        'public/lib/slick-carousel/slick/slick.min.js'
+        'public/lib/slick-carousel/slick/slick.min.js',
+        'public/lib/angular-elastic/elastic.js'
       ]
     },
     css: 'public/dist/application.min.css',
