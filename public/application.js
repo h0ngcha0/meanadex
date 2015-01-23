@@ -44,6 +44,17 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(
   ]
 );
 
+// Configure angular-breadcrumb
+angular.module(ApplicationConfiguration.applicationModuleName).config(
+  ['$breadcrumbProvider',
+    function($breadcrumbProvider){
+      $breadcrumbProvider.setOptions({
+        includeAbstract: true
+      });
+    }
+  ]
+);
+
 //Then define the init function for starting up the application
 angular.element(document).ready(function() {
   //Fixing facebook bug with redirect

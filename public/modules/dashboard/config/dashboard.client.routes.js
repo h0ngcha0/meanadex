@@ -6,9 +6,6 @@ angular.module('dashboard').config([
   'PermissionResolver',
   function($stateProvider, $urlRouterProvider, SessionResolver,
     PermissionResolver) {
-    $urlRouterProvider
-      .when('/dashboard', '/dashboard/front');
-
     // Dashboard state routing
     $stateProvider.
       state('dashboard', {
@@ -16,6 +13,7 @@ angular.module('dashboard').config([
           isLoggedIn: SessionResolver.requireLoggedIn,
           currentUser: SessionResolver.requireCurrentUser
         },
+        abstract: true,
         url: '/dashboard',
         templateUrl: 'modules/dashboard/views/dashboard.client.view.html',
         controller: 'DashboardController',
