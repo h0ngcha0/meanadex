@@ -35,10 +35,6 @@ angular.module('dashboard').config([
       }).
       state('dashboard.profile', {
         url: '/profile',
-        resolve: {
-          isLoggedIn: SessionResolver.requireLoggedIn,
-          currentUser: SessionResolver.requireCurrentUser
-        },
         views: {
           'dashboardPanel': {
             templateUrl: 'modules/dashboard/views/profile.client.view.html',
@@ -121,8 +117,6 @@ angular.module('dashboard').config([
       state('dashboard.createImage', {
         url: '/images/create',
         resolve: {
-          isLoggedIn: SessionResolver.requireLoggedIn,
-          currentUser: SessionResolver.requireCurrentUser,
           isAdmin: PermissionResolver.requirePermission('admin', true)
         },
         views: {
