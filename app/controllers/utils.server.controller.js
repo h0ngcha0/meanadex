@@ -43,12 +43,28 @@ var unpack = function(obj) {
  * Generate a query that filters on userid, if the role is
  * 'admin', get everything.
  */
-var userQuery = function(req) {
+var userQuery = function(queryFun) {
+  return function(req) {
+    var roles = req.user.roles,
+        userId = req.user._id,
+        query = queryFun(req);
+
+    // if it is admin, return all
+    if (!_.contains(roles, 'admin')) {
+      query.user = userId;
+    }
+
+    return query;
+  };
+};
+
+/**
+ * Generate a query that filters on date.
+ */
+var dateQuery = function(req) {
   var query = {},
-      userId = req.user._id,
       startDate = unpack(req.param('startDate')),
-      endDate = unpack(req.param('endDate')),
-      roles = req.user.roles;
+      endDate = unpack(req.param('endDate'));
 
   // Trigger callback when date is of valid format
   var setIfDateValid = function(date, callback) {
@@ -63,11 +79,6 @@ var userQuery = function(req) {
       }
     }
   };
-
-  // if it is admin, return all
-  if (!_.contains(roles, 'admin')) {
-    query.user = userId;
-  }
 
   setIfDateValid(startDate, function(date) {
     query.created_at.$gte = date;
@@ -85,9 +96,9 @@ var userQuery = function(req) {
  * Return an array of `model` all of which have user id contained
  * in the request. If user is `admin`, then return all.
  */
-exports.list = function(model, populateMap, callback) {
+exports.listByUser = function(model, populateMap, callback) {
   if(!populateMap) populateMap = {};
-  return exports.listByQuery(model, userQuery, populateMap, callback);
+  return exports.listByQuery(model, userQuery(dateQuery), populateMap, callback);
 };
 
 /**

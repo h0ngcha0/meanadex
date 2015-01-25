@@ -170,7 +170,7 @@ var populateSold = function(campaigns, callback) {
 };
 
 var listCampaigns = function(query) {
-  return utils.list(
+  return utils.listByUser(
     Campaign,
     query,
     function(req, res, err, result) {
