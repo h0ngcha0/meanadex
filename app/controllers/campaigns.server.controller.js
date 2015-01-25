@@ -169,35 +169,52 @@ var populateSold = function(campaigns, callback) {
   });
 };
 
+var listCampaigns = function(query) {
+  return utils.list(
+    Campaign,
+    query,
+    function(req, res, err, result) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        var objects = result.documents;
+        populateSold(objects, function(err, newObjects) {
+          if(err) {
+            logger.error('Error populating sold field for campaigns.', err);
+
+            return res.status(400).send({
+              message: errorHandler.getErrorMessage(err)
+            });
+          }
+          else {
+            result.documents = newObjects;
+            res.jsonp(result);
+          }
+        });
+      }
+    }
+  );
+};
+
 /**
  * List of Campaigns owned by a particular user
  */
-exports.list = utils.list(
-  Campaign,
+exports.listByUser = listCampaigns(
   {
     'user': 'username'
-  },
-  function(req, res, err, result) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      var objects = result.documents;
-      populateSold(objects, function(err, newObjects) {
-        if(err) {
-          logger.error('Error populating sold field for campaigns.', err);
+  }
+);
 
-          return res.status(400).send({
-            message: errorHandler.getErrorMessage(err)
-          });
-        }
-        else {
-          result.documents = newObjects;
-          res.jsonp(result);
-        }
-      });
-    }
+/**
+ * List of Featured Campaigns
+ * What makes a campaign featured needs more discussion, right
+ * now it just return a fix number of campaigns.
+ */
+exports.listOfFeatured = listCampaigns(
+  {
+    'user': 'username'
   }
 );
 

@@ -6,8 +6,11 @@ module.exports = function(app) {
 
   // Campaigns Routes
   app.route('/campaigns')
-  .get(oauth2.authorise, campaigns.list)
+  .get(oauth2.authorise, campaigns.listByUser)
   .post(oauth2.authorise, campaigns.create);
+
+  app.route('/campaigns/featured')
+  .get(campaigns.listOfFeatured);
 
   app.route('/campaigns/:campaignId')
   .get(campaigns.read)
