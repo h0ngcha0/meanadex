@@ -336,13 +336,12 @@
                 <h2 class="section-title">Featured campaigns</h2>
               </div><!-- End Section Header -->
               <!-- Section Content -->
-              <div class="r1 row animateblock btt speed-1">
-                <div class="c1 col-md-12" id="gallery-carousel-1">
-                  <div class="thumb-overlay"
-                       data-ng-repeat="featuredCampaign in featuredCampaigns.documents">
-                    <md-campaign-canvas campaign="featuredCampaign"></md-campaign-canvas>
+              <div class="r1 row">
+                  <div class="col-sm-12 col-md-6 col-lg-4"
+                       data-ng-repeat="featuredCampaign in
+                       featuredCampaigns.documents">
+                      <md-campaign-canvas campaign="featuredCampaign"></md-campaign-canvas>
                   </div>
-                </div>
               </div><!-- End Section Content -->
             </div>
           </section><!-- END Campaigns gallery -->
