@@ -169,53 +169,61 @@ var populateSold = function(campaigns, callback) {
   });
 };
 
-var listCampaigns = function(query) {
-  return utils.listByUser(
-    Campaign,
-    query,
-    function(req, res, err, result) {
-      if (err) {
+var campaignsCallback = function(req, res, err, result) {
+  if (err) {
+    return res.status(400).send({
+      message: errorHandler.getErrorMessage(err)
+    });
+  } else {
+    var objects = result.documents;
+    populateSold(objects, function(err, newObjects) {
+      if(err) {
+        logger.error('Error populating sold field for campaigns.', err);
+
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)
         });
-      } else {
-        var objects = result.documents;
-        populateSold(objects, function(err, newObjects) {
-          if(err) {
-            logger.error('Error populating sold field for campaigns.', err);
-
-            return res.status(400).send({
-              message: errorHandler.getErrorMessage(err)
-            });
-          }
-          else {
-            result.documents = newObjects;
-            res.jsonp(result);
-          }
-        });
       }
-    }
-  );
+      else {
+        result.documents = newObjects;
+        res.jsonp(result);
+      }
+    });
+  }
 };
 
 /**
  * List of Campaigns owned by a particular user
  */
-exports.listByUser = listCampaigns(
+exports.listByUser = utils.listByUser(
+  Campaign,
   {
     'user': 'username'
-  }
+  },
+  campaignsCallback
 );
+
+var notTippedCampaignDecorator = function(queryFun) {
+  return function(req) {
+    var query = queryFun(req);
+
+    query.state = 'not_tipped';
+    return query;
+  };
+};
 
 /**
  * List of Featured Campaigns
  * What makes a campaign featured needs more discussion, right
- * now it just return a fix number of campaigns.
+ * now return campaigns that are not tipped.
  */
-exports.listOfFeatured = listCampaigns(
+exports.listOfFeatured = utils.list(
+  Campaign,
   {
     'user': 'username'
-  }
+  },
+  [notTippedCampaignDecorator],
+  campaignsCallback
 );
 
 /**

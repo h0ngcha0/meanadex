@@ -43,7 +43,7 @@ var unpack = function(obj) {
  * Generate a query that filters on userid, if the role is
  * 'admin', get everything.
  */
-var userQuery = function(queryFun) {
+var userQueryDecorator = function(queryFun) {
   return function(req) {
     var roles = req.user.roles,
         userId = req.user._id,
@@ -61,7 +61,7 @@ var userQuery = function(queryFun) {
 /**
  * Generate a query that filters on date.
  */
-var dateQuery = function(req) {
+var dateQueryFun = function(req) {
   var query = {},
       startDate = unpack(req.param('startDate')),
       endDate = unpack(req.param('endDate'));
@@ -97,8 +97,19 @@ var dateQuery = function(req) {
  * in the request. If user is `admin`, then return all.
  */
 exports.listByUser = function(model, populateMap, callback) {
+  return exports.list(model, populateMap, [userQueryDecorator], callback);
+};
+
+/**
+ * Return an array of `model`, query is refined by a list of queryDecorators
+ */
+exports.list = function(model, populateMap, queryDecorators, callback) {
+  var queryFun = _.reduce(queryDecorators, function(acc, queryDecorator) {
+                return queryDecorator(acc);
+              }, dateQueryFun);
+
   if(!populateMap) populateMap = {};
-  return exports.listByQuery(model, userQuery(dateQuery), populateMap, callback);
+  return exports.listByQuery(model, queryFun, populateMap, callback);
 };
 
 /**

@@ -2,11 +2,13 @@
 
 angular.module('core').controller('HeaderController', [
   '$scope', 'Menus', '$location', 'Notification', 'CurrentUser',
-  'SessionState', 'Priority',
+  'SessionState', 'Priority', 'FeaturedCampaigns',
   function($scope, Menus, $location, Notification,
-           CurrentUser, SessionState, Priority) {
+           CurrentUser, SessionState, Priority, FeaturedCampaigns) {
     $scope.isCollapsed = false;
     $scope.menu = Menus.getMenu('topbar');
+
+    $scope.featuredCampaigns = FeaturedCampaigns.query();
 
     function resolveCurrentUser() {
       CurrentUser.resolve().then(
