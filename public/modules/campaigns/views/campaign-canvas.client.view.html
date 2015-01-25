@@ -1,5 +1,5 @@
-<div id="shirtDiv" class="page tshirtDiv">
-  <img id="tshirtFacing"></img>
+<div id="shirtDiv" class="page tshirtDiv" ng-style="backgroundColor">
+  <img id="tshirtFacing" data-ng-src="{{backgroundImage}}"></img>
   <div id="drawingArea"
     class="tshirtDrawingArea">
     <canvas id="tcanvas" width="200" height="400" class="hover tshirtCanvas"></canvas>
@@ -7,11 +7,12 @@
 
   <div class="flipButtonDiv">
     <button id="flip"
-      type="button"
-      class="btn monadex-btn-primary">
+            type="button"
+            data-ng-click="flip()"
+            class="btn monadex-btn-primary">
       <span class="fa fa-retweet">
       </span>
-      Show Back View
+      {{flipText}}
     </button>
   </div>
 </div>

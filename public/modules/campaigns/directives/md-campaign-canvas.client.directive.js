@@ -1,15 +1,28 @@
 'use strict';
 
 /* global async */
+/* global fabric */
 
 angular.module('campaigns').directive('mdCampaignCanvas', [
   '$timeout', 'mdCanvasService', 'Images',
   function($timeout, mdCanvasService, Images) {
-    var canvas;
     return {
       restrict: 'E',
       templateUrl: 'modules/campaigns/views/campaign-canvas.client.view.html',
       link: function(scope, element, attrs) {
+        var setCanvas = function(canvas, flipText, image, designJson) {
+          // Going back
+          scope.flipText = flipText;
+          scope.backgroundImage = image;
+          canvas.clear();
+          if(designJson !== null) {
+            canvas.loadFromJSON(
+              designJson,
+              canvas.renderAll.bind(canvas)
+            );
+          }
+        };
+
         // has campaign
         var getCampaign = function(callback) {
           scope.campaign.$promise.then(
@@ -68,21 +81,32 @@ angular.module('campaigns').directive('mdCampaignCanvas', [
               '#tshirtFacing',
               '#shirtDiv'
             );
+
+            scope.error = {
+              message: 'Error loading campaign.. We are sorry'
+            };
           } else {
             var design = JSON.parse(campaign.design);
             var frontImage = images[0];
             var backImage = images[1];
-            mdCanvasService.init(
-              false,
-              'tcanvas',
-              '#tshirtFacing',
-              '#shirtDiv',
-              frontImage,
-              backImage,
-              design.front,
-              design.back,
-              campaign.color
-            );
+            var canvas = new fabric.StaticCanvas('tcanvas', {
+              selectionBorderColor:'blue'
+            });
+
+            // set front
+            setCanvas(canvas, 'Show Back View', frontImage, design.front);
+
+            // restore the background color if possible
+            scope.backgroundColor = {'background': campaign.color};
+            scope.flip = function() {
+              if(scope.flipText === 'Show Back View') {
+                // Going back
+                setCanvas(canvas, 'Show Front View', backImage, design.back);
+              } else {
+                // Going front
+                setCanvas(canvas, 'Show Back View', frontImage, design.front);
+              }
+            };
           }
         };
 
@@ -90,19 +114,6 @@ angular.module('campaigns').directive('mdCampaignCanvas', [
           getCampaign,
           getImages
         ], initialize);
-
-        $timeout(function() {
-          element.find('#flip').click(function() {
-            var flipTextElem = element.find('#flip-text');
-            var currentSide = mdCanvasService.flip();
-            if (currentSide === 'front') {
-              flipTextElem.text('Show Back View');
-            } else {
-              flipTextElem.text('Show Front View');
-            }
-
-          });
-        }, 0);
       }
     };
   }
