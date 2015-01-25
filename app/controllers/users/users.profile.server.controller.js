@@ -48,7 +48,8 @@ exports.update = function(req, res) {
  * Send User
  */
 exports.me = function(req, res) {
-  if (req.user.id !== path.basename(req.path)) {
+  var basename = path.basename(req.path);
+  if (basename !== 'me' && req.user.id !== basename) {
     return res.status(403).send('User is not authorized');
   }
   else {
