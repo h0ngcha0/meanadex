@@ -8,6 +8,9 @@ angular.module('campaigns').directive('mdCampaignCanvas', [
   function(Images) {
     return {
       restrict: 'E',
+      scope: {
+        campaign: '='
+      },
       templateUrl: 'modules/campaigns/views/campaign-canvas.client.view.html',
       link: function(scope, element, attrs) {
         var setCanvas = function(canvas, flipText, image, designJson) {
