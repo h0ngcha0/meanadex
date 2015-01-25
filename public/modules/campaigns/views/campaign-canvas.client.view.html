@@ -1,4 +1,4 @@
-<div id="shirtDiv" class="page tshirtDiv" ng-style="backgroundColor">
+<div id="shirtDiv" class="page tshirtDiv" ng-style="backgroundColor" ng-hide="error">
   <img id="tshirtFacing" data-ng-src="{{backgroundImage}}"></img>
   <div id="drawingArea"
     class="tshirtDrawingArea">
@@ -15,4 +15,7 @@
       {{flipText}}
     </button>
   </div>
+</div>
+<div ng-show="error">
+  {{error.message}}
 </div>

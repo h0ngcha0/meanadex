@@ -4,8 +4,8 @@
 /* global fabric */
 
 angular.module('campaigns').directive('mdCampaignCanvas', [
-  '$timeout', 'mdCanvasService', 'Images',
-  function($timeout, mdCanvasService, Images) {
+  'Images',
+  function(Images) {
     return {
       restrict: 'E',
       templateUrl: 'modules/campaigns/views/campaign-canvas.client.view.html',
@@ -74,14 +74,6 @@ angular.module('campaigns').directive('mdCampaignCanvas', [
 
         var initialize = function(err, campaign, images) {
           if(err) {
-            // promise fail
-            mdCanvasService.init(
-              false,
-              'tcanvas',
-              '#tshirtFacing',
-              '#shirtDiv'
-            );
-
             scope.error = {
               message: 'Error loading campaign.. We are sorry'
             };
