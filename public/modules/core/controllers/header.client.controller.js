@@ -8,8 +8,6 @@ angular.module('core').controller('HeaderController', [
     $scope.isCollapsed = false;
     $scope.menu = Menus.getMenu('topbar');
 
-    $scope.featuredCampaigns = FeaturedCampaigns.query();
-
     function resolveCurrentUser() {
       CurrentUser.resolve().then(
         function (user) {
@@ -22,6 +20,10 @@ angular.module('core').controller('HeaderController', [
     }
 
     resolveCurrentUser();
+
+    $scope.initFeaturedCampaigns = function() {
+      $scope.featuredCampaigns = FeaturedCampaigns.query();
+    };
 
     /**
      * Load and maintain the current user.

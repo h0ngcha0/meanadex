@@ -28,14 +28,19 @@ angular.module('campaigns').directive('mdCampaignCanvas', [
 
         // has campaign
         var getCampaign = function(callback) {
-          scope.campaign.$promise.then(
-            function(campaign) {
-              callback(null, campaign);
-            },
-            function(err) {
-              callback(err);
-            }
-          );
+          // if not a campaign promise, consider it as resolved campaign
+          if(scope.campaign.$promise) {
+            scope.campaign.$promise.then(
+              function(campaign) {
+                callback(null, campaign);
+              },
+              function(err) {
+                callback(err);
+              }
+            );
+          } else {
+            callback(null, scope.campaign);
+          }
         };
 
         var getFrontImage = function(campaign) {

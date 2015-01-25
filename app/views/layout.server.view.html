@@ -33,6 +33,7 @@
   <body class="pag-home ng-cloak"
         id="anch-top"
         data-spy="scroll"
+        data-ng-init="initFeaturedCampaigns()"
         data-ng-controller="HeaderController"
         data-target=".navbar">
 
@@ -327,7 +328,8 @@
           </section><!-- END How -->
 
           <!-- Campaigns gallery -->
-          <section class="gallery" id="anch-campaigns">
+          <section class="gallery"
+                   id="anch-campaigns">
             <div class="container">
               <!-- Section Header -->
               <div class="section-header">
@@ -336,35 +338,9 @@
               <!-- Section Content -->
               <div class="r1 row animateblock btt speed-1">
                 <div class="c1 col-md-12" id="gallery-carousel-1">
-                  <div class="thumb-overlay">
-                    <a class="link-modal" data-gallery href="modules/core/img/tshirt1.jpg">
-                      <img class="img-responsive thumb" src="modules/core/img/tshirt1.jpg" alt="Screenshot 1">
-                    </a>
-                  </div>
-                  <div class="thumb-overlay">
-                    <a class="link-modal" data-gallery href="modules/core/img/tshirt2.png">
-                      <img class="img-responsive thumb" src="modules/core/img/tshirt2.png" alt="Screenshot 2">
-                    </a>
-                  </div>
-                  <div class="thumb-overlay">
-                    <a class="link-modal" data-gallery href="modules/core/img/tshirt3.jpg">
-                      <img class="img-responsive thumb" src="modules/core/img/tshirt3.jpg" alt="Screenshot 3">
-                    </a>
-                  </div>
-                  <div class="thumb-overlay">
-                    <a class="link-modal" data-gallery href="modules/core/img/tshirt1.jpg">
-                      <img class="img-responsive thumb" src="modules/core/img/tshirt1.jpg" alt="Screenshot 4">
-                    </a>
-                  </div>
-                  <div class="thumb-overlay">
-                    <a class="link-modal" data-gallery href="modules/core/img/tshirt2.png">
-                      <img class="img-responsive thumb" src="modules/core/img/tshirt2.png" alt="Screenshot 5">
-                    </a>
-                  </div>
-                  <div class="thumb-overlay">
-                    <a class="link-modal" data-gallery href="modules/core/img/tshirt3.jpg">
-                      <img class="img-responsive thumb" src="modules/core/img/tshirt3.jpg" alt="Screenshot 6">
-                    </a>
+                  <div class="thumb-overlay"
+                       data-ng-repeat="featuredCampaign in featuredCampaigns.documents">
+                    <md-campaign-canvas campaign="featuredCampaign"></md-campaign-canvas>
                   </div>
                 </div>
               </div><!-- End Section Content -->
