@@ -2,7 +2,7 @@
 
 /* global async */
 
-angular.module('designer').directive('mdTshirtCanvas', [
+angular.module('designer').directive('mdDesignCanvas', [
   '$timeout', 'mdCanvasService', 'Images', 'CampaignCache',
   function($timeout, mdCanvasService, Images, CampaignCache) {
     var canvas;

@@ -2,13 +2,13 @@
 
 /* global async */
 
-angular.module('designer').directive('mdCampaignCanvas', [
+angular.module('campaigns').directive('mdCampaignCanvas', [
   '$timeout', 'mdCanvasService', 'Images',
   function($timeout, mdCanvasService, Images) {
     var canvas;
     return {
       restrict: 'E',
-      templateUrl: 'modules/designer/views/campaign-canvas.client.view.html',
+      templateUrl: 'modules/campaigns/views/campaign-canvas.client.view.html',
       link: function(scope, element, attrs) {
         // has campaign
         var getCampaign = function(callback) {
