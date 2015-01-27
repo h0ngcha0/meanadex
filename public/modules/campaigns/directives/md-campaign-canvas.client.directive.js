@@ -13,6 +13,9 @@ angular.module('campaigns').directive('mdCampaignCanvas', [
       },
       templateUrl: 'modules/campaigns/views/campaign-canvas.client.view.html',
       link: function(scope, element, attrs) {
+        // generate a semi random canvas element id
+        scope.canvasId = Math.random().toString(36).substring(7);
+
         var setCanvas = function(canvas, flipText, image, designJson) {
           // Going back
           scope.flipText = flipText;
@@ -89,7 +92,7 @@ angular.module('campaigns').directive('mdCampaignCanvas', [
             var design = JSON.parse(campaign.design);
             var frontImage = images[0];
             var backImage = images[1];
-            var canvas = new fabric.StaticCanvas('tcanvas', {
+            var canvas = new fabric.StaticCanvas(scope.canvasId, {
               selectionBorderColor:'blue'
             });
 
