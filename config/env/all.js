@@ -15,6 +15,7 @@ module.exports = {
   assets: {
     lib: {
       css: [
+        'public/lib/normalize.css/normalize.css',
         'public/lib/bootstrap/dist/css/bootstrap.css',
         'public/lib/bootstrap/dist/css/bootstrap-theme.css',
         'public/lib/font-awesome/css/font-awesome.css',
