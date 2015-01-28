@@ -14,7 +14,7 @@ exports.listByQuery = function(model, queryFun, populateMap, callback) {
   return function(req, res) {
     var query = queryFun(req);
     var anchorId = req.param('anchorId');
-    var itemsPerPage = req.param('itemsPerPage') || 5;
+    var itemsPerPage = req.param('itemsPerPage') || 6;
     var results = model.findPaginated(query, function(err, result) {
                     callback(req, res, err, result);
                   }, itemsPerPage, anchorId).sort('-created');
