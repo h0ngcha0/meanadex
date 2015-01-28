@@ -23,6 +23,7 @@ angular.module('auth').factory('Oauth2',
           var username = params.username;
           var password = params.password;
           var refreshToken = params.refresh_token;
+          var code = params.code;
 
           var tokenParams = {
             grant_type: grant_type,
@@ -36,6 +37,9 @@ angular.module('auth').factory('Oauth2',
             tokenParams.username = username;
             tokenParams.password = password;
             url = params.url;
+          } else if (grant_type === 'authorization_code') {
+            tokenParams.code = code;
+            url = tokenUrl;
           } else {
             tokenParams.refresh_token = refreshToken;
             url = tokenUrl;

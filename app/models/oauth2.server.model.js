@@ -54,6 +54,25 @@ var OAuthClientSchema = new Schema({
   }
 });
 
+var OAuthAuthCodeSchema = new Schema({
+  authCode: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  clientId: {
+    type: String
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  expires: {
+    type: Date
+  }
+});
+
+mongoose.model('OAuthAuthCode', OAuthAuthCodeSchema);
 mongoose.model('OAuthAccessToken', OAuthAccessTokenSchema);
 mongoose.model('OAuthRefreshToken', OAuthRefreshTokenSchema);
 mongoose.model('OAuthClient', OAuthClientSchema);

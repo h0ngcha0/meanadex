@@ -8,7 +8,7 @@ var oauth2model = require('./oauth2model.server.controller.js'),
 
 var oauth2 = oauth2server({
   model: oauth2model,
-  grants: ['password', 'refresh_token'],
+  grants: ['password', 'authorization_code', 'refresh_token'],
   debug: true
 });
 

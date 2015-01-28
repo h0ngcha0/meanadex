@@ -8,7 +8,8 @@ var mongoose = require('mongoose'),
     User = mongoose.model('User'),
     OAuthAccessToken = mongoose.model('OAuthAccessToken'),
     OAuthRefreshToken = mongoose.model('OAuthRefreshToken'),
-    OAuthClient = mongoose.model('OAuthClient');
+    OAuthClient = mongoose.model('OAuthClient'),
+    OAuthAuthCode = mongoose.model('OAuthAuthCode');
 
 //
 // Always required oauth2-server callbacks
@@ -130,4 +131,33 @@ exports.getRefreshToken = function(refreshToken, callback) {
       User.populate(doc, opts, callback);
     }
   );
+};
+
+exports.getAuthCode = function(authCode, callback) {
+  OAuthAuthCode.findOne(
+    {
+      authCode: authCode
+    },
+    function(err, doc) {
+      if(err || !doc) {
+        return callback(err);
+      }
+      var opts = {
+        path: 'user',
+        select: '-salt -password'
+      };
+      User.populate(doc, opts, callback);
+    }
+  );
+};
+
+exports.saveAuthCode = function(code, clientId, expires, user, callback) {
+  var authCode = new OAuthAuthCode({
+    authCode: code,
+    clientId: clientId,
+    user: user._id,
+    expires: expires
+  });
+
+  authCode.save(callback);
 };

@@ -7,9 +7,9 @@
  */
 angular.module('auth').controller('AuthTokenController',
   [
-    '$state', '$log', 'OpenId', 'Session', '$searchParams', '$window',
+    '$state', '$log', 'Oauth2', 'Session', '$searchParams', '$window',
     'UrlUtil', 'LastLocation',
-    function ($state, $log, OpenId, Session, $searchParams, $window, UrlUtil,
+    function ($state, $log, Oauth2, Session, $searchParams, $window, UrlUtil,
       LastLocation) {
 
       // First, check for the edge case where the API returns an error code
@@ -39,7 +39,9 @@ angular.module('auth').controller('AuthTokenController',
 
       // Looks like there's no error, so let's see if we can resolve a token.
       // TODO: Finish implementing.
-      OpenId.token($searchParams)
+      var params = $searchParams;
+      params.grant_type = 'authorization_code';
+      Oauth2.token(params)
         .then(
         function (token) {
           Session.updateSession(token)

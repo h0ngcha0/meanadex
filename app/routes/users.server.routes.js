@@ -8,6 +8,7 @@ module.exports = function(app) {
   // Setting up the users profile api
   app.route('/users/me').get(oauth2.authorise, users.me);
   app.route('/users').post(oauth2.authorise, users.update);
+  app.route('/users/accounts').delete(users.removeOAuthProvider);
   app.route('/users/:userId').get(oauth2.authorise, users.me);
 
   // Setting up the users password api

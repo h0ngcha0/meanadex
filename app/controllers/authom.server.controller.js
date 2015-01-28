@@ -3,7 +3,11 @@
 /**
  * Module dependencies.
  */
-var authom = require('authom'),
+var qs = require('querystring'),
+    authom = require('authom'),
+    async = require('async'),
+    users = require('./users'),
+    oauth2model = require('./oauth2model.server.controller.js'),
     config = require('../../config/config');
 
 authom.createServer({
@@ -12,173 +16,49 @@ authom.createServer({
   secret: config.stripe.clientSecret
 });
 
+var redirectTo = function(req, res, redirectUrl) {
+  var baseUrl = req.protocol + '://' + req.headers.host;
+  var url = baseUrl + redirectUrl;
+  res.writeHead(302, {Location: url});
+  res.end();
+};
+
 authom.on('auth', function(req, res, data) {
-  // called when a user is authenticated
-  // { token: 'sk_test_t8enEqpUWfeGFbVgwAEhM7Z2',
-  //   refresh_token: 'rt_5ZeQzpWafOlrfcL7cb9cIt2I7AsczK35RZxkYq9vAHj8GSFn',
-  //   id: 'acct_103uts2r7jKRkL1R',
-  //   data:
-  //   { id: 'acct_103uts2r7jKRkL1R',
-  //     email: 'hudayou@hotmail.com',
-  //     statement_descriptor: null,
-  //     display_name: 'dayou',
-  //     timezone: 'Etc/UTC',
-  //     details_submitted: false,
-  //     currencies_supported:
-  //     [ 'usd',
-  //       'aed',
-  //       'afn',
-  //       'all',
-  //       'amd',
-  //       'ang',
-  //       'aoa',
-  //       'ars',
-  //       'aud',
-  //       'awg',
-  //       'azn',
-  //       'bam',
-  //       'bbd',
-  //       'bdt',
-  //       'bgn',
-  //       'bif',
-  //       'bmd',
-  //       'bnd',
-  //       'bob',
-  //       'brl',
-  //       'bsd',
-  //       'bwp',
-  //       'bzd',
-  //       'cad',
-  //       'cdf',
-  //       'chf',
-  //       'clp',
-  //       'cny',
-  //       'cop',
-  //       'crc',
-  //       'cve',
-  //       'czk',
-  //       'djf',
-  //       'dkk',
-  //       'dop',
-  //       'dzd',
-  //       'eek',
-  //       'egp',
-  //       'etb',
-  //       'eur',
-  //       'fjd',
-  //       'fkp',
-  //       'gbp',
-  //       'gel',
-  //       'gip',
-  //       'gmd',
-  //       'gnf',
-  //       'gtq',
-  //       'gyd',
-  //       'hkd',
-  //       'hnl',
-  //       'hrk',
-  //       'htg',
-  //       'huf',
-  //       'idr',
-  //       'ils',
-  //       'inr',
-  //       'isk',
-  //       'jmd',
-  //       'jpy',
-  //       'kes',
-  //       'kgs',
-  //       'khr',
-  //       'kmf',
-  //       'krw',
-  //       'kyd',
-  //       'kzt',
-  //       'lak',
-  //       'lbp',
-  //       'lkr',
-  //       'lrd',
-  //       'lsl',
-  //       'ltl',
-  //       'lvl',
-  //       'mad',
-  //       'mdl',
-  //       'mga',
-  //       'mkd',
-  //       'mnt',
-  //       'mop',
-  //       'mro',
-  //       'mur',
-  //       'mvr',
-  //       'mwk',
-  //       'mxn',
-  //       'myr',
-  //       'mzn',
-  //       'nad',
-  //       'ngn',
-  //       'nio',
-  //       'nok',
-  //       'npr',
-  //       'nzd',
-  //       'pab',
-  //       'pen',
-  //       'pgk',
-  //       'php',
-  //       'pkr',
-  //       'pln',
-  //       'pyg',
-  //       'qar',
-  //       'ron',
-  //       'rsd',
-  //       'rub',
-  //       'rwf',
-  //       'sar',
-  //       'sbd',
-  //       'scr',
-  //       'sek',
-  //       'sgd',
-  //       'shp',
-  //       'sll',
-  //       'sos',
-  //       'srd',
-  //       'std',
-  //       'svc',
-  //       'szl',
-  //       'thb',
-  //       'tjs',
-  //       'top',
-  //       'try',
-  //       'ttd',
-  //       'twd',
-  //       'tzs',
-  //       'uah',
-  //       'ugx',
-  //       'uyu',
-  //       'uzs',
-  //       'vnd',
-  //       'vuv',
-  //       'wst',
-  //       'xaf',
-  //       'xcd',
-  //       'xof',
-  //       'xpf',
-  //       'yer',
-  //       'zar',
-  //       'zmw' ],
-  //     default_currency: 'usd',
-  //     country: 'US',
-  //     object: 'account',
-  //     business_name: 'dayou',
-  //     transfer_enabled: false,
-  //     charge_enabled: false,
-  //     phone_number: null },
-  //   stripe_publishable_key: 'pk_test_u4QcBkmnH9Ipy27JYgHIj3gP',
-  //   service: 'stripe' }
+  var code = req.query.code;
+  async.waterfall([
+    function(callback) {
+      users.saveOAuthUserProfile(req, data, callback);
+    },
+    function(user, callback) {
+      var expires = new Date();
+      var seconds = expires.getSeconds() + 30;
+      expires.setSeconds(seconds);
+      oauth2model.saveAuthCode(code, 'meanadex', expires, user, callback);
+    }
+  ], function(err) {
+    var url, params;
+    if (err) {
+      console.log(err);
+      params = qs.stringify({
+        error: err.name,
+        error_description: err.message
+      });
+      url =  '/#!/auth/error?' + params;
+      redirectTo(req, res, url);
+    } else {
+      params = qs.stringify({
+        code: code
+      });
+      url = '/#!/auth/token?' + params;
+      redirectTo(req, res, url);
+    }
+  });
 });
 
 authom.on('error', function(req, res, data) {
-  // called when an error occurs during authentication
-  // { error: 'invalid_client',
-  //   error_description: 'No such API key: ',
-  //   service: 'stripe' }
+  var params = qs.stringify(data);
+  var url = '/#!/auth/error?' + params;
+  redirectTo(req, res, url);
 });
 
 exports.app = authom.app;

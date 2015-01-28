@@ -36,3 +36,75 @@ exports.signup = function(req, res, next) {
     }
   });
 };
+
+/**
+ * Helper function to save or update a OAuth user profile
+ */
+exports.saveOAuthUserProfile = function(req, providerUserProfile, callback) {
+  // Define a search query fields
+  var searchMainProviderIdentifierField = 'providerData.id';
+  var searchAdditionalProviderIdentifierField = 'additionalProvidersData.' + providerUserProfile.service + '.id';
+
+  // Define main provider search query
+  var mainProviderSearchQuery = {};
+  mainProviderSearchQuery.provider = providerUserProfile.service;
+  mainProviderSearchQuery[searchMainProviderIdentifierField] = providerUserProfile.id;
+
+  // Define additional provider search query
+  var additionalProviderSearchQuery = {};
+  additionalProviderSearchQuery[searchAdditionalProviderIdentifierField] = providerUserProfile.id;
+
+  // Define a search query to find existing user with current provider profile
+  var searchQuery = {
+    $or: [mainProviderSearchQuery, additionalProviderSearchQuery]
+  };
+
+  User.findOne(searchQuery, function(err, user) {
+    if (err) {
+      return callback(err);
+    } else {
+      if (!user) {
+        var username = providerUserProfile.data.email;
+
+        user = new User({
+          username: username,
+          provider: providerUserProfile.service,
+          providerData: providerUserProfile
+        });
+
+        // And save the user
+        user.save(callback);
+      } else {
+        return callback(err, user);
+      }
+    }
+  });
+};
+
+/**
+ * Remove OAuth provider
+ */
+exports.removeOAuthProvider = function(req, res, next) {
+  var user = req.user;
+  var provider = req.param('provider');
+
+  if (user && provider) {
+    // Delete the additional provider
+    if (user.additionalProvidersData[provider]) {
+      delete user.additionalProvidersData[provider];
+
+      // Then tell mongoose that we've updated the additionalProvidersData field
+      user.markModified('additionalProvidersData');
+    }
+
+    user.save(function(err) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.json(user);
+      }
+    });
+  }
+};
