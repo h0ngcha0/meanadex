@@ -92,6 +92,13 @@ module.exports = function(db) {
   app.use(helmet.ienoopen());
   app.disable('x-powered-by');
 
+  app.use(function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+  });
+
   // Setting the app router and static folder
   app.use(express.static(path.resolve('./public')));
 
