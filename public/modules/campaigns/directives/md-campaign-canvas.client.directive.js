@@ -91,7 +91,9 @@ angular.module('campaigns').directive('mdCampaignCanvas', [
             var design = JSON.parse(campaign.design);
             var frontImage = images[0];
             var backImage = images[1];
-            var canvas = new fabric.StaticCanvas('canvasId', {
+            var canvas = new fabric.Canvas('canvasId', {
+              width: 200,
+              height: 400,
               selectionBorderColor:'blue'
             });
 
