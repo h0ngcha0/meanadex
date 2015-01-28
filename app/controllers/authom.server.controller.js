@@ -38,7 +38,6 @@ authom.on('auth', function(req, res, data) {
   ], function(err) {
     var url, params;
     if (err) {
-      console.log(err);
       params = qs.stringify({
         error: err.name,
         error_description: err.message
