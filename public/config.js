@@ -21,6 +21,7 @@ var ApplicationConfiguration = (
       'LocalStorageModule',
       'ngTable',
       'angular-data.DS',
+      'angular-data.DSCacheFactory',
       'angularFileUpload',
       'timer',
       'nvd3ChartDirectives',
