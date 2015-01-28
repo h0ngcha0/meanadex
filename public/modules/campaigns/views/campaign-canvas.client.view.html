@@ -1,11 +1,11 @@
 <div class="page campaignTshirtDiv" ng-style="backgroundColor" ng-hide="error">
-  <img data-ng-src="{{backgroundImage}}"></img>
+  <img data-ng-style="backgroundImageStyle" data-ng-src="{{backgroundImage}}"></img>
   <div id="drawingArea"
        class="campaignTshirtArea">
     <img data-ng-src="{{canvasImgSrc}}"/>
   </div>
 
-  <div class="flipButtonDiv">
+  <div class="campaignFlipButtonDiv">
     <button type="button"
             data-ng-click="flip()"
             class="btn monadex-btn-primary">

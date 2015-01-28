@@ -9,20 +9,30 @@ angular.module('campaigns').directive('mdCampaignCanvas', [
     return {
       restrict: 'E',
       scope: {
+        scale: '@',
         campaign: '='
       },
       templateUrl: 'modules/campaigns/views/campaign-canvas.client.view.html',
       link: function(scope, element, attrs) {
+        // Our requirement of the Tshirt picture should have height of 630
+        // and width or 530.
+        var originWidth = 530,
+            originHeight = 630;
+
         // Load design and convert it to image.
         var setCanvas = function(canvas, flipText, image, designJson) {
-          // Going back
           scope.flipText = flipText;
           scope.backgroundImage = image;
+          scope.backgroundImageStyle = {
+            width: (originWidth * scope.scale) + 'px',
+            height: (originHeight * scope.scale) + 'px'
+          };
           canvas.clear();
           if(designJson !== null) {
             canvas.loadFromJSON(designJson, function() {
               scope.canvasImgSrc = canvas.toDataURL({
-                format: 'png'
+                format: 'png',
+                multiplier: scope.scale
               });
             });
           }
