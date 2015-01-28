@@ -13,19 +13,18 @@ angular.module('campaigns').directive('mdCampaignCanvas', [
       },
       templateUrl: 'modules/campaigns/views/campaign-canvas.client.view.html',
       link: function(scope, element, attrs) {
-        // generate a semi random canvas element id
-        scope.canvasId = Math.random().toString(36).substring(7);
-
+        // Load design and convert it to image.
         var setCanvas = function(canvas, flipText, image, designJson) {
           // Going back
           scope.flipText = flipText;
           scope.backgroundImage = image;
           canvas.clear();
           if(designJson !== null) {
-            canvas.loadFromJSON(
-              designJson,
-              canvas.renderAll.bind(canvas)
-            );
+            canvas.loadFromJSON(designJson, function() {
+              scope.canvasImgSrc = canvas.toDataURL({
+                format: 'png'
+              });
+            });
           }
         };
 
@@ -92,7 +91,7 @@ angular.module('campaigns').directive('mdCampaignCanvas', [
             var design = JSON.parse(campaign.design);
             var frontImage = images[0];
             var backImage = images[1];
-            var canvas = new fabric.StaticCanvas(scope.canvasId, {
+            var canvas = new fabric.StaticCanvas('canvasId', {
               selectionBorderColor:'blue'
             });
 
@@ -101,6 +100,7 @@ angular.module('campaigns').directive('mdCampaignCanvas', [
 
             // restore the background color if possible
             scope.backgroundColor = {'background': campaign.color};
+
             scope.flip = function() {
               if(scope.flipText === 'Show Back View') {
                 // Going back
