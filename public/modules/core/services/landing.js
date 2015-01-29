@@ -67,51 +67,6 @@ $(document).ready(function () {
   $(window).on('resize', maxHeight);
 
   /********************************************************************
-   4) Background-size iOS - fix
-   **********************/
-  /* Component Slideshow */
-  function bgSlideshow() {
-    var imgSlideshow = new Image();
-    imgSlideshow.src = $('.slideshow .item').css('background-image').replace(/'/g,'').replace(/url\(|\)$/ig, '');
-
-    var imgWidth = imgSlideshow.width;
-    var imgHeight = imgSlideshow.height;
-    var widthSlideshow = $('.slideshow .item').width();
-    var heightSlideshow = $('.slideshow .item').height();
-    /* Step 1 - Get the ratio of the div + the image */
-    var imgRatio = imgWidth/imgHeight;
-    var divRatio = widthSlideshow/heightSlideshow;
-
-    var divWidth, scale, divHeight;
-
-    /* Step 2 - Work out which ratio is greater */
-    if (imgRatio >= divRatio) {
-      /* The Height is our constant */
-      divHeight = heightSlideshow;
-      scale = (divHeight / imgHeight);
-      divWidth = imgWidth * scale;
-    } else {
-      /* The Width is our constant */
-      divWidth = widthSlideshow;
-      scale = (divWidth / imgWidth);
-      divHeight = imgHeight * scale;
-    }
-    var cover = divWidth + 'px ' + divHeight + 'px';
-    if (navigator.userAgent.match(/iPhone|iPad/i)) {
-      $('.slideshow .item').css('background-size', cover);
-    }
-  }
-  bgSlideshow();
-  $(window).on('load', bgSlideshow);
-
-  /********************************************************************
-   5) Component Slideshow - Carousel
-   *********************************/
-  $('#slideshow-carousel-1').carousel({
-    interval: 15000
-  });
-
-  /********************************************************************
    6) Navbar Fixed to Top
    **********************/
   $('.navbar').affix({
