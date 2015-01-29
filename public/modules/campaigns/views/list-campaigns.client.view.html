@@ -12,6 +12,7 @@
       <dashboard-widget-body>
         <div class="table-responsive">
           <table ng-table="tableParams"
+                 template-pagination="custom/pager"
                  class="table table-bordered">
             <tr ng-repeat="campaign in $data.documents">
               <td data-title="'Name'" filter="{ 'name': 'text' }">
@@ -91,4 +92,7 @@
       </alert>
     </div>
   </div>
+
+  <script type="text/ng-template" id="custom/pager">
+  </script>
 </div>

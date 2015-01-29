@@ -66,6 +66,8 @@ angular.module('campaigns').controller('CampaignsController', [
         $defer.resolve($scope.campaigns);
       }
     );
+    // Issue: https://github.com/esvit/ng-table/issues/297
+    $scope.tableParams.settings().$scope = $scope;
 
     $scope.disablePrev = function() {
       return !$scope.campaigns.prevPage;

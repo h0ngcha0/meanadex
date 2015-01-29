@@ -8,7 +8,10 @@
       </dashboard-widget-header>
       <dashboard-widget-body>
         <div class="table-responsive">
-          <table ng-table="tableParams" show-filter="true" class="table table-bordered">
+          <table ng-table="tableParams"
+                 template-pagination="custom/pager"
+                 show-filter="true"
+                 class="table table-bordered">
             <tr ng-repeat="order in $data.documents">
               <td data-title="'Provider'">
                 <span>{{order.provider}}</span>
@@ -57,4 +60,6 @@
       </alert>
     </div>
   </div>
+  <script type="text/ng-template" id="custom/pager">
+  </script>
 </div>

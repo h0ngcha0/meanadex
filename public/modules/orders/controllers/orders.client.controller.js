@@ -64,6 +64,8 @@ angular.module('orders').controller('OrdersController', [
         $defer.resolve($scope.orders);
       }
     );
+    // Issue: https://github.com/esvit/ng-table/issues/297
+    $scope.tableParams.settings().$scope = $scope;
 
     // Find a list of Orders and load them into order table
     $scope.loadAllOrdersInTableData = function(pageNumber) {
