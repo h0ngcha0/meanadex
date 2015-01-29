@@ -5,5 +5,5 @@ module.exports = function(app) {
   var tags = require('../../app/controllers/tags');
 
   app.route('/tags')
-     .get(oauth2.authorise, tags.list);
+     .get(tags.list);
 };
