@@ -45,18 +45,17 @@ angular.module('orders').controller('OrdersController', [
       $scope.tableParams.reload();
     };
 
-    var fetchedFirstPage = true;
     $scope.disablePrev = function() {
-      return fetchedFirstPage;
+      return !$scope.orders.prevPage;
     };
 
     $scope.disableNext = function() {
-      return !$scope.orders.nextAnchorId;
+      return !$scope.orders.nextPage;
     };
 
-    $scope.gotoPage = function(anchorId, disabled) {
+    $scope.gotoPage = function(page, disabled) {
       if(!disabled) {
-        $scope.loadAllOrdersInTableData(anchorId);
+        $scope.loadAllOrdersInTableData(page);
       }
     };
 
@@ -67,14 +66,11 @@ angular.module('orders').controller('OrdersController', [
     );
 
     // Find a list of Orders and load them into order table
-    $scope.loadAllOrdersInTableData = function(anchorId) {
-      var queryOption = anchorId ? {'anchorId': anchorId} : {};
-      fetchedFirstPage = anchorId ? false : true;
-
-      $scope.prevAnchorId = $scope.orders ? $scope.orders.prevAnchorId : undefined;
-
+    $scope.loadAllOrdersInTableData = function(pageNumber) {
       $scope.orders = Orders.query(
-        queryOption,
+        {
+          pageNumber: pageNumber
+        },
         function(data) {
           $scope.tableParams.reload();
         });

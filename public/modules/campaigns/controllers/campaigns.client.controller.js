@@ -67,31 +67,27 @@ angular.module('campaigns').controller('CampaignsController', [
       }
     );
 
-    var fetchedFirstPage = true;
     $scope.disablePrev = function() {
-      return fetchedFirstPage;
+      return !$scope.campaigns.prevPage;
     };
 
     $scope.disableNext = function() {
-      return !$scope.campaigns.nextAnchorId;
+      return !$scope.campaigns.nextPage;
     };
 
-    $scope.gotoPage = function(anchorId, disabled) {
+    $scope.gotoPage = function(page, disabled) {
       if(!disabled) {
-        $scope.loadAllCampaignsInTableData(anchorId);
+        $scope.loadAllCampaignsInTableData(page);
       }
     };
 
     // Find a list of Campaigns and load them into campaign table
-    $scope.loadAllCampaignsInTableData = function(anchorId) {
-      var queryOption = anchorId ? {'anchorId': anchorId} : {};
-      fetchedFirstPage = anchorId ? false : true;
-
-      $scope.prevAnchorId = $scope.campaigns ? $scope.campaigns.prevAnchorId : undefined;
-
+    $scope.loadAllCampaignsInTableData = function(pageNumber) {
       $scope.campaigns = Campaigns.query(
-        queryOption,
-        function(data) {
+        {
+          pageNumber: pageNumber
+        },
+        function(campaigns) {
           $scope.tableParams.reload();
         });
     };

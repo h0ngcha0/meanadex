@@ -97,5 +97,5 @@ var CampaignSchema = new Schema({
   }
 });
 
-mongoosePages.anchor(CampaignSchema);
+mongoosePages.skip(CampaignSchema);
 mongoose.model('Campaign', CampaignSchema);

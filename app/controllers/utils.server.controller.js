@@ -13,11 +13,11 @@ var errorHandler = require('./errors'),
 exports.listByQuery = function(model, queryFun, populateMap, callback) {
   return function(req, res) {
     var query = queryFun(req);
-    var anchorId = req.param('anchorId');
-    var itemsPerPage = req.param('itemsPerPage') || 6;
+    var pageNumber = req.param('pageNumber');
+    var itemsPerPage = req.param('itemsPerPage') || 10;
     var results = model.findPaginated(query, function(err, result) {
                     callback(req, res, err, result);
-                  }, itemsPerPage, anchorId).sort('-created');
+                  }, itemsPerPage, pageNumber).sort('-created');
 
     _.each(
       populateMap,

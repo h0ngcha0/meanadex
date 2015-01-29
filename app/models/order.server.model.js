@@ -88,6 +88,6 @@ var OrderSchema = new Schema({
   }
 }, {autoIndex: false});
 
-mongoosePages.anchor(OrderSchema);
+mongoosePages.skip(OrderSchema);
 
 mongoose.model('Order', OrderSchema);
