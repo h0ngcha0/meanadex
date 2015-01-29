@@ -65,15 +65,41 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, callback) {
     } else {
       if (!user) {
         var username = providerUserProfile.data.email;
+        User.findOne({username: username}, function(err, user) {
+          if (err) {
+            return callback(err);
+          } else {
+            if (!user) {
+              user = new User({
+                username: username,
+                provider: providerUserProfile.service,
+                providerData: providerUserProfile
+              });
 
-        user = new User({
-          username: username,
-          provider: providerUserProfile.service,
-          providerData: providerUserProfile
+              // And save the user
+              return user.save(function(err, user) {
+                callback(err, user);
+              });
+            } else {
+              // Check if user exists, is not signed in using this provider, and doesn't have that provider data already configured
+              if (user.provider !== providerUserProfile.service && (!user.additionalProvidersData || !user.additionalProvidersData[providerUserProfile.service])) {
+                // Add the provider data to the additional provider data field
+                if (!user.additionalProvidersData) user.additionalProvidersData = {};
+                user.additionalProvidersData[providerUserProfile.service] = providerUserProfile;
+
+                // Then tell mongoose that we've updated the additionalProvidersData field
+                user.markModified('additionalProvidersData');
+
+                // And save the user
+                return user.save(function(err, user) {
+                  callback(err, user);
+                });
+              } else {
+                return callback(err, user);
+              }
+            }
+          }
         });
-
-        // And save the user
-        user.save(callback);
       } else {
         return callback(err, user);
       }

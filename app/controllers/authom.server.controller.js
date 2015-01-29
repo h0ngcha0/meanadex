@@ -27,13 +27,17 @@ authom.on('auth', function(req, res, data) {
   var code = req.query.code;
   async.waterfall([
     function(callback) {
-      users.saveOAuthUserProfile(req, data, callback);
+      users.saveOAuthUserProfile(req, data, function(err, user) {
+        callback(err, user);
+      });
     },
     function(user, callback) {
       var expires = new Date();
       var seconds = expires.getSeconds() + 30;
       expires.setSeconds(seconds);
-      oauth2model.saveAuthCode(code, 'meanadex', expires, user, callback);
+      oauth2model.saveAuthCode(code, 'meanadex', expires, user, function(err, user) {
+        callback(err, user);
+      });
     }
   ], function(err) {
     var url, params;
@@ -60,4 +64,4 @@ authom.on('error', function(req, res, data) {
   redirectTo(req, res, url);
 });
 
-exports.app = authom.app;
+exports.authom = authom;
