@@ -14,11 +14,19 @@ angular.module('auth').config(['$stateProvider', 'SessionResolver',
       template: '<div ui-view></div>',
       url: '/auth'
     }).state('auth.authorize', {
-      url: '/authorize?error&error_description',
+      url: '/authorize?service&error&error_description',
       templateUrl: 'modules/auth/view/busy.client.view.html',
       controller: 'AuthAuthorizeController',
       resolve: {
         isLoggedOut: SessionResolver.requireLoggedOut
+      }
+    }).state('auth.connect', {
+      url: '/connect?service&error&error_description',
+      templateUrl: 'modules/auth/view/busy.client.view.html',
+      controller: 'AuthConnectController',
+      resolve: {
+        isLoggedIn: SessionResolver.requireLoggedIn,
+        currentUser: SessionResolver.requireCurrentUser
       }
     }).state('auth.signin', {
       url: '/signin',

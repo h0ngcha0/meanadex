@@ -6,13 +6,30 @@
 angular.module('auth').factory('Oauth2',
   [
     '$location', '$window', '$log', '$http', '$q',
-    'theApiBase', 'localStorageService',
+    'theApiBase', 'localStorageService', 'UrlUtil',
     function ($location, $window, $log, $http, $q,
-      theApiBase, localStorageService) {
+      theApiBase, localStorageService, UrlUtil) {
 
+      var authorizeUrl = theApiBase + '/oauth';
       var tokenUrl = theApiBase + '/oauth2/token';
 
       return {
+        /**
+         * Asks the OAuth endpoint for an authorization token given
+         * the passed parameters.
+         */
+        authorize: function (service, state) {
+          var url = authorizeUrl + '/' + service;
+          if (state) {
+            var oauthParams = {
+              state: state
+            };
+            url += '?' + UrlUtil.serializeParameters(oauthParams);
+          }
+
+          $window.location.href = url;
+        },
+
         /**
          * Asks our Oauth2 endpoint to convert an password or a
          * refresh token to an access token.

@@ -1,14 +1,8 @@
-/*
- * This controller is responsible for getting an authorization code
- * having a state and an openid.
- *
- */
-
-angular.module('auth').controller('AuthAuthorizeController', [
+angular.module('auth').controller('AuthConnectController', [
   '$stateParams', '$state', '$log', 'Oauth2', '$window', 'LastLocation',
-  'localStorageService',
+  'localStorageService', 'currentUser',
   function ($stateParams, $state, $log, Oauth2, $window, LastLocation,
-    localStorageService) {
+    localStorageService, currentUser) {
     'use strict';
 
     // First, check for the edge case where the API returns an error code
@@ -22,11 +16,12 @@ angular.module('auth').controller('AuthAuthorizeController', [
     }
 
     var service = $stateParams.service;
+    var state = currentUser._id;
 
     // Store the last path...
     localStorageService.set('lastPath', LastLocation.get());
 
     // We're not an error, let's fire the authorization.
-    Oauth2.authorize(service);
+    Oauth2.authorize(service, state);
   }
 ]);
