@@ -22,14 +22,4 @@ angular.module('core').config([
       $state.go('index');
     }
   );
-}]).run(['$http', 'DSCacheFactory', function ($http, DSCacheFactory) {
-
-  DSCacheFactory.createCache('defaultCache', {
-    // Items added to this cache expire after 1 minute.
-    maxAge: 60000,
-    // Items will be deleted from this cache only on check.
-    deleteOnExpire: 'passive'
-  });
-
-  $http.defaults.cache = DSCacheFactory.get('defaultCache');
 }]);

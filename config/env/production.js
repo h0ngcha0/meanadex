@@ -62,8 +62,7 @@ module.exports = {
         'public/lib/angular-breadcrumb/dist/angular-breadcrumb.min.js',
         'public/lib/jquery-nicescroll/jquery.nicescroll.min.js',
         'public/lib/slick-carousel/slick/slick.min.js',
-        'public/lib/angular-elastic/elastic.js',
-        'public/lib/angular-cache/dist/angular-cache.min.js'
+        'public/lib/angular-elastic/elastic.js'
       ]
     },
     css: 'public/dist/application.min.css',
