@@ -16,6 +16,23 @@ authom.createServer({
   secret: config.stripe.clientSecret
 });
 
+authom.createServer({
+  service: 'facebook',
+  id: config.facebook.clientID,
+  secret: config.facebook.clientSecret,
+  scope: ['email']
+});
+
+authom.createServer({
+  service: 'google',
+  id: config.google.clientID,
+  secret: config.google.clientSecret,
+  scope: [
+    'https://www.googleapis.com/auth/userinfo.profile',
+    'https://www.googleapis.com/auth/userinfo.email'
+  ]
+});
+
 var redirectTo = function(req, res, redirectUrl) {
   var baseUrl = req.protocol + '://' + req.headers.host;
   var url = baseUrl + redirectUrl;
