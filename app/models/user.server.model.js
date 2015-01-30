@@ -3,7 +3,8 @@
 /**
  * Module dependencies.
  */
-var mongoose = require('mongoose'),
+var _ = require('lodash'),
+    mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     crypto = require('crypto');
 
@@ -73,7 +74,7 @@ UserSchema.pre('save', function(next) {
 
   var env = process.env.NODE_ENV;
   if(env === 'development') {
-    if (this.username === 'admin@meanadex.com') {
+    if (this.username === 'admin@meanadex.com' && !_.intersection(this.roles, ['admin']).length) {
       this.roles.push('admin');
     }
   }
