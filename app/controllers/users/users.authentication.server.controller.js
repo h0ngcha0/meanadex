@@ -48,6 +48,7 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, callback) {
     {
       _id: state
     },
+    '-salt -password',
     function(err, user) {
       if (err) {
         return callback(err);
@@ -72,13 +73,13 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, callback) {
           $or: [mainProviderSearchQuery, additionalProviderSearchQuery]
         };
 
-        User.findOne(searchQuery, function(err, user) {
+        User.findOne(searchQuery, '-salt -password', function(err, user) {
           if (err) {
             return callback(err);
           } else {
             if (!user) {
               var username = providerUserProfile.data.email;
-              User.findOne({username: username}, function(err, user) {
+              User.findOne({username: username}, '-salt -password', function(err, user) {
                 if (err) {
                   return callback(err);
                 } else {
