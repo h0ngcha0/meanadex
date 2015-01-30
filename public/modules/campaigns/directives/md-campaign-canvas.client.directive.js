@@ -27,15 +27,18 @@ angular.module('campaigns').directive('mdCampaignCanvas', [
             width: (originWidth * scope.scale) + 'px',
             height: (originHeight * scope.scale) + 'px'
           };
+
           canvas.clear();
-          if(designJson !== null) {
-            canvas.loadFromJSON(designJson, function() {
-              scope.canvasImgSrc = canvas.toDataURL({
-                format: 'png',
-                multiplier: scope.scale
-              });
+
+          // If design json is empty, still try to generate
+          // empty image
+          designJson = designJson || [];
+          canvas.loadFromJSON(designJson, function() {
+            scope.canvasImgSrc = canvas.toDataURL({
+              format: 'png',
+              multiplier: scope.scale
             });
-          }
+          });
         };
 
         // has campaign
@@ -101,7 +104,7 @@ angular.module('campaigns').directive('mdCampaignCanvas', [
             var design = JSON.parse(campaign.design);
             var frontImage = images[0];
             var backImage = images[1];
-            var canvas = new fabric.Canvas('canvasId', {
+            var canvas = new fabric.Canvas(campaign._id, {
               width: 200,
               height: 400,
               selectionBorderColor:'blue'
