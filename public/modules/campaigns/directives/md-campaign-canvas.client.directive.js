@@ -39,7 +39,7 @@ angular.module('campaigns').directive('mdCampaignCanvas', [
               multiplier: scope.scale
             });
 
-            element.find('#canvasImage').attr("src", canvasImgSrc);
+            element.find('#canvasImage').attr('src', canvasImgSrc);
           });
         };
 
