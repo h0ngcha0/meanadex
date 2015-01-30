@@ -34,10 +34,12 @@ angular.module('campaigns').directive('mdCampaignCanvas', [
           // empty image
           designJson = designJson || [];
           canvas.loadFromJSON(designJson, function() {
-            scope.canvasImgSrc = canvas.toDataURL({
+            var canvasImgSrc = canvas.toDataURL({
               format: 'png',
               multiplier: scope.scale
             });
+
+            element.find('#canvasImage').attr("src", canvasImgSrc);
           });
         };
 
