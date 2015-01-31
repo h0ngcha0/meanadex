@@ -13,18 +13,12 @@ angular.module('auth').run([
     }
 
     function handle_403() {
-      var modalInstance = $modal.open({
-        templateUrl: 'modules/auth/view' +
-        '/modal/superuser-required.client.view.html',
-        controller: function($modalInstance, $scope) {
-          $scope.close = function () {
-            $modalInstance.dismiss('cancel');
-          };
-        }
+      $modal({
+        animation: 'am-fade-and-scale',
+        placement: 'center',
+        template: 'modules/auth/view/modal/superuser-required.client.view.html'
       });
-      return modalInstance.result;
     }
-
 
     // We're using -1 as the priority, to ensure that this is
     // intercepted before anything else happens.
