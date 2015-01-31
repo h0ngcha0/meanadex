@@ -11,12 +11,16 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
     $scope.campaignDescription = CampaignCache.getDescription() || '';
     CampaignCache.bindDescription($scope);
 
-    $scope.currentCampaignLength = CampaignCache.getLength() || 7;
-    CampaignCache.bindLength($scope);
-
     $scope.campaignLengths = [3, 5, 7, 10, 14, 21];
+    $scope.currentCampaignLength =  $scope.campaignLengths[2];
+
     $scope.displayCampaignLength = function(days) {
-      return days.toString() + ' days ' + '(Ending ' + moment().add(days, 'd').toString() + ')';
+      var endTime = '<span class="campaignLengthEnding">' +
+        moment().add(days, 'd').format('MMM Do YYYY, h:mm') + '</span>';
+      var calendar = '<span class="fa fa-calendar"/>';
+      var date = '<span> ' +  days.toString() + ' days ' +
+        '  ' + endTime + '</span>';
+      return calendar + date;
     };
 
     $scope.hideWarning = {

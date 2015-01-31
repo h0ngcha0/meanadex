@@ -33,11 +33,14 @@
           <hr/>
 
           <h4>Campaign length</h4>
-          <select class="font-family-picker form-control"
-                  ng-init="currentCampaignLength=campaignLengths[2]"
-                  ng-model="currentCampaignLength"
-                  ng-options="displayCampaignLength(campaignLength) for campaignLength in campaignLengths">
-          </select>
+          <button ng-model="currentCampaignLength"
+                  data-html="1"
+                  data-ng-options="displayCampaignLength(campaignLength) for campaignLength in campaignLengths"
+                  type="button"
+                  class="btn btn-default"
+                  data-animation="am-flip-x"
+                  bs-select>
+          </button>
 
           <hr/>
           <div class="checkbox">
