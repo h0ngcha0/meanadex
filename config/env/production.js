@@ -24,7 +24,8 @@ module.exports = {
         'public/lib/angular-rangeslider/angular.rangeSlider.css',
         'public/lib/ng-tags-input/ng-tags-input.min.css',
         'public/lib/angular-motion/dist/angular-motion.min.css',
-        'public/lib/slick-carousel/slick/slick.css'
+        'public/lib/slick-carousel/slick/slick.css',
+        'public/lib/textAngular/src/textAngular.css'
       ],
       js: [
         'public/lib/jquery/dist/jquery.min.js',
