@@ -1,6 +1,6 @@
 angular.module('auth').run([
-  '$log', '$modal', 'Notification', 'SessionState', 'Priority',
-  function ($log, $modal, Notification, SessionState, Priority) {
+  '$log', 'Notification', 'SessionState', 'Priority',
+  function ($log, Notification, SessionState, Priority) {
     'use strict';
 
 
