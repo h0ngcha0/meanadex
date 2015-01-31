@@ -63,8 +63,7 @@ module.exports = {
         'public/lib/angular-breadcrumb/dist/angular-breadcrumb.js',
         'public/lib/jquery-nicescroll/jquery.nicescroll.js',
         'public/lib/slick-carousel/slick/slick.js',
-        'public/lib/angular-elastic/elastic.js',
-        'public/lib/angular-cache/dist/angular-cache.js'
+        'public/lib/angular-elastic/elastic.js'
       ]
     },
     css: [
