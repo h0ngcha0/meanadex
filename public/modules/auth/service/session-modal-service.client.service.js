@@ -14,9 +14,9 @@ angular.module('auth')
     showLoginRequiredModal: function () {
       var modalInstance = $modal.open(
         {
-          templateUrl: 'modules/auth/view' +
-          '/modal/login-required.client.view.html',
-          controller: 'LoginRequiredModalController'
+          animation: 'am-fade-and-scale',
+          placement: 'center',
+          template: 'modules/auth/view/modal/login-required.client.view.html'
         }
       );
 
