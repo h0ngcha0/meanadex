@@ -52,10 +52,7 @@ angular.module('auth').config(['$stateProvider', 'SessionResolver',
     }).state('auth.token', {
       url: '/token?code&state&error&error_description',
       templateUrl: 'modules/auth/view/busy.client.view.html',
-      controller: 'AuthTokenController',
-      resolve: {
-        isLoggedOut: SessionResolver.requireLoggedOut
-      }
+      controller: 'AuthTokenController'
     }).state('auth.error', {
       url: '/error?error&error_description',
       templateUrl: 'modules/auth/view/error.client.view.html',

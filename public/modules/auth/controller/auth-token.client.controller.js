@@ -37,6 +37,13 @@ angular.module('auth').controller('AuthTokenController',
         return location;
       }
 
+      if (Session.isLoggedIn()) {
+        var nextPath = buildNextPath();
+        $window.location.href =
+        UrlUtil.buildApplicationUrl(nextPath);
+        return;
+      }
+
       // Looks like there's no error, so let's see if we can resolve a token.
       // TODO: Finish implementing.
       var params = $searchParams;
