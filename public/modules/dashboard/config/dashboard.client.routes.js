@@ -7,6 +7,8 @@ angular.module('dashboard').config([
   function($stateProvider, $urlRouterProvider, SessionResolver,
     PermissionResolver) {
     // Dashboard state routing
+    $urlRouterProvider
+      .when('/dashboard/front', '/dashboard/profile');
     $stateProvider.
       state('dashboard', {
         resolve: {
