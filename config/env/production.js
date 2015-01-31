@@ -27,7 +27,7 @@ module.exports = {
         'public/lib/slick-carousel/slick/slick.css'
       ],
       js: [
-        'public/lib/jquery/jquery.min.js',
+        'public/lib/jquery/dist/jquery.min.js',
         'public/lib/lodash/dist/lodash.underscore.min.js',
         'public/lib/async/lib/async.js',
         'https://checkout.stripe.com/checkout.js',
@@ -44,6 +44,7 @@ module.exports = {
         'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
         'public/lib/fabric/dist/fabric.min.js',
         'public/lib/bootstrap/dist/js/bootstrap.min.js',
+        'public/lib/textAngular/dist/textAngular-rangy.min.js',
         'public/lib/textAngular/dist/textAngular-sanitize.min.js',
         'public/lib/textAngular/dist/textAngular.min.js',
         'public/lib/moment/min/moment.min.js',
