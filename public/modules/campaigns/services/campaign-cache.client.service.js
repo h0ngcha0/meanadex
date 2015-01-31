@@ -80,19 +80,6 @@ angular.module('campaigns').service('CampaignCache', [
       });
     };
 
-    // url
-    var url = 'campaignUrl';
-    this.getUrl = function() {
-      return retrieve(url);
-    };
-
-    this.bindUrl = function(sco) {
-      bind({
-        scope: sco,
-        key: url
-      });
-    };
-
     // length
     var length = 'currentCampaignLength';
     this.getLength = function() {
