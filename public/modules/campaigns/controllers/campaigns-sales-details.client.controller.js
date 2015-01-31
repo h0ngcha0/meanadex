@@ -11,20 +11,6 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
     $scope.campaignDescription = CampaignCache.getDescription() || '';
     CampaignCache.bindDescription($scope);
 
-    var url = CampaignCache.getUrl() || '';
-    if (url) {
-      $scope.campaignUrl = url;
-    }
-    else {
-      $http.get('/campaign/url').success(function(response) {
-        $scope.campaignUrl = JSON.parse(response);
-
-      }).error(function(response) {
-        $scope.error = response.message;
-      });
-    }
-    CampaignCache.bindUrl($scope);
-
     $scope.currentCampaignLength = CampaignCache.getLength() || 7;
     CampaignCache.bindLength($scope);
 
@@ -36,7 +22,6 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
     $scope.hideWarning = {
       campaignTitle: true,
       campaignDescription: true,
-      campaignUrl: true,
       tosChecked: true
     };
 
@@ -55,7 +40,6 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
       [
         'campaignTitle',
         'campaignDescription',
-        'campaignUrl',
         'tosChecked'
       ].forEach(function(obj) {
         verifyEmptyFun(obj);
