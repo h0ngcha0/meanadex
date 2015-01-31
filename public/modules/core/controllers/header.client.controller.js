@@ -22,7 +22,11 @@ angular.module('core').controller('HeaderController', [
     resolveCurrentUser();
 
     $scope.initFeaturedCampaigns = function() {
-      $scope.featuredCampaigns = FeaturedCampaigns.query();
+      $scope.featuredCampaigns = FeaturedCampaigns.query(
+        {
+          itemsPerPage: 6
+        }
+      );
     };
 
     /**
