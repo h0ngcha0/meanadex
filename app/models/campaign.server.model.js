@@ -40,11 +40,6 @@ var CampaignSchema = new Schema({
     min: [3, 'The minimal length of a campaign is 3'],
     max: [100, 'The maximal length of a campaign is 100']
   },
-  url: {
-    type: String,
-    required: 'Please fill in Campaign URL',
-    trim: true
-  },
   goal: {
     type: Number,
     default: 10,

@@ -61,7 +61,6 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
         ended_at: moment(now).add($scope.currentCampaignLength, 'days').toDate(),
         description: CampaignCache.getDescription(),
         length: CampaignCache.getLength(),
-        url: CampaignCache.getUrl(),
         goal: parseInt(CampaignCache.getGoal()),
         tshirtRef: tshirt._id,
         tshirt: tshirt,
