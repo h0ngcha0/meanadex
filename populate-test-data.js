@@ -220,7 +220,7 @@ module.exports = function(grunt) {
 
       var createOrderFun = function(access_token, campaigns, callback) {
         var campaign = pickRandom(campaigns);
-        var email = pickRandom(['lbs.lhc@gmail.com', 'monadex@gmail.com']);
+        var email = pickRandom(['monadex@gmail.com', 'meanadex@gmail.com']);
         var quantity = pickRandom([1,2,3,4,5,10]);
         return function(callback) {
           stripe.tokens.create(
