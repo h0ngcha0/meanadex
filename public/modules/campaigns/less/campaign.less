@@ -49,28 +49,52 @@
 }
 
 
-.smaller .campaignTshirtDiv {
-  width: @tshirtDivWidth * @canvasScale;
-  height: @tshirtDivHeight * @canvasScale;
+.landing .campaignTshirtDiv {
+  width: @tshirtDivWidth * @canvasLandingScale;
+  height: @tshirtDivHeight * @canvasLandingScale;
   position: relative;
 }
 
-.smaller .campaignTshirtArea {
+.landing .campaignTshirtArea {
   position: absolute;
-  top: @canvasOffsetTop * @canvasScale;
-  left: @canvasOffsetLeft * @canvasScale;
+  top: @canvasOffsetTop * @canvasLandingScale;
+  left: @canvasOffsetLeft * @canvasLandingScale;
   z-index: 10;
-  width: @canvasWidth * @canvasScale;
-  height: @canvasHeight * @canvasScale;
+  width: @canvasWidth * @canvasLandingScale;
+  height: @canvasHeight * @canvasLandingScale;
 }
 
-.smaller .campaignFlipButtonDiv {
+.landing .campaignFlipButtonDiv {
   position: absolute;
-  top: (@tshirtDivHeight - 30px) * @canvasScale;
-  left: 160px * @canvasScale;
+  top: (@tshirtDivHeight - 30px) * @canvasLandingScale;
+  left: 160px * @canvasLandingScale;
   z-index: 10;
-  width: 50px * @canvasScale;
-  height: 50px * @canvasScale;
+  width: 50px * @canvasLandingScale;
+  height: 50px * @canvasLandingScale;
+}
+
+.discovery-thumbnail .campaignTshirtDiv {
+  width: @tshirtDivWidth * @canvasThumbnailScale;
+  height: @tshirtDivHeight * @canvasThumbnailScale;
+  position: relative;
+}
+
+.discovery-thumbnail .campaignTshirtArea {
+  position: absolute;
+  top: @canvasOffsetTop * @canvasThumbnailScale;
+  left: @canvasOffsetLeft * @canvasThumbnailScale;
+  z-index: 10;
+  width: @canvasWidth * @canvasThumbnailScale;
+  height: @canvasHeight * @canvasThumbnailScale;
+}
+
+.discovery-thumbnail .campaignFlipButtonDiv {
+  position: absolute;
+  top: (@tshirtDivHeight - 30px) * @canvasThumbnailScale;
+  left: 100px * @canvasThumbnailScale;
+  z-index: 10;
+  width: 50px * @canvasThumbnailScale;
+  height: 50px * @canvasThumbnailScale;
 }
 
 .campaignLengthEnding {

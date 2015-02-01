@@ -2,9 +2,9 @@
 
 // Campaigns controller
 angular.module('campaigns').controller('CampaignsController', [
-  '$scope', '$stateParams', '$state', '$location',
+  '$scope', '$stateParams', '$state', '$location', 'SearchCampaigns', 'FeaturedCampaigns',
   'Campaigns', '$cookies', '$filter', 'DashboardUtils', '$timeout', '$http',
-  function($scope, $stateParams, $state, $location,
+  function($scope, $stateParams, $state, $location, SearchCampaigns, FeaturedCampaigns,
            Campaigns, $cookies, $filter, DashboardUtils, $timeout, $http) {
     // Remove existing Campaign
     $scope.remove = function( campaign ) {
@@ -113,6 +113,23 @@ angular.module('campaigns').controller('CampaignsController', [
       $state.go('createOrder', {
         campaign: campaignJson
       }, {location: false, inherit: false});
+    };
+
+    $scope.initDiscoveryCampaigns = function() {
+      FeaturedCampaigns.query(
+        {
+          itemsPerPage: 6
+        }
+      ).$promise.then(
+        function(campaigns) {
+          $scope.allDiscoveredCampaigns = campaigns.documents;
+          $scope.currentDiscoveredCampaign = $scope.allDiscoveredCampaigns[0];
+        },
+        function(err) {
+          $scope.allDiscoveredCampaigns = [];
+          $scope.currentDiscoveredCampaign = null;
+        }
+      );
     };
   }
 ]);

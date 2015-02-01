@@ -12,6 +12,9 @@ module.exports = function(app) {
   app.route('/featured_campaigns')
   .get(campaigns.listOfFeatured);
 
+  app.route('/search_campaigns')
+  .get(campaigns.search);
+
   app.route('/campaigns/:campaignId')
   .get(campaigns.read)
   .post(oauth2.authorise, campaigns.hasAuthorization, campaigns.update)

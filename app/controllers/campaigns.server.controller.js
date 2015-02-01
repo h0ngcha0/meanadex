@@ -169,27 +169,40 @@ var populateSold = function(campaigns, callback) {
   });
 };
 
-var campaignsCallback = function(req, res, err, result) {
-  if (err) {
-    return res.status(400).send({
-      message: errorHandler.getErrorMessage(err)
-    });
-  } else {
-    var objects = result.documents;
-    populateSold(objects, function(err, newObjects) {
-      if(err) {
-        logger.error('Error populating sold field for campaigns.', err);
 
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      }
-      else {
-        result.documents = newObjects;
-        res.jsonp(result);
-      }
-    });
-  }
+var pagingResultUnwrapper = function(result) {
+  return result.documents;
+};
+
+var searchResultUnwrapper = function(result) {
+  return _.map(result.results, function(result) {
+           return result.obj;
+         });
+};
+
+var campaignsCallback = function(resultUnwrapper) {
+  return function(req, res, err, result) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      var objects = resultUnwrapper(result);
+      populateSold(objects, function(err, newObjects) {
+        if(err) {
+          logger.error('Error populating sold field for campaigns.', err);
+
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        }
+        else {
+          result.documents = newObjects;
+          res.jsonp(result);
+        }
+      });
+    }
+  };
 };
 
 /**
@@ -200,7 +213,7 @@ exports.listByUser = utils.listByUser(
   {
     'user': 'username'
   },
-  campaignsCallback
+  campaignsCallback(pagingResultUnwrapper)
 );
 
 var notTippedCampaignDecorator = function(queryFun) {
@@ -223,7 +236,19 @@ exports.listOfFeatured = utils.list(
     'user': 'username'
   },
   [notTippedCampaignDecorator],
-  campaignsCallback
+  campaignsCallback(pagingResultUnwrapper)
+);
+
+/**
+ * Search Campaigns based on name and description
+ */
+exports.search = utils.listBySearch(
+  Campaign,
+  {
+    'user': 'username'
+  },
+  [],
+  campaignsCallback(searchResultUnwrapper)
 );
 
 /**
