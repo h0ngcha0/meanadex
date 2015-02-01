@@ -28,16 +28,15 @@
       <dashboard-widget-body>
         <div class="text-center row">
           <a href="#!/auth/connect?service=facebook"
-            data-ng-hide="isConnectedSocialAccount('facebook')"
-            class="undecorated-link fa fa-facebook fa-4x col-md-2">
+             data-ng-hide="isConnectedSocialAccount('facebook')"
+             class="undecorated-link fa fa-facebook fa-4x col-md-2">
           </a>
           <a href="#!/auth/connect?service=google"
-            data-ng-hide="isConnectedSocialAccount('google')"
-            class="undecorated-link fa fa-google-plus fa-4x col-md-2">
+             data-ng-hide="isConnectedSocialAccount('google')"
+             class="undecorated-link fa fa-google-plus fa-4x col-md-2">
           </a>
-          <span href="#!/auth/connect?service=google"
-             data-ng-show="isConnectedSocialAccount('google') & isConnectedSocialAccount('facebook')"
-             class="col-md-12">
+          <span data-ng-show="isConnectedSocialAccount('google') & isConnectedSocialAccount('facebook')"
+                class="col-md-12">
             You are connected with both Facebook and Google+.
           </span>
         </div>
