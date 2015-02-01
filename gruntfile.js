@@ -277,10 +277,10 @@ module.exports = function(grunt) {
   require('./populate-test-data')(grunt);
 
   // Default task(s).
-  grunt.registerTask('default', ['lint', 'concurrent:default']);
+  grunt.registerTask('default', ['build', 'concurrent:default']);
 
   // Debug task.
-  grunt.registerTask('debug', ['lint', 'concurrent:debug']);
+  grunt.registerTask('debug', ['build', 'concurrent:debug']);
 
   // Lint task(s).
   grunt.registerTask('lint', ['sass', 'less', 'jshint', 'csslint']);
