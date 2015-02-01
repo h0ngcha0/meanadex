@@ -41,13 +41,20 @@
 
 .campaignFlipButtonDiv {
   position: absolute;
-  top: @tshirtDivHeight - 30px;
-  left: 180px;
+  top: @tshirtDivHeight - 50px;
+  left: 1900px;
   z-index: 10;
   width: 50px;
   height: 50px;
 }
 
+.campaignProgressDiv {
+  z-index: 10;
+}
+
+.campaignTitle {
+  text-align: center;
+}
 
 .landing .campaignTshirtDiv {
   width: @tshirtDivWidth * @canvasLandingScale;
@@ -66,11 +73,16 @@
 
 .landing .campaignFlipButtonDiv {
   position: absolute;
-  top: (@tshirtDivHeight - 30px) * @canvasLandingScale;
+  top: (@tshirtDivHeight - 40px) * @canvasLandingScale;
   left: 160px * @canvasLandingScale;
   z-index: 10;
   width: 50px * @canvasLandingScale;
   height: 50px * @canvasLandingScale;
+}
+
+.landing .campaignProgressDiv {
+  margin-top: 25px;
+  z-index: 10;
 }
 
 .discovery-thumbnail .campaignTshirtDiv {
@@ -91,10 +103,15 @@
 .discovery-thumbnail .campaignFlipButtonDiv {
   position: absolute;
   top: (@tshirtDivHeight - 30px) * @canvasThumbnailScale;
-  left: 100px * @canvasThumbnailScale;
+  left: 130px * @canvasThumbnailScale;
   z-index: 10;
   width: 50px * @canvasThumbnailScale;
   height: 50px * @canvasThumbnailScale;
+}
+
+.discovery-thumbnail .campaignProgressDiv {
+  margin-top: 30px;
+  z-index: 10;
 }
 
 .campaignLengthEnding {

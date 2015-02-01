@@ -118,6 +118,11 @@ angular.module('campaigns').directive('mdCampaignCanvas', [
             // restore the background color if possible
             scope.backgroundColor = {'background': campaign.color};
 
+            scope.goalProgressStyle = {
+              'width': (campaign.sold / campaign.goal) * 100 + '%',
+              'min-width': '10em'
+            };
+
             scope.flip = function() {
               if(scope.flipText === 'Show Back View') {
                 // Going back
