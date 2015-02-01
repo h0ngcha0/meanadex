@@ -6,8 +6,8 @@ module.exports = {
     title: 'meanadex - Development Environment'
   },
   facebook: {
-    clientID: process.env.FACEBOOK_ID || '1399858810316255',
-    clientSecret: process.env.FACEBOOK_SECRET || '974e0cc4487c07fbbb8ed3a90fd36751'
+    clientID: process.env.FACEBOOK_ID || '808981902515299',
+    clientSecret: process.env.FACEBOOK_SECRET || '86928b8c0fb90b1206f59ff62aa99ac6'
   },
   google: {
     clientID: process.env.GOOGLE_ID || '826231740029-do4s41u16f6gv5duiiedgeoq3pi9qgpo.apps.googleusercontent.com',
