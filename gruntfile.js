@@ -21,8 +21,8 @@ module.exports = function(grunt) {
           {
             expand: true,
             flatten: true,
-            src: ['public/modules/dashboard/fonts/*'],
-            dest: 'public/fonts',
+            src: ['public/fonts/*'],
+            dest: 'public/dist/fonts',
             filter: 'isFile'
           },
           {
