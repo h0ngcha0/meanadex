@@ -13,14 +13,14 @@
   <!-- Portfolio Item Row -->
   <div class="row">
 
-    <div class="col-md-8">
+    <div class="col-md-7">
       <md-campaign-canvas scale="1.0"
                           data-ng-if="currentDiscoveredCampaign"
                           campaign="currentDiscoveredCampaign">
       </md-campaign-canvas>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-5">
       <h3 data-ng-bind="currentDiscoveredCampaign.name"></h3>
       <p data-ng-bind-html="currentDiscoveredCampaign.description"></p>
     </div>
@@ -38,7 +38,7 @@
     <div data-ng-repeat="discoveryCampaign in allDiscoveredCampaigns"
          class="col-sm-3 col-xs-6">
       <a href="#">
-        <md-campaign-canvas scale="0.7" campaign="discoveryCampaign" class="smaller">
+        <md-campaign-canvas scale="0.5" campaign="discoveryCampaign" class="discovery-thumbnail">
         </md-campaign-canvas>
       </a>
     </div>
