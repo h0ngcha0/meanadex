@@ -164,19 +164,19 @@ angular.module('designer').service('mdCanvasService', [
 
           switch(control) {
             case 'br':
-            img.src = 'modules/designer/img/tool/scale.png';
+            img.src = 'images/tool/scale.png';
             ctx.drawImage(img, left, top, sizeX, sizeY);
             break;
             case 'bl':
-            img.src = 'modules/designer/img/tool/delete.png';
+            img.src = 'images/tool/delete.png';
             ctx.drawImage(img, left, top, sizeX, sizeY);
             break;
             case 'tl':
-            img.src = 'modules/designer/img/tool/drag.png';
+            img.src = 'images/tool/drag.png';
             ctx.drawImage(img, left, top, sizeX, sizeY);
             break;
             case 'tr':
-            img.src = 'modules/designer/img/tool/rotate.png';
+            img.src = 'images/tool/rotate.png';
             ctx.drawImage(img, left, top, sizeX, sizeY);
             break;
             default:

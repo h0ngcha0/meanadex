@@ -17,11 +17,21 @@ module.exports = function(grunt) {
   grunt.initConfig({
     copy: {
       main: {
-        expand: true,
-        flatten: true,
-        src: ['public/modules/dashboard/fonts/*'],
-        dest: 'public/fonts',
-        filter: 'isFile'
+        files: [
+          {
+            expand: true,
+            flatten: true,
+            src: ['public/modules/dashboard/fonts/*'],
+            dest: 'public/fonts',
+            filter: 'isFile'
+          },
+          {
+            expand: true,
+            flatten: true,
+            src: ['public/images/*'],
+            dest: 'public/dist/images'
+          }
+        ]
       }
     },
     pkg: grunt.file.readJSON('package.json'),
@@ -208,7 +218,7 @@ module.exports = function(grunt) {
       development: {
         constants: {
           ENV: {
-            stripeImage: 'https://localhost:3000/modules/core/img/brand/favicon.ico',
+            stripeImage: 'https://localhost:3000/images/brand/favicon.ico',
             stripePublicKey: 'pk_test_WMSaxecz5HSTGZxlFbuxdF7B'
           }
         }
