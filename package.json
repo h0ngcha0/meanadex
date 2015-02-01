@@ -38,7 +38,8 @@
     "shortid": "^2.0.1",
     "stripe": "^2.8.0",
     "swig": "~1.4.1",
-    "winston": "~0.8.1"
+    "winston": "~0.8.1",
+    "mongoose-text-search": "0.0.2"
   },
   "devDependencies": {
     "form-data": "~0.1.4",

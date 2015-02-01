@@ -5,6 +5,7 @@
  */
 var mongoose = require('mongoose'),
     mongoosePages = require('mongoose-pages'),
+    textSearch = require('mongoose-text-search'),
     Schema = mongoose.Schema;
 
 /**
@@ -93,4 +94,12 @@ var CampaignSchema = new Schema({
 });
 
 mongoosePages.skip(CampaignSchema);
+
+// Index on name and description
+CampaignSchema.plugin(textSearch);
+CampaignSchema.index({
+  name: 'text',
+  description: 'text'
+});
+
 mongoose.model('Campaign', CampaignSchema);

@@ -113,6 +113,27 @@ exports.list = function(model, populateMap, queryDecorators, callback) {
 };
 
 /**
+ * Return an array of `model`, query is refined by a list of queryDecorators
+ */
+exports.listBySearch = function(model, populateMap, queryDecorators, callback) {
+  return function(req, res) {
+    var queryFun = _.reduce(queryDecorators, function(acc, queryDecorator) {
+                     return queryDecorator(acc);
+                   }, dateQueryFun);
+    var query = queryFun(req);
+    var searchText = req.param('text');
+    var limit = req.param('limit') || 20;
+    var options = {
+        filter: query,
+        limit: limit
+    };
+
+    model.textSearch(searchText, options, function(err, result) {
+      callback(req, res, err, result);
+    });
+  };
+};
+/**
  * Send mail
  */
 exports.sendMail = function(emailHTML, subject, email, callback) {
