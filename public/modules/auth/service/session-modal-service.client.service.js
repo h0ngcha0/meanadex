@@ -12,7 +12,7 @@ angular.module('auth')
      * log in first.
      */
     showLoginRequiredModal: function () {
-      var modalInstance = $modal.open(
+      var modalInstance = $modal(
         {
           animation: 'am-fade-and-scale',
           placement: 'center',
