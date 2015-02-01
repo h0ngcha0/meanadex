@@ -69,7 +69,7 @@ module.exports = function(grunt) {
         console.log(access_token);
         createImage(
           access_token,
-          '/public/modules/designer/img/canvas/crew_front.png',
+          '/public/images/crew_front.png',
           function(error, response, body) {
             var img = JSON.parse(body),
                 frontImgId = img._id;
@@ -82,7 +82,7 @@ module.exports = function(grunt) {
       var createBackImage = function(access_token, frontImgId, callback) {
         createImage(
           access_token,
-          '/public/modules/designer/img/canvas/crew_back.png',
+          '/public/images/crew_back.png',
           function(error, response, body) {
             var img = JSON.parse(body),
                 backImgId = img._id;
