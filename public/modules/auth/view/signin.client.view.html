@@ -9,31 +9,26 @@
           <input type="password" id="password" name="password" class="form-control" data-ng-model="credentials.password" placeholder="Password">
         </div>
         <div class="text-center form-group">
-          <button type="submit" class="btn monadex-btn-primary">Sign in</button>
-        </div>
-        <div class="or-box row">
-          <button href="#!/auth/connect?service=google"
-                  class="btn btn-facebook btn-block">
-            <i class="fa fa-facebook-official"/>
-            Facebook
-          </button>
-          <button href="#!/auth/connect?service=facebook"
-                  class="btn btn-google btn-block">
-            <i class="fa fa-google-plus"/>
-            Google
-          </button>
-        </div>
-        <div class="or-box">
-          <a href="/#!/auth/signup"
-             class="btn monadex-btn-primary btn-block">
-            Create new account
-          </a>
-          <a class="forgotLnk" href="/#!/password/forgot">Forgot password?</a>
-        </div>
-        <div data-ng-show="error" class="text-center text-danger">
-          <strong data-ng-bind="error"></strong>
+          <button type="submit" class="btn monadex-btn-primary">Sign in</button>&nbsp; or&nbsp;
+          <a href="/#!/auth/signup" class="show-signin">Sign up</a>
         </div>
       </fieldset>
     </form>
+    <div class="or-box">
+      <a href="/#!/auth/connect?service=google"
+         class="btn btn-facebook btn-block">
+        <i class="fa fa-facebook-official"/>
+        Facebook
+      </a>
+      <a href="/#!/auth/connect?service=facebook"
+         class="btn btn-google btn-block">
+        <i class="fa fa-google-plus"/>
+        Google
+      </a>
+      <a class="forgotLnk" href="/#!/password/forgot">Forgot password?</a>
+    </div>
+    <div data-ng-show="error" class="text-center text-danger">
+      <strong data-ng-bind="error"></strong>
+    </div>
   </div>
 </section>
