@@ -11,8 +11,8 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
     $scope.campaignDescription = CampaignCache.getDescription() || '';
     CampaignCache.bindDescription($scope);
 
-    $scope.campaignLengths = [3, 5, 7, 10, 14, 21];
-    $scope.currentCampaignLength =  $scope.campaignLengths[2];
+    $scope.campaignLengths = [5];
+    $scope.currentCampaignLength =  $scope.campaignLengths[0];
 
     $scope.displayCampaignLength = function(days) {
       var endTime = '<span class="campaignLengthEnding">' +
