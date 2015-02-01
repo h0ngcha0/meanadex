@@ -36,9 +36,6 @@ module.exports = function(db) {
   app.locals.facebookAppId = config.facebook.clientID;
   app.locals.jsFiles = config.getJavaScriptAssets();
   app.locals.cssFiles = config.getCSSAssets();
-  app.locals.html5shiv = config.html5shiv.replace('public/', '');
-  app.locals.html5shivPrintshiv = config.html5shivPrintshiv.replace('public/', '');
-  app.locals.excanvas = config.excanvas.replace('public/', '');
   app.locals.secure = config.secure;
 
   // Passing the request url to environment locals
