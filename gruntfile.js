@@ -13,25 +13,140 @@ module.exports = function(grunt) {
     mochaTests: ['app/tests/**/*.js']
   };
 
+  var dir = {
+    source: 'public',
+    output: 'public/dist',
+    bower:  'public/lib'
+  };
+
   // Project Configuration
   grunt.initConfig({
     copy: {
-      main: {
+      dist: {
         files: [
           {
             expand: true,
-            flatten: true,
-            src: ['public/fonts/*'],
-            dest: 'public/dist/fonts',
-            filter: 'isFile'
+            dot: true,
+            cwd: dir.source,
+            dest: dir.output,
+            src: [
+              '*.html',
+              'robots.txt',
+              'humans.txt',
+            ]
           },
           {
             expand: true,
-            flatten: true,
-            src: ['public/images/*'],
-            dest: 'public/dist/images'
+            dot: true,
+            cwd: dir.bower + '/font-awesome',
+            dest: dir.output,
+            src: [
+              'fonts/*.*'
+            ]
+          },
+          {
+            expand: true,
+            dot: true,
+            cwd: dir.bower + '/bootstrap',
+            dest: dir.output,
+            src: [
+              'fonts/*.*'
+            ]
+          },
+          {
+            expand: true,
+            cwd: dir.source,
+            dest: dir.output,
+            src: [
+              'fonts/*.*'
+            ]
+          },
+          {
+            expand: true,
+            dot: true,
+            cwd: dir.bower + '/slick-carousel/slick',
+            dest: dir.output + '/css',
+            src: [
+              'slick.css.map'
+            ]
           }
         ]
+      }
+    },
+    clean: {
+      dist: {
+        files: [
+          {
+            dot: true,
+            src: [
+              dir.output + '/*',
+              '!' + dir.output + '/uploads/**'
+            ]
+          }
+        ]
+      }
+    },
+    useminPrepare: {
+      html: [dir.source + '/index.html'],
+      options: {
+        flow: {
+          steps: {
+            'js': ['concat'],
+            'css': ['concat']
+          },
+          post: []
+        },
+        dest: dir.output
+      }
+    },
+    concat: {
+      js: {
+        src: [
+          dir.source + '/config.js',
+          dir.source + '/application.js',
+          dir.source + '/modules/*/*.js',
+          dir.source + '/modules/*/*[!tests]*/*.js'
+        ],
+        dest: dir.output + '/js/application.js'
+      },
+      css: {
+        src: [
+          dir.source + '/modules/**/css/*.css'
+        ],
+        dest: dir.output + '/css/application.css'
+      }
+    },
+    html2js: {
+      options: {
+        module: 'templates',
+        base: dir.source
+      },
+      main: {
+        src: [dir.source + '/modules/**/*.html'],
+        dest: dir.output + '/js/templates.js'
+      }
+    },
+    imagemin: {
+      dist: {
+        files: [
+          {
+            expand: true,
+            cwd: dir.source + '/images',
+            src: '**/*.{png,jpg,jpeg,ico,gif}',
+            dest: dir.output + '/images'
+          }
+        ]
+      }
+    },
+    usemin: {
+      html: [
+        dir.output + '/index.html'
+      ],
+      css: [
+        dir.output + '/css/**/*.css'
+      ],
+      options: {
+        dirs: [dir.output]
       }
     },
     pkg: grunt.file.readJSON('package.json'),
@@ -134,20 +249,49 @@ module.exports = function(grunt) {
       }
     },
     uglify: {
-      production: {
-        options: {
-          mangle: true
-        },
-        files: {
-          'public/dist/application.min.js': 'public/dist/application.js'
-        }
+      options: {
+        mangle: true
+      },
+      dist: {
+        files: [
+          {
+            expand: true,
+            cwd: dir.output + '/js',
+            src: '**/*.js',
+            dest: dir.output + '/js'
+          }
+        ]
       }
     },
     cssmin: {
-      combine: {
-        files: {
-          'public/dist/application.min.css': '<%= applicationCSSFiles %>'
-        }
+      minify: {
+        expand: true,
+        cwd: dir.output + '/css/',
+        src: ['*.css'],
+        dest: dir.output + '/css/'
+      }
+    },
+    htmlmin: {
+      dist: {
+        options: {
+          removeComments: true,
+          removeCommentsFromCDATA: true,
+          collapseWhitespace: false,
+          collapseBooleanAttributes: false,
+          removeAttributeQuotes: false,
+          removeRedundantAttributes: false,
+          useShortDoctype: false,
+          removeEmptyAttributes: true,
+          removeOptionalTags: true
+        },
+        files: [
+          {
+            expand: true,
+            cwd: dir.output,
+            src: ['index.html'],
+            dest: dir.output
+          }
+        ]
       }
     },
     sass: {
@@ -194,13 +338,6 @@ module.exports = function(grunt) {
           'no-preload': true,
           'stack-trace-limit': 50,
           'hidden': []
-        }
-      }
-    },
-    ngAnnotate: {
-      production: {
-        files: {
-          'public/dist/application.js': '<%= applicationJavaScriptFiles %>'
         }
       }
     },
@@ -295,8 +432,30 @@ module.exports = function(grunt) {
   // Lint task(s).
   grunt.registerTask('lint', ['sass', 'less', 'jshint', 'csslint']);
 
+  /**
+   * Compiles all of our sources.
+   */
+  grunt.registerTask('compile', [
+    'lint',
+    'useminPrepare',
+    'concat',
+    'imagemin',
+    'html2js',
+    'copy:dist',
+    'usemin'
+  ]);
+
+  /**
+   * Package built code into a release package.
+   */
+  grunt.registerTask('package', [
+    'uglify',
+    'cssmin',
+    'htmlmin'
+  ]);
+
   // Build task(s).
-  grunt.registerTask('build', ['lint', 'loadConfig', 'ngAnnotate', 'uglify', 'cssmin', 'copy']);
+  grunt.registerTask('build', ['clean', 'compile', 'package']);
 
   // Test task.
   grunt.registerTask('test', ['env:test', 'mochaTest', 'karma:unit']);

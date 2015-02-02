@@ -26,7 +26,8 @@ var ApplicationConfiguration = (
       'ngTagsInput',
       'mgcrea.ngStrap',
       'ncy-angular-breadcrumb',
-      'monospaced.elastic'
+      'monospaced.elastic',
+      'templates'
     ];
 
     // Add a new vertical module
