@@ -33,8 +33,17 @@ $(document).ready(function () {
     $('.slideshow .item').css('min-height', slideshowheight - 46);
   }
 
+  function minAppEntranceDivHeight() {
+    var windowHeight = $(window).height();
+    var footerHeight = $('.footer').height();
+    $('.app-entrance-div').css('min-height', windowHeight - footerHeight);
+  }
+
   maxHeight();
+  minAppEntranceDivHeight();
+
   $(window).on('resize', maxHeight);
+  $(window).on('resize', minAppEntranceDivHeight);
 
   /********************************************************************
    6) Navbar Fixed to Top

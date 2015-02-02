@@ -52,8 +52,12 @@
   <!-- Related Projects Row -->
   <div class="row">
 
-    <div class="col-lg-12">
+    <div class="col-lg-12" ng-show="allDiscoveredCampaigns.length">
       <h3 class="page-header">More Campaigns</h3>
+    </div>
+
+    <div class="col-lg-12" ng-hide="allDiscoveredCampaigns.length">
+      Sorry, no campaign matches this keyword yet. Why don't you <a href="#!/designer">create one</a>? =)
     </div>
 
     <div data-ng-repeat="discoveryCampaign in allDiscoveredCampaigns"
