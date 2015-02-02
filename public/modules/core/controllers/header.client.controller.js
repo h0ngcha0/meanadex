@@ -48,10 +48,6 @@ angular.module('core').controller('HeaderController', [
       return !$scope.isDashboard() && !$scope.isLanding();
     };
 
-    $('div.navbar-fixed-top').autoHidingNavbar({
-      // see next for specifications
-    });
-
     // Collapsing the menu after navigation
     $scope.$on('$stateChangeSuccess', function() {
       $scope.isCollapsed = false;
