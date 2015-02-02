@@ -3,8 +3,7 @@
 var HOST = process.env.WERCKER_MONGODB_HOST || 'localhost';
 
 module.exports = {
-  db: 'mongodb://' + HOST + '/meanadex-test',
-  port: 3001,
+  db:  process.env.MONGODB_URL || process.env.MONGODB_URI || 'mongodb://localhost/meanadex-dev',
   app: {
     title: 'meanadex - Test Environment'
   },
