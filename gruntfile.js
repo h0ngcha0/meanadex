@@ -1,12 +1,18 @@
 'use strict';
 
+var config = {
+  livereload: {
+    port: 35728
+  }
+};
+
 module.exports = function(grunt) {
   // Unified Watch Object
   var watchFiles = {
     serverViews: ['app/views/**/*.*'],
     serverJS: ['gruntfile.js', 'server.js', 'config/**/*.js', 'app/**/*.js'],
     clientViews: ['public/modules/**/views/**/*.html'],
-    clientJS: ['public/js/*.js', 'public/modules/**/*.js'],
+    clientJS: ['public/modules/**/*.js'],
     clientCSS: ['public/modules/**/*.css'],
     clientSCSS: ['public/modules/**/*.scss'],
     clientLESS: ['public/modules/**/*.less'],
@@ -150,86 +156,80 @@ module.exports = function(grunt) {
       }
     },
     pkg: grunt.file.readJSON('package.json'),
+    open: {
+      server: {
+        url: 'https://localhost:3000'
+      }
+    },
     watch: {
       serverViews: {
-        files: watchFiles.serverViews,
-        options: {
-          spawn: false,
-          livereload: {
-            port: 35728,
-            key: grunt.file.read('config/sslcerts/key.pem'),
-            cert: grunt.file.read('config/sslcerts/cert.pem')
-          }
-        }
+        files: watchFiles.serverViews
       },
-      serverJS: {
-        files: watchFiles.serverJS,
-        tasks: ['jshint'],
-        options: {
-          spawn: false,
-          livereload: {
-            port: 35728,
-            key: grunt.file.read('config/sslcerts/key.pem'),
-            cert: grunt.file.read('config/sslcerts/cert.pem')
-          }
-        }
+      concatJS: {
+        files: [
+          dir.source + '/config.js',
+          dir.source + '/application.js',
+          dir.source + '/modules/*/*.js',
+          dir.source + '/modules/*/*[!tests]*/*.js'
+        ],
+        tasks: ['concat:js']
       },
-      clientViews: {
-        files: watchFiles.clientViews,
-        options: {
-          spawn: false,
-          livereload: {
-            port: 35728,
-            key: grunt.file.read('config/sslcerts/key.pem'),
-            cert: grunt.file.read('config/sslcerts/cert.pem')
-          }
-        }
+      concatCSS: {
+        files: [
+          dir.source + '/modules/**/css/*.css'
+        ],
+        tasks: ['concat:css']
       },
-      clientJS: {
-        files: watchFiles.clientJS,
-        tasks: ['jshint'],
-        options: {
-          spawn: false,
-          livereload: {
-            port: 35728,
-            key: grunt.file.read('config/sslcerts/key.pem'),
-            cert: grunt.file.read('config/sslcerts/cert.pem')
-          }
-        }
+      less: {
+        files: [
+          watchFiles.clientLESS
+        ],
+        tasks: ['less', 'csslint', 'concat:css']
       },
-      clientCSS: {
-        files: watchFiles.clientCSS,
-        tasks: ['csslint'],
-        options: {
-          spawn: false,
-          livereload: {
-            port: 35728,
-            key: grunt.file.read('config/sslcerts/key.pem'),
-            cert: grunt.file.read('config/sslcerts/cert.pem')
-          }
-        }
+      scss: {
+        files: [
+          watchFiles.clientSCSS
+        ],
+        tasks: ['sass', 'csslint', 'concat:css']
       },
-      clientSCSS: {
-        files: watchFiles.clientSCSS,
-        tasks: ['sass', 'csslint'],
-        options: {
-          livereload: {
-            port: 35728,
-            key: grunt.file.read('config/sslcerts/key.pem'),
-            cert: grunt.file.read('config/sslcerts/cert.pem')
-          }
-        }
+      copy: {
+        files: [
+          dir.source + '/*.{txt}'
+        ],
+        tasks: ['copy:dist']
       },
-      clientLESS: {
-        files: watchFiles.clientLESS,
-        tasks: ['less', 'csslint'],
+      index: {
+        files: [
+          dir.source + '/index.html'
+        ],
+        tasks: ['compile']
+      },
+      templates: {
+        files: [
+          dir.source + '/modules/**/*.html'
+        ],
+        tasks: ['html2js']
+      },
+      jshint: {
+        files: [
+          watchFiles.clientJS,
+          watchFiles.serverJS
+        ],
+        tasks: ['jshint']
+      },
+      livereload: {
         options: {
           livereload: {
-            port: 35728,
+            port: config.livereload.port,
             key: grunt.file.read('config/sslcerts/key.pem'),
             cert: grunt.file.read('config/sslcerts/cert.pem')
           }
-        }
+        },
+        files: [
+          watchFiles.serverViews,
+          watchFiles.serverJS,
+          dir.output + '/**/*.*'
+        ]
       }
     },
     jshint: {
@@ -342,11 +342,9 @@ module.exports = function(grunt) {
       }
     },
     concurrent: {
-      default: ['nodemon', 'watch'],
-      development: ['nodemon', 'watch'],
-      test: ['nodemon', 'watch'],
-      production: ['nodemon', 'watch'],
-      debug: ['nodemon', 'watch', 'node-inspector'],
+      default: ['nodemon', 'serve'],
+      production: ['nodemon', 'serve:dist'],
+      debug: ['nodemon', 'serve', 'node-inspector'],
       options: {
         logConcurrentOutput: true
       }
@@ -354,6 +352,9 @@ module.exports = function(grunt) {
     env: {
       test: {
         NODE_ENV: 'test'
+      },
+      production: {
+        NODE_ENV: 'production'
       }
     },
     mochaTest: {
@@ -380,10 +381,13 @@ module.exports = function(grunt) {
   require('./populate-test-data')(grunt);
 
   // Default task(s).
-  grunt.registerTask('default', ['build', 'concurrent:default']);
+  grunt.registerTask('default', ['concurrent:default']);
 
   // Debug task.
-  grunt.registerTask('debug', ['build', 'concurrent:debug']);
+  grunt.registerTask('debug', ['concurrent:debug']);
+
+  // Production task.
+  grunt.registerTask('production', ['env:production', 'concurrent:production']);
 
   // Lint task(s).
   grunt.registerTask('lint', ['sass', 'less', 'jshint', 'csslint']);
@@ -413,9 +417,45 @@ module.exports = function(grunt) {
   // Build task(s).
   grunt.registerTask('build', ['clean', 'compile', 'package']);
 
-  // Test task.
-  grunt.registerTask('test', ['env:test', 'mochaTest', 'karma:unit']);
+  /**
+   * Development server - runs a build and sets up concurrent watchers that
+   * will automatically lint, test, and refresh
+   * the code when a change is detected.
+   */
+  grunt.registerTask('serve', [
+    'clean',
+    'compile',
+    'open',
+    'watch'
+  ]);
 
-  // flow task
-  grunt.loadNpmTasks('grunt-flow-type-check');
+  /**
+   * This task performs a full build of our application, and then runs that
+   * source in a local web server. It does no watching, it simply hosts the
+   * files.
+   */
+  grunt.registerTask('serve:dist', [
+    'clean',
+    'compile',
+    'package',
+    'open'
+  ]);
+
+  /**
+   * grunt test:unit
+   *
+   * This command will create a clean build against which our unit
+   * tests will be run. For more information, please see
+   * karma-unit.conf.js
+   */
+  grunt.registerTask('test:unit', [
+    'clean',
+    'compile',
+    'useminPrepare',
+    'concat',
+    'karma:unit'
+  ]);
+
+  // Test task.
+  grunt.registerTask('test', ['env:test', 'mochaTest', 'test:unit']);
 };
