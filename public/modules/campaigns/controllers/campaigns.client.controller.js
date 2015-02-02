@@ -132,27 +132,30 @@ angular.module('campaigns').controller('CampaignsController', [
       );
     };
 
+    var minSearchTextLength = 3;
     $scope.searchText = '';
     $scope.disableSearch = function() {
-      return $scope.searchText.length < 3;
+      return $scope.searchText.length < minSearchTextLength;
     };
 
     $scope.searchCampaigns = function() {
-      SearchCampaigns.query(
-        {
-          text: $scope.searchText,
-          limit: 8
-        }
-      ).$promise.then(
-        function(campaigns) {
-          $scope.allDiscoveredCampaigns = campaigns.documents;
-          $scope.currentDiscoveredCampaign = $scope.allDiscoveredCampaigns[0];
-        },
-        function(err) {
-          $scope.allDiscoveredCampaigns = [];
-          $scope.currentDiscoveredCampaign = null;
-        }
-      );
+      if($scope.searchText.length >= minSearchTextLength) {
+        SearchCampaigns.query(
+          {
+            text: $scope.searchText,
+            limit: 8
+          }
+        ).$promise.then(
+          function(campaigns) {
+            $scope.allDiscoveredCampaigns = campaigns.documents;
+            $scope.currentDiscoveredCampaign = $scope.allDiscoveredCampaigns[0];
+          },
+          function(err) {
+            $scope.allDiscoveredCampaigns = [];
+            $scope.currentDiscoveredCampaign = null;
+          }
+        );
+      }
     };
   }
 ]);
