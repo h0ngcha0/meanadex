@@ -3,8 +3,10 @@
 /* global moment */
 
 angular.module('campaigns').controller('CampaignsSalesDetailsController', [
-  '$scope', 'Campaigns', 'CampaignCache', 'mdCanvasService', '$location', '$http', 'Session', 'SessionModalService',
-  function($scope, Campaigns, CampaignCache, mdCanvasService, $location, $http, Session, SessionModalService) {
+  '$scope', 'Campaigns', 'CampaignCache', 'mdCanvasService', '$location',
+  '$http', 'Session', 'SessionRedirectService',
+  function($scope, Campaigns, CampaignCache, mdCanvasService, $location,
+           $http, Session, SessionRedirectService) {
     $scope.campaignTitle = CampaignCache.getTitle() || '';
     CampaignCache.bindTitle($scope);
 
@@ -60,7 +62,7 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
           now = new Date();
 
       if (!Session.isLoggedIn()) {
-        return SessionModalService.showLoginRequiredModal();
+        return SessionRedirectService.redirectToLogin();
       }
 
       var campaign = new Campaigns ({
