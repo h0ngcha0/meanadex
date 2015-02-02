@@ -2,37 +2,7 @@
 
 /* global Circles */
 
-$(window).load(function () {
-
-  /********************************************************************
-   1) Preloader
-   ************/
-  // will first fade out the loading animation
-  $('div.preloader-status').fadeOut();
-
-  // will fade out the white DIV that covers the website.
-  $('div.preloader')
-    .delay(350)
-    .fadeOut('slow');
-});
-
-
 $(document).ready(function () {
-
-  $('.click-loading').on('click', function (event) {
-    $('div.preloader-status').show();
-    $('div.preloader').show();
-
-    // will first fade out the loading animation
-    $('div.preloader-status').fadeOut();
-
-    // will fade out the white DIV that covers the website.
-    $('div.preloader')
-    .delay(350)
-    .fadeOut('slow');
-  });
-
-
   /********************************************************************
    2) ScrollBar
    ************/
