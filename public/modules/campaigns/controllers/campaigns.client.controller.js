@@ -131,5 +131,28 @@ angular.module('campaigns').controller('CampaignsController', [
         }
       );
     };
+
+    $scope.searchText = '';
+    $scope.disableSearch = function() {
+      return $scope.searchText.length < 3;
+    };
+
+    $scope.searchCampaigns = function() {
+      SearchCampaigns.query(
+        {
+          text: $scope.searchText,
+          limit: 10
+        }
+      ).$promise.then(
+        function(campaigns) {
+          $scope.allDiscoveredCampaigns = campaigns.documents;
+          $scope.currentDiscoveredCampaign = $scope.allDiscoveredCampaigns[0];
+        },
+        function(err) {
+          $scope.allDiscoveredCampaigns = [];
+          $scope.currentDiscoveredCampaign = null;
+        }
+      );
+    };
   }
 ]);
