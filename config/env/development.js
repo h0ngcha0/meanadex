@@ -26,8 +26,8 @@ module.exports = {
   },
   imageUploaderOptions: {
     useSSL: true,
-    tmpDir: './public/uploads/tmp',
-    uploadDir: './public/uploads',
+    tmpDir: './public/dist/uploads/tmp',
+    uploadDir: './public/dist/uploads',
     uploadUrl: '/uploads/',
     maxPostSize: 500000, // 50MB
     minFileSize: 1,

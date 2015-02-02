@@ -78,9 +78,9 @@ angular.module('services').provider('Preference',
      * Factory getter - returns a configured instance of preference
      * provider, as needed.
      */
-    this.$get = function ($log, localStorageService) {
+    this.$get = ['$log', 'localStorageService', function ($log, localStorageService) {
       return new Preference($log, localStorageService);
-    };
+    }];
   }
 ).config(['PreferenceProvider', function (PreferenceProvider) {
   'use strict';
