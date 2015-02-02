@@ -1,4 +1,4 @@
-box: chriswburke/box-yeoman@0.5.4
+box: olger/box-yeoman@0.5.5
 services:
   - wercker/mongodb
 # Build definition
