@@ -118,7 +118,7 @@ angular.module('campaigns').controller('CampaignsController', [
     $scope.initDiscoveryCampaigns = function() {
       FeaturedCampaigns.query(
         {
-          itemsPerPage: 6
+          itemsPerPage: 8
         }
       ).$promise.then(
         function(campaigns) {
@@ -141,7 +141,7 @@ angular.module('campaigns').controller('CampaignsController', [
       SearchCampaigns.query(
         {
           text: $scope.searchText,
-          limit: 10
+          limit: 8
         }
       ).$promise.then(
         function(campaigns) {

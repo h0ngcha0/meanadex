@@ -118,8 +118,9 @@ angular.module('campaigns').directive('mdCampaignCanvas', [
             // restore the background color if possible
             scope.backgroundColor = {'background': campaign.color};
 
+            var percent = (campaign.sold / campaign.goal) * 100;
             scope.goalProgressStyle = {
-              'width': (campaign.sold / campaign.goal) * 100 + '%',
+              'width': (percent > 100 ? 100 : percent) + '%',
               'min-width': '10em'
             };
 
