@@ -341,42 +341,11 @@ module.exports = function(grunt) {
         }
       }
     },
-    ngconstant: {
-      options: {
-        name: 'constants',
-        dest: 'public/modules/core/services/constants.js',
-        constants: {
-          ENV: {
-            stripeImage: undefined,
-            stripePublicKey: undefined
-          }
-        }
-      },
-      development: {
-        constants: {
-          ENV: {
-            stripeImage: 'https://localhost:3000/images/brand/favicon.ico',
-            stripePublicKey: 'pk_test_WMSaxecz5HSTGZxlFbuxdF7B'
-          }
-        }
-      },
-      test: {
-        constants: {
-          ENV: {
-            stripeImage: 'https://localhost:3000/modules/core/img/brand/favicon.ico',
-            stripePublicKey: 'pk_test_WMSaxecz5HSTGZxlFbuxdF7B'
-          }
-        }
-      },
-      production: {
-        constants: {}
-      }
-    },
     concurrent: {
-      default: ['ngconstant:development', 'nodemon', 'watch'],
-      development: ['ngconstant:development', 'nodemon', 'watch'],
-      test: ['ngconstant:test', 'nodemon', 'watch'],
-      production: ['ngconstant:production', 'nodemon', 'watch'],
+      default: ['nodemon', 'watch'],
+      development: ['nodemon', 'watch'],
+      test: ['nodemon', 'watch'],
+      production: ['nodemon', 'watch'],
       debug: ['nodemon', 'watch', 'node-inspector'],
       options: {
         logConcurrentOutput: true
@@ -406,19 +375,6 @@ module.exports = function(grunt) {
 
   // Making grunt default to force in order not to break the project.
   grunt.option('force', !process.env.WERCKER || false);
-
-  // A Task for loading the configuration object
-  grunt.task.registerTask(
-    'loadConfig',
-    'Task that loads the config into a grunt option.',
-    function() {
-      var init = require('./config/init')();
-      var config = require('./config/config');
-
-      grunt.config.set('applicationJavaScriptFiles', config.assets.js);
-      grunt.config.set('applicationCSSFiles', config.assets.css);
-    }
-  );
 
   // A Task for populating test data into the database
   require('./populate-test-data')(grunt);
@@ -462,7 +418,4 @@ module.exports = function(grunt) {
 
   // flow task
   grunt.loadNpmTasks('grunt-flow-type-check');
-
-  // ng-constant for dynamically generating constant values
-  grunt.loadNpmTasks('grunt-ng-constant');
 };
