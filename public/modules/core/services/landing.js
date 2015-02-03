@@ -36,8 +36,6 @@ $(document).ready(function () {
   function minAppEntranceDivHeight() {
     var windowHeight = $(window).height();
     var footerHeight = $('.footer').height();
-    console.log('min height for app-entrance-div');
-    console.log(windowHeight - footerHeight);
     $('.app-entrance-div').css('min-height', windowHeight - footerHeight);
   }
 
