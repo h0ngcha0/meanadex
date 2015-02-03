@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  db: process.env.MONGODB_URL || process.env.MONGODB_URI || 'mongodb://localhost/meanadex-dev',
+  db: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://localhost/meanadex-dev',
   app: {
     title: 'meanadex - Development Environment'
   },
