@@ -1,12 +1,19 @@
-box: olger/box-yeoman@0.5.5
+box: wercker/nodejs
 services:
   - wercker/mongodb
 # Build definition
 build:
   # The steps that will be executed on build
   steps:
+    - script:
+      name: Install Mean.JS Prerequisites
+      code: |-
+        sudo npm install -g grunt-cli
+        sudo npm install -g bower
+
     # A step that executes `npm install` command
     - npm-install
+      strict-ssl: false
 
     # A step that executes `npm test` command
     - npm-test
