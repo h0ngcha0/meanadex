@@ -2,12 +2,13 @@
 
 var Agenda = require('agenda'),
     fs = require('fs'),
+    config = require('../../config/config'),
     path = require('path');
 
 var agenda = new Agenda(
   {
     db: {
-      address: 'mongodb://localhost/meanadex',
+      address: config.db,
       collection: 'agendaJobs'
     }
   }
