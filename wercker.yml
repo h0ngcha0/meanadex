@@ -13,7 +13,7 @@ build:
 
     # A step that executes `npm install` command
     - npm-install
-      strict-ssl: false
+        strict-ssl: false
 
     # A step that executes `npm test` command
     - npm-test
