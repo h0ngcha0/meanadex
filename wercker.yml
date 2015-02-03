@@ -12,7 +12,7 @@ build:
           sudo npm install -g bower
 
     # A step that executes `npm install` command
-    - npm-install
+    - npm-install:
         strict-ssl: false
 
     # A step that executes `npm test` command
