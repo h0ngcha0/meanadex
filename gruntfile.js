@@ -14,7 +14,6 @@ module.exports = function(grunt) {
     clientViews: ['public/modules/**/views/**/*.html'],
     clientJS: ['public/modules/**/*.js'],
     clientCSS: ['public/modules/**/*.css'],
-    clientSCSS: ['public/modules/**/*.scss'],
     clientLESS: ['public/modules/**/*.less'],
     mochaTests: ['app/tests/**/*.js']
   };
@@ -186,12 +185,6 @@ module.exports = function(grunt) {
         ],
         tasks: ['less', 'csslint', 'concat:css']
       },
-      scss: {
-        files: [
-          watchFiles.clientSCSS
-        ],
-        tasks: ['sass', 'csslint', 'concat:css']
-      },
       copy: {
         files: [
           dir.source + '/*.{txt}'
@@ -294,18 +287,6 @@ module.exports = function(grunt) {
         ]
       }
     },
-    sass: {
-      dist: {
-        files: [{
-          expand: true,
-          src: watchFiles.clientSCSS,
-          ext: '.css',
-          rename: function(base, src) {
-            return  src.replace('/scss/', '/css/');
-          }
-        }]
-      }
-    },
     less: {
       dist: {
         files: [{
@@ -390,7 +371,7 @@ module.exports = function(grunt) {
   grunt.registerTask('production', ['env:production', 'concurrent:production']);
 
   // Lint task(s).
-  grunt.registerTask('lint', ['sass', 'less', 'jshint', 'csslint']);
+  grunt.registerTask('lint', ['less', 'jshint', 'csslint']);
 
   /**
    * Compiles all of our sources.
