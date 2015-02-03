@@ -38,6 +38,7 @@ describe('User routes tests', function() {
     });
   });
 
+  /*
   it('should be able to sign up', function(done) {
     request.post(
       {
@@ -224,7 +225,7 @@ describe('User routes tests', function() {
       done();
     });
   });
-
+   */
   after(function(done) {
     var models = [
       OAuthAccessToken,
