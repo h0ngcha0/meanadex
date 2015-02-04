@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  db: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://localhost/meanadex',
+  db: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://localhost/mootee',
   job: {
     campaignJob: {
       start: 'in 1 minutes',
@@ -36,7 +36,7 @@ module.exports = {
         accessKeyId: 'AKIAIXDR74RCRQ2VSFLA',
         secretAccessKey: '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',
         region: 'eu-west-1',
-        bucketName: 'meanadex-images-test'
+        bucketName: 'mootee-images-test'
       }
     }
   },
@@ -46,15 +46,15 @@ module.exports = {
     },
     file: {
       debug: {
-        filename: './logs/meanadex-debug.log',
+        filename: './logs/mootee-debug.log',
         level: 'debug'
       },
       info: {
-        filename: './logs/meanadex-info.log',
+        filename: './logs/mootee-info.log',
         level: 'info'
       },
       error: {
-        filename: './logs/meanadex-error.log',
+        filename: './logs/mootee-error.log',
         level: 'error'
       }
     }

@@ -44,8 +44,8 @@ angular.module('auth').factory('Oauth2',
 
           var tokenParams = {
             grant_type: grant_type,
-            client_id: 'meanadex',
-            client_secret: 'meanadex'
+            client_id: 'mootee',
+            client_secret: 'mootee'
           };
 
           var url;

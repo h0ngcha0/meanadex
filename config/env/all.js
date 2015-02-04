@@ -2,9 +2,9 @@
 
 module.exports = {
   app: {
-    title: 'meanadex',
-    description: 'Meanadex is Monadex dressed up in the fancy cloak of MEAN stack',
-    keywords: 'tshirt, crowd sourcing, mean, lambda'
+    title: 'mootee',
+    description: 'Mootee is an amazing tshirt service',
+    keywords: 'tshirt, crowd sourcing, moose, lambda'
   },
   port: process.env.PORT || 3000,
   secure: process.env.SECURE || true,

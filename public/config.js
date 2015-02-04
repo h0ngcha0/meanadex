@@ -4,7 +4,7 @@
 var ApplicationConfiguration = (
   function() {
     // Init module configuration options
-    var applicationModuleName = 'meanadex';
+    var applicationModuleName = 'mootee';
     var applicationModuleVendorDependencies = [
       'ngResource',
       'ngCookies',

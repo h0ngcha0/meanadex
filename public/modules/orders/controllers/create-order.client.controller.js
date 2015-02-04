@@ -102,7 +102,7 @@ angular.module('orders').controller('CreateOrderController', [
 
         // Open Checkout with further options
         handler.open({
-          name: 'Meanadex',
+          name: 'Mootee',
           description: $scope.orderedCampaign.title,
           amount: $scope.totalPrice($scope.quantity) * 100,
           currency: $scope.orderedCampaign.price.currency

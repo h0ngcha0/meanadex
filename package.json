@@ -1,8 +1,8 @@
 {
-  "name": "meanadex",
-  "description": "Meanadex is Monadex dressed up in the fancy cloak of MEAN stack",
+  "name": "mootee",
+  "description": "Mootee is an amazing tshirt service",
   "version": "0.0.1",
-  "author": "Monadex",
+  "author": "Mootee",
   "engines": {
     "node": "0.10.x",
     "npm": "1.4.x"

@@ -51,10 +51,10 @@ exports.getClient = function(clientId, clientSecret, callback) {
 };
 
 var authorizedClientIds = [
-  'meanadex-dashboard',
-  'meanadex-android',
-  'meanadex-ios',
-  'meanadex'
+  'mootee-dashboard',
+  'mootee-android',
+  'mootee-ios',
+  'mootee'
 ];
 
 exports.grantTypeAllowed = function(clientId, grantType, callback) {

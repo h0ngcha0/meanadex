@@ -25,8 +25,8 @@ describe('User routes tests', function() {
       username: 'test.com@test.com',
       password: 'testtest',
       grant_type: 'password',
-      client_id: 'meanadex',
-      client_secret: 'meanadex'
+      client_id: 'mootee',
+      client_secret: 'mootee'
     };
     done();
   });

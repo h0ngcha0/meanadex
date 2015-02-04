@@ -74,7 +74,7 @@ UserSchema.pre('save', function(next) {
 
   var env = process.env.NODE_ENV;
   if(env === 'development') {
-    if (this.username === 'admin@meanadex.com' && !_.intersection(this.roles, ['admin']).length) {
+    if (this.username === 'admin@mootee.io' && !_.intersection(this.roles, ['admin']).length) {
       this.roles.push('admin');
     }
   }

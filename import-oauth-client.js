@@ -7,10 +7,10 @@ var mongoose = require('mongoose'),
     OAuthClient = mongoose.model('OAuthClient');
 
 var authorizedClientIds = [
-  'meanadex-dashboard',
-  'meanadex-android',
-  'meanadex-ios',
-  'meanadex'
+  'mootee-dashboard',
+  'mootee-android',
+  'mootee-ios',
+  'mootee'
 ];
 
 var clients = function() {

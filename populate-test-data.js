@@ -32,11 +32,11 @@ module.exports = function(grunt) {
           {
             url: 'https://localhost:3000/auth/signup',
             form: {
-              username: 'admin@meanadex.com',
+              username: 'admin@mootee.io',
               password: 'password',
               grant_type: 'password',
-              client_id: 'meanadex',
-              client_secret: 'meanadex'
+              client_id: 'mootee',
+              client_secret: 'mootee'
             },
             json: true
           },
@@ -101,7 +101,7 @@ module.exports = function(grunt) {
               access_token: access_token
             },
             form: {
-              name: 'Meanadex signature Tee',
+              name: 'Mootee signature Tee',
               frontImage: frontImgId,
               backImage: backImgId,
               variants: [

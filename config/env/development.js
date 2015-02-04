@@ -1,9 +1,9 @@
 'use strict';
 
 module.exports = {
-  db: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://localhost/meanadex-dev',
+  db: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://localhost/mootee-dev',
   app: {
-    title: 'meanadex - Development Environment'
+    title: 'mootee - Development Environment'
   },
   facebook: {
     clientID: process.env.FACEBOOK_ID || '808981902515299',
@@ -43,15 +43,15 @@ module.exports = {
     },
     file: {
       debug: {
-        filename: './logs/meanadex-debug.log',
+        filename: './logs/mootee-debug.log',
         level: 'debug'
       },
       info: {
-        filename: './logs/meanadex-info.log',
+        filename: './logs/mootee-info.log',
         level: 'info'
       },
       error: {
-        filename: './logs/meanadex-error.log',
+        filename: './logs/mootee-error.log',
         level: 'error'
       }
     }

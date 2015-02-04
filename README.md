@@ -1,4 +1,4 @@
-## Monadex Manifesto
+## Mootee Manifesto
 
 [![wercker status](https://app.wercker.com/status/b91bf3f2fa58d4db274292c9780702c2/m/master "wercker status")](https://app.wercker.com/project/bykey/b91bf3f2fa58d4db274292c9780702c2)
 

@@ -52,7 +52,7 @@ authom.on('auth', function(req, res, data) {
       var expires = new Date();
       var seconds = expires.getSeconds() + 30;
       expires.setSeconds(seconds);
-      oauth2model.saveAuthCode(code, 'meanadex', expires, user, function(err, user) {
+      oauth2model.saveAuthCode(code, 'mootee', expires, user, function(err, user) {
         callback(err, user);
       });
     }
