@@ -94,6 +94,7 @@ describe('Order Model Currency Tests:', function() {
 
   afterEach(function(done) {
     Order.remove().exec();
+    Campaign.remove().exec();
     User.remove().exec();
 
     done();

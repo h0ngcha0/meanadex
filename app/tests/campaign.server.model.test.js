@@ -61,7 +61,6 @@ describe('Campaign Model Currency Tests:', function() {
         ended: '2014-08-02T02:15:15Z',
         description: 'nice campaign',
         length: 7,
-        url: 'campaign_url',
         goal: 100,
         color: 'black',
         tshirt: tshirt,

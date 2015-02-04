@@ -1,8 +1,7 @@
 'use strict';
-var config = require('../../../config/config'),
-    nodemailer = require('nodemailer');
+var nodemailer = require('nodemailer');
 
-module.exports = function(agenda) {
+module.exports = function(agenda, config) {
   agenda.define('send email', {priority: 'high'}, function(job, done) {
     var data = job.attrs.data;
 

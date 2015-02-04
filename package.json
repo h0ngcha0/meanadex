@@ -73,6 +73,7 @@
     "load-grunt-tasks": "^1.0.0",
     "should": "~4.0.4",
     "supertest": "~0.13.0",
-    "tough-cookie": "~0.12.1"
+    "tough-cookie": "~0.12.1",
+    "sinon": "~1.12.2"
   }
 }

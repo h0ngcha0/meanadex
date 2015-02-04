@@ -19,7 +19,7 @@ var jobPath = './app/lib/jobs/';
 var jobModules = fs.readdirSync(jobPath);
 
 jobModules.forEach(function(jobModule) {
-  require(path.resolve(jobPath + jobModule))(agenda);
+  require(path.resolve(jobPath + jobModule))(agenda, config);
 });
 
 if(jobModules.length) {
