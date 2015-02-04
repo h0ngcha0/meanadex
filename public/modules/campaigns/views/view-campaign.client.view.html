@@ -16,8 +16,8 @@
             </tr>
           </table>
 
-          <div class="" data-ng-if="campaign.ended_at">
-            <timer end-time="campaign.ended_at">
+          <div class="" data-ng-if="campaign.ended">
+            <timer end-time="campaign.ended">
               <table class="table">
                 <tr>
                   <td>Days</td>
@@ -49,7 +49,7 @@
         <small>
           <em class="text-muted">
             Posted on
-            <span data-ng-bind="campaign.created_at | date:'mediumDate'"></span>
+            <span data-ng-bind="campaign.created | date:'mediumDate'"></span>
             by
             <span data-ng-bind="campaign.user.username"></span>
           </em>

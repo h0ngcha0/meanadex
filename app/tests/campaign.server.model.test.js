@@ -57,8 +57,8 @@ describe('Campaign Model Currency Tests:', function() {
       campaign = new Campaign({
         name: 'Campaign Name',
         user: user,
-        created_at: '2014-04-14T02:15:15Z',
-        ended_at: '2014-08-02T02:15:15Z',
+        created: '2014-04-14T02:15:15Z',
+        ended: '2014-08-02T02:15:15Z',
         description: 'nice campaign',
         length: 7,
         url: 'campaign_url',

@@ -109,7 +109,7 @@ var logging = function(err, results) {
 module.exports = function(agenda) {
   agenda.define('check campaigns maturity', function(job, done) {
     logger.info('check campaigns maturity job started');
-    Campaign.find({ended_at: {$lt: Date.now()}}).
+    Campaign.find({ended: {$lt: Date.now()}}).
       where('state').equals('not_tipped').
       exec(function(err, campaigns) {
       _.forEach(campaigns, function(campaign){

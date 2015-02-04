@@ -67,8 +67,8 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
 
       var campaign = new Campaigns ({
         name: $scope.campaignTitle,
-        created_at: now,
-        ended_at: moment(now).add($scope.currentCampaignLength, 'days').toDate(),
+        created: now,
+        ended: moment(now).add($scope.currentCampaignLength, 'days').toDate(),
         description: CampaignCache.getDescription(),
         length: $scope.currentCampaignLength,
         goal: parseInt(CampaignCache.getGoal()),

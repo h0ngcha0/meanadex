@@ -20,7 +20,7 @@ var OrderSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'User'
   },
-  created_at: {
+  created: {
     type: Date,
     default: Date.now
   },

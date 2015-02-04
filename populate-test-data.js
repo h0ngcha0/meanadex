@@ -167,8 +167,8 @@ module.exports = function(grunt) {
               },
               form: {
                 name: name,
-                created_at: now,
-                ended_at: moment(now).add(length, 'days').toDate(),
+                created: now,
+                ended: moment(now).add(length, 'days').toDate(),
                 description: description,
                 length: length,
                 url: url,

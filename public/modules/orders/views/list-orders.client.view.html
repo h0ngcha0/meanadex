@@ -26,7 +26,7 @@
                 <a data-ng-href="#!/campaigns/{{order.campaign._id}}">{{order.campaign.name}}</a>
               </td>
               <td data-title="'Created at'">
-                <span>{{order.created_at | date:'medium'}}</span>
+                <span>{{order.created | date:'medium'}}</span>
               </td>
               <td data-title="'Actions'">
                 <a class="undecorated-link fa fa-trash-o fa-lg" data-ng-click="onRemove(order);"/>

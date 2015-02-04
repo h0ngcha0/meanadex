@@ -144,7 +144,7 @@ var timeSeriesGenerator = function(model, query, sumBy) {
         offset = timezoneOffset * 60 * 1000;
     var _query = {
       user: req.user._id,
-      created_at: {
+      created: {
         $gte: startDate,
         $lte: endDate
       }
@@ -156,14 +156,14 @@ var timeSeriesGenerator = function(model, query, sumBy) {
     };
     stages.$projectOffset ={
       $project: {
-        created_at_offset: {$subtract: ['$created_at', offset]}
+        created_offset: {$subtract: ['$created', offset]}
       }
     };
     stages.$project ={
       $project: {
-        year: {$year: '$created_at_offset'},
-        month: {$month: '$created_at_offset'},
-        day: {$dayOfMonth: '$created_at_offset'}
+        year: {$year: '$created_offset'},
+        month: {$month: '$created_offset'},
+        day: {$dayOfMonth: '$created_offset'}
       }
     };
     stages.$group = {

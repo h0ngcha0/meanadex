@@ -22,11 +22,11 @@ var CampaignSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'User'
   },
-  created_at: {
+  created: {
     type: Date,
     default: Date.now
   },
-  ended_at: {
+  ended: {
     type: Date
   },
   description: {

@@ -45,7 +45,7 @@ var TshirtSchema = new Schema({
     required: 'Please fill Tshirt name',
     trim: true
   },
-  created_at: {
+  created: {
     type: Date,
     default: Date.now
   },

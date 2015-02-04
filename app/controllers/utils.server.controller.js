@@ -71,8 +71,8 @@ var dateQueryFun = function(req) {
     if(date) {
       var parsedDate = moment(date, moment.ISO_8601);
       if (parsedDate.isValid()) {
-        if (!query.created_at) {
-          query.created_at = {};
+        if (!query.created) {
+          query.created = {};
         }
 
         callback(parsedDate.toDate());
@@ -81,11 +81,11 @@ var dateQueryFun = function(req) {
   };
 
   setIfDateValid(startDate, function(date) {
-    query.created_at.$gte = date;
+    query.created.$gte = date;
   });
 
   setIfDateValid(endDate, function(date) {
-    query.created_at.$lte = date;
+    query.created.$lte = date;
   });
 
   return query;
