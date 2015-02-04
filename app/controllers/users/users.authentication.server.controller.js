@@ -84,6 +84,9 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, callback) {
                   return callback(err);
                 } else {
                   if (!user) {
+                    if (!username) {
+                      username = providerUserProfile.id + '@' + providerUserProfile.service + '.com';
+                    }
                     user = new User({
                       username: username,
                       provider: providerUserProfile.service,

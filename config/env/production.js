@@ -9,8 +9,8 @@ module.exports = {
     }
   },
   facebook: {
-    clientID: process.env.FACEBOOK_ID || 'APP_ID',
-    clientSecret: process.env.FACEBOOK_SECRET || 'APP_SECRET'
+    clientID: process.env.FACEBOOK_ID || '808979562515533',
+    clientSecret: process.env.FACEBOOK_SECRET || '24a3c3d3dacd98563532ce7b8b1a1a28'
   },
   google: {
     clientID: process.env.GOOGLE_ID || 'APP_ID',
