@@ -10,6 +10,8 @@ var should = require('should'),
     sinon = require('sinon'),
     mongodb = require('mongodb'),
     mongoose = require('mongoose'),
+    Agenda = require('agenda'),
+    campaignJob = require('../../lib/jobs/campaign.server.job'),
     _ = require('lodash'),
     Order = mongoose.model('Order'),
     User = mongoose.model('User'),
@@ -21,6 +23,16 @@ var should = require('should'),
  * Globals
  */
 var user, campaign, order;
+var agendaTestJobCollection = 'agendaTestJobs';
+
+var testAgenda = new Agenda(
+  {
+    db: {
+      address: config.db,
+      collection: agendaTestJobCollection
+    }
+  }
+);
 
 var frontImg = new Img({
   url: '0.0.0.0/from_image.jpg',
@@ -52,7 +64,7 @@ var tshirt = new Tshirt({
 function removeAgendaJobs(callback) {
   mongodb.MongoClient.connect(config.db, function(err, db) {
     if(!err) {
-      db.collection('agendaJobs', function(err, collection) {
+      db.collection(agendaTestJobCollection, function(err, collection) {
         collection.remove({}, {w:1}, function(err, result) {
           if(!err) {
             console.log('removed all data in agenda jobs.');
@@ -143,6 +155,8 @@ function createOrdersFun(numOfOrders) {
 
 function createOrderFun(description, quantity, campaign) {
   return function(callback) {
+    var randomStr = Math.random().toString(36).substring(7);
+
     Order.create(
       {
         provider: 'stripe',
@@ -161,7 +175,9 @@ function createOrderFun(description, quantity, campaign) {
           zipcode: '12345',
           country: 'Sweden'
         },
-        payment: {}
+        payment: {
+          customerId: randomStr
+        }
       },
       function(err, order) {
         callback(err, order);
@@ -171,14 +187,28 @@ function createOrderFun(description, quantity, campaign) {
 }
 
 describe('Campaign not tipped, endedDate has passed, have enough orders', function() {
+  // set the timeout to be 20 seconds.
+  this.timeout(20 * 1000);
+
   describe('Method Save', function() {
-    var configMock,
-        nowMoment = moment(new Date()),
+    var nowMoment = moment(new Date()),
         createdMoment = nowMoment.add(-7, 'days'),
         endedMoment = nowMoment.add(-2, 'days'),
         campaignGoal = 10,
         numOfOrders = 10,
         state = 'not_tipped';
+
+    var configStub = {
+      stripe: {
+        clientSecret: 'stripeClientSecret'
+      },
+      job: {
+        campaignJob: {
+          start: 'in 5 seconds',
+          frequency: '1 day'
+        }
+      }
+    };
 
     before(function() {
       // Connect to the db
@@ -195,14 +225,22 @@ describe('Campaign not tipped, endedDate has passed, have enough orders', functi
           should.not.exist(err);
         }
       );
+
+      // execute campaignJob
+      campaignJob(testAgenda, configStub);
+      testAgenda.start();
     });
 
     it('should charge user when orders has passed', function(done) {
-      should.exist(1);
-      done();
+      setTimeout(function() {
+        console.log('yay...');
+        done();
+      }, 15 * 1000);
     });
 
     after(function() {
+      testAgenda.stop();
+
       Order.remove().exec();
       Campaign.remove().exec();
       User.remove().exec();
@@ -212,7 +250,6 @@ describe('Campaign not tipped, endedDate has passed, have enough orders', functi
           console.log(err);
         }
       });
-      //configMock.job.restore();
     });
   });
 });
