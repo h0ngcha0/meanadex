@@ -8,6 +8,7 @@ var should = require('should'),
     moment = require('moment'),
     config = require('../../../config/config'),
     sinon = require('sinon'),
+    mongodb = require('mongodb'),
     mongoose = require('mongoose'),
     _ = require('lodash'),
     Order = mongoose.model('Order'),
@@ -48,6 +49,22 @@ var tshirt = new Tshirt({
   backImage: backImg
 });
 
+function removeAgendaJobs(callback) {
+  mongodb.MongoClient.connect(config.db, function(err, db) {
+    if(!err) {
+      db.collection('agendaJobs', function(err, collection) {
+        collection.remove({}, {w:1}, function(err, result) {
+          if(!err) {
+            console.log('removed all data in agenda jobs.');
+          }
+
+          callback(err);
+        });
+      });
+    }
+  });
+}
+
 function createUserFun(username, password) {
   return function(callback) {
     User.create(
@@ -86,8 +103,6 @@ function createCampaignFun(name, created, ended, description,
         state: state
       },
       function(err, campaign) {
-        console.log('campaign: ');
-        console.log(campaign);
         callback(err, campaign);
       }
     )
@@ -111,8 +126,11 @@ function createOrdersFun(numOfOrders) {
     async.parallel(
       funcs,
       function(err, orders) {
-        console.log('order err:');
-        console.log(err);
+        if(err) {
+          console.log('order err:');
+          console.log(err);
+        }
+
         _.each(orders, function(order) {
           console.log('Order [' + order._id + '] is created.');
         });
@@ -163,8 +181,10 @@ describe('Campaign not tipped, endedDate has passed, have enough orders', functi
         state = 'not_tipped';
 
     before(function() {
+      // Connect to the db
       async.waterfall(
         [
+          removeAgendaJobs,
           createUserFun('admin@mootee.io', 'password'),
           createCampaignFun('nice campaign', createdMoment.toDate(),
                             endedMoment.toDate(), 'description', campaignGoal,
@@ -173,8 +193,6 @@ describe('Campaign not tipped, endedDate has passed, have enough orders', functi
         ],
         function(err, results) {
           should.not.exist(err);
-          console.log('orders: ');
-          console.log(results);
         }
       );
     });
@@ -188,6 +206,12 @@ describe('Campaign not tipped, endedDate has passed, have enough orders', functi
       Order.remove().exec();
       Campaign.remove().exec();
       User.remove().exec();
+      removeAgendaJobs(function(err) {
+        if(err) {
+          console.log('remove agenda jobs failed:');
+          console.log(err);
+        }
+      });
       //configMock.job.restore();
     });
   });

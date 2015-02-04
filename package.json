@@ -74,6 +74,7 @@
     "should": "~4.0.4",
     "supertest": "~0.13.0",
     "tough-cookie": "~0.12.1",
-    "sinon": "~1.12.2"
+    "sinon": "~1.12.2",
+    "mongodb": "~1.4.30"
   }
 }
