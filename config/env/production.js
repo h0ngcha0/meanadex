@@ -35,7 +35,7 @@ module.exports = {
       aws: {
         accessKeyId: 'AKIAIXDR74RCRQ2VSFLA',
         secretAccessKey: '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',
-        region: 'eu-west-1',
+        region: 'us-west-2',
         bucketName: 'mootee-images-test'
       }
     }
