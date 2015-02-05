@@ -24,6 +24,8 @@ var should = require('should'),
  */
 var user, campaign, order;
 var agendaTestJobCollection = 'agendaTestJobs';
+var testCaseTimeout = 15 * 1000; // seconds
+var campaignJobTimeout = 10 * 1000; // seconds
 
 var testAgenda = new Agenda(
   {
@@ -244,8 +246,7 @@ var configStub = {
 };
 
 describe('Campaign not tipped, endedDate has passed.', function() {
-  // set the timeout to be 20 seconds.
-  this.timeout(15 * 1000);
+  this.timeout(testCaseTimeout);
 
   describe('Have enough orders', function() {
     var nowMoment = moment(new Date()),
@@ -287,7 +288,7 @@ describe('Campaign not tipped, endedDate has passed.', function() {
           (deleteCount).should.be.equal(numOfOrders);
           done();
         });
-      }, 10 * 1000);
+      }, campaignJobTimeout);
     });
 
     after(function(done) {
@@ -343,7 +344,7 @@ describe('Campaign not tipped, endedDate has passed.', function() {
           (deleteCount).should.be.equal(numOfOrders);
           done();
         });
-      }, 10 * 1000);
+      }, campaignJobTimeout);
     });
 
     after(function(done) {
@@ -362,8 +363,7 @@ describe('Campaign not tipped, endedDate has passed.', function() {
 });
 
 describe('Campaign not tipped, endedDate has not passed.', function() {
-  // set the timeout to be 20 seconds.
-  this.timeout(15 * 1000);
+  this.timeout(testCaseTimeout);
 
   describe('Have enough orders', function() {
     var nowMoment = moment(new Date()),
@@ -405,7 +405,7 @@ describe('Campaign not tipped, endedDate has not passed.', function() {
           (deleteCount).should.be.equal(0);
           done();
         });
-      }, 10 * 1000);
+      }, campaignJobTimeout);
     });
 
     after(function(done) {
