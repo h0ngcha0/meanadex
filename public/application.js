@@ -61,6 +61,29 @@ angular.element(document).ready(function() {
   if (window.location.hash === '#_=_') window.location.hash = '#!';
 
   //Then init the app
-  angular.bootstrap( document,
-    [ApplicationConfiguration.applicationModuleName]);
+  var initInjector = angular.injector(['ng']);
+  var $http = initInjector.get('$http');
+  var $log = initInjector.get('$log');
+
+  function initializeApplication(config) {
+    // Load everything we got into our module.
+    for (var key in config) {
+      $log.debug('Configuration: ' + key + ' -> ' + config[key]);
+      angular.module([ApplicationConfiguration.applicationModuleName])
+        .constant(key, config[key]);
+    }
+    angular.bootstrap(document,
+      [ApplicationConfiguration.applicationModuleName]);
+  }
+
+  $log.info('Attempting to load parameters from ./config.json');
+  $http.get('./config.json').then(
+    function (response) {
+      initializeApplication(response.data);
+    },
+    function () {
+      $log.warn('Cannot load ./config.json, using defaults.');
+      initializeApplication({});
+    }
+  );
 });
