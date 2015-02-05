@@ -188,7 +188,43 @@ function createOrdersFun(numOfOrders) {
 
 describe('Campaign not tipped, endedDate has passed.', function() {
   // set the timeout to be 20 seconds.
-  this.timeout(20 * 1000);
+  this.timeout(15 * 1000);
+
+  var chargeCount = 0;
+  var deleteCount = 0;
+  var stripeStub = function() {
+        return {
+          charges: {
+            create: function(obj, callback) {
+              chargeCount++;
+              callback(null, 'charged');
+            }
+          },
+          customers: {
+            del: function(customerId, callback) {
+              deleteCount++;
+              callback(null, customerId);
+            }
+          }
+        };
+      },
+      campaignJob = proxyquire(
+        '../../lib/jobs/campaign.server.job',
+        {
+          'stripe': stripeStub
+        }
+      );
+
+  var configStub = {
+    stripe: {
+      clientSecret: 'stripeClientSecret'
+    },
+    job: {
+      campaignJob: {
+        frequency: '1 day'
+      }
+    }
+  };
 
   describe('Have enough orders', function() {
     var nowMoment = moment(new Date()),
@@ -198,17 +234,6 @@ describe('Campaign not tipped, endedDate has passed.', function() {
         numOfOrders = 10,
         state = 'not_tipped',
         campaign;
-
-    var configStub = {
-      stripe: {
-        clientSecret: 'stripeClientSecret'
-      },
-      job: {
-        campaignJob: {
-          frequency: '1 day'
-        }
-      }
-    };
 
     before(function(done) {
       // Connect to the db
@@ -230,29 +255,9 @@ describe('Campaign not tipped, endedDate has passed.', function() {
 
     });
 
-    it('should charge user when orders has passed', function(done) {
-      var createCount = 0;
-      var stripeStub = function() {
-            return {
-              charges: {
-                create: function(obj, callback) {
-                  createCount++;
-                  callback(null, 'charged');
-                }
-              },
-              customers: {
-                del: function(customerId, callback) {
-                  callback(null, customerId);
-                }
-              }
-            };
-          },
-          campaignJob = proxyquire(
-            '../../lib/jobs/campaign.server.job',
-            {
-              'stripe': stripeStub
-            }
-          );
+    it('should charge user and delete customers', function(done) {
+      chargeCount = 0;
+      deleteCount = 0;
       // execute campaignJob
       campaignJob(testAgenda, configStub);
       testAgenda.start();
@@ -263,10 +268,11 @@ describe('Campaign not tipped, endedDate has passed.', function() {
 
           (campaign.state).should.be.equal('tipped');
 
-          (createCount).should.be.equal(numOfOrders);
+          (chargeCount).should.be.equal(numOfOrders);
+          (deleteCount).should.be.equal(numOfOrders);
           done();
         });
-      }, 15 * 1000);
+      }, 10 * 1000);
     });
 
     after(function(done) {
@@ -284,4 +290,70 @@ describe('Campaign not tipped, endedDate has passed.', function() {
       });
     });
   });
+
+  describe('Do not have enough orders', function() {
+    var nowMoment = moment(new Date()),
+        createdMoment = nowMoment.add(-7, 'days'),
+        endedMoment = nowMoment.add(-2, 'days'),
+        campaignGoal = 10,
+        numOfOrders = 8,
+        state = 'not_tipped',
+        campaign;
+
+    before(function(done) {
+      // Connect to the db
+      async.waterfall(
+        [
+          removeAgendaJobs,
+          createUserFun('admin@mootee.io', 'password'),
+          createCampaignFun('nice campaign', createdMoment.toDate(),
+                            endedMoment.toDate(), 'description', campaignGoal,
+                            50, state),
+          createOrdersFun(numOfOrders)
+        ],
+        function(err, campn, orders) {
+          campaign = campn;
+          should.not.exist(err);
+          done();
+        }
+      );
+
+    });
+
+    it('should not charge user, but should delete customers', function(done) {
+      chargeCount = 0;
+      deleteCount = 0;
+      // execute campaignJob
+      campaignJob(testAgenda, configStub);
+      testAgenda.start();
+
+      setTimeout(function() {
+        Campaign.findById(campaign._id).exec(function(err, campaign) {
+          should.not.exist(err);
+
+          (campaign.state).should.be.equal('expired');
+
+          (chargeCount).should.be.equal(0);
+          (deleteCount).should.be.equal(numOfOrders);
+          done();
+        });
+      }, 10 * 1000);
+    });
+
+    after(function(done) {
+      testAgenda.stop();
+
+      Order.remove().exec();
+      Campaign.remove().exec();
+      User.remove().exec();
+      removeAgendaJobs(function(err) {
+        if(err) {
+          console.log('remove agenda jobs failed:');
+          console.log(err);
+        }
+        done();
+      });
+    });
+  });
+
 });
