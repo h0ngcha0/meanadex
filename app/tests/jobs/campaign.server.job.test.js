@@ -186,45 +186,66 @@ function createOrdersFun(numOfOrders) {
   };
 }
 
+function provisionCampaignsAndOrders(startDate, endDate, goal, state,
+                                     numOfOrders, callback) {
+  async.waterfall(
+    [
+      removeAgendaJobs,
+      createUserFun('admin@mootee.io', 'password'),
+      createCampaignFun('nice campaign', startDate, endDate,
+                        'description', goal, 50, state),
+      createOrdersFun(numOfOrders)
+    ],
+    callback
+  );
+}
+
+function cleanupCampaignsAndOrders(callback) {
+  Order.remove().exec();
+  Campaign.remove().exec();
+  User.remove().exec();
+  removeAgendaJobs(callback);
+}
+
+var chargeCount = 0;
+var deleteCount = 0;
+var stripeStub = function() {
+      return {
+        charges: {
+          create: function(obj, callback) {
+            chargeCount++;
+            callback(null, 'charged');
+          }
+        },
+        customers: {
+          del: function(customerId, callback) {
+            deleteCount++;
+            callback(null, customerId);
+          }
+        }
+      };
+    },
+    campaignJob = proxyquire(
+      '../../lib/jobs/campaign.server.job',
+      {
+        'stripe': stripeStub
+      }
+    );
+
+var configStub = {
+  stripe: {
+    clientSecret: 'stripeClientSecret'
+  },
+  job: {
+    campaignJob: {
+      frequency: '1 day'
+    }
+  }
+};
+
 describe('Campaign not tipped, endedDate has passed.', function() {
   // set the timeout to be 20 seconds.
   this.timeout(15 * 1000);
-
-  var chargeCount = 0;
-  var deleteCount = 0;
-  var stripeStub = function() {
-        return {
-          charges: {
-            create: function(obj, callback) {
-              chargeCount++;
-              callback(null, 'charged');
-            }
-          },
-          customers: {
-            del: function(customerId, callback) {
-              deleteCount++;
-              callback(null, customerId);
-            }
-          }
-        };
-      },
-      campaignJob = proxyquire(
-        '../../lib/jobs/campaign.server.job',
-        {
-          'stripe': stripeStub
-        }
-      );
-
-  var configStub = {
-    stripe: {
-      clientSecret: 'stripeClientSecret'
-    },
-    job: {
-      campaignJob: {
-        frequency: '1 day'
-      }
-    }
-  };
 
   describe('Have enough orders', function() {
     var nowMoment = moment(new Date()),
@@ -232,27 +253,21 @@ describe('Campaign not tipped, endedDate has passed.', function() {
         endedMoment = nowMoment.add(-2, 'days'),
         campaignGoal = 10,
         numOfOrders = 10,
-        state = 'not_tipped',
         campaign;
 
     before(function(done) {
-      // Connect to the db
-      async.waterfall(
-        [
-          removeAgendaJobs,
-          createUserFun('admin@mootee.io', 'password'),
-          createCampaignFun('nice campaign', createdMoment.toDate(),
-                            endedMoment.toDate(), 'description', campaignGoal,
-                            50, state),
-          createOrdersFun(numOfOrders)
-        ],
+      provisionCampaignsAndOrders(
+        createdMoment.toDate(),
+        endedMoment.toDate(),
+        campaignGoal,
+        'not_tipped',
+        numOfOrders,
         function(err, campn, orders) {
           campaign = campn;
           should.not.exist(err);
           done();
         }
       );
-
     });
 
     it('should charge user and delete customers', function(done) {
@@ -277,13 +292,9 @@ describe('Campaign not tipped, endedDate has passed.', function() {
 
     after(function(done) {
       testAgenda.stop();
-
-      Order.remove().exec();
-      Campaign.remove().exec();
-      User.remove().exec();
-      removeAgendaJobs(function(err) {
+      cleanupCampaignsAndOrders(function(err) {
         if(err) {
-          console.log('remove agenda jobs failed:');
+          console.log('cleanup campaign and orders failed:');
           console.log(err);
         }
         done();
@@ -301,23 +312,18 @@ describe('Campaign not tipped, endedDate has passed.', function() {
         campaign;
 
     before(function(done) {
-      // Connect to the db
-      async.waterfall(
-        [
-          removeAgendaJobs,
-          createUserFun('admin@mootee.io', 'password'),
-          createCampaignFun('nice campaign', createdMoment.toDate(),
-                            endedMoment.toDate(), 'description', campaignGoal,
-                            50, state),
-          createOrdersFun(numOfOrders)
-        ],
+      provisionCampaignsAndOrders(
+        createdMoment.toDate(),
+        endedMoment.toDate(),
+        campaignGoal,
+        'not_tipped',
+        numOfOrders,
         function(err, campn, orders) {
           campaign = campn;
           should.not.exist(err);
           done();
         }
       );
-
     });
 
     it('should not charge user, but should delete customers', function(done) {
@@ -343,12 +349,9 @@ describe('Campaign not tipped, endedDate has passed.', function() {
     after(function(done) {
       testAgenda.stop();
 
-      Order.remove().exec();
-      Campaign.remove().exec();
-      User.remove().exec();
-      removeAgendaJobs(function(err) {
+      cleanupCampaignsAndOrders(function(err) {
         if(err) {
-          console.log('remove agenda jobs failed:');
+          console.log('cleanup campaign and orders failed:');
           console.log(err);
         }
         done();
