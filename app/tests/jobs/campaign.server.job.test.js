@@ -93,7 +93,7 @@ function createUserFun(username, password) {
 }
 
 function createCampaignFun(name, created, ended, description,
-                          goal, price, state) {
+                           goal, price, state) {
   return function(user, callback) {
     Campaign.create(
       {
@@ -117,8 +117,8 @@ function createCampaignFun(name, created, ended, description,
       function(err, campaign) {
         callback(err, campaign);
       }
-    )
-  }
+    );
+  };
 }
 
 function createOrdersFun(numOfOrders) {
@@ -147,10 +147,10 @@ function createOrdersFun(numOfOrders) {
           console.log('Order [' + order._id + '] is created.');
         });
 
-        callback(err, orders);
+        callback(err, campaign, orders);
       }
     );
-  }
+  };
 }
 
 function createOrderFun(description, quantity, campaign) {
@@ -182,8 +182,8 @@ function createOrderFun(description, quantity, campaign) {
       function(err, order) {
         callback(err, order);
       }
-    )
-  }
+    );
+  };
 }
 
 describe('Campaign not tipped, endedDate has passed, have enough orders', function() {
@@ -196,7 +196,8 @@ describe('Campaign not tipped, endedDate has passed, have enough orders', functi
         endedMoment = nowMoment.add(-2, 'days'),
         campaignGoal = 10,
         numOfOrders = 10,
-        state = 'not_tipped';
+        state = 'not_tipped',
+        campaign;
 
     var configStub = {
       stripe: {
@@ -221,7 +222,8 @@ describe('Campaign not tipped, endedDate has passed, have enough orders', functi
                             50, state),
           createOrdersFun(numOfOrders)
         ],
-        function(err, results) {
+        function(err, campn, orders) {
+          campaign = campn;
           should.not.exist(err);
         }
       );
@@ -254,8 +256,12 @@ describe('Campaign not tipped, endedDate has passed, have enough orders', functi
       testAgenda.start();
 
       setTimeout(function() {
-        console.log('yay...');
-        done();
+        Campaign.findById(campaign._id).exec(function(err, campaign) {
+          should.not.exist(err);
+
+          (campaign.state).should.be.equal('tipped');
+          done();
+        });
       }, 15 * 1000);
     });
 
@@ -274,4 +280,3 @@ describe('Campaign not tipped, endedDate has passed, have enough orders', functi
     });
   });
 });
-
