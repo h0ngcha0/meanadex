@@ -1,18 +1,26 @@
-'use strict';
+/**
+ * The angular resource abstraction that allows us to search, access, and
+ * modify tshirts.
+ *
+ * @see ResourceFactory
+ */
+angular.module('services').factory('Tshirts', ['ResourceFactory',
+  function (ResourceFactory) {
+    'use strict';
 
-//Tshirts service used to communicate Tshirts REST endpoints
-angular.module('tshirts').factory('Tshirts', [
-  '$resource',
-  function($resource) {
-    return $resource(
-      'tshirts/:tshirtId',
-      {
-        tshirtId: '@_id'
-      },
-      {
-        update: {
-          method: 'POST'
-        }
-      });
+    var resource = ResourceFactory.build(
+      '/tshirts/:id',
+      '/tshirts/search',
+      {id: '@id'}
+    );
+
+    ResourceFactory.applySearch(
+      'Tshirts',
+      resource,
+      'full_name',
+      {Text: 'q'}
+    );
+
+    return resource;
   }
 ]);

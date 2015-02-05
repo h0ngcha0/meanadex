@@ -63,7 +63,7 @@ angular.module('campaigns').directive('mdCampaignCanvas', [
         var getFrontImage = function(campaign) {
           return function(callback) {
             var tshirt = campaign.tshirt;
-            Images.get({imageId: tshirt.frontImage._id}).$promise.then(
+            Images.get({id: tshirt.frontImage._id}).$promise.then(
               function(frontImage) {
                 callback(null, frontImage.url);
               },
@@ -77,7 +77,7 @@ angular.module('campaigns').directive('mdCampaignCanvas', [
         var getBackImage = function(campaign) {
           return function(callback) {
             var tshirt = campaign.tshirt;
-            Images.get({imageId: tshirt.backImage._id}).$promise.then(
+            Images.get({id: tshirt.backImage._id}).$promise.then(
               function(backImage) {
                 callback(null, backImage.url);
               },

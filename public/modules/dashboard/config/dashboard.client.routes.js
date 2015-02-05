@@ -78,7 +78,7 @@ angular.module('dashboard').config([
         }
       }).
       state('dashboard.tshirtDetail', {
-        url: '/tshirts/:tshirtId',
+        url: '/tshirts/:id',
         resolve: {
           isAdmin: PermissionResolver.requirePermission('admin', true)
         },
@@ -132,7 +132,7 @@ angular.module('dashboard').config([
         }
       }).
       state('dashboard.viewImage', {
-        url: '/images/:imageId',
+        url: '/images/:id',
         resolve: {
           isAdmin: PermissionResolver.requirePermission('admin', true)
         },

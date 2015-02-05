@@ -37,7 +37,7 @@ angular.module('campaigns').config([
       controller: 'CampaignsController'
     }).
     state('viewCampaign', {
-      url: '/campaigns/:campaignId',
+      url: '/campaigns/:id',
       templateUrl: 'modules/campaigns/views/view-campaign.client.view.html',
       controller: 'CampaignsController'
     });

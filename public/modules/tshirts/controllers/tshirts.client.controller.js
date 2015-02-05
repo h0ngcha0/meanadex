@@ -41,8 +41,8 @@ angular.module('tshirts').controller('TshirtsController', [
       var uploadImage = function (queue, callback) {
         return function(callback) {
           queue.onSuccess = function(response, status, header) {
-            var imageId = response._id;
-            callback(null, imageId);
+            var id = response._id;
+            callback(null, id);
           };
           queue.upload();
         };
@@ -53,9 +53,9 @@ angular.module('tshirts').controller('TshirtsController', [
           uploadImage($scope.currentQueueItemFront),
           uploadImage($scope.currentQueueItemBack)
         ],
-        function(err, imageIds) {
-          var frontImgId = imageIds[0];
-          var backImgId = imageIds[1];
+        function(err, ids) {
+          var frontImgId = ids[0];
+          var backImgId = ids[1];
 
           var tshirt = new Tshirts ({
             name: $scope.tmpTshirt.name,
@@ -82,8 +82,8 @@ angular.module('tshirts').controller('TshirtsController', [
 
     // Remove existing Tshirt
     $scope.remove = function( tshirt ) {
-      var removeImage = function(imageId) {
-        var img = new Images({_id: imageId});
+      var removeImage = function(id) {
+        var img = new Images({id: id});
         img.$remove();
       };
 
@@ -118,7 +118,7 @@ angular.module('tshirts').controller('TshirtsController', [
     // Find existing Tshirt
     $scope.findOne = function() {
       $scope.tshirt = Tshirts.get({
-        tshirtId: $stateParams.tshirtId
+        id: $stateParams.id
       });
     };
 
@@ -192,7 +192,7 @@ angular.module('tshirts').controller('TshirtsController', [
     $scope.loadAllVariantsInTableData = function() {
       $scope.tshirt = Tshirts.get(
         {
-          tshirtId: $stateParams.tshirtId
+          id: $stateParams.id
         },
         function(data) {
           $scope.variantsTableParams.reload();

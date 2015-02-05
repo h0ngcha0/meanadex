@@ -4,7 +4,7 @@
  *
  * @see ResourceFactory
  */
-angular.module('services').factory('User', ['ResourceFactory',
+angular.module('services').factory('Users', ['ResourceFactory',
   function (ResourceFactory) {
     'use strict';
 
@@ -15,7 +15,7 @@ angular.module('services').factory('User', ['ResourceFactory',
     );
 
     ResourceFactory.applySearch(
-      'User',
+      'Users',
       resource,
       'full_name',
       {Text: 'q'}

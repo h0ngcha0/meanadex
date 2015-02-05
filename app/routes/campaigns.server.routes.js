@@ -9,10 +9,10 @@ module.exports = function(app) {
   .get(oauth2.authorise, campaigns.listByUser)
   .post(oauth2.authorise, campaigns.create);
 
-  app.route('/featured_campaigns')
+  app.route('/featuredCampaigns')
   .get(campaigns.listOfFeatured);
 
-  app.route('/search_campaigns')
+  app.route('/searchCampaigns')
   .get(campaigns.search);
 
   app.route('/campaigns/:campaignId')

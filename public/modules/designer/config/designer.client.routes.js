@@ -2,8 +2,8 @@
 
 //Setting up route
 angular.module('designer').config([
-  '$stateProvider',
-  function($stateProvider) {
+  '$stateProvider', 'theApiBase',
+  function($stateProvider, theApiBase) {
     // Designer state routing
     $stateProvider.
     state('designer', {
@@ -12,7 +12,7 @@ angular.module('designer').config([
         allTshirts: [
           '$http',
           function($http) {
-            return $http.get('tshirts').then(
+            return $http.get(theApiBase + '/tshirts').then(
               function (resp) {
                 return resp.data;
               });

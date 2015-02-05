@@ -8,8 +8,8 @@
 angular.module('auth').factory('CurrentUser',
   [
     'SessionState', 'Session', 'AccessToken', '$rootScope', '$log', '$q',
-    'User', 'Notification', 'Priority',
-    function (SessionState, Session, AccessToken, $rootScope, $log, $q, User,
+    'Users', 'Notification', 'Priority',
+    function (SessionState, Session, AccessToken, $rootScope, $log, $q, Users,
       Notification, Priority) {
 
       /**
@@ -41,7 +41,7 @@ angular.module('auth').factory('CurrentUser',
               deferred.resolve(currentUser);
             } else {
               // Ok, we have to load.
-              User.get(
+              Users.get(
                 {
                   id: AccessToken.getIdToken()
                 },

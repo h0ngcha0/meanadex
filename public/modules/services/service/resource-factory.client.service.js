@@ -26,20 +26,25 @@ angular.module('services')
      * @param searchUrl
      * @returns An API signature that may be used with a $resource.
      */
-    function buildSignature(searchUrl) {
+    function buildSignature(searchUrl, isQueryObject) {
       return {
         'create': {
           method: 'POST'
         },
         'get': {
           method: 'GET',
-          cache: true
+          cache: false
         },
         'update': {
-          method: 'PUT'
+          method: 'POST'
         },
         'delete': {
           method: 'DELETE'
+        },
+        query:
+        {
+          method: 'GET',
+          isArray: !isQueryObject
         },
         'browse': {
           method: 'GET',
@@ -74,7 +79,7 @@ angular.module('services')
        * @param resourceParameters
        * @returns {*}
        */
-      build: function (restUri, searchUri, resourceParameters) {
+      build: function (restUri, searchUri, resourceParameters, isQueryObject) {
 
         if (!restUri) {
           $log.error('Cannot use resource factory ' +
@@ -82,7 +87,7 @@ angular.module('services')
           return null;
         }
 
-        var signature = buildSignature(theApiBase + searchUri);
+        var signature = buildSignature(theApiBase + searchUri, isQueryObject);
         return $resource(theApiBase + restUri,
           resourceParameters, signature);
       },

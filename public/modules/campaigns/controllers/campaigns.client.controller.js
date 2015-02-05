@@ -2,14 +2,14 @@
 
 // Campaigns controller
 angular.module('campaigns').controller('CampaignsController', [
-  '$scope', '$stateParams', '$state', '$location', 'SearchCampaigns', 'FeaturedCampaigns',
-  'Campaigns', '$cookies', '$filter', 'DashboardUtils', '$timeout', '$http',
-  function($scope, $stateParams, $state, $location, SearchCampaigns, FeaturedCampaigns,
-           Campaigns, $cookies, $filter, DashboardUtils, $timeout, $http) {
+  '$scope', '$stateParams', '$state', '$location', 'SearchCampaigns',
+  'FeaturedCampaigns', 'Campaigns', 'DashboardUtils',
+  function($scope, $stateParams, $state, $location, SearchCampaigns,
+    FeaturedCampaigns, Campaigns, DashboardUtils) {
     // Remove existing Campaign
     $scope.remove = function( campaign ) {
       Campaigns.remove(
-        {campaignId: campaign._id},
+        {id: campaign._id},
         function(data) {
           for (var i in $scope.campaigns.documents ) {
             if ($scope.campaigns.documents [i] === campaign ) {
@@ -31,7 +31,7 @@ angular.module('campaigns').controller('CampaignsController', [
     // Update existing Campaign
     $scope.update = function(campaign) {
       Campaigns.update(
-        {campaignId: campaign._id},
+        {id: campaign._id},
         campaign,
         function(data) {
           // successfully updated.
@@ -51,7 +51,7 @@ angular.module('campaigns').controller('CampaignsController', [
     $scope.findOne = function() {
       $scope.campaign = Campaigns.get(
         {
-          campaignId: $stateParams.campaignId
+          id: $stateParams.id
         },
         function(data) {
         },

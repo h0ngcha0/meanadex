@@ -1,14 +1,26 @@
-'use strict';
+/**
+ * The angular resource abstraction that allows us to search, access, and
+ * modify tags.
+ *
+ * @see ResourceFactory
+ */
+angular.module('services').factory('Tags', ['ResourceFactory',
+  function (ResourceFactory) {
+    'use strict';
 
-//Images service used to communicate Images REST endpoints
-angular.module('images').factory('Tags', [
-  '$resource',
-  function($resource) {
-    return $resource(
-      'tags/:tagId',
-      {
-        imageId: '@_id'
-      }
+    var resource = ResourceFactory.build(
+      '/tags/:id',
+      '/tags/search',
+      {id: '@id'}
     );
+
+    ResourceFactory.applySearch(
+      'Tags',
+      resource,
+      'full_name',
+      {Text: 'q'}
+    );
+
+    return resource;
   }
 ]);

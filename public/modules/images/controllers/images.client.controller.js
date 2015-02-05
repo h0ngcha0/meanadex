@@ -3,9 +3,9 @@
 // Images controller
 angular.module('images').controller('ImagesController', [
   '$scope', '$stateParams', '$location', 'AccessToken',
-  'Images', 'FileUploader', '$http', 'ImagesUtils',
+  'Images', 'FileUploader', 'Tags', 'ImagesUtils',
   function($scope, $stateParams, $location, AccessToken,
-           Images, FileUploader, $http, ImagesUtils) {
+           Images, FileUploader, Tags, ImagesUtils) {
     // Create new Image
     $scope.create = function() {
       // Create new Image object
@@ -76,7 +76,7 @@ angular.module('images').controller('ImagesController', [
     // Find existing Image
     $scope.findOne = function() {
       $scope.image = Images.get({
-        imageId: $stateParams.imageId
+        id: $stateParams.id
       });
     };
 
@@ -117,7 +117,7 @@ angular.module('images').controller('ImagesController', [
 
     // load tags
     $scope.loadTags = function() {
-      return $http.get('/tags');
+      return Tags.query();
     };
   }
 ]);

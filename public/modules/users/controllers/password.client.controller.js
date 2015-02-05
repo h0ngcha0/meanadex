@@ -1,13 +1,13 @@
 'use strict';
 
 angular.module('users').controller('PasswordController', [
-  '$scope', '$stateParams', '$http', '$location',
-  function($scope, $stateParams, $http, $location) {
+  '$scope', '$stateParams', '$http', '$location', 'theApiBase',
+  function($scope, $stateParams, $http, $location, theApiBase) {
     // Submit forgotten password account id
     $scope.askForPasswordReset = function() {
       $scope.success = $scope.error = null;
 
-      $http.post('/auth/forgot', $scope.credentials).success(function(response) {
+      $http.post(theApiBase + '/auth/forgot', $scope.credentials).success(function(response) {
         // Show user success message and clear form
         $scope.credentials = null;
         $scope.success = response.message;
@@ -23,7 +23,7 @@ angular.module('users').controller('PasswordController', [
     $scope.resetUserPassword = function() {
       $scope.success = $scope.error = null;
 
-      $http.post('/auth/reset/' + $stateParams.token, $scope.passwordDetails).
+      $http.post(theApiBase + '/auth/reset/' + $stateParams.token, $scope.passwordDetails).
         success(
           function(response) {
             // If successful show success message and clear form

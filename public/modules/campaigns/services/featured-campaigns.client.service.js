@@ -1,16 +1,27 @@
-'use strict';
+/**
+ * The angular resource abstraction that allows us to search, access, and
+ * modify featuredCampaigns.
+ *
+ * @see ResourceFactory
+ */
+angular.module('services').factory('FeaturedCampaigns', ['ResourceFactory',
+  function (ResourceFactory) {
+    'use strict';
 
-angular.module('campaigns').factory('FeaturedCampaigns', [
-  '$resource',
-  function($resource) {
-    return $resource('featured_campaigns',
-      {},
-      {
-        query:
-        {
-          method: 'GET'
-        }
-      }
+    var resource = ResourceFactory.build(
+      '/featuredCampaigns/:id',
+      '/featuredCampaigns/search',
+      {id: '@id'},
+      true
     );
+
+    ResourceFactory.applySearch(
+      'FeaturedCampaigns',
+      resource,
+      'full_name',
+      {Text: 'q'}
+    );
+
+    return resource;
   }
 ]);

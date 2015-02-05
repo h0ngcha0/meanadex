@@ -7,8 +7,8 @@
 angular.module('auth').factory('Session',
   [
     'SessionState', 'AccessToken', '$rootScope', '$log', '$q', '$state',
-    'User', 'RefreshManager', 'Notification', 'Severity', '$stateParams',
-    function (SessionState, AccessToken, $rootScope, $log, $q, $state, User,
+    'Users', 'RefreshManager', 'Notification', 'Severity', '$stateParams',
+    function (SessionState, AccessToken, $rootScope, $log, $q, $state, Users,
       RefreshManager, Notification, Severity, $stateParams) {
 
       /**
@@ -52,7 +52,7 @@ angular.module('auth').factory('Session',
       function validateToken() {
 
         /**
-         * Try fresh call is necessary here because a User may try to
+         * Try fresh call is necessary here because a Users may try to
          * validate a token after a long break.
          * Even if refresh is not necessary right now the tryRefresh method
          * will just resolve immediately.
@@ -62,7 +62,7 @@ angular.module('auth').factory('Session',
         RefreshManager.tryRefresh().then(function () {
           var id = AccessToken.getIdToken();
 
-          User.get({id: id},
+          Users.get({id: id},
             function (user) {
               deferred.resolve(user);
             }, function (error) {

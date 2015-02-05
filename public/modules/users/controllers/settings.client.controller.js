@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('users').controller('SettingsController', [
-  '$scope', '$http', '$location', 'Users', 'currentUser',
-  function($scope, $http, $location, Users, currentUser) {
+  '$scope', '$http', '$location', 'Users', 'currentUser', 'theApiBase',
+  function($scope, $http, $location, Users, currentUser, theApiBase) {
     $scope.user = currentUser;
 
     // Check if there are additional accounts
@@ -26,7 +26,7 @@ angular.module('users').controller('SettingsController', [
     $scope.removeUserSocialAccount = function(provider) {
       $scope.success = $scope.error = null;
 
-      $http.delete('/users/accounts', {
+      $http.delete(theApiBase + '/users/accounts', {
         params: {
           provider: provider
         }
@@ -57,7 +57,7 @@ angular.module('users').controller('SettingsController', [
     $scope.changeUserPassword = function() {
       $scope.success = $scope.error = null;
 
-      $http.post('/users/password', $scope.passwordDetails).success(function(response) {
+      $http.post(theApiBase + '/users/password', $scope.passwordDetails).success(function(response) {
         // If successful show success message and clear form
         $scope.success = true;
         $scope.passwordDetails = null;

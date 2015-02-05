@@ -9,7 +9,7 @@ angular.module('orders').controller('OrdersController', [
     // Remove existing Order
     $scope.remove = function( order ) {
       Orders.remove(
-        {orderId: order._id},
+        {id: order._id},
         function(data) {
           for (var i in $scope.orders.documents ) {
             if ($scope.orders.documents [i] === order ) {
@@ -36,7 +36,7 @@ angular.module('orders').controller('OrdersController', [
     // Find existing Order
     $scope.findOne = function() {
       $scope.order = Orders.get({
-        orderId: $stateParams.orderId
+        id: $stateParams.id
       });
     };
 

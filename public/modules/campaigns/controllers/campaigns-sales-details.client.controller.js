@@ -4,9 +4,9 @@
 
 angular.module('campaigns').controller('CampaignsSalesDetailsController', [
   '$scope', 'Campaigns', 'CampaignCache', 'mdCanvasService', '$location',
-  '$http', 'Session', 'SessionRedirectService',
+  'Session', 'SessionRedirectService',
   function($scope, Campaigns, CampaignCache, mdCanvasService, $location,
-           $http, Session, SessionRedirectService) {
+           Session, SessionRedirectService) {
     $scope.campaignTitle = CampaignCache.getTitle() || '';
     CampaignCache.bindTitle($scope);
 

@@ -207,9 +207,9 @@ angular.module('designer').service('mdCanvasService', [
       return canvas;
     };
 
-    this.init = function(interactiveCanvas, canvasId, imageId, tshirtDivId,
+    this.init = function(interactiveCanvas, canvasId, id, tshirtDivId,
                          frontImageUrl, backImageUrl,frontJson, backJson, color) {
-      this.imageId = imageId;
+      this.id = id;
       this.tshirtDivId = tshirtDivId;
       this.frontImageUrl = frontImageUrl;
       this.backImageUrl = backImageUrl;
@@ -384,7 +384,7 @@ angular.module('designer').service('mdCanvasService', [
     };
 
     this.renderCanvas = function(Img, tshirtCanvas) {
-      $(this.imageId).attr('src', Img);
+      $(this.id).attr('src', Img);
       canvas.clear();
       if(tshirtCanvas !== null) {
         canvas.loadFromJSON(
