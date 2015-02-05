@@ -1,112 +1,112 @@
 'use strict';
 var mongoose = require('mongoose'),
-    config = require('../../../config/config'),
     async = require('async'),
     logger = require('../logger.server.lib.js'),
     Order = mongoose.model('Order'),
     Campaign = mongoose.model('Campaign'),
-    stripe = require('stripe')(config.stripe.clientSecret),
     _ = require('lodash');
 
-var listAllOrders = function(campaign) {
-  return function(callback) {
-    var query = Order
-      .find({'campaign': campaign._id})
-      .sort('-created')
-      .populate('user', 'username')
-      .populate('campaign', 'name');
-    query.lean().exec(function(err, campaignOrders) {
+module.exports = function(agenda, config) {
+  var stripe = require('stripe')(config.stripe.clientSecret);
+
+  var listAllOrders = function(campaign) {
+    return function(callback) {
+      var query = Order
+                    .find({'campaign': campaign._id})
+                    .sort('-created')
+                    .populate('user', 'username')
+                    .populate('campaign', 'name');
+      query.lean().exec(function(err, campaignOrders) {
+        if(err) {
+          logger.log('error getting orders for campaign: ' + campaign._id);
+        }
+
+        callback(err, campaign, campaignOrders);
+      });
+    };
+  };
+
+  var maybeChargeOrder = function(order, chargeFlag) {
+    return function(callback) {
+      // making the charge
+      var customerId = order.payment.customerId;
+
+      // chargeFlag determines if charge or not.
+      if(chargeFlag) {
+        // FIXME: need to charge on behalf of the campaign owner
+        stripe.charges.create(
+          {
+            customer: customerId,
+            amount: order.amount * 100,
+            currency: order.currency,
+            description: order.description
+          },
+          function(err, charge) {
+            if(err) {
+              logger.error(
+                'error charging order: ' + order._id + '; customer id: ' + customerId
+              );
+            } else {
+              logger.info(
+                'order: ' + order._id + ' with customer id: ' + customerId + ' charged.'
+              );
+            }
+
+            callback(err, customerId);
+          }
+        );
+      } else {
+        // if not charge, proceed.
+        callback(undefined, customerId);
+      }
+    };
+  };
+
+  var deleteCustomer = function(err, customerId) {
+    stripe.customers.del(
+      customerId,
+      function(err, confirmation) {
+        if(err) {
+          logger.error('error deleting customer: ' + customerId);
+        } else {
+          logger.info('customer: ' + customerId + ' deleted.');
+        }
+      }
+    );
+  };
+
+  var maybeChargeOrders = function(campaign, campaignOrders, callback) {
+    var numOrders = campaignOrders.length;
+
+    var goalReached = numOrders >= campaign.goal ? true : false;
+
+    _.forEach(campaignOrders, function(order) {
+      async.waterfall([
+        maybeChargeOrder(order, goalReached)
+      ], deleteCustomer);
+    });
+
+    // always go through
+    callback(undefined, campaign, goalReached);
+  };
+
+  var changeCampaignState = function(campaign, goalReached, callback) {
+    campaign.state = goalReached ? 'tipped' : 'expired';
+    campaign.save(function(err) {
       if(err) {
-        logger.log('error getting orders for campaign: ' + campaign._id);
+        logger.error('campaign ' + campaign._id + ' is tipped.');
       }
 
-      callback(err, campaign, campaignOrders);
+      callback(err);
     });
   };
-};
 
-var maybeChargeOrder = function(order, chargeFlag) {
-  return function(callback) {
-    // making the charge
-    var customerId = order.payment.customerId;
-
-    // chargeFlag determines if charge or not.
-    if(chargeFlag) {
-      // FIXME: need to charge on behalf of the campaign owner
-      stripe.charges.create(
-        {
-          customer: customerId,
-          amount: order.amount * 100,
-          currency: order.currency,
-          description: order.description
-        },
-        function(err, charge) {
-          if(err) {
-            logger.error(
-              'error charging order: ' + order._id + '; customer id: ' + customerId
-            );
-          } else {
-            logger.info(
-              'order: ' + order._id + ' with customer id: ' + customerId + ' charged.'
-            );
-          }
-
-          callback(err, customerId);
-        }
-      );
-    } else {
-      // if not charge, proceed.
-      callback(undefined, customerId);
+  var logging = function(err, results) {
+    if (err) {
+      logger.error('error while trying to tip campaigns: ', err);
     }
   };
-};
 
-var deleteCustomer = function(err, customerId) {
-  stripe.customers.del(
-    customerId,
-    function(err, confirmation) {
-      if(err) {
-        logger.error('error deleting customer: ' + customerId);
-      } else {
-        logger.info('customer: ' + customerId + ' deleted.');
-      }
-    }
-  );
-};
-
-var maybeChargeOrders = function(campaign, campaignOrders, callback) {
-  var numOrders = campaignOrders.length;
-
-  var goalReached = numOrders >= campaign.goal ? true : false;
-
-  _.forEach(campaignOrders, function(order) {
-    async.waterfall([
-      maybeChargeOrder(order, goalReached)
-    ], deleteCustomer);
-  });
-
-  // always go through
-  callback(undefined, campaign, goalReached);
-};
-
-var changeCampaignState = function(campaign, goalReached, callback) {
-  campaign.state = goalReached ? 'tipped' : 'expired';
-  campaign.save(function(err) {
-    if(err) {
-      logger.error('campaign ' + campaign._id + ' is tipped.');
-    }
-
-    callback(err);
-  });
-};
-
-var logging = function(err, results) {
-  if (err) {
-    logger.error('error while trying to tip campaigns: ', err);
-  }
-};
-
-module.exports = function(agenda) {
   agenda.define('check campaigns maturity', function(job, done) {
     logger.info('check campaigns maturity job started');
     Campaign.find({ended: {$lt: Date.now()}}).

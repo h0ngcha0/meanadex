@@ -151,7 +151,7 @@ module.exports = function(grunt) {
       };
 
       var createCampaignFun = function(name, description, access_token,
-        tshirt) {
+                                       tshirt) {
         var now = new Date();
         var length = pickRandom([3, 5, 7, 10, 14, 21]);
         var color = pickRandom(['red', 'yellow', 'blue', 'green']);
