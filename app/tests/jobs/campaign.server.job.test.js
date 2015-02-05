@@ -11,7 +11,7 @@ var should = require('should'),
     mongodb = require('mongodb'),
     mongoose = require('mongoose'),
     Agenda = require('agenda'),
-    campaignJob = require('../../lib/jobs/campaign.server.job'),
+    proxyquire = require('proxyquire'),
     _ = require('lodash'),
     Order = mongoose.model('Order'),
     User = mongoose.model('User'),
@@ -226,12 +226,33 @@ describe('Campaign not tipped, endedDate has passed, have enough orders', functi
         }
       );
 
-      // execute campaignJob
-      campaignJob(testAgenda, configStub);
-      testAgenda.start();
     });
 
     it('should charge user when orders has passed', function(done) {
+      var stripeStub = function() {
+            return {
+              charges: {
+                create: function(obj, callback) {
+                  callback(null, 'charged');
+                }
+              },
+              customers: {
+                del: function(customerId, callback) {
+                  callback(null, customerId);
+                }
+              }
+            };
+          },
+          campaignJob = proxyquire(
+            '../../lib/jobs/campaign.server.job',
+            {
+              'stripe': stripeStub
+            }
+          );
+      // execute campaignJob
+      campaignJob(testAgenda, configStub);
+      testAgenda.start();
+
       setTimeout(function() {
         console.log('yay...');
         done();
