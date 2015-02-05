@@ -42,6 +42,25 @@ exports.signup = function(req, res, next) {
  */
 exports.saveOAuthUserProfile = function(req, providerUserProfile, callback) {
   var state = req.query.state;
+
+  // Define a search query fields
+  var searchMainProviderIdentifierField = 'providerData.id';
+  var searchAdditionalProviderIdentifierField = 'additionalProvidersData.' + providerUserProfile.service + '.id';
+
+  // Define main provider search query
+  var mainProviderSearchQuery = {};
+  mainProviderSearchQuery.provider = providerUserProfile.service;
+  mainProviderSearchQuery[searchMainProviderIdentifierField] = providerUserProfile.id;
+
+  // Define additional provider search query
+  var additionalProviderSearchQuery = {};
+  additionalProviderSearchQuery[searchAdditionalProviderIdentifierField] = providerUserProfile.id;
+
+  // Define a search query to find existing user with current provider profile
+  var searchQuery = {
+    $or: [mainProviderSearchQuery, additionalProviderSearchQuery]
+  };
+
   // Decode state (possibly by JWT)
   // Try find user by decoded state
   User.findOne(
@@ -55,24 +74,6 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, callback) {
       }
       // Authroize a user by an oauth provider
       if (!user) {
-        // Define a search query fields
-        var searchMainProviderIdentifierField = 'providerData.id';
-        var searchAdditionalProviderIdentifierField = 'additionalProvidersData.' + providerUserProfile.service + '.id';
-
-        // Define main provider search query
-        var mainProviderSearchQuery = {};
-        mainProviderSearchQuery.provider = providerUserProfile.service;
-        mainProviderSearchQuery[searchMainProviderIdentifierField] = providerUserProfile.id;
-
-        // Define additional provider search query
-        var additionalProviderSearchQuery = {};
-        additionalProviderSearchQuery[searchAdditionalProviderIdentifierField] = providerUserProfile.id;
-
-        // Define a search query to find existing user with current provider profile
-        var searchQuery = {
-          $or: [mainProviderSearchQuery, additionalProviderSearchQuery]
-        };
-
         User.findOne(searchQuery, '-salt -password', function(err, user) {
           if (err) {
             return callback(err);
@@ -127,16 +128,26 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, callback) {
       else {
         // Check if user exists, is not signed in using this provider, and doesn't have that provider data already configured
         if (user.provider !== providerUserProfile.service && (!user.additionalProvidersData || !user.additionalProvidersData[providerUserProfile.service])) {
-          // Add the provider data to the additional provider data field
-          if (!user.additionalProvidersData) user.additionalProvidersData = {};
-          user.additionalProvidersData[providerUserProfile.service] = providerUserProfile;
+          // Is it connected to other user already?
+          User.findOne(searchQuery, '-salt -password', function(err, otherUser) {
+            if (err) {
+              return callback(err);
+            } else {
+              if (otherUser) {
+                return callback(new Error('Already connected to other user!'));
+              }
+              // Add the provider data to the additional provider data field
+              if (!user.additionalProvidersData) user.additionalProvidersData = {};
+              user.additionalProvidersData[providerUserProfile.service] = providerUserProfile;
 
-          // Then tell mongoose that we've updated the additionalProvidersData field
-          user.markModified('additionalProvidersData');
+              // Then tell mongoose that we've updated the additionalProvidersData field
+              user.markModified('additionalProvidersData');
 
-          // And save the user
-          return user.save(function(err, user) {
-            callback(err, user);
+              // And save the user
+              return user.save(function(err, user) {
+                callback(err, user);
+              });
+            }
           });
         } else {
           return callback(err, user);
