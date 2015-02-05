@@ -100,7 +100,7 @@ function createCampaignFun(name, created, ended, description,
         name: name,
         user: user,
         created: created,
-        ended: created, // change to add length
+        ended: ended,
         description: description,
         length: 7, // not important
         goal: goal,
@@ -249,8 +249,8 @@ describe('Campaign not tipped, endedDate has passed.', function() {
 
   describe('Have enough orders', function() {
     var nowMoment = moment(new Date()),
-        createdMoment = nowMoment.add(-7, 'days'),
-        endedMoment = nowMoment.add(-2, 'days'),
+        createdMoment = nowMoment.clone().add(-7, 'days'),
+        endedMoment = createdMoment.clone().add(5, 'days'),
         campaignGoal = 10,
         numOfOrders = 10,
         campaign;
@@ -304,8 +304,8 @@ describe('Campaign not tipped, endedDate has passed.', function() {
 
   describe('Do not have enough orders', function() {
     var nowMoment = moment(new Date()),
-        createdMoment = nowMoment.add(-7, 'days'),
-        endedMoment = nowMoment.add(-2, 'days'),
+        createdMoment = nowMoment.clone().add(-7, 'days'),
+        endedMoment = createdMoment.clone().add(5, 'days'),
         campaignGoal = 10,
         numOfOrders = 8,
         state = 'not_tipped',
@@ -359,4 +359,64 @@ describe('Campaign not tipped, endedDate has passed.', function() {
     });
   });
 
+});
+
+describe('Campaign not tipped, endedDate has not passed.', function() {
+  // set the timeout to be 20 seconds.
+  this.timeout(15 * 1000);
+
+  describe('Have enough orders', function() {
+    var nowMoment = moment(new Date()),
+        createdMoment = nowMoment.clone().add(-7, 'days'),
+        endedMoment = createdMoment.clone().add(8, 'days'),
+        campaignGoal = 10,
+        numOfOrders = 10,
+        campaign;
+
+    before(function(done) {
+      provisionCampaignsAndOrders(
+        createdMoment.toDate(),
+        endedMoment.toDate(),
+        campaignGoal,
+        'not_tipped',
+        numOfOrders,
+        function(err, campn, orders) {
+          campaign = campn;
+          should.not.exist(err);
+          done();
+        }
+      );
+    });
+
+    it('should not charge user and should not delete customers', function(done) {
+      chargeCount = 0;
+      deleteCount = 0;
+      // execute campaignJob
+      campaignJob(testAgenda, configStub);
+      testAgenda.start();
+
+      setTimeout(function() {
+        Campaign.findById(campaign._id).exec(function(err, campaign) {
+          should.not.exist(err);
+
+          (campaign.state).should.be.equal('not_tipped');
+
+          (chargeCount).should.be.equal(0);
+          (deleteCount).should.be.equal(0);
+          done();
+        });
+      }, 10 * 1000);
+    });
+
+    after(function(done) {
+      testAgenda.stop();
+      cleanupCampaignsAndOrders(function(err) {
+        if(err) {
+          console.log('cleanup campaign and orders failed:');
+          console.log(err);
+        }
+        done();
+      });
+    });
+  });
 });
