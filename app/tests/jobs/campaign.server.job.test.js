@@ -186,11 +186,11 @@ function createOrdersFun(numOfOrders) {
   };
 }
 
-describe('Campaign not tipped, endedDate has passed, have enough orders', function() {
+describe('Campaign not tipped, endedDate has passed.', function() {
   // set the timeout to be 20 seconds.
   this.timeout(20 * 1000);
 
-  describe('Method Save', function() {
+  describe('Have enough orders', function() {
     var nowMoment = moment(new Date()),
         createdMoment = nowMoment.add(-7, 'days'),
         endedMoment = nowMoment.add(-2, 'days'),
@@ -205,13 +205,12 @@ describe('Campaign not tipped, endedDate has passed, have enough orders', functi
       },
       job: {
         campaignJob: {
-          start: 'in 5 seconds',
           frequency: '1 day'
         }
       }
     };
 
-    before(function() {
+    before(function(done) {
       // Connect to the db
       async.waterfall(
         [
@@ -225,6 +224,7 @@ describe('Campaign not tipped, endedDate has passed, have enough orders', functi
         function(err, campn, orders) {
           campaign = campn;
           should.not.exist(err);
+          done();
         }
       );
 
@@ -263,14 +263,13 @@ describe('Campaign not tipped, endedDate has passed, have enough orders', functi
 
           (campaign.state).should.be.equal('tipped');
 
-          // FIXME: for some reason the job was executed twice.
-          (createCount).should.be.equal(numOfOrders * 2);
+          (createCount).should.be.equal(numOfOrders);
           done();
         });
       }, 15 * 1000);
     });
 
-    after(function() {
+    after(function(done) {
       testAgenda.stop();
 
       Order.remove().exec();
@@ -281,6 +280,7 @@ describe('Campaign not tipped, endedDate has passed, have enough orders', functi
           console.log('remove agenda jobs failed:');
           console.log(err);
         }
+        done();
       });
     });
   });

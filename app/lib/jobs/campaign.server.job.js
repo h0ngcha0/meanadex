@@ -122,10 +122,9 @@ module.exports = function(agenda, config) {
     });
   });
 
-  var checkCampaignMaturity = agenda.schedule(
-    config.job.campaignJob.start,
+  var checkCampaignMaturity = agenda.create(
     'check campaigns maturity'
   );
 
-  checkCampaignMaturity.repeatEvery(config.job.campaignJob.frequency).save();
+  checkCampaignMaturity.repeatAt(config.job.campaignJob.frequency).save();
 };

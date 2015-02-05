@@ -4,8 +4,7 @@ module.exports = {
   db: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://localhost/mootee',
   job: {
     campaignJob: {
-      start: 'in 1 minutes',
-      frequency: '10 minute'
+      frequency: '1 day'
     }
   },
   facebook: {

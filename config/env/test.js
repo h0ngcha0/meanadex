@@ -23,8 +23,7 @@ module.exports = {
   },
   job: {
     campaignJob: {
-      start: 'Saturday at noon',
-      frequency: '1 week'
+      frequency: '1 day'
     }
   },
   imageUploaderOptions: {

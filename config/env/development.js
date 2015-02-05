@@ -20,8 +20,7 @@ module.exports = {
   },
   job: {
     campaignJob: {
-      start: 'in 1 minutes',
-      frequency: '10 minute'
+      frequency: '5 minute'
     }
   },
   imageUploaderOptions: {
