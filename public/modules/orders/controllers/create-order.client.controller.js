@@ -3,9 +3,9 @@
 // Orders controller
 angular.module('orders').controller('CreateOrderController', [
   '$scope', '$stateParams', '$state', '$location', 'Orders',
-  'ENV',
+  'ENV', 'StripeInitializer',
   function($scope, $stateParams, $state, $location, Orders,
-           ENV) {
+    ENV, StripeInitializer) {
     $scope.orderedCampaign = JSON.parse($stateParams.campaign);
     $scope.sizes = ['S', 'M', 'L'];
     $scope.tshirtSize = 'M';
@@ -82,30 +82,32 @@ angular.module('orders').controller('CreateOrderController', [
 
       // Check if there're any errors
       if(messages.length === 0) {
-        var handler = StripeCheckout.configure({
-          key: ENV.stripePublicKey,
-          image: ENV.stripeImage,
-          token: function(payment) {
-            $scope.create(
-              $scope.orderedCampaign._id,
-              'stripe',
-              $scope.email,
-              $scope.orderedCampaign.name,
-              payment,
-              $scope.shippingAddr,
-              $scope.orderedCampaign.price.value,
-              $scope.quantity,
-              $scope.orderedCampaign.price.currency
-            );
-          }
-        });
+        StripeInitializer.checkoutInitialized.then(function() {
+          var handler = StripeCheckout.configure({
+            key: ENV.stripePublicKey,
+            image: ENV.stripeImage,
+            token: function(payment) {
+              $scope.create(
+                $scope.orderedCampaign._id,
+                'stripe',
+                $scope.email,
+                $scope.orderedCampaign.name,
+                payment,
+                $scope.shippingAddr,
+                $scope.orderedCampaign.price.value,
+                $scope.quantity,
+                $scope.orderedCampaign.price.currency
+              );
+            }
+          });
 
-        // Open Checkout with further options
-        handler.open({
-          name: 'Mootee',
-          description: $scope.orderedCampaign.title,
-          amount: $scope.totalPrice($scope.quantity) * 100,
-          currency: $scope.orderedCampaign.price.currency
+          // Open Checkout with further options
+          handler.open({
+            name: 'Mootee',
+            description: $scope.orderedCampaign.title,
+            amount: $scope.totalPrice($scope.quantity) * 100,
+            currency: $scope.orderedCampaign.price.currency
+          });
         });
       } else {
         $scope.error = {
