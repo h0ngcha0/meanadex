@@ -11,7 +11,7 @@ angular.module('services').factory('Tshirts', ['ResourceFactory',
     var resource = ResourceFactory.build(
       '/tshirts/:id',
       '/tshirts/search',
-      {id: '@id'}
+      {id: '@_id'}
     );
 
     ResourceFactory.applySearch(

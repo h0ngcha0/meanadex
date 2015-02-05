@@ -11,7 +11,7 @@ angular.module('services').factory('Users', ['ResourceFactory',
     var resource = ResourceFactory.build(
       '/users/:id',
       '/users/search',
-      {id: '@id'}
+      {id: '@_id'}
     );
 
     ResourceFactory.applySearch(

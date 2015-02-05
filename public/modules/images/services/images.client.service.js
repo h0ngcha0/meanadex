@@ -11,7 +11,7 @@ angular.module('services').factory('Images', ['ResourceFactory',
     var resource = ResourceFactory.build(
       '/images/:id',
       '/images/search',
-      {id: '@id'}
+      {id: '@_id'}
     );
 
     ResourceFactory.applySearch(

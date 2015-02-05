@@ -11,7 +11,7 @@ angular.module('services').factory('Tags', ['ResourceFactory',
     var resource = ResourceFactory.build(
       '/tags/:id',
       '/tags/search',
-      {id: '@id'}
+      {id: '@_id'}
     );
 
     ResourceFactory.applySearch(

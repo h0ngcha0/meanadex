@@ -11,7 +11,7 @@ angular.module('services').factory('SearchCampaigns', ['ResourceFactory',
     var resource = ResourceFactory.build(
       '/searchCampaigns/:id',
       '/searchCampaigns/search',
-      {id: '@id'},
+      {id: '@_id'},
       true
     );
 
