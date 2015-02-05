@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('orders').factory('StripeInitializer', ['$window', '$q',
-  function($window, $q) {
+  'UrlUtil',
+  function($window, $q, UrlUtil) {
 
-    // Stripe's url for async initialization accepting callback function
-    var asyncUrl = 'https://checkout.stripe.com/checkout.js';
+    // Stripe's url for async initialization
+    var checkoutUrl = 'https://checkout.stripe.com/checkout.js';
 
     // async loader
     var asyncLoad = function(asyncUrl, callbackName) {
@@ -27,11 +28,13 @@ angular.module('orders').factory('StripeInitializer', ['$window', '$q',
 
 
     // loading stripe maps
-    var checkoutPromise = asyncLoad(asyncUrl);
+    var checkoutPromise = asyncLoad(checkoutUrl);
 
     return {
       // usage: StripeInitializer.checkoutInitialized.then(callback)
-      checkoutInitialized: checkoutPromise
+      checkoutInitialized: checkoutPromise,
+      stripeImage: UrlUtil.getFullUrlPrefix() + '/images/brand/favicon.ico',
+      stripePublicKey: 'pk_test_WMSaxecz5HSTGZxlFbuxdF7B'
     };
   }
 ]);

@@ -3,9 +3,9 @@
 // Orders controller
 angular.module('orders').controller('CreateOrderController', [
   '$scope', '$stateParams', '$state', '$location', 'Orders',
-  'ENV', 'StripeInitializer',
+  'StripeInitializer',
   function($scope, $stateParams, $state, $location, Orders,
-    ENV, StripeInitializer) {
+    StripeInitializer) {
     $scope.orderedCampaign = JSON.parse($stateParams.campaign);
     $scope.sizes = ['S', 'M', 'L'];
     $scope.tshirtSize = 'M';
@@ -84,8 +84,8 @@ angular.module('orders').controller('CreateOrderController', [
       if(messages.length === 0) {
         StripeInitializer.checkoutInitialized.then(function() {
           var handler = StripeCheckout.configure({
-            key: ENV.stripePublicKey,
-            image: ENV.stripeImage,
+            key: StripeInitializer.stripePublicKey,
+            image: StripeInitializer.stripeImage,
             token: function(payment) {
               $scope.create(
                 $scope.orderedCampaign._id,
