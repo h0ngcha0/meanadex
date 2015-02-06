@@ -1,13 +1,20 @@
 <div class="container" data-ng-init="findOne()">
   <section>
     <div class="span12">
-      <div class="col-lg-4">
+      <div class="col-lg-7 col-md-7 col-sm-12">
+        <!-- use json from the current campaign instead -->
+        <md-campaign-canvas scale="1.0" campaign="campaign">
+        </md-campaign-canvas>
+      </div>
+      <div class="col-lg-5 col-md-7 col-sm-12">
 
         <!--Select types of the T-Shirts-->
         <div class="well">
-          <h4>{{campaign.title}}</h4>
+          <h4 class="campaignName">{{campaign.name}}</h4>
 
-          <p ng-bind-html="campaign.description"></p>
+          <p class="campaignDescription"
+             ng-bind-html="campaign.description">
+          </p>
 
           <table class="table">
             <tr class="">
@@ -48,7 +55,7 @@
 
         <small>
           <em class="text-muted">
-            Posted on
+            Designed on
             <span data-ng-bind="campaign.created | date:'mediumDate'"></span>
             by
             <span data-ng-bind="campaign.user.username"></span>
@@ -56,11 +63,6 @@
         </small>
       </div>
 
-      <div class="col-lg-8">
-        <!-- use json from the current campaign instead -->
-        <md-campaign-canvas scale="1.0" campaign="campaign">
-        </md-campaign-canvas>
-      </div>
     </div>
   </section>
 </div>

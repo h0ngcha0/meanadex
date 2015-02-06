@@ -1,7 +1,11 @@
 <div class="container">
   <section>
     <div class="span12">
-      <div class="col-lg-4">
+      <div class="col-lg-7 col-md-7 col-sm-12">
+        <!-- use json from the current campaign instead -->
+        <md-campaign-canvas campaign="orderedCampaign" scale="1.0"></md-campaign-canvas>
+      </div>
+      <div class="col-lg-5 col-md-7 col-sm-12">
         <div class="well">
           <form name="orderForm">
           <table class="table table-bordered">
@@ -114,10 +118,6 @@
             <i class="glyphicon glyphicon-shopping-cart glyphicon-white"></i>
           </a>
         </div>
-      </div>
-      <div class="col-lg-8">
-        <!-- use json from the current campaign instead -->
-        <md-campaign-canvas campaign="orderedCampaign" scale="1.0"></md-campaign-canvas>
       </div>
     </div>
   </section>

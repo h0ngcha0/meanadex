@@ -35,32 +35,82 @@
     <!-- Portfolio Item Row -->
     <div class="row">
 
-      <div class="col-md-7">
+      <div class="col-lg-7 col-md-7 col-sm-12">
         <md-campaign-canvas scale="1.0"
                             data-ng-if="currentDiscoveredCampaign"
                             campaign="currentDiscoveredCampaign">
         </md-campaign-canvas>
       </div>
 
-      <div class="col-md-5">
-        <h3 data-ng-bind="currentDiscoveredCampaign.name"></h3>
-        <p data-ng-bind-html="currentDiscoveredCampaign.description"></p>
-      </div>
+      <div class="col-lg-5 col-md-5 col-sm-12">
+        <!--Select types of the T-Shirts-->
+        <div class="well">
+          <h4 class="campaignName">{{currentDiscoveredCampaign.name}}</h4>
 
+          <p class="campaignDescription"
+             ng-bind-html="currentDiscoveredCampaign.description">
+          </p>
+
+          <table class="table">
+            <tr class="">
+              <td class="">Tshirt price</td>
+              <td>{{ currentDiscoveredCampaign.price.value }} {{ currentDiscoveredCampaign.price.currency }}</td>
+            </tr>
+          </table>
+
+          <div class="" data-ng-if="currentDiscoveredCampaign.ended">
+            <timer end-time="currentDiscoveredCampaign.ended">
+              <table class="table">
+                <tr>
+                  <td>Days</td>
+                  <td>Hours</td>
+                  <td>Minutes</td>
+                  <td>Seconds</td>
+                </tr>
+                <tr class="info">
+                  <td>{{days}}</td>
+                  <td>{{hours}}</td>
+                  <td>{{minutes}}</td>
+                  <td>{{seconds}}</td>
+                </tr>
+              </table>
+            </timer>
+          </div>
+
+          <hr/>
+          <a id="order"
+             data-ng-click="reserveCampaign(currentDiscoveredCampaign)"
+             type="button"
+             class="btn btn-lg btn-block mootee-btn-primary"
+             name="order">
+            Make reservation
+            <i class="glyphicon glyphicon-shopping-cart glyphicon-white"></i>
+          </a>
+        </div>
+
+        <small>
+          <em class="text-muted">
+            Designed on
+            <span data-ng-bind="currentDiscoveredCampaign.created | date:'mediumDate'"></span>
+            by
+            <span data-ng-bind="currentDiscoveredCampaign.user.username"></span>
+          </em>
+        </small>
+      </div>
     </div>
     <!-- /.row -->
 
     <!-- Related Projects Row -->
     <div class="row">
-
+      
       <div class="col-lg-12" ng-show="allDiscoveredCampaigns.length">
         <h3 class="page-header">More Campaigns</h3>
       </div>
-
+      
       <div class="col-lg-12" ng-hide="allDiscoveredCampaigns.length">
         Sorry, no campaign matches this keyword yet. Why don't you <a href="#!/designer">create one</a>? =)
       </div>
-
+      
       <div data-ng-repeat="discoveryCampaign in allDiscoveredCampaigns"
            class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
         <a href="#">
