@@ -31,7 +31,6 @@ angular.module('auth').controller('AuthSignupController', [
             var nextPath = buildNextPath();
             $window.location.href =
             UrlUtil.buildApplicationUrl(nextPath);
-            $window.location.reload();
           });
         },
         function (error) {
