@@ -11,17 +11,17 @@ module.exports = function(grunt) {
   var watchFiles = {
     serverViews: ['app/views/**/*.*'],
     serverJS: ['gruntfile.js', 'app.js', 'config/**/*.js', 'app/**/*.js'],
-    clientViews: ['public/modules/**/views/**/*.html'],
-    clientJS: ['public/modules/**/*.js'],
-    clientCSS: ['public/modules/**/*.css'],
-    clientLESS: ['public/modules/**/*.less'],
+    clientViews: ['src/modules/**/*.html'],
+    clientJS: ['src/modules/**/*.js'],
+    clientCSS: ['src/modules/**/*.css'],
+    clientLESS: ['src/modules/**/*.less'],
     mochaTests: ['app/tests/**/*.js']
   };
 
   var dir = {
-    source: 'public',
-    output: 'public/dist',
-    bower:  'public/lib'
+    source: 'src',
+    output: 'public',
+    bower:  'bower_components'
   };
 
   // Project Configuration

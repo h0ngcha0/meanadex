@@ -8,11 +8,11 @@ module.exports = function(config) {
 
     // List of files / patterns to load in the browser
     files: [
-      'public/dist/js/libs.js',
-      'public/lib/angular-mocks/angular-mocks.js',
-      'public/dist/js/application.js',
-      'public/dist/js/templates.js',
-      'public/modules/*/tests/*.js'
+      'public/js/libs.js',
+      'bower_components/angular-mocks/angular-mocks.js',
+      'public/js/application.js',
+      'public/js/templates.js',
+      'src/modules/*/tests/*.js'
     ],
 
     // Test results reporter to use

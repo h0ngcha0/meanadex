@@ -3,8 +3,8 @@
 .sass-cache/
 npm-debug.log
 node_modules/
-public/lib
-public/dist
+bower_components/
+public/
 app/tests/coverage/
 .bower-*/
 .idea/
@@ -12,4 +12,4 @@ app/tests/coverage/
 public/uploads/
 todo.org
 logs/
-public/modules/**/css/
+src/modules/**/css/
