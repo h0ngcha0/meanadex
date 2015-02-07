@@ -10,7 +10,12 @@ angular.module('core').directive('mdSocialButton', [
       templateUrl: 'modules/core/views/share-button.client.view.html',
       link: function(scope, element, attrs) {
         $timeout(function() {
-          new Share('.shared-button');
+          var config = {
+            ui: {
+              button_font: false
+            }
+          };
+          new Share('.shared-button', config);
         }, 0);
       }
     };
