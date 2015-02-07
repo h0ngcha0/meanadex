@@ -229,7 +229,6 @@ $(document).ready(function () {
    12) Social Buttons - Tooltips
    *****************************/
   $('a[data-toggle=tooltip]').tooltip();
-
 });
 
 
