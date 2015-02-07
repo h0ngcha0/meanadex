@@ -21,6 +21,7 @@ angular.module('designer').directive('mdDesignCanvas', [
         // not in campaign page
         var tshirt = CampaignCache.getTshirt();
         var design = CampaignCache.getDesign();
+        var color = CampaignCache.getColor();
         mdCanvasService.init(
           scope.interactiveCanvas,
           'tcanvas',
@@ -29,7 +30,8 @@ angular.module('designer').directive('mdDesignCanvas', [
           tshirt.frontImage.url,
           tshirt.backImage.url,
           design ? design.front : undefined,
-          design ? design.back : undefined
+          design ? design.back : undefined,
+          color
         );
 
         $timeout(function() {
