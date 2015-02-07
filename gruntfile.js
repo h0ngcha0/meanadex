@@ -10,7 +10,7 @@ module.exports = function(grunt) {
   // Unified Watch Object
   var watchFiles = {
     serverViews: ['app/views/**/*.*'],
-    serverJS: ['gruntfile.js', 'server.js', 'config/**/*.js', 'app/**/*.js'],
+    serverJS: ['gruntfile.js', 'app.js', 'config/**/*.js', 'app/**/*.js'],
     clientViews: ['public/modules/**/views/**/*.html'],
     clientJS: ['public/modules/**/*.js'],
     clientCSS: ['public/modules/**/*.css'],
@@ -301,7 +301,7 @@ module.exports = function(grunt) {
     },
     nodemon: {
       dev: {
-        script: 'server.js',
+        script: 'app.js',
         options: {
           nodeArgs: ['--debug'],
           ext: 'js,html',
@@ -331,18 +331,24 @@ module.exports = function(grunt) {
       }
     },
     env: {
+      default: {
+        NODE_ENV: 'development',
+        SECURE: 'true'
+      },
       test: {
-        NODE_ENV: 'test'
+        NODE_ENV: 'test',
+        SECURE: 'true'
       },
       production: {
-        NODE_ENV: 'production'
+        NODE_ENV: 'production',
+        SECURE: 'true'
       }
     },
     mochaTest: {
       src: watchFiles.mochaTests,
       options: {
         reporter: 'spec',
-        require: 'server.js'
+        require: 'app.js'
       }
     },
     karma: {
@@ -362,10 +368,10 @@ module.exports = function(grunt) {
   require('./populate-test-data')(grunt);
 
   // Default task(s).
-  grunt.registerTask('default', ['concurrent:default']);
+  grunt.registerTask('default', ['env:default', 'concurrent:default']);
 
   // Debug task.
-  grunt.registerTask('debug', ['concurrent:debug']);
+  grunt.registerTask('debug', ['env:default', 'concurrent:debug']);
 
   // Production task.
   grunt.registerTask('production', ['env:production', 'concurrent:production']);

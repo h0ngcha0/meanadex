@@ -7,6 +7,6 @@ module.exports = {
     keywords: 'tshirt, crowd sourcing, moose, lambda'
   },
   port: process.env.PORT || 3000,
-  secure: process.env.SECURE || true,
+  secure: process.env.SECURE || false,
   templateEngine: 'swig'
 };
