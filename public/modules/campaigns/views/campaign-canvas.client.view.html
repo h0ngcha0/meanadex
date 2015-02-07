@@ -1,5 +1,7 @@
 <div class="page campaignTshirtDiv" data-ng-style="backgroundColor" data-ng-hide="error">
-  <a data-ng-href="#!/campaigns/{{campaign._id}}">
+  <a data-ng-href="#!/campaigns/{{campaign._id}}"
+     data-trigger="hover"
+     bs-tooltip="tooltip">
     <img data-ng-style="backgroundImageStyle" data-ng-src="{{backgroundImage}}"></img>
     <div id="drawingArea"
          class="campaignTshirtArea">
