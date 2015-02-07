@@ -7,7 +7,7 @@ angular.module('core').directive('mdSocialButton', [
   function($timeout) {
     return {
       restrict: 'E',
-      templateUrl: 'modules/core/views/social-button.client.view.html',
+      templateUrl: 'modules/core/views/share-button.client.view.html',
       link: function(scope, element, attrs) {
         $timeout(function() {
           new Share('.shared-button');
