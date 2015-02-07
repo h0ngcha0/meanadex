@@ -29,7 +29,7 @@ build:
     - script:
         name: cleanup source code
         code: |
-          rm -rf node_modules bower_components bower.json karma.conf.js gruntfile.js fig.yml Dockerfile Procfile scripts config/sslcerts
+          rm -rf .git node_modules bower_components bower.json karma.conf.js gruntfile.js fig.yml Dockerfile Procfile scripts config/sslcerts
     - script:
         name: copy output
         code: |-
@@ -50,4 +50,4 @@ deploy:
   - script:
      name: restart application
      code: |
-        ssh mootee.io ubuntu@mootee.io "cd mootee;npm install;touch tmp/restart.txt"
+        ssh mootee.io "cd mootee;npm install;touch tmp/restart.txt"
