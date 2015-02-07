@@ -41,13 +41,13 @@ deploy:
       keyname: MOOTEE_AWS
   - add-to-known_hosts:
       hostname: mootee.io
-   - script:
+  - script:
       name: transfer application
       code: |
         pwd
         ls -la
         scp -r . ubuntu@mootee.io:~/mootee
-   - script:
-      name: restart application
-      code: |
+  - script:
+     name: restart application
+     code: |
         ssh mootee.io ubuntu@mootee.io "cd mootee;npm install;touch tmp/restart.txt"
