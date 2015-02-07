@@ -12,4 +12,5 @@ app/tests/coverage/
 public/uploads/
 todo.org
 logs/
+tmp/
 src/modules/**/css/
