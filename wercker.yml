@@ -26,10 +26,14 @@ build:
         name: build angular app
         code: |
           grunt build
+          cp src/config.json.sample public/config.json
     - script:
         name: cleanup source code
         code: |
-          rm -rf logs/* src .git node_modules bower_components bower.json karma.conf.js gruntfile.js fig.yml Dockerfile Procfile scripts config/sslcerts
+          rm -rf logs/* src .git node_modules bower_components bower.json .*
+          rm -rf karma.conf.js gruntfile.js fig.yml Dockerfile Procfile
+          rm -rf scripts config/sslcerts populate-test-data.js wercker.yml
+          sed -ie '/[lL]ivereload/d' public/index.html
     - script:
         name: copy output
         code: |-
