@@ -2,9 +2,9 @@
 
 angular.module('core').controller('HeaderController', [
   '$scope', 'Menus', '$location', 'Notification', 'CurrentUser',
-  'SessionState', 'Priority', 'FeaturedCampaigns',
-  function($scope, Menus, $location, Notification,
-           CurrentUser, SessionState, Priority, FeaturedCampaigns) {
+  'SessionState', 'Priority', 'FeaturedCampaigns', 'CampaignCache',
+  function($scope, Menus, $location, Notification, CurrentUser,
+           SessionState, Priority, FeaturedCampaigns, CampaignCache) {
     $scope.isCollapsed = false;
     $scope.menu = Menus.getMenu('topbar');
 
@@ -52,6 +52,10 @@ angular.module('core').controller('HeaderController', [
     $scope.$on('$stateChangeSuccess', function() {
       $scope.isCollapsed = false;
     });
+
+    $scope.gotoDesigner = function() {
+      $location.path('designer');
+    };
 
     // Watch for changes to the session state.
     Notification.intercept(function (message) {
