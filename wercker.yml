@@ -26,7 +26,7 @@ build:
         name: build angular app
         code: |
           grunt build
-          cp src/config.json.sample public/config.json
+          # cp src/config.json.sample public/config.json
     - script:
         name: cleanup source code
         code: |
