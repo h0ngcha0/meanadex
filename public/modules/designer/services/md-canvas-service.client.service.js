@@ -514,5 +514,19 @@ angular.module('designer').service('mdCanvasService', [
         colors: colors
       });
     };
+
+    this.stringifyDesign = function() {
+      return JSON.stringify({
+        front: this.getFrontCanvas(),
+        back: this.getBackCanvas()
+      });
+    };
+
+    this.getDesign = function() {
+      return {
+        front: this.getFrontCanvas(),
+        back: this.getBackCanvas()
+      };
+    };
   }
 ]);

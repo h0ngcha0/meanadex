@@ -79,10 +79,7 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
           currency: variant.currency
         },
         color: CampaignCache.getColor(),
-        design: JSON.stringify({
-          front: mdCanvasService.getFrontCanvas(),
-          back: mdCanvasService.getBackCanvas()
-        })
+        design: mdCanvasService.stringifyDesign()
       });
 
       // Redirect after save

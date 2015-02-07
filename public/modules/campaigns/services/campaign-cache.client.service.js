@@ -113,6 +113,16 @@ angular.module('campaigns').service('CampaignCache', [
       return retrieve(tshirt);
     };
 
+    // design
+    var design = 'design';
+    this.setDesign = function(v) {
+      store(design, v);
+    };
+
+    this.getDesign = function() {
+      return retrieve(design);
+    };
+
     // clear
     this.clear = function() {
       localStorageService.clearAll();
