@@ -9,7 +9,6 @@ app/tests/coverage/
 .bower-*/
 .idea/
 .tern-port
-public/uploads/
 todo.org
 logs/
 tmp/
