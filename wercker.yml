@@ -6,18 +6,15 @@ build:
   # The steps that will be executed on build
   steps:
     - script:
-        name: Install Mean.JS Prerequisites
+        name: install prerequisites
         code: |-
           sudo npm install -g grunt-cli
           sudo npm install -g bower
-
     # A step that executes `npm install` command
     - npm-install:
         strict-ssl: false
-
     # A step that executes `npm test` command
     - npm-test
-
     # A custom script step, name value is used in the UI
     # and the code value contains the command that get executed
     - script:
@@ -25,4 +22,32 @@ build:
         code: |
           echo "node version $(node -v) running"
           echo "npm version $(npm -v) running"
-
+    - script:
+        name: build angular app
+        code: |
+          grunt build
+    - script:
+        name: cleanup source code
+        code: |
+          rm -rf node_modules bower_components bower.json karma.conf.js gruntfile.js fig.yml Dockerfile Procfile scripts config/sslcerts
+    - script:
+        name: copy output
+        code: |-
+          rsync -avz "$WERCKER_SOURCE_DIR/" "$WERCKER_OUTPUT_DIR"
+# Deploy definition
+deploy:
+  steps:
+  - add-ssh-key:
+      keyname: MOOTEE_AWS
+  - add-to-known_hosts:
+      hostname: mootee.io
+   - script:
+      name: transfer application
+      code: |
+        pwd
+        ls -la
+        scp -r . ubuntu@mootee.io:~/mootee
+   - script:
+      name: restart application
+      code: |
+        ssh mootee.io ubuntu@mootee.io "cd mootee;npm install;touch tmp/restart.txt"
