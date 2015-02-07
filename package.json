@@ -10,7 +10,7 @@
   "scripts": {
     "start": "grunt",
     "test": "grunt test",
-    "postinstall": "bower install --config.interactive=false"
+    "postinstall": "[ \"$NODE_ENV\" = \"production\" ] || bower install --config.interactive=false"
   },
   "dependencies": {
     "agenda": "~0.6.25",
