@@ -17,9 +17,9 @@ module.exports = {
   },
   // FIXME: replace with real stripe credentials
   stripe: {
-    clientID: process.env.STRIPE_ID || 'ca_53emHeHCgJWdAOPGsIp4uIdFCCEXkdal',
-    clientSecret: process.env.STRIPE_SECRET || 'sk_test_POGF3C0J4jmm8rFZNGwLrLaH',
-    publishableKey: process.env.PUBLISHABLE_KEY || 'pk_test_WMSaxecz5HSTGZxlFbuxdF7B'
+    clientID: process.env.STRIPE_ID || 'ca_53em66iaD4mpbQc0ldwzhTpcUR1SiGNr',
+    clientSecret: process.env.STRIPE_SECRET || 'sk_live_5tGsK2eD6Lq41gH6O8g18rTJ',
+    publishableKey: process.env.PUBLISHABLE_KEY || 'pk_live_YXfiyTtYMfQPiHrz1GVzMode'
   },
   imageUploaderOptions: {
     tmpDir: './public/uploads/tmp',
@@ -36,25 +36,6 @@ module.exports = {
         secretAccessKey: 'rnmU42i7Bdjv9MgY+rVTdANN+K+Z+36gwmN72olD',
         region: 'us-west-2',
         bucketName: 'mootee-images'
-      }
-    }
-  },
-  logging: {
-    console: {
-      level: 'info'
-    },
-    file: {
-      debug: {
-        filename: './logs/mootee-debug.log',
-        level: 'debug'
-      },
-      info: {
-        filename: './logs/mootee-info.log',
-        level: 'info'
-      },
-      error: {
-        filename: './logs/mootee-error.log',
-        level: 'error'
       }
     }
   },
