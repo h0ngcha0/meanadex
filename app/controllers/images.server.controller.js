@@ -8,6 +8,7 @@ var mongoose = require('mongoose'),
     Img = mongoose.model('Image'),
     path = require('path'),
     async = require('async'),
+    url = require('url'),
     logger = require('../lib/logger.server.lib.js'),
     config = require('../../config/config'),
     utils = require('./utils'),
@@ -23,15 +24,19 @@ var uploader = require('blueimp-file-upload-expressjs')(
 exports.create = function(req, res) {
   uploader.post(req, res, function (obj) {
     var imageObj = _.head(obj.files),
-        imageUrl = imageObj.url,
         imageName = imageObj.name;
 
-    var image = new Img(
-      {
-        name: imageName,
-        url: imageUrl
-      }
-    );
+    var urlObj = url.parse(imageObj.url);
+    var imageUrl = urlObj.format({
+      protocol: urlObj.protocol,
+      hostname: urlObj.host,
+      pathname: urlObj.pathname
+    });
+
+    var image = new Img({
+      name: imageName,
+      url: imageUrl
+    });
 
     image.user = req.user;
 
