@@ -125,7 +125,12 @@ angular.module('campaigns').service('CampaignCache', [
 
     // clear
     this.clear = function() {
-      return localStorageService.clearAll();
+      ['design', 'tshirtPrice', 'tshirtsSalesGoal', 'color', 'tshirt',
+       'campaignTitle', 'campaignDescription', 'currentCampaignLength'].forEach(
+         function(key) {
+           localStorageService.remove(key);
+         }
+       );
     };
   }
 ]);

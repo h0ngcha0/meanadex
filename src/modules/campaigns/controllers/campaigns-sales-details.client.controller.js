@@ -85,6 +85,7 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
       // Redirect after save
       campaign.$save(
         function(response) {
+          CampaignCache.clear();
           $location.path('campaigns/' + response._id);
         },
         function(errorResponse) {
