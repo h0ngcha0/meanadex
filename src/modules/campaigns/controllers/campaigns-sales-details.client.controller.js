@@ -89,7 +89,7 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
           $location.path('campaigns/' + response._id);
         },
         function(errorResponse) {
-          $scope.error = errorResponse.data.message;
+          $scope.error = errorResponse.data;
         }
       );
     };
