@@ -23,19 +23,6 @@ module.exports = {
       frequency: '5 minute'
     }
   },
-  imageUploaderOptions: {
-    useSSL: true,
-    tmpDir: './public/uploads/tmp',
-    uploadDir: './public/uploads',
-    uploadUrl: '/uploads/',
-    maxPostSize: 500000, // 50MB
-    minFileSize: 1,
-    maxFileSize: 500000, // 50MB
-    imageTypes:  /\.(gif|jpe?g|png)/i,
-    storage: {
-      type: 'local'
-    }
-  },
   mailer: {
     from: process.env.MAILER_FROM || 'MAILER_FROM',
     options: {

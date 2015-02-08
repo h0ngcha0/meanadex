@@ -27,5 +27,18 @@ module.exports = {
         level: 'error'
       }
     }
+  },
+  imageUploaderOptions: {
+    useSSL: true,
+    tmpDir: './public/uploads/tmp',
+    uploadDir: './public/uploads',
+    uploadUrl: '/uploads/',
+    maxPostSize: 500000, // 500 KB
+    minFileSize: 1,
+    maxFileSize: 500000, // 500 KB
+    imageTypes:  /\.(gif|jpe?g|png)/i,
+    storage: {
+      type: 'local'
+    }
   }
 };

@@ -26,24 +26,6 @@ module.exports = {
       frequency: '1 day'
     }
   },
-  imageUploaderOptions: {
-    tmpDir: './public/uploads/tmp',
-    uploadDir: './public/uploads',
-    uploadUrl: '/uploads/',
-    maxPostSize: 500000, // 50MB
-    minFileSize: 1,
-    maxFileSize: 500000, // 50MB
-    imageTypes:  /\.(gif|jpe?g|png)/i,
-    storage: {
-      type: 'aws',
-      aws: {
-        accessKeyId: 'AKIAIXDR74RCRQ2VSFLA',
-        secretAccessKey: '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',
-        region: 'us-west-2',
-        bucketName: 'mootee-images-test'
-      }
-    }
-  },
   mailer: {
     from: process.env.MAILER_FROM || 'MAILER_FROM',
     options: {
