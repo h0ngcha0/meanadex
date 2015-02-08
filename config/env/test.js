@@ -44,25 +44,6 @@ module.exports = {
       }
     }
   },
-  logging: {
-    console: {
-      level: 'verbose'
-    },
-    file: {
-      debug: {
-        filename: './logs/mootee-debug.log',
-        level: 'debug'
-      },
-      info: {
-        filename: './logs/mootee-info.log',
-        level: 'info'
-      },
-      error: {
-        filename: './logs/mootee-error.log',
-        level: 'error'
-      }
-    }
-  },
   mailer: {
     from: process.env.MAILER_FROM || 'MAILER_FROM',
     options: {
