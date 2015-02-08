@@ -4,8 +4,8 @@
 /* global fabric */
 
 angular.module('campaigns').directive('mdCampaignCanvas', [
-  'Images',
-  function(Images) {
+  'Images', '$timeout',
+  function(Images, $timeout) {
     return {
       restrict: 'E',
       scope: {
@@ -144,6 +144,16 @@ angular.module('campaigns').directive('mdCampaignCanvas', [
           getCampaign,
           getImages
         ], initialize);
+
+        // FIXME: this is an ugly fix for the problem where when we click
+        //        featured campaigns on the landing page, nav bar flows
+        //        at the button for a second at the campaign page before
+        //        it disappears
+        $timeout(function(){
+          element.find('#gotoCampaign').on('click', function() {
+            $('nav.landing').hide();
+          });
+        }, 0);
       }
     };
   }

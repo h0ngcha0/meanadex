@@ -5,7 +5,7 @@
 $(document).ready(function () {
   // A hack, fix navbar shows up at the bottom for a while when
   // clicking the link to discovery page
-  $('#discoverCampaign').on('click', function() {
+  $('.goFromLanding').on('click', function() {
     $('nav.landing').hide();
   });
 
