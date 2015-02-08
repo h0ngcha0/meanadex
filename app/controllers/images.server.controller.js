@@ -27,9 +27,9 @@ exports.create = function(req, res) {
         imageName = imageObj.name;
 
     var urlObj = url.parse(imageObj.url);
-    var imageUrl = urlObj.format({
+    var imageUrl = url.format({
       protocol: urlObj.protocol,
-      hostname: urlObj.host,
+      hostname: urlObj.hostname,
       pathname: urlObj.pathname
     });
 
@@ -47,6 +47,7 @@ exports.create = function(req, res) {
           message: errorHandler.getErrorMessage(err)
         });
       } else {
+        logger.info('Image saved.', imageUrl, err);
         res.jsonp(image);
       }
     });
