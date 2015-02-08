@@ -56,4 +56,4 @@ deploy:
   - script:
      name: restart application
      code: |
-       ssh mootee.io "cd mootee;npm install --production;touch tmp/restart.txt"
+       ssh mootee.io "cd mootee;NODE_ENV=production npm install --production;touch tmp/restart.txt"
