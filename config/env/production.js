@@ -12,8 +12,8 @@ module.exports = {
     clientSecret: process.env.FACEBOOK_SECRET || '24a3c3d3dacd98563532ce7b8b1a1a28'
   },
   google: {
-    clientID: process.env.GOOGLE_ID || '446466241902-b6om2nkc3snhfdlp98ep4ujcg1aq2otp.apps.googleusercontent.com',
-    clientSecret: process.env.GOOGLE_SECRET || '_wLo2_dyyBj2OjQsKip_oHOc'
+    clientID: process.env.GOOGLE_ID || '774773218508-o1cl8ktf12a7b1efe54lsmbcr7cbte24.apps.googleusercontent.com',
+    clientSecret: process.env.GOOGLE_SECRET || '1KE5DYgOLfO78f5nXnF7E5hg'
   },
   // FIXME: replace with real stripe credentials
   stripe: {
