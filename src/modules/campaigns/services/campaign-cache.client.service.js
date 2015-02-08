@@ -125,7 +125,7 @@ angular.module('campaigns').service('CampaignCache', [
 
     // clear
     this.clear = function() {
-      localStorageService.clearAll();
+      return localStorageService.clearAll();
     };
   }
 ]);

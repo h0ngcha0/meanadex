@@ -214,8 +214,9 @@ angular.module('designer').service('mdCanvasService', [
       this.frontImageUrl = frontImageUrl;
       this.backImageUrl = backImageUrl;
 
-      if(frontJson) this.frontCanvas = frontJson;
-      if(backJson) this.backCanvas = backJson;
+      this.frontCanvas = frontJson;
+      this.backCanvas = backJson;
+
       if(color) bgColor = color;
 
       var CanvasField = interactiveCanvas ? 'Canvas' : 'StaticCanvas';

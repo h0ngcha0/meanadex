@@ -54,6 +54,9 @@ angular.module('core').controller('HeaderController', [
     });
 
     $scope.gotoDesigner = function() {
+      // clear the campaign cache
+      CampaignCache.clear();
+
       $location.path('designer');
     };
 

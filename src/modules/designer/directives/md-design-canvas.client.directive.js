@@ -1,6 +1,7 @@
 'use strict';
 
 /* global async */
+/* global null */
 
 angular.module('designer').directive('mdDesignCanvas', [
   '$timeout', 'mdCanvasService', 'Images', 'CampaignCache',
@@ -29,8 +30,8 @@ angular.module('designer').directive('mdDesignCanvas', [
           '#shirtDiv',
           tshirt.frontImage.url,
           tshirt.backImage.url,
-          design ? design.front : undefined,
-          design ? design.back : undefined,
+          design ? design.front : null,
+          design ? design.back : null,
           color
         );
 
