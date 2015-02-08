@@ -29,7 +29,7 @@ exports.create = function(req, res) {
     var urlObj = url.parse(imageObj.url);
     var imageUrl = url.format({
       protocol: urlObj.protocol,
-      hostname: urlObj.hostname,
+      host: urlObj.host,
       pathname: urlObj.pathname
     });
 
