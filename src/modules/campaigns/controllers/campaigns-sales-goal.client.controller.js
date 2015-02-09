@@ -7,6 +7,9 @@ angular.module('campaigns').controller('CampaignsSalesGoalController', [
     $scope.cost = tshirt.currentVariant.baseCost;
     $scope.currency = tshirt.currentVariant.currency;
 
+    $scope.minGoal = 20;
+    $scope.maxGoal = 400;
+
     $scope.tshirtsSalesGoal = CampaignCache.getGoal() || 50;
     CampaignCache.bindGoal($scope);
 

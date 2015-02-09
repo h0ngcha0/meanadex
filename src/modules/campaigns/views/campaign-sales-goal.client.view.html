@@ -4,15 +4,14 @@
       <div class="col-lg-4">
         <!--Select types of the T-Shirts-->
         <div class="well">
-          <h4>Sales goal</h4>
+          <h4>Sales goal: {{tshirtsSalesGoal}} </h4>
 
           <div range-slider
-               min="20"
-               max="400"
+               min="minGoal"
+               max="maxGoal"
                model-max="tshirtsSalesGoal"
                pin-handle="min">
           </div>
-
           <hr/>
 
           <h4>Estimated Profit</h4>
@@ -36,7 +35,7 @@
             </span>
           </p>
           <input id="priceOfTshirtInput" ng-model="tshirtPrice">
-          <span class="priceTag"><span id="profitPerTshirt"> </span>{{ currency }} profit/sale</span>
+          <span class="priceTag"><span id="profitPerTshirt"> </span>{{ currency }}</span>
 
           <hr/>
 
