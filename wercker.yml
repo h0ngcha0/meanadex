@@ -45,6 +45,7 @@ deploy:
   steps:
   - add-ssh-key:
       keyname: MOOTEE_AWS
+      host: mootee.io
   - add-to-known_hosts:
       hostname: mootee.io
   - script:
