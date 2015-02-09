@@ -1,0 +1,14 @@
+$ORIGIN mootee.io.
+mootee.io. 900 IN A 54.149.104.39
+mootee.io. 300 IN MX 1 ASPMX.L.GOOGLE.COM
+mootee.io. 300 IN MX 5 ALT1.ASPMX.L.GOOGLE.COM
+mootee.io. 300 IN MX 5 ALT2.ASPMX.L.GOOGLE.COM
+mootee.io. 300 IN MX 10 ALT3.ASPMX.L.GOOGLE.COM
+mootee.io. 300 IN MX 10 ALT4.ASPMX.L.GOOGLE.COM
+mootee.io. 172800 IN NS ns-1304.awsdns-35.org.
+mootee.io. 172800 IN NS ns-138.awsdns-17.com.
+mootee.io. 172800 IN NS ns-596.awsdns-10.net.
+mootee.io. 172800 IN NS ns-1920.awsdns-48.co.uk.
+mootee.io. 900 IN SOA ns-1304.awsdns-35.org. awsdns-hostmaster.amazon.com. 1 7200 900 1209600 86400
+api.mootee.io. 900 IN A 54.149.104.39
+www.mootee.io. 900 IN A 54.149.104.39
