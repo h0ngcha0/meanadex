@@ -22,6 +22,7 @@ build:
         code: |
           echo "node version $(node -v) running"
           echo "npm version $(npm -v) running"
+          host mootee.io
     - script:
         name: build angular app
         code: |
