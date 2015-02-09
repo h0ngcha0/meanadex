@@ -40,7 +40,13 @@
         </div>
 
         <h4 id="baseCostLabel">
-          Base cost @ {{ currentTshirt.currentVariant.baseCost }} {{ currentTshirt.currentVariant.currency }}
+          <span class="panelCaption">
+            Base cost @ 
+          </span>
+          {{ currentTshirt.currentVariant.baseCost }}
+          <span class="panelCaption">
+            {{ currentTshirt.currentVariant.currency }}
+          </span>
         </h4>
         <a type="button"
            class="btn btn-lg btn-block mootee-btn-primary"
