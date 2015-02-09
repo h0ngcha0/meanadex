@@ -4,7 +4,10 @@
       <div class="col-lg-4">
         <!--Select types of the T-Shirts-->
         <div class="well">
-          <h4>Campaign title</h4>
+          <h4 class="panelCaption">
+            <i class="fa fa-flag"></i>
+            Campaign title
+          </h4>
 
           <input id="campaignTitleInput" ng-model="campaignTitle">
           <br/>
@@ -16,7 +19,10 @@
           </p>
 
           <hr/>
-          <h4>Description</h4>
+          <h4 class="panelCaption">
+            <i class="fa fa-edit"></i>
+            Description
+          </h4>
           <text-angular ta-toolbar="[['bold','italics','underline'],
                                      ['insertLink','insertImage'],
                                      ['html']]"
@@ -32,7 +38,10 @@
 
           <hr/>
 
-          <h4>Campaign length</h4>
+          <h4 class="panelCaption">
+            <i class="fa fa-calendar-o"></i>
+            Campaign length
+          </h4>
           <button ng-model="currentCampaignLength"
                   data-html="1"
                   data-ng-options="displayCampaignLength(campaignLength) for campaignLength in campaignLengths"
