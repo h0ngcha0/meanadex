@@ -34,8 +34,8 @@ authom.createServer({
 });
 
 var redirectTo = function(req, res, redirectUrl) {
-  var protocol = 'https';
-  var baseUrl = protocol + '://' + req.headers.host;
+  var protocol = req.url.protocol;
+  var baseUrl = protocol + '//' + req.url.host;
   var url = baseUrl + redirectUrl;
   res.writeHead(302, {Location: url});
   res.end();
