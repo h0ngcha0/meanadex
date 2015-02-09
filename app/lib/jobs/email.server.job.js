@@ -15,12 +15,12 @@ module.exports = function(agenda, config) {
       refreshToken: config.google.refreshToken
     });
 
-    var smtpTransport = nodemailer.createTransport(({
+    var smtpTransport = nodemailer.createTransport({
       service: config.mailer.options.service,
       auth: {
         xoauth2: generator
       }
-    }));
+    });
 
     var mailOptions = {
       to: data.email,
