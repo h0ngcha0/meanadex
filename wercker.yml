@@ -32,7 +32,7 @@ build:
         name: cleanup source code
         code: |
           rm -rf logs/* src .git node_modules bower_components bower.json
-          rm -rf karma.conf.js gruntfile.js fig.yml Dockerfile Procfile
+          rm -rf karma.conf.js gruntfile.js fig.yml Dockerfile
           rm -rf scripts config/sslcerts populate-test-data.js wercker.yml
           rm -rf .csslintrc .editorconfig .gitignore .jshintrc
           rm -rf .slugignore .tern-project .travis.yml .vimrc
