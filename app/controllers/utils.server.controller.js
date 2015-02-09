@@ -137,7 +137,20 @@ exports.listBySearch = function(model, populateMap, queryDecorators, callback) {
  * Send mail
  */
 exports.sendMail = function(emailHTML, subject, email, callback) {
-  var smtpTransport = nodemailer.createTransport(config.mailer.options);
+  var generator = require('xoauth2').createXOAuth2Generator({
+    user: config.mailer.from,
+    clientId: config.google.clientID,
+    clientSecret: config.google.clientSecret,
+    refreshToken: config.google.refreshToken
+  });
+
+  var smtpTransport = nodemailer.createTransport({
+    service: config.mailer.options.service,
+    auth: {
+      xoauth2: generator
+    }
+  });
+
   var mailOptions = {
     to: email,
     from: config.mailer.from,

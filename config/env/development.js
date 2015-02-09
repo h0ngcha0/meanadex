@@ -11,7 +11,8 @@ module.exports = {
   },
   google: {
     clientID: process.env.GOOGLE_ID || '826231740029-do4s41u16f6gv5duiiedgeoq3pi9qgpo.apps.googleusercontent.com',
-    clientSecret: process.env.GOOGLE_SECRET || 'YXSkFpd1ASBTxMC9cLLBozuG'
+    clientSecret: process.env.GOOGLE_SECRET || 'YXSkFpd1ASBTxMC9cLLBozuG',
+    refreshToken: process.env.GOOGLE_REFRESH_TOKEN || '1/vAN6NfXSbSq5MAYmxIjOxdqZPu1LdBTs9K1iuk-8W7o'
   },
   stripe: {
     clientID: process.env.STRIPE_ID || 'ca_53emHeHCgJWdAOPGsIp4uIdFCCEXkdal',
@@ -24,12 +25,12 @@ module.exports = {
     }
   },
   mailer: {
-    from: process.env.MAILER_FROM || 'MAILER_FROM',
+    from: process.env.MAILER_FROM || 'meanadex@gmail.com',
     options: {
-      service: process.env.MAILER_SERVICE_PROVIDER || 'Gmail',
+      service: process.env.MAILER_SERVICE_PROVIDER || 'gmail',
       auth: {
-        user: process.env.MAILER_EMAIL_ID || 'meanadex@gmail.com',
-        pass: process.env.MAILER_PASSWORD || 'WAqIN*Fr7S'
+        user: process.env.MAILER_EMAIL_ID || 'MAILER_EMAIL_ID',
+        pass: process.env.MAILER_PASSWORD || 'MAILER_PASSWORD'
       }
     }
   }
