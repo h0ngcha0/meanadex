@@ -6,15 +6,23 @@
       </dashboard-widget-header>
       <dashboard-widget-body>
         <div class="text-left row">
-          <span data-ng-hide="isConnectedSocialAccount('stripe')">
-            <a href="#!/auth/connect?service=stripe">
-              <img src="images/buttons/stripe-blue.png">
-            </a>
-            <span>to receive your payments.</span>
-          </span>
-          <span data-ng-hide="!isConnectedSocialAccount('stripe')">
-            <span>Your stripe account is already setup.</span>
-          </span>
+          <div class="row" data-ng-hide="isConnectedSocialAccount('stripe')">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <a href="#!/auth/connect?service=stripe">
+                <img src="images/buttons/stripe-blue.png">
+              </a>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              To be able to receive payments for your design, please
+              connect to stripe.
+            </div>
+          </div>
+          <div class="row" data-ng-hide="!isConnectedSocialAccount('stripe')">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              Congratulations! Your stripe account is already setup
+              and you are ready to accept payments.
+            </div>
+          </div>
         </div>
       </dashboard-widget-body>
     </dashboard-widget>
