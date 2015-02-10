@@ -37,7 +37,7 @@ angular.module('orders').controller('CreateOrderController', [
       order.$save(
         function(response) {
           $state.go('finishOrder', {
-            id: response._id
+            campaignId: $scope.orderedCampaign._id
           });
 
           // Clear form fields

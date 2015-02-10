@@ -1,9 +1,8 @@
-<div class="container" data-ng-init="findOne()">
+<div class="container">
   <section>
     <div class="page-header">
       <h3>Thanks, {{order.user.username}}!</h3>
-      Your have just reserved an order for campaign
-      <a data-ng-href="#!/campaigns/{{order.campaign._id}}">{{order.campaign.name}}</a>
+      Your have just reserved an order for <a data-ng-href="#!/campaigns/{{campaignId}}">a campaign</a>
     </div>
     <small>
       <em class="text-muted">

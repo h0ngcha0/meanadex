@@ -73,7 +73,7 @@ exports.create = function(req, res) {
     res.render(
       'templates/order-finish-confirm-email',
       {
-        name: req.user.username,
+        name: orderReq.shippingAddr.name,
         appName: config.app.title,
         campaign_name: orderReq.description,
         campaign_url: urlPrefix + '/#!/campaigns/' + orderReq.campaign

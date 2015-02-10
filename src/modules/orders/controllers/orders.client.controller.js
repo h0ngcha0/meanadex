@@ -6,6 +6,9 @@ angular.module('orders').controller('OrdersController', [
   '$filter', 'DashboardUtils',
   function($scope, $stateParams, $location, Orders,
            $filter, DashboardUtils) {
+
+    $scope.campaignId = $stateParams.campaignId;
+
     // Remove existing Order
     $scope.remove = function( order ) {
       Orders.remove(
@@ -31,13 +34,6 @@ angular.module('orders').controller('OrdersController', [
     // Find a list of Orders
     $scope.find = function() {
       $scope.orders = Orders.query();
-    };
-
-    // Find existing Order
-    $scope.findOne = function() {
-      $scope.order = Orders.get({
-        id: $stateParams.id
-      });
     };
 
     $scope.onRemove = function(order) {
