@@ -13,7 +13,8 @@ module.exports = {
   },
   google: {
     clientID: process.env.GOOGLE_ID || '774773218508-o1cl8ktf12a7b1efe54lsmbcr7cbte24.apps.googleusercontent.com',
-    clientSecret: process.env.GOOGLE_SECRET || '1KE5DYgOLfO78f5nXnF7E5hg'
+    clientSecret: process.env.GOOGLE_SECRET || '1KE5DYgOLfO78f5nXnF7E5hg',
+    refreshToken: process.env.GOOGLE_REFRESH_TOKEN || '1/jme7lJCCHFpBkkwYu3C1Fa-BGrKkb6vPxosXM49EolQMEudVrK5jSpoR30zcRFq6'
   },
   // FIXME: replace with real stripe credentials
   stripe: {
@@ -22,9 +23,9 @@ module.exports = {
     publishableKey: process.env.PUBLISHABLE_KEY || 'pk_live_YXfiyTtYMfQPiHrz1GVzMode'
   },
   mailer: {
-    from: process.env.MAILER_FROM || 'MAILER_FROM',
+    from: process.env.MAILER_FROM || 'contact@mootee.io',
     options: {
-      service: process.env.MAILER_SERVICE_PROVIDER || 'MAILER_SERVICE_PROVIDER',
+      service: process.env.MAILER_SERVICE_PROVIDER || 'gmail',
       auth: {
         user: process.env.MAILER_EMAIL_ID || 'MAILER_EMAIL_ID',
         pass: process.env.MAILER_PASSWORD || 'MAILER_PASSWORD'
