@@ -34,7 +34,7 @@ angular.module('orders').factory('StripeInitializer', ['$window', '$q',
       // usage: StripeInitializer.checkoutInitialized.then(callback)
       checkoutInitialized: checkoutPromise,
       stripeImage: UrlUtil.getFullUrlPrefix() + '/images/brand/favicon.ico',
-      stripePublicKey: 'pk_test_WMSaxecz5HSTGZxlFbuxdF7B'
+      stripePublicKey: 'STRIPE_PUBLISHABLE_KEY'
     };
   }
 ]);

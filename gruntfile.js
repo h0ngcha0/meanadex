@@ -154,6 +154,16 @@ module.exports = function(grunt) {
         dirs: [dir.output]
       }
     },
+    replace: {
+      dist: {
+        src: [dir.output + '/js/application.js'],
+        overwrite: true,
+        replacements: [{
+          from: /STRIPE_PUBLISHABLE_KEY/g,
+          to: '<%= stripePublishableKey %>'
+        }]
+      }
+    },
     pkg: grunt.file.readJSON('package.json'),
     open: {
       server: {
@@ -364,6 +374,14 @@ module.exports = function(grunt) {
   // Making grunt default to force in order not to break the project.
   grunt.option('force', !process.env.WERCKER || false);
 
+  // A Task for loading the configuration object
+  grunt.task.registerTask('loadConfig', 'Task that loads the config into a grunt option.', function() {
+    var init = require('./config/init')();
+    var config = require('./config/config');
+
+    grunt.config.set('stripePublishableKey', config.stripe.publishableKey);
+  });
+
   // A Task for populating test data into the database
   require('./populate-test-data')(grunt);
 
@@ -389,7 +407,9 @@ module.exports = function(grunt) {
     'imagemin',
     'html2js',
     'copy:dist',
-    'usemin'
+    'usemin',
+    'loadConfig',
+    'replace'
   ]);
 
   /**
@@ -402,7 +422,12 @@ module.exports = function(grunt) {
   ]);
 
   // Build task(s).
-  grunt.registerTask('build', ['clean', 'compile', 'package']);
+  grunt.registerTask('build', [
+    'env:production',
+    'clean',
+    'compile',
+    'package'
+  ]);
 
   /**
    * Development server - runs a build and sets up concurrent watchers that
@@ -438,8 +463,6 @@ module.exports = function(grunt) {
   grunt.registerTask('test:unit', [
     'clean',
     'compile',
-    'useminPrepare',
-    'concat',
     'karma:unit'
   ]);
 
