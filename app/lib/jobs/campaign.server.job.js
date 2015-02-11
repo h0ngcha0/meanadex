@@ -7,6 +7,17 @@ var mongoose = require('mongoose'),
     Campaign = mongoose.model('Campaign'),
     _ = require('lodash');
 
+// TODO: Need to build more fault tolerance around charging,
+//       potentially every integration point can fail and
+//       we need to deal with all that.
+//
+//       For example, order charging or customer deletion
+//       might fail, and we should probably cache those results
+//       in db and double check with stripe API to make sure
+//       no double charging is allowed.
+//
+//       We might need to introduce a quarantine queue in
+//       db to ensure all problematic orders to be re-processed.
 module.exports = function(agenda, config) {
   var stripe = require('stripe')(config.stripe.clientSecret);
 
@@ -122,8 +133,11 @@ module.exports = function(agenda, config) {
 
   var getUserStripeToken = function(campaign, campaignOrders, callback) {
     utils.fetchStripeAccessToken(campaign.user, function(err, accessToken) {
-      // even if we come across error here we still want to charge
-      // set it as undefined
+      // TODO: need to send email to remind designer setting up the
+      //       stripe account.
+
+      // NOTE: even if we come across error here we still want to charge
+      //       set error as undefined.
       callback(undefined, campaign, campaignOrders, accessToken);
     });
   };
@@ -163,7 +177,7 @@ module.exports = function(agenda, config) {
     );
   }
 
-  var changeCampaignState = function(campaign, goalReached, callback) {
+  function changeCampaignState(campaign, goalReached, callback) {
     campaign.state = goalReached ? 'tipped' : 'expired';
     campaign.save(function(err) {
       if(err) {

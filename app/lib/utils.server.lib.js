@@ -19,7 +19,6 @@ exports.fetchAccessToken = function(provider) {
             callback(err);
           }
         }
-
       }
     );
   };
