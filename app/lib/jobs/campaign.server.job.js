@@ -2,6 +2,7 @@
 var mongoose = require('mongoose'),
     async = require('async'),
     logger = require('../logger.server.lib.js'),
+    utils = require('../utils.server.lib.js'),
     Order = mongoose.model('Order'),
     Campaign = mongoose.model('Campaign'),
     _ = require('lodash');
@@ -26,7 +27,7 @@ module.exports = function(agenda, config) {
     };
   };
 
-  var maybeChargeOrder = function(order, chargeFlag) {
+  var maybeChargeOrder = function(order, chargeFlag, accessToken) {
     return function(callback) {
       // making the charge
       var customerId = order.payment.customerId;
@@ -75,14 +76,22 @@ module.exports = function(agenda, config) {
     );
   };
 
-  var maybeChargeOrders = function(campaign, campaignOrders, callback) {
+  var getUserStripeToken = function(campaign, campaignOrders, callback) {
+    utils.fetchStripeAccessToken(campaign.user, function(err, accessToken) {
+      // even if we come across error here we still want to charge
+      // set it as undefined
+      callback(undefined, campaign, campaignOrders, accessToken);
+    });
+  };
+
+  var maybeChargeOrders = function(campaign, campaignOrders, accessToken, callback) {
     var numOrders = campaignOrders.length;
 
     var goalReached = numOrders >= campaign.goal ? true : false;
 
     _.forEach(campaignOrders, function(order) {
       async.waterfall([
-        maybeChargeOrder(order, goalReached)
+        maybeChargeOrder(order, goalReached, accessToken)
       ], deleteCustomer);
     });
 
@@ -115,6 +124,7 @@ module.exports = function(agenda, config) {
       _.forEach(campaigns, function(campaign){
         async.waterfall([
           listAllOrders(campaign),
+          getUserStripeToken,
           maybeChargeOrders,
           changeCampaignState
         ], logging);
