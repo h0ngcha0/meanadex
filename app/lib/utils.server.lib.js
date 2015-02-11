@@ -9,15 +9,17 @@ exports.fetchAccessToken = function(provider) {
     User.findById(
       uid,
       function(err, user) {
-        if(err) {
+        if(err || !user) {
           logger.log('error getting user: ' + uid);
+          callback(err);
+        } else {
+          if(user.additionalProvidersData && user.additionalProvidersData[provider]) {
+            callback(err, user.additionalProvidersData[provider].token);
+          } else {
+            callback(err);
+          }
         }
 
-        if(user.additionalProvidersData && user.additionalProvidersData[provider]) {
-          callback(err, user.additionalProvidersData[provider].token);
-        } else {
-          callback(err);
-        }
       }
     );
   };
