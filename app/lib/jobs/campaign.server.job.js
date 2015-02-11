@@ -82,44 +82,42 @@ module.exports = function(agenda, config) {
     }
   }
 
-  function maybeChargeOrder(order, chargeFlag, campaign, accessToken) {
+  function chargeOrder(order, campaign, accessToken) {
     return function(callback) {
       var customerId = order.payment.customerId;
 
-      // chargeFlag determines if charge or not.
-      if(chargeFlag) {
-        var chargeObj = createChargeObj(order, campaign, accessToken);
-        charge(accessToken, chargeObj, function(err, charge) {
-          if(err) {
-            logger.error(
-              'error charging order: ' + order._id + '; customer id: ' + customerId
-            );
-          } else {
-            logger.info(
-              'order: ' + order._id + ' with customer id: ' + customerId + ' charged.'
-            );
-          }
+      var chargeObj = createChargeObj(order, campaign, accessToken);
+      charge(accessToken, chargeObj, function(err, charge) {
+        if(err) {
+          logger.error(
+            'error charging order: ' + order._id + '; customer id: ' + customerId
+          );
+        } else {
+          logger.info(
+            'order: ' + order._id + ' with customer id: ' + customerId + ' charged.'
+          );
+        }
 
-          callback(err, customerId);
-        });
-      } else {
-        // if not charge, proceed.
-        callback(undefined, customerId);
-      }
+        callback(err);
+      });
     };
   }
 
-  function deleteCustomer(err, customerId) {
-    stripe.customers.del(
-      customerId,
-      function(err, confirmation) {
-        if(err) {
-          logger.error('error deleting customer: ' + customerId);
-        } else {
-          logger.info('customer: ' + customerId + ' deleted.');
+  function deleteCustomer(customerId) {
+    return function(callback) {
+      stripe.customers.del(
+        customerId,
+        function(err, confirmation) {
+          if(err) {
+            logger.error('error deleting customer: ' + customerId);
+          } else {
+            logger.info('customer: ' + customerId + ' deleted.');
+          }
+
+          callback(err, customerId);
         }
-      }
-    );
+      );
+    };
   }
 
   var getUserStripeToken = function(campaign, campaignOrders, callback) {
@@ -131,21 +129,38 @@ module.exports = function(agenda, config) {
   };
 
   function maybeChargeOrders(campaign, campaignOrders, accessToken, callback) {
-    var numOrders = campaignOrders.length;
+    var numOrders = campaignOrders.length,
+        goalReached = numOrders >= campaign.goal ? true : false;
 
-    var goalReached = numOrders >= campaign.goal ? true : false;
+    // actions to be taken based on if the goal is reached.
+    var actions = function(order) {
+      var customerId = order.payment.customerId;
+      if(goalReached) {
+        return [
+          chargeOrder(order, campaign, accessToken),
+          deleteCustomer(customerId)
+        ];
+      } else {
+        return [
+          deleteCustomer(customerId)
+        ];
+      }
+    };
 
-    // TODO: Remind user if accessToken is not set, especially when goal is
-    //       reached or almost reached.
-
-    _.forEach(campaignOrders, function(order) {
-      async.waterfall([
-        maybeChargeOrder(order, goalReached, campaign, accessToken)
-      ], deleteCustomer);
-    });
-
-    // always go through
-    callback(undefined, campaign, goalReached);
+    async.each(
+      campaignOrders,
+      function(order, callback) {
+        async.waterfall(
+          actions(order),
+          function(err, result) {
+            callback(err, result);
+          }
+        );
+      },
+      function(err, results) {
+        callback(undefined, campaign, goalReached);
+      }
+    );
   }
 
   var changeCampaignState = function(campaign, goalReached, callback) {
