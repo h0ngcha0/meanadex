@@ -186,7 +186,7 @@ module.exports = function(agenda, config) {
 
       callback(err);
     });
-  };
+  }
 
   var logging = function(err, results) {
     if (err) {
