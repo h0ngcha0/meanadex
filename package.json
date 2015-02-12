@@ -13,7 +13,7 @@
     "postinstall": "[ \"$NODE_ENV\" = \"production\" ] || bower install --config.interactive=false"
   },
   "dependencies": {
-    "agenda": "~0.6.25",
+    "agenda": "~0.6.27",
     "async": "~0.9.0",
     "authom": "^0.4.36",
     "blueimp-file-upload-expressjs": "~0.3.2",

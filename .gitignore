@@ -10,6 +10,7 @@ app/tests/coverage/
 .idea/
 .tern-port
 todo.org
+logs/
 log/
 tmp/
 src/modules/**/css/
