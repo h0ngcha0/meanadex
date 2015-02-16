@@ -13,7 +13,7 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
     $scope.campaignDescription = CampaignCache.getDescription() || '';
     CampaignCache.bindDescription($scope);
 
-    $scope.campaignLengths = [5];
+    $scope.campaignLengths = [5, 7];
     $scope.currentCampaignLength =  $scope.campaignLengths[0];
 
     $scope.displayCampaignLength = function(days) {
