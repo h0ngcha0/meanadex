@@ -25,7 +25,7 @@
           </table>
 
           <div class="" data-ng-if="campaign.ended">
-            <timer end-time="campaign.ended">
+            <timer data-ng-show="campaign.state === 'not_tipped'" end-time="campaign.ended">
               <table class="table">
                 <tr>
                   <td>Days</td>
@@ -41,12 +41,23 @@
                 </tr>
               </table>
             </timer>
+            <table class="table" data-ng-show="campaign.state === 'tipped'">
+              <tr class="info">
+                <td>This campaign has reached its goal, and will be printed soon!</td>
+              </tr>
+            </table>
+            <table class="table" data-ng-show="campaign.state === 'expired'">
+              <tr class="info">
+                <td>Unfortunately this campaign hasn't reached its goal.</td>
+              </tr>
+            </table>
           </div>
 
-          <hr/>
+          <hr data-ng-if="campaign.state === 'not_tipped'"/>
           <a id="order"
              data-ng-click="reserveCampaign(campaign)"
              type="button"
+             data-ng-if="campaign.state === 'not_tipped'"
              class="btn btn-lg btn-block mootee-btn-primary"
              name="order">
             Make reservation
