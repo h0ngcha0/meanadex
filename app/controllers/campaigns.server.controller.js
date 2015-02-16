@@ -13,6 +13,7 @@ var mongoose = require('mongoose'),
     config = require('../../config/config'),
     utils = require('./utils'),
     async = require('async'),
+    agenda = require('../lib/agenda.server.lib.js'),
     logger = require('../lib/logger.server.lib.js'),
     _ = require('lodash');
 
@@ -25,17 +26,60 @@ exports.create = function(req, res) {
 
   campaign.user = req.user;
 
-  campaign.save(function(err) {
-    if (err) {
-      logger.error('Save campaign failed.', err);
+  var saveCampaign = function(callback) {
+    campaign.save(function(err) {
+      if (err) {
+        logger.error('Save campaign failed.', err);
 
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(campaign);
+      }
+
+      callback(err);
+    });
+  };
+
+  var renderEmail = function(callback) {
+    var urlPrefix = 'http://' + req.headers.host;
+
+    res.render(
+      'templates/campaign-created-confirm-email',
+      {
+        name: campaign.user.username,
+        appName: config.app.title,
+        campaign_name: campaign.name,
+        campaign_url: urlPrefix + '/#!/campaigns/' + campaign._id,
+        contact_email: config.mailer.from
+      },
+      function(err, emailHTML) {
+        callback(err, emailHTML);
       });
-    } else {
-      res.jsonp(campaign);
+  };
+
+  var sendEmail = function(emailHTML, callback) {
+    agenda.now('send email', {
+      email: campaign.user.username,
+      emailHTML: emailHTML,
+      subject: 'Your campaign is created'
+    });
+
+    callback(undefined);
+  };
+
+  var logging = function(err, results) {
+    if (err) {
+      logger.error('Error while creating campaign: ', err);
     }
-  });
+  };
+
+  async.waterfall([
+    saveCampaign,
+    renderEmail,
+    sendEmail
+  ], logging);
 };
 
 /**
