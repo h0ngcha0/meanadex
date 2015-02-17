@@ -7,6 +7,15 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
   'Session', 'SessionRedirectService',
   function($scope, Campaigns, CampaignCache, mdCanvasService, $location,
            Session, SessionRedirectService) {
+
+    // No tshirt in cache, can only happen when user browse back in
+    // browser after the campaign is launched, we should redirect to
+    // the designer page
+    $scope.tshirt = CampaignCache.getTshirt();
+    if(!$scope.tshirt) {
+      $location.path('designer');
+    }
+
     $scope.campaignTitle = CampaignCache.getTitle() || '';
     CampaignCache.bindTitle($scope);
 
