@@ -46,6 +46,11 @@ $(document).ready(function () {
     $('.slideshow .item').css('min-height', slideshowheight - 46);
   }
 
+  function maxWidth() {
+    var slideshowWidth = $(window).width();
+    $('.slideshow .item').css('min-width', slideshowWidth);
+  }
+
   function minAppEntranceDivHeight() {
     var windowHeight = $(window).height();
     var footerHeight = $('.footer').height();
@@ -53,9 +58,11 @@ $(document).ready(function () {
   }
 
   maxHeight();
+  maxWidth();
   minAppEntranceDivHeight();
 
   $(window).on('resize', maxHeight);
+  $(window).on('resize', maxWidth);
   $(window).on('resize', minAppEntranceDivHeight);
   $(window).on('hashchange', minAppEntranceDivHeight);
 
