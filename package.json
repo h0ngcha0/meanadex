@@ -40,7 +40,8 @@
     "stripe": "^2.8.0",
     "swig": "~1.4.1",
     "winston": "~0.8.1",
-    "xoauth2": "^1.0.0"
+    "xoauth2": "^1.0.0",
+    "newrelic": "~1.16.2"
   },
   "devDependencies": {
     "form-data": "~0.1.4",

@@ -14,3 +14,4 @@ logs/
 log/
 tmp/
 src/modules/**/css/
+newrelic_agent.log

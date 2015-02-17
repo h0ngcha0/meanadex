@@ -1,10 +1,17 @@
 'use strict';
+
 /**
  * Module dependencies.
  */
 var init = require('./config/init')(),
-    config = require('./config/config'),
-    mongoose = require('mongoose');
+    config = require('./config/config');
+
+// require newrelic if enabled
+if(config.enableNewRelic) {
+  require('newrelic');
+}
+
+var mongoose = require('mongoose');
 
 /**
  * Main application entry file.

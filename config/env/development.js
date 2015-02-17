@@ -10,9 +10,9 @@ module.exports = {
     clientSecret: process.env.FACEBOOK_SECRET || '86928b8c0fb90b1206f59ff62aa99ac6'
   },
   google: {
-    clientID: process.env.GOOGLE_ID || '826231740029-do4s41u16f6gv5duiiedgeoq3pi9qgpo.apps.googleusercontent.com',
-    clientSecret: process.env.GOOGLE_SECRET || 'YXSkFpd1ASBTxMC9cLLBozuG',
-    refreshToken: process.env.GOOGLE_REFRESH_TOKEN || '1/vAN6NfXSbSq5MAYmxIjOxdqZPu1LdBTs9K1iuk-8W7o'
+    clientID: process.env.GOOGLE_ID || '774773218508-o1cl8ktf12a7b1efe54lsmbcr7cbte24.apps.googleusercontent.com',
+    clientSecret: process.env.GOOGLE_SECRET || '1KE5DYgOLfO78f5nXnF7E5hg',
+    refreshToken: process.env.GOOGLE_REFRESH_TOKEN || '1/jme7lJCCHFpBkkwYu3C1Fa-BGrKkb6vPxosXM49EolQMEudVrK5jSpoR30zcRFq6'
   },
   stripe: {
     clientID: process.env.STRIPE_ID || 'ca_53emHeHCgJWdAOPGsIp4uIdFCCEXkdal',
@@ -25,7 +25,7 @@ module.exports = {
     }
   },
   mailer: {
-    from: process.env.MAILER_FROM || 'meanadex@gmail.com',
+    from: process.env.MAILER_FROM || 'contact@mootee.io',
     options: {
       service: process.env.MAILER_SERVICE_PROVIDER || 'gmail',
       auth: {
@@ -33,5 +33,6 @@ module.exports = {
         pass: process.env.MAILER_PASSWORD || 'MAILER_PASSWORD'
       }
     }
-  }
+  },
+  enableNewRelic: false
 };
