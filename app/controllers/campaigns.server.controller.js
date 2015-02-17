@@ -25,7 +25,6 @@ exports.create = function(req, res) {
       campaign = new Campaign(campaignReq);
 
   campaign.user = req.user;
-
   var saveCampaign = function(callback) {
     campaign.save(function(err) {
       if (err) {
@@ -48,7 +47,7 @@ exports.create = function(req, res) {
     res.render(
       'templates/campaign-created-confirm-email',
       {
-        name: campaign.user.username,
+        name: req.user.username,
         appName: config.app.title,
         campaign_name: campaign.name,
         campaign_url: urlPrefix + '/#!/campaigns/' + campaign._id,
@@ -61,7 +60,7 @@ exports.create = function(req, res) {
 
   var sendEmail = function(emailHTML, callback) {
     agenda.now('send email', {
-      email: campaign.user.username,
+      email: req.user.username,
       emailHTML: emailHTML,
       subject: 'Your campaign is created'
     });

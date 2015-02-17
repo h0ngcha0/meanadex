@@ -2,7 +2,7 @@
 
 module.exports = {
   app: {
-    title: 'mootee',
+    title: 'Mootee',
     description: 'Mootee is an amazing tshirt service',
     keywords: 'tshirt, crowd sourcing, moose, lambda'
   },
