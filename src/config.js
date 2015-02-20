@@ -26,7 +26,8 @@ var ApplicationConfiguration = (
       'mgcrea.ngStrap',
       'ncy-angular-breadcrumb',
       'monospaced.elastic',
-      'templates'
+      'templates',
+      'angular-loading-bar'
     ];
 
     // Add a new vertical module
