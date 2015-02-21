@@ -13,6 +13,7 @@ var fs = require('fs'),
     helmet = require('helmet'),
     config = require('./config'),
     consolidate = require('consolidate'),
+    logger = require('../app/lib/logger.server.lib.js'),
     path = require('path');
 
 module.exports = function(db) {
@@ -112,12 +113,11 @@ module.exports = function(db) {
     if (!err) return next();
 
     // Log it
-    console.error(err.stack);
-
+    logger.error(err.stack);
     delete err.stack;
 
     // Error page
-    res.status(500).send({
+    res.status(err.statusCode).send({
       error: err
     });
   });

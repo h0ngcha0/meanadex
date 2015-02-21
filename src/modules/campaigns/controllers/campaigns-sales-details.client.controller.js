@@ -4,9 +4,9 @@
 
 angular.module('campaigns').controller('CampaignsSalesDetailsController', [
   '$scope', 'Campaigns', 'CampaignCache', 'mdCanvasService', '$location',
-  'Session', 'SessionRedirectService',
+  'Session', 'SessionRedirectService', '$modal',
   function($scope, Campaigns, CampaignCache, mdCanvasService, $location,
-           Session, SessionRedirectService) {
+           Session, SessionRedirectService, $modal) {
 
     // No tshirt in cache, can only happen when user browse back in
     // browser after the campaign is launched, we should redirect to
@@ -98,7 +98,22 @@ angular.module('campaigns').controller('CampaignsSalesDetailsController', [
           $location.path('campaigns/' + response._id);
         },
         function(errorResponse) {
-          $scope.error = errorResponse.data;
+          var error = errorResponse.data.error;
+          if(error.statusCode === 413) {
+            $modal({
+              animation: 'am-fade-and-scale',
+              placement: 'center',
+              template: 'modules/designer/views/design-too-large.client.view.html'
+            });
+          } else {
+            $modal({
+              animation: 'am-fade-and-scale',
+              placement: 'center',
+              template: 'modules/core/views/unexpected-error.client.view.html'
+            });
+          }
+
+          $scope.error = error;
         }
       );
     };
