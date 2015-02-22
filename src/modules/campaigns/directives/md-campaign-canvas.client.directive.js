@@ -4,8 +4,8 @@
 /* global fabric */
 
 angular.module('campaigns').directive('mdCampaignCanvas', [
-  'Images', '$timeout',
-  function(Images, $timeout) {
+  'Images', '$location', '$window',
+  function(Images, $location, $window) {
     return {
       restrict: 'E',
       scope: {
@@ -145,15 +145,17 @@ angular.module('campaigns').directive('mdCampaignCanvas', [
           getImages
         ], initialize);
 
-        // FIXME: this is an ugly fix for the problem where when we click
-        //        featured campaigns on the landing page, nav bar flows
-        //        at the button for a second at the campaign page before
-        //        it disappears
-        $timeout(function(){
-          element.find('#gotoCampaign').on('click', function() {
-            $('nav.landing').hide();
-          });
-        }, 0);
+
+        scope.gotoCampaign = function(id) {
+          // FIXME: this is an ugly fix for the problem where when we click
+          //        featured campaigns on the landing page, nav bar flows
+          //        at the button for a second at the campaign page before
+          //        it disappears
+          $('nav.landing').hide();
+          $window.scrollTo(0,0);
+
+          $location.path('campaigns/' + id);
+        };
       }
     };
   }

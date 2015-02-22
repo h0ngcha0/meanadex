@@ -1,8 +1,9 @@
 /**
  * A service that keeps track of the last page we visited.
  */
-angular.module('util')
-  .factory('LastLocation', ['$rootScope', 'localStorageService', function ($rootScope, localStorageService) {
+angular.module('util').factory('LastLocation', [
+  '$rootScope', 'localStorageService', '$window',
+  function ($rootScope, localStorageService, $window) {
   'use strict';
 
   /**
@@ -19,6 +20,14 @@ angular.module('util')
       localStorageService.set('lastLocation', trimmed_hash);
     }
 
+  }
+
+  // Ensure that if url changes from other url to /landing it will stay on top.
+  function ensureLandingOnTop(event, toState, toParam, fromState, fromParam) {
+    if((toState.url.indexOf('/landing') !== -1) && !fromState.abstract) {
+      $window.scrollTo(0, 0);
+      $('#slideshow-carousel-1').click();
+    }
   }
 
   // The published API.
@@ -39,6 +48,8 @@ angular.module('util')
       $rootScope.$on('$destroy',
         $rootScope.$on('$locationChangeStart', onLocationChange)
       );
+
+      $rootScope.$on('$stateChangeStart', ensureLandingOnTop);
     }
   };
 }]).run(['LastLocation', function (LastLocation) {
