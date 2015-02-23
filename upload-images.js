@@ -19,6 +19,13 @@ if(!process.env.NODE_ENV) {
   process.env.NODE_ENV = 'development';
 }
 
+var url;
+if(process.env.NODE_ENV === 'production') {
+  url = 'https://mootee.io'
+} else {
+  url = 'https://localhost:3000';
+}
+
 var config = require('./config/config');
 
 var allowedExtention = ['jpeg', 'jpg', 'png'];
@@ -33,7 +40,7 @@ module.exports = function(grunt) {
       var LoginAsAdminUser = function(callback) {
         request.post(
           {
-            url: 'https://localhost:3000/auth/signin',
+            url: url + '/auth/signin',
             form: {
               username: 'admin@mootee.io',
               password: 'password',
@@ -51,10 +58,10 @@ module.exports = function(grunt) {
         );
       };
 
-      var postImage = function(access_token, path, callback) {
+      var postImage = function(path, access_token, callback) {
         request.post(
           {
-            url: 'https://localhost:3000/images',
+            url: url + '/images',
             qs: {
               access_token: access_token
             },
@@ -68,29 +75,40 @@ module.exports = function(grunt) {
         );
       };
 
-      var postImageFun = function(path, access_token) {
+      var postImageFun = function(path, tags, access_token) {
         return function(callback) {
           console.log('uploading ' + path);
           postImage(
-            access_token,
             path,
+            access_token,
             function(error, response, body) {
-              console.log(error);
-              console.log(response);
-              console.log(body);
               var img = JSON.parse(body),
-                  frontImgId = img._id;
-              console.log('Uploaded front image: ' + img.url);
-              callback(error, access_token, frontImgId);
+                  imgId = img._id;
+
+              img.tags = tags;
+
+              request.post(
+                {
+                  url: url + '/images/' + img._id,
+                  qs: {
+                    access_token: access_token
+                  },
+                  form: img
+                },
+                function(error, response, body) {
+                  console.log('Uploaded image: ' + img.url);
+                  callback(error);
+                }
+              );
             }
           );
         };
       };
 
-      var uploadImages = function(imgFiles) {
+      var uploadImages = function(imgFiles, tags) {
         return  function(access_token, callback) {
           var funcs = _.map(imgFiles, function(imgFile) {
-                        return postImageFun(imgFile, access_token);
+                        return postImageFun(imgFile, tags, access_token);
                       });
 
           async.series(
@@ -117,6 +135,11 @@ module.exports = function(grunt) {
       };
 
       var imageDir = grunt.option('path');
+      var tags = grunt.option('tags') || 'tshirts';
+
+      // split into an array of words
+      tags = tags.match(/\S+/g);
+      console.log(tags);
       if(imageDir) {
         var imageFiles0 = config.getGlobbedFiles(imageDir);
         var imageFiles = _.filter(
@@ -132,7 +155,7 @@ module.exports = function(grunt) {
         if(imageFiles.length !== 0) {
           async.waterfall([
             LoginAsAdminUser,
-            uploadImages(imageFiles)
+            uploadImages(imageFiles, tags)
           ], resultCallback);
         } else {
           console.log(
