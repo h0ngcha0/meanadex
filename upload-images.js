@@ -26,8 +26,6 @@ if(process.env.NODE_ENV === 'production') {
   url = 'https://localhost:3000';
 }
 
-var config = require('./config/config');
-
 var allowedExtention = ['jpeg', 'jpg', 'png'];
 
 module.exports = function(grunt) {
@@ -141,7 +139,7 @@ module.exports = function(grunt) {
       tags = tags.match(/\S+/g);
       console.log(tags);
       if(imageDir) {
-        var imageFiles0 = config.getGlobbedFiles(imageDir);
+        var imageFiles0 = require('./config/config').getGlobbedFiles(imageDir);
         var imageFiles = _.filter(
           imageFiles0,
           function(imageFile) {
