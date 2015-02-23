@@ -6,6 +6,7 @@
 var request = require('request'),
     async = require('async'),
     _ = require('lodash'),
+    path = require('path'),
     fs = require('fs');
 
 // NOTE: This task assumes that the admin user is already
@@ -19,6 +20,8 @@ if(!process.env.NODE_ENV) {
 }
 
 var config = require('./config/config');
+
+var allowedExtention = ['jpeg', 'jpg', 'png'];
 
 module.exports = function(grunt) {
   request = request.defaults({jar: true});
@@ -114,13 +117,28 @@ module.exports = function(grunt) {
       };
 
       var imageDir = grunt.option('path');
-      console.log(imageDir);
       if(imageDir) {
-        var imagesFiles = config.getGlobbedFiles(imageDir);
-        async.waterfall([
-          LoginAsAdminUser,
-          uploadImages(imagesFiles)
-        ], resultCallback);
+        var imageFiles0 = config.getGlobbedFiles(imageDir);
+        var imageFiles = _.filter(
+          imageFiles0,
+          function(imageFile) {
+            return _.contains(
+              allowedExtention,
+              path.extname(imageFile).substring(1)
+            );
+          }
+        );
+
+        if(imageFiles.length !== 0) {
+          async.waterfall([
+            LoginAsAdminUser,
+            uploadImages(imageFiles)
+          ], resultCallback);
+        } else {
+          console.log(
+            'no file detected for uploading. allowed file extention: ' + allowedExtention
+          );
+        }
       } else {
         console.log('image path needs to be specified.');
       }
