@@ -35,6 +35,14 @@ you can generate some test data using
 This will generate an admin user with username set to ```admin``` and
 password set to ```password```. It will generate a sample tshirt as well.
 
+### Bulk upload artworks
+
+If we want to upload a set of artworks and give them certain tags, we
+can run a grunt task called ```uploadImages```. It takes two
+parameters: ```path``` and ```tags```. For example:
+
+      grunt uploadImages --path='../mootee_pics/dog/*' --tags='dog animal'
+
 ### Resources
 
 All roads lead to Rome, the question is which one is the shortest. We
