@@ -385,6 +385,9 @@ module.exports = function(grunt) {
   // A Task for populating test data into the database
   require('./populate-test-data')(grunt);
 
+  // A Task for bulk uploading images
+  require('./upload-images')(grunt);
+
   // Default task(s).
   grunt.registerTask('default', ['env:default', 'concurrent:default']);
 
