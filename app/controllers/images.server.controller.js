@@ -229,6 +229,28 @@ exports.list = function(req, res) {
 };
 
 /**
+ * Search images based on tags
+ */
+exports.search = utils.listBySearch(
+  Img,
+  {
+    'user': 'username'
+  },
+  [],
+  function(req, res, err, result) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      result.documents = utils.searchResultUnwrapper(result);
+      res.jsonp(result);
+    }
+  }
+);
+
+
+/**
  * Image middleware
  */
 exports.imageByID = function(req, res, next, id) {

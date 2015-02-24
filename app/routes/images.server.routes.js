@@ -14,6 +14,9 @@ module.exports = function(app) {
      .post(oauth2.authorise, images.hasAuthorization, images.update)
      .delete(oauth2.authorise, images.hasAuthorization, images.delete);
 
+  app.route('/searchImages')
+  .get(images.search);
+
   // Finish by binding the Image middleware
   app.param('imageId', images.imageByID);
 };

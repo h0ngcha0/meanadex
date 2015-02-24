@@ -1,4 +1,4 @@
-<div id="list-all-orders" class="row" data-ng-init="find()">
+<div id="list-all-orders" class="row" data-ng-init="searchImages('dog')">
   <div class="col-lg-12">
     <dashboard-widget>
       <dashboard-widget-header icon="fa-image" title="Images">
@@ -7,12 +7,23 @@
       <dashboard-widget-body>
         <div class="row cardContainer show-hide-animation">
           <div class="col-sm-12 col-md-12 col-lg-12">
-            <tags-input data-ng-model="searchTags"
-                        placeholder="Search Tags"
-                        on-tag-added="find(searchTags)"
-                        on-tag-removed="find(searchTags)">
-              <auto-complete source="loadTags()"/>
-            </tags-input>
+            <form class="input-group" ng-submit="searchImages(searchText)">
+              <input type="text"
+                     class="form-control"
+                     data-min-length="0"
+                     data-html="1"
+                     data-animation="am-flip-x"
+                     data-backdrop="true"
+                     data-ng-model="searchText"
+                     placeholder="Search images">
+              <span class="input-group-btn">
+                <button class="btn mootee-btn-primary btn-md"
+                        data-ng-click="searchImages(searchText)"
+                        ng-disabled="disableSearch()">
+                  Search
+                </button>
+              </span>
+            </form>
           </div>
           <div class="col-sm-6 col-md-4 col-lg-3"
                data-ng-repeat="image in images"

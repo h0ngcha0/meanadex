@@ -1,21 +1,21 @@
 /**
- * The angular resource abstraction that allows us to search campaigns
+ * The angular resource abstraction that allows us to search images
  *
  * @see ResourceFactory
  */
-angular.module('services').factory('SearchCampaigns', ['ResourceFactory',
+angular.module('services').factory('SearchImages', ['ResourceFactory',
   function (ResourceFactory) {
     'use strict';
 
     var resource = ResourceFactory.build(
-      '/searchCampaigns/:id',
-      '/searchCampaigns/search',
+      '/searchImages/:id',
+      '/searchImages/search',
       {id: '@_id'},
       true
     );
 
     ResourceFactory.applySearch(
-      'SearchCampaigns',
+      'SearchImages',
       resource,
       'full_name',
       {Text: 'q'}

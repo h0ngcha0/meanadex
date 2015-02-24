@@ -176,3 +176,9 @@ exports.tail = function(elem) {
     return [];
   }
 };
+
+exports.searchResultUnwrapper = function(result) {
+  return _.map(result.results, function(result) {
+           return result.obj;
+         });
+};

@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
+    textSearch = require('mongoose-text-search'),
     Schema = mongoose.Schema;
 
 /**
@@ -32,6 +33,12 @@ var ImageSchema = new Schema({
     type: [String],
     default: ['Tshirts']
   }
+});
+
+// Index on tags
+ImageSchema.plugin(textSearch);
+ImageSchema.index({
+  tags: 'text'
 });
 
 mongoose.model('Image', ImageSchema);

@@ -217,12 +217,6 @@ var pagingResultUnwrapper = function(result) {
   return result.documents;
 };
 
-var searchResultUnwrapper = function(result) {
-  return _.map(result.results, function(result) {
-           return result.obj;
-         });
-};
-
 var campaignsCallback = function(resultUnwrapper) {
   return function(req, res, err, result) {
     if (err) {
@@ -291,7 +285,7 @@ exports.search = utils.listBySearch(
     'user': 'username'
   },
   [],
-  campaignsCallback(searchResultUnwrapper)
+  campaignsCallback(utils.searchResultUnwrapper)
 );
 
 /**
