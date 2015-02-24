@@ -121,6 +121,11 @@ angular.module('images').controller('ImagesController', [
     };
 
     var minSearchTextLength = 3;
+    $scope.searchText = '';
+    $scope.disableSearch = function(text) {
+      return text.length < minSearchTextLength;
+    };
+
     $scope.searchImages = function(text) {
       console.log('search images: ' + text);
       if(text.length >= minSearchTextLength) {

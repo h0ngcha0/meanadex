@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('designer').directive('mdTshirtDesignPanel', [
-  'Images', 'Tags', 'mdCanvasService', 'ImagesUtils',
-  function(Images, Tags, mdCanvasService, ImagesUtils) {
+  'Images', 'Tags', 'mdCanvasService', 'ImagesUtils', 'SearchImages',
+  function(Images, Tags, mdCanvasService, ImagesUtils, SearchImages) {
     return {
       restrict: 'E',
       templateUrl: 'modules/designer/views/design-panel.client.view.html',
@@ -22,19 +22,29 @@ angular.module('designer').directive('mdTshirtDesignPanel', [
             );
         });
 
-        scope.loadImages = function(tags) {
-          var queryTags;
-          if(tags) {
-            if(_.isArray(tags)) {
-              queryTags = _.map(tags, function(tag) {
-                            return tag.value;
-                          });
-            } else {
-              queryTags = [tags.value];
-            }
-          }
+        var minSearchTextLength = 3;
+        scope.searchText = '';
+        scope.disableSearch = function(text) {
+          return text.length < minSearchTextLength;
+        };
 
-          scope.images = Images.query({tags: queryTags});
+        scope.searchImages = function(text) {
+          console.log('search images: ' + text);
+          if(text.length >= minSearchTextLength) {
+            SearchImages.query(
+              {
+                text: text,
+                limit: 8
+              }
+            ).$promise.then(
+              function(result) {
+                scope.images = result.documents;
+              },
+              function(err) {
+                scope.images = [];
+              }
+            );
+          }
         };
 
         scope.addImage = function(imgSrc) {

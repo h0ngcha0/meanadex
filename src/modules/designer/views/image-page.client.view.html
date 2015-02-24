@@ -1,4 +1,4 @@
-<div class="modal" role="dialog" data-ng-init="loadImages()">
+<div class="modal" role="dialog" data-ng-init="searchImages('dog')">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -7,21 +7,22 @@
             &times;
           </button>
           <div class="input-group col-lg-5">
-            <input type="text"
-                   ng-model="selectedTag"
-                   class="form-control"
-                   data-min-length="0"
-                   data-html="1"
-                   data-animation="am-flip-x"
-                   data-backdrop="true"
-                   ng-options="tag as tag.label for tag in tags"
-                   placeholder="Artwork Types" bs-typeahead>
-            <span class="input-group-btn">
-              <button class="btn mootee-btn-primary btn-md"
-                      data-ng-click="loadImages(selectedTag)">
-                Search
-              </button>
-            </span>
+            <form class="input-group" ng-submit="searchImages(searchText)">
+              <input type="text"
+                     class="form-control"
+                     data-min-length="0"
+                     data-html="1"
+                     data-animation="am-flip-x"
+                     data-backdrop="true"
+                     data-ng-model="searchText"
+                     placeholder="Search images">
+              <span class="input-group-btn">
+                <button class="btn mootee-btn-primary btn-md"
+                        ng-disabled="disableSearch(searchText)">
+                  Search
+                </button>
+              </span>
+            </form>
           </div>
         </div>
       </div>
