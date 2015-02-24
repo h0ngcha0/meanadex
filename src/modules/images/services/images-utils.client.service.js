@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('images').factory('ImagesUtils', [
-  '$window', '$alert',
-  function($window, $alert) {
+  '$window', '$alert', 'SearchImages',
+  function($window, $alert, SearchImages) {
     var isFile = function(item) {
       return angular.isObject(item) && item instanceof $window.File;
     };
@@ -10,7 +10,7 @@ angular.module('images').factory('ImagesUtils', [
       var type =  '|' + file.type.slice(file.type.lastIndexOf('/') + 1) + '|';
       return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
     };
-
+    var minSearchTextLength = 3;
 
     return {
       support: function() {
@@ -35,6 +35,23 @@ angular.module('images').factory('ImagesUtils', [
           } else {
             callback();
           }
+        }
+      },
+      disableSearch: function(text) {
+        text = text ? text : '';
+        return text.length < minSearchTextLength;
+      },
+      search: function(text, success, fail) {
+        if(text.length >= minSearchTextLength) {
+          SearchImages.query(
+            {
+              text: text,
+              limit: 8
+            }
+          ).$promise.then(
+            success,
+            fail
+          );
         }
       }
     };

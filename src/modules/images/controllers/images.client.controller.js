@@ -3,9 +3,9 @@
 // Images controller
 angular.module('images').controller('ImagesController', [
   '$scope', '$stateParams', '$location', 'AccessToken',
-  'Images', 'FileUploader', 'Tags', 'ImagesUtils', 'SearchImages',
+  'Images', 'FileUploader', 'Tags', 'ImagesUtils',
   function($scope, $stateParams, $location, AccessToken,
-           Images, FileUploader, Tags, ImagesUtils, SearchImages) {
+           Images, FileUploader, Tags, ImagesUtils) {
     // Create new Image
     $scope.create = function() {
       // Create new Image object
@@ -120,29 +120,17 @@ angular.module('images').controller('ImagesController', [
       return Tags.query();
     };
 
-    var minSearchTextLength = 3;
-    $scope.searchText = '';
-    $scope.disableSearch = function(text) {
-      return text.length < minSearchTextLength;
-    };
-
+    $scope.disableSearch = ImagesUtils.disableSearch;
     $scope.searchImages = function(text) {
-      console.log('search images: ' + text);
-      if(text.length >= minSearchTextLength) {
-        SearchImages.query(
-          {
-            text: text,
-            limit: 8
-          }
-        ).$promise.then(
-          function(result) {
-            $scope.images = result.documents;
-          },
-          function(err) {
-            $scope.images = [];
-          }
-        );
-      }
+      ImagesUtils.search(
+        text,
+        function(result) {
+          $scope.images = result.documents;
+        },
+        function(err) {
+          $scope.images = [];
+        }
+      );
     };
   }
 ]);
