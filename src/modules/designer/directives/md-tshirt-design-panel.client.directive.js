@@ -20,6 +20,9 @@ angular.module('designer').directive('mdTshirtDesignPanel', [
           );
         };
 
+        // Initially load all the dog images
+        scope.searchImages('dog');
+
         scope.addImage = function(imgSrc) {
           mdCanvasService.addImage(imgSrc);
         };
